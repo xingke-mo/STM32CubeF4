@@ -20,23 +20,23 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_time       time
-#define mbedtls_time_t     time_t
-#define mbedtls_fprintf    fprintf
-#define mbedtls_printf     printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_time       time
+    #define mbedtls_time_t     time_t
+    #define mbedtls_fprintf    fprintf
+    #define mbedtls_printf     printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_CERTS_C) ||    \
@@ -47,11 +47,11 @@
     !defined(MBEDTLS_PEM_PARSE_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_CERTS_C and/or MBEDTLS_ENTROPY_C "
-           "and/or MBEDTLS_SSL_TLS_C and/or MBEDTLS_SSL_SRV_C and/or "
-           "MBEDTLS_NET_C and/or MBEDTLS_RSA_C and/or "
-           "MBEDTLS_CTR_DRBG_C and/or MBEDTLS_X509_CRT_PARSE_C "
-           "and/or MBEDTLS_PEM_PARSE_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_CERTS_C and/or MBEDTLS_ENTROPY_C "
+                    "and/or MBEDTLS_SSL_TLS_C and/or MBEDTLS_SSL_SRV_C and/or "
+                    "MBEDTLS_NET_C and/or MBEDTLS_RSA_C and/or "
+                    "MBEDTLS_CTR_DRBG_C and/or MBEDTLS_X509_CRT_PARSE_C "
+                    "and/or MBEDTLS_PEM_PARSE_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -60,7 +60,7 @@ int main( void )
 #include <string.h>
 
 #if defined(_WIN32)
-#include <windows.h>
+    #include <windows.h>
 #endif
 
 #include "mbedtls/entropy.h"
@@ -73,7 +73,7 @@ int main( void )
 #include "mbedtls/debug.h"
 
 #if defined(MBEDTLS_SSL_CACHE_C)
-#include "mbedtls/ssl_cache.h"
+    #include "mbedtls/ssl_cache.h"
 #endif
 
 #define HTTP_RESPONSE \
@@ -99,10 +99,10 @@ static void my_debug( void *ctx, int level,
                       const char *file, int line,
                       const char *str )
 {
-    ((void) level);
+    ( ( void ) level );
 
-    mbedtls_fprintf( (FILE *) ctx, "%s:%04d: %s", file, line, str );
-    fflush(  (FILE *) ctx  );
+    mbedtls_fprintf( ( FILE * ) ctx, "%s:%04d: %s", file, line, str );
+    fflush( ( FILE * ) ctx );
 }
 
 int main( void )
@@ -149,24 +149,27 @@ int main( void )
      * Instead, you may want to use mbedtls_x509_crt_parse_file() to read the
      * server and CA certificates, as well as mbedtls_pk_parse_keyfile().
      */
-    ret = mbedtls_x509_crt_parse( &srvcert, (const unsigned char *) mbedtls_test_srv_crt,
-                          mbedtls_test_srv_crt_len );
+    ret = mbedtls_x509_crt_parse( &srvcert, ( const unsigned char * ) mbedtls_test_srv_crt,
+                                  mbedtls_test_srv_crt_len );
+
     if( ret != 0 )
     {
         mbedtls_printf( " failed\n  !  mbedtls_x509_crt_parse returned %d\n\n", ret );
         goto exit;
     }
 
-    ret = mbedtls_x509_crt_parse( &srvcert, (const unsigned char *) mbedtls_test_cas_pem,
-                          mbedtls_test_cas_pem_len );
+    ret = mbedtls_x509_crt_parse( &srvcert, ( const unsigned char * ) mbedtls_test_cas_pem,
+                                  mbedtls_test_cas_pem_len );
+
     if( ret != 0 )
     {
         mbedtls_printf( " failed\n  !  mbedtls_x509_crt_parse returned %d\n\n", ret );
         goto exit;
     }
 
-    ret =  mbedtls_pk_parse_key( &pkey, (const unsigned char *) mbedtls_test_srv_key,
-                         mbedtls_test_srv_key_len, NULL, 0 );
+    ret =  mbedtls_pk_parse_key( &pkey, ( const unsigned char * ) mbedtls_test_srv_key,
+                                 mbedtls_test_srv_key_len, NULL, 0 );
+
     if( ret != 0 )
     {
         mbedtls_printf( " failed\n  !  mbedtls_pk_parse_key returned %d\n\n", ret );
@@ -196,8 +199,8 @@ int main( void )
     fflush( stdout );
 
     if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
+                                       ( const unsigned char * ) pers,
+                                       strlen( pers ) ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret );
         goto exit;
@@ -212,9 +215,9 @@ int main( void )
     fflush( stdout );
 
     if( ( ret = mbedtls_ssl_config_defaults( &conf,
-                    MBEDTLS_SSL_IS_SERVER,
-                    MBEDTLS_SSL_TRANSPORT_STREAM,
-                    MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
+                MBEDTLS_SSL_IS_SERVER,
+                MBEDTLS_SSL_TRANSPORT_STREAM,
+                MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ssl_config_defaults returned %d\n\n", ret );
         goto exit;
@@ -225,11 +228,12 @@ int main( void )
 
 #if defined(MBEDTLS_SSL_CACHE_C)
     mbedtls_ssl_conf_session_cache( &conf, &cache,
-                                   mbedtls_ssl_cache_get,
-                                   mbedtls_ssl_cache_set );
+                                    mbedtls_ssl_cache_get,
+                                    mbedtls_ssl_cache_set );
 #endif
 
     mbedtls_ssl_conf_ca_chain( &conf, srvcert.next, NULL );
+
     if( ( ret = mbedtls_ssl_conf_own_cert( &conf, &srvcert, &pkey ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ssl_conf_own_cert returned %d\n\n", ret );
@@ -246,12 +250,14 @@ int main( void )
 
 reset:
 #ifdef MBEDTLS_ERROR_C
+
     if( ret != 0 )
     {
         char error_buf[100];
         mbedtls_strerror( ret, error_buf, 100 );
-        mbedtls_printf("Last error was: %d - %s\n\n", ret, error_buf );
+        mbedtls_printf( "Last error was: %d - %s\n\n", ret, error_buf );
     }
+
 #endif
 
     mbedtls_net_free( &client_fd );
@@ -305,35 +311,38 @@ reset:
         ret = mbedtls_ssl_read( &ssl, buf, len );
 
         if( ret == MBEDTLS_ERR_SSL_WANT_READ || ret == MBEDTLS_ERR_SSL_WANT_WRITE )
+        {
             continue;
+        }
 
         if( ret <= 0 )
         {
             switch( ret )
             {
-                case MBEDTLS_ERR_SSL_PEER_CLOSE_NOTIFY:
-                    mbedtls_printf( " connection was closed gracefully\n" );
-                    break;
+            case MBEDTLS_ERR_SSL_PEER_CLOSE_NOTIFY:
+                mbedtls_printf( " connection was closed gracefully\n" );
+                break;
 
-                case MBEDTLS_ERR_NET_CONN_RESET:
-                    mbedtls_printf( " connection was reset by peer\n" );
-                    break;
+            case MBEDTLS_ERR_NET_CONN_RESET:
+                mbedtls_printf( " connection was reset by peer\n" );
+                break;
 
-                default:
-                    mbedtls_printf( " mbedtls_ssl_read returned -0x%x\n", -ret );
-                    break;
+            default:
+                mbedtls_printf( " mbedtls_ssl_read returned -0x%x\n", -ret );
+                break;
             }
 
             break;
         }
 
         len = ret;
-        mbedtls_printf( " %d bytes read\n\n%s", len, (char *) buf );
+        mbedtls_printf( " %d bytes read\n\n%s", len, ( char * ) buf );
 
         if( ret > 0 )
+        {
             break;
-    }
-    while( 1 );
+        }
+    } while( 1 );
 
     /*
      * 7. Write the 200 Response
@@ -341,7 +350,7 @@ reset:
     mbedtls_printf( "  > Write to client:" );
     fflush( stdout );
 
-    len = sprintf( (char *) buf, HTTP_RESPONSE,
+    len = sprintf( ( char * ) buf, HTTP_RESPONSE,
                    mbedtls_ssl_get_ciphersuite( &ssl ) );
 
     while( ( ret = mbedtls_ssl_write( &ssl, buf, len ) ) <= 0 )
@@ -360,14 +369,14 @@ reset:
     }
 
     len = ret;
-    mbedtls_printf( " %d bytes written\n\n%s\n", len, (char *) buf );
+    mbedtls_printf( " %d bytes written\n\n%s\n", len, ( char * ) buf );
 
     mbedtls_printf( "  . Closing the connection..." );
 
     while( ( ret = mbedtls_ssl_close_notify( &ssl ) ) < 0 )
     {
         if( ret != MBEDTLS_ERR_SSL_WANT_READ &&
-            ret != MBEDTLS_ERR_SSL_WANT_WRITE )
+                ret != MBEDTLS_ERR_SSL_WANT_WRITE )
         {
             mbedtls_printf( " failed\n  ! mbedtls_ssl_close_notify returned %d\n\n", ret );
             goto reset;
@@ -382,12 +391,14 @@ reset:
 exit:
 
 #ifdef MBEDTLS_ERROR_C
+
     if( ret != 0 )
     {
         char error_buf[100];
         mbedtls_strerror( ret, error_buf, 100 );
-        mbedtls_printf("Last error was: %d - %s\n\n", ret, error_buf );
+        mbedtls_printf( "Last error was: %d - %s\n\n", ret, error_buf );
     }
+
 #endif
 
     mbedtls_net_free( &client_fd );

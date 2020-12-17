@@ -58,67 +58,67 @@
 
 /**
   * @brief SDRAM MSP Initialization
-  *        This function configures the hardware resources used in this example: 
+  *        This function configures the hardware resources used in this example:
   *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration  
+  *           - Peripheral's GPIO Configuration
   * @param hsram: SDRAM handle pointer
   * @retval None
   */
-void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
+void HAL_SDRAM_MspInit( SDRAM_HandleTypeDef *hsdram )
 {
-  GPIO_InitTypeDef  GPIO_Init_Structure;
+    GPIO_InitTypeDef  GPIO_Init_Structure;
 
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO clocks */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOI_CLK_ENABLE();
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* Enable GPIO clocks */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+    __HAL_RCC_GPIOI_CLK_ENABLE();
 
-  /* Enable FMC clock */
-  __HAL_RCC_FMC_CLK_ENABLE();
+    /* Enable FMC clock */
+    __HAL_RCC_FMC_CLK_ENABLE();
 
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
-  GPIO_Init_Structure.Pull      = GPIO_NOPULL;
-  GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
-  GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
+    GPIO_Init_Structure.Pull      = GPIO_NOPULL;
+    GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
+    GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
 
-  
-  /* GPIOD configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_8| GPIO_PIN_9 | GPIO_PIN_10 |\
-                              GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
 
-  /* GPIOE configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_7| GPIO_PIN_8 | GPIO_PIN_9       |\
-                              GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |\
-                              GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure);
-  
-  /* GPIOF configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2| GPIO_PIN_3 | GPIO_PIN_4      |\
-                              GPIO_PIN_5 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |\
-                              GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOF, &GPIO_Init_Structure);
-  
-  /* GPIOG configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4| GPIO_PIN_5 | GPIO_PIN_8 |\
-                              GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOG, &GPIO_Init_Structure);
+    /* GPIOD configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | \
+                                GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOD, &GPIO_Init_Structure );
 
-  /* GPIOH configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_9      |\
-                              GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |\
-                              GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOH, &GPIO_Init_Structure);
+    /* GPIOE configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9       | \
+                                GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | \
+                                GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOE, &GPIO_Init_Structure );
 
-  /* GPIOI configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4  |\
-                              GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10;
-  HAL_GPIO_Init(GPIOI, &GPIO_Init_Structure);
+    /* GPIOF configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4      | \
+                                GPIO_PIN_5 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | \
+                                GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOF, &GPIO_Init_Structure );
+
+    /* GPIOG configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_8 | \
+                                GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOG, &GPIO_Init_Structure );
+
+    /* GPIOH configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_9      | \
+                                GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | \
+                                GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOH, &GPIO_Init_Structure );
+
+    /* GPIOI configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4  | \
+                                GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10;
+    HAL_GPIO_Init( GPIOI, &GPIO_Init_Structure );
 
 }
 
@@ -130,28 +130,28 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
   * @param hsram: SDRAM handle pointer
   * @retval None
   */
-void HAL_SDRAM_MspDeInit(SDRAM_HandleTypeDef *hsdram)
+void HAL_SDRAM_MspDeInit( SDRAM_HandleTypeDef *hsdram )
 {
-  /*## Disable peripherals and GPIO Clocks ###################################*/
-  /* Configure FMC as alternate function  */
-  HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3| GPIO_PIN_4 | GPIO_PIN_5     |\
-                         GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 |\
-                         GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
-  
-  HAL_GPIO_DeInit(GPIOE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3| GPIO_PIN_4 | GPIO_PIN_7     |\
-                         GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 |\
-                         GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
+    /*## Disable peripherals and GPIO Clocks ###################################*/
+    /* Configure FMC as alternate function  */
+    HAL_GPIO_DeInit( GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5     | \
+                     GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
+                     GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
 
-  HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2| GPIO_PIN_3 | GPIO_PIN_4     |\
-                         GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
+    HAL_GPIO_DeInit( GPIOE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_7     | \
+                     GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
+                     GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
 
-  HAL_GPIO_DeInit(GPIOG, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2| GPIO_PIN_3 | GPIO_PIN_4 |\
-                         GPIO_PIN_5 | GPIO_PIN_10);
-  HAL_GPIO_DeInit(GPIOH, GPIO_PIN_2  | GPIO_PIN_3  | GPIO_PIN_5  | GPIO_PIN_8  | GPIO_PIN_9  |\
-                         GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |\
-                         GPIO_PIN_15);
-  HAL_GPIO_DeInit(GPIOI, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4  |\
-                         GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10);
+    HAL_GPIO_DeInit( GPIOF, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4     | \
+                     GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
+
+    HAL_GPIO_DeInit( GPIOG, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
+                     GPIO_PIN_5 | GPIO_PIN_10 );
+    HAL_GPIO_DeInit( GPIOH, GPIO_PIN_2  | GPIO_PIN_3  | GPIO_PIN_5  | GPIO_PIN_8  | GPIO_PIN_9  | \
+                     GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | \
+                     GPIO_PIN_15 );
+    HAL_GPIO_DeInit( GPIOI, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4  | \
+                     GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10 );
 }
 
 

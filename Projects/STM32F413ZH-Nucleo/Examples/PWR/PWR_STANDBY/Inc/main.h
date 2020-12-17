@@ -45,7 +45,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void Error_Handler(void);
+void Error_Handler( void );
 
 #endif /* __MAIN_H */
 

@@ -135,12 +135,12 @@ extern "C" {
  */
 enum lwip_ipv6_scope_type
 {
-  /** Unknown */
-  IP6_UNKNOWN   = 0,
-  /** Unicast */
-  IP6_UNICAST   = 1,
-  /** Multicast */
-  IP6_MULTICAST = 2
+    /** Unknown */
+    IP6_UNKNOWN   = 0,
+    /** Unicast */
+    IP6_UNICAST   = 1,
+    /** Multicast */
+    IP6_MULTICAST = 2
 };
 
 /** IPV6_CUSTOM_SCOPES: together, the following three macro definitions,

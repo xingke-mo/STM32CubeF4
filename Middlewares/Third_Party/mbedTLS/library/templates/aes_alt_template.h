@@ -47,7 +47,7 @@
 #if defined(MBEDTLS_AES_ALT)
 
 #if defined(MBEDTLS_THREADING_C)
-#include "threading.h"
+    #include "threading.h"
 #endif
 
 /* include the appropriate header file */
@@ -61,10 +61,11 @@ extern "C" {
 /**
  * \brief          AES context structure
  */
-typedef struct {
+typedef struct
+{
 
     __ALIGN_BEGIN
-      uint32_t aes_key[8];         /* Encryption/Decryption key       */
+    uint32_t aes_key[8];         /* Encryption/Decryption key       */
     __ALIGN_END
 
     CRYP_HandleTypeDef hcryp_aes;   /* AES context                     */

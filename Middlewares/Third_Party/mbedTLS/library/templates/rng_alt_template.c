@@ -39,56 +39,59 @@ __IO uint32_t isInitialized = 0;
 static RNG_HandleTypeDef RNG_Handle;
 
 
-static void RNG_Init(void);
+static void RNG_Init( void );
 /* RNG init function */
-static void RNG_Init(void)
+static void RNG_Init( void )
 {
-  if (isInitialized == 0)
-  {
-      RNG_Handle.Instance = RNG;
-      /* DeInitialize the RNG peripheral */
-      if (HAL_RNG_DeInit(&RNG_Handle) != HAL_OK)
-      {
-        return;
-      }
+    if( isInitialized == 0 )
+    {
+        RNG_Handle.Instance = RNG;
 
-      /* Initialize the RNG peripheral */
-      if (HAL_RNG_Init(&RNG_Handle) != HAL_OK)
-      {
-        return;
-      }
-      isInitialized = 1;
-  }
+        /* DeInitialize the RNG peripheral */
+        if( HAL_RNG_DeInit( &RNG_Handle ) != HAL_OK )
+        {
+            return;
+        }
+
+        /* Initialize the RNG peripheral */
+        if( HAL_RNG_Init( &RNG_Handle ) != HAL_OK )
+        {
+            return;
+        }
+
+        isInitialized = 1;
+    }
 }
 
 
 
 int mbedtls_hardware_poll( void *Data, unsigned char *Output, size_t Len, size_t *oLen )
 {
-  uint32_t index;
-  uint32_t random_value;
-  int ret;
+    uint32_t index;
+    uint32_t random_value;
+    int ret;
 
-  RNG_Init();
+    RNG_Init();
 
-  if (isInitialized == 0)
-  {
-    ret = -1;
-  }
-  else
-  {
-      for (index = 0; index < Len/4; index++)
-      {
-        if (HAL_RNG_GenerateRandomNumber(&RNG_Handle, &random_value) == HAL_OK)
+    if( isInitialized == 0 )
+    {
+        ret = -1;
+    }
+    else
+    {
+        for( index = 0; index < Len / 4; index++ )
         {
-          *oLen += 4;
-          memset(&(Output[index * 4]), (int)random_value, 4);
+            if( HAL_RNG_GenerateRandomNumber( &RNG_Handle, &random_value ) == HAL_OK )
+            {
+                *oLen += 4;
+                memset( &( Output[index * 4] ), ( int )random_value, 4 );
+            }
         }
-      }
-      ret = 0;
-  }
 
-  return ret;
+        ret = 0;
+    }
+
+    return ret;
 }
 
 #if 0
@@ -106,17 +109,17 @@ int mbedtls_hardware_poll( void *Data, unsigned char *Output, size_t Len, size_t
   * @retval None
   */
 
-void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
+void HAL_RNG_MspInit( RNG_HandleTypeDef *hrng )
 {
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
-  /*Select PLL output as RNG clock source */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RNG;
-  PeriphClkInitStruct.RngClockSelection = RCC_RNGCLKSOURCE_PLL;
-  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+    /*Select PLL output as RNG clock source */
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RNG;
+    PeriphClkInitStruct.RngClockSelection = RCC_RNGCLKSOURCE_PLL;
+    HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct );
 
-  /* RNG Peripheral clock enable */
-  __RNG_CLK_ENABLE();
+    /* RNG Peripheral clock enable */
+    __RNG_CLK_ENABLE();
 
 }
 /**
@@ -126,13 +129,13 @@ void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
   * @param hrng: RNG handle pointer
   * @retval None
   */
-void HAL_RNG_MspDeInit(RNG_HandleTypeDef *hrng)
+void HAL_RNG_MspDeInit( RNG_HandleTypeDef *hrng )
 {
-  /* Enable RNG reset state */
-  __HAL_RCC_RNG_FORCE_RESET();
+    /* Enable RNG reset state */
+    __HAL_RCC_RNG_FORCE_RESET();
 
-  /* Release RNG from reset state */
-  __HAL_RCC_RNG_RELEASE_RESET();
+    /* Release RNG from reset state */
+    __HAL_RCC_RNG_RELEASE_RESET();
 }
 #endif
 

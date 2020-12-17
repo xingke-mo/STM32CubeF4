@@ -32,57 +32,57 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM324x9I_EVAL_IO_H
 #define __STM324x9I_EVAL_IO_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif   
-   
+extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm324x9i_eval.h"
 /* Include IO component driver */
-#include "../Components/stmpe1600/stmpe1600.h"  
-   
+#include "../Components/stmpe1600/stmpe1600.h"
+
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup STM324x9I_EVAL
   * @{
   */
-    
+
 /** @addtogroup STM324x9I_EVAL_IO
   * @{
-  */    
+  */
 
 /** @defgroup STM324x9I_EVAL_IO_Exported_Types STM324x9I EVAL IO Exported Types
   * @{
   */
 typedef struct
 {
-  uint16_t TouchDetected;
-  uint16_t x;
-  uint16_t y;
-  uint16_t z;
-}IO_StateTypeDef;   
+    uint16_t TouchDetected;
+    uint16_t x;
+    uint16_t y;
+    uint16_t z;
+} IO_StateTypeDef;
 
-typedef enum 
+typedef enum
 {
-  IO_OK       = 0,
-  IO_ERROR    = 1,
-  IO_TIMEOUT  = 2
-}IO_StatusTypeDef;
+    IO_OK       = 0,
+    IO_ERROR    = 1,
+    IO_TIMEOUT  = 2
+} IO_StatusTypeDef;
 /**
   * @}
   */
 
 /** @defgroup STM324x9I_EVAL_IO_Exported_Constants IO Exported Constants
   * @{
-  */    
+  */
 #define IO_PIN_0                  0x0001
 #define IO_PIN_1                  0x0002
 #define IO_PIN_2                  0x0004
@@ -99,7 +99,7 @@ typedef enum
 #define IO_PIN_13                 0x2000
 #define IO_PIN_14                 0x4000
 #define IO_PIN_15                 0x8000
-#define IO_PIN_ALL                0xFFFF  
+#define IO_PIN_ALL                0xFFFF
 /**
   * @}
   */
@@ -107,17 +107,13 @@ typedef enum
 /** @defgroup STM324x9I_EVAL_IO_Exported_Functions STM324x9I EVAL IO Exported Functions
   * @{
   */
-uint8_t  BSP_IO_Init(void);
-uint8_t  BSP_IO_ITGetStatus(uint16_t IO_Pin);
-void     BSP_IO_ITClear(void);
-uint8_t  BSP_IO_ConfigPin(uint16_t IO_Pin, IO_ModeTypedef IO_Mode);
-void     BSP_IO_WritePin(uint16_t IO_Pin, uint8_t PinState);
-uint16_t BSP_IO_ReadPin(uint16_t IO_Pin);
-void     BSP_IO_TogglePin(uint16_t IO_Pin);
-
-/**
-  * @}
-  */ 
+uint8_t  BSP_IO_Init( void );
+uint8_t  BSP_IO_ITGetStatus( uint16_t IO_Pin );
+void     BSP_IO_ITClear( void );
+uint8_t  BSP_IO_ConfigPin( uint16_t IO_Pin, IO_ModeTypedef IO_Mode );
+void     BSP_IO_WritePin( uint16_t IO_Pin, uint8_t PinState );
+uint16_t BSP_IO_ReadPin( uint16_t IO_Pin );
+void     BSP_IO_TogglePin( uint16_t IO_Pin );
 
 /**
   * @}
@@ -125,7 +121,11 @@ void     BSP_IO_TogglePin(uint16_t IO_Pin);
 
 /**
   * @}
-  */ 
+  */
+
+/**
+  * @}
+  */
 
 /**
   * @}

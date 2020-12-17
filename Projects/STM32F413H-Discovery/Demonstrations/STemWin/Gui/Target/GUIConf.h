@@ -45,9 +45,9 @@ Purpose     : Configures emWins abilities, fonts etc.
 *       Multi tasking support
 */
 #ifdef OS_SUPPORT
- #define GUI_OS                    (1)  // Compile with multitasking support
+    #define GUI_OS                    (1)  // Compile with multitasking support
 #else
- #define GUI_OS                    (0)
+    #define GUI_OS                    (0)
 #endif
 
 /*********************************************************************
@@ -55,7 +55,7 @@ Purpose     : Configures emWins abilities, fonts etc.
 *       Configuration of touch support
 */
 #ifndef   GUI_SUPPORT_TOUCH
-  #define GUI_SUPPORT_TOUCH       (1)  // Support touchscreen
+    #define GUI_SUPPORT_TOUCH       (1)  // Support touchscreen
 #endif
 
 /*********************************************************************

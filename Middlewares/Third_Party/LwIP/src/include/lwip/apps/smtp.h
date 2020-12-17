@@ -39,7 +39,7 @@ extern "C" {
  * @param err an error returned by internal lwip functions, can help to specify
  *            the source of the error but must not necessarily be != ERR_OK
  */
-typedef void (*smtp_result_fn)(void *arg, u8_t smtp_result, u16_t srv_err, err_t err);
+typedef void ( *smtp_result_fn )( void *arg, u8_t smtp_result, u16_t srv_err, err_t err );
 
 /** This structure is used as argument for smtp_send_mail_int(),
  * which in turn can be used with tcpip_callback() to send mail
@@ -51,18 +51,19 @@ typedef void (*smtp_result_fn)(void *arg, u8_t smtp_result, u16_t srv_err, err_t
  * When using with tcpip_callback, this structure has to stay allocated
  * (e.g. using mem_malloc/mem_free) until its 'callback_fn' is called.
  */
-struct smtp_send_request {
-  const char *from;
-  const char* to;
-  const char* subject;
-  const char* body;
-  smtp_result_fn callback_fn;
-  void* callback_arg;
-  /** If this is != 0, data is *not* copied into an extra buffer
-   * but used from the pointers supplied in this struct.
-   * This means less memory usage, but data must stay untouched until
-   * the callback function is called. */
-  u8_t static_data;
+struct smtp_send_request
+{
+    const char *from;
+    const char *to;
+    const char *subject;
+    const char *body;
+    smtp_result_fn callback_fn;
+    void *callback_arg;
+    /** If this is != 0, data is *not* copied into an extra buffer
+     * but used from the pointers supplied in this struct.
+     * This means less memory usage, but data must stay untouched until
+     * the callback function is called. */
+    u8_t static_data;
 };
 
 
@@ -72,18 +73,20 @@ struct smtp_send_request {
 #define SMTP_BODYDH_BUFFER_SIZE 256
 #endif /* SMTP_BODYDH_BUFFER_SIZE */
 
-struct smtp_bodydh {
-  u16_t state;
-  u16_t length; /* Length of content in buffer */
-  char buffer[SMTP_BODYDH_BUFFER_SIZE]; /* buffer for generated content */
+struct smtp_bodydh
+{
+    u16_t state;
+    u16_t length; /* Length of content in buffer */
+    char buffer[SMTP_BODYDH_BUFFER_SIZE]; /* buffer for generated content */
 #ifdef SMTP_BODYDH_USER_SIZE
-  u8_t user[SMTP_BODYDH_USER_SIZE];
+    u8_t user[SMTP_BODYDH_USER_SIZE];
 #endif /* SMTP_BODYDH_USER_SIZE */
 };
 
-enum bdh_retvals_e {
-  BDH_DONE = 0,
-  BDH_WORKING
+enum bdh_retvals_e
+{
+    BDH_DONE = 0,
+    BDH_WORKING
 };
 
 /** Prototype of an smtp body callback function
@@ -97,28 +100,28 @@ enum bdh_retvals_e {
  * @param arg argument specified when initiating the email
  * @param smtp_bodydh state handling + buffer structure
  */
-typedef int (*smtp_bodycback_fn)(void *arg, struct smtp_bodydh *bodydh);
+typedef int ( *smtp_bodycback_fn )( void *arg, struct smtp_bodydh *bodydh );
 
-err_t smtp_send_mail_bodycback(const char *from, const char* to, const char* subject,
-                     smtp_bodycback_fn bodycback_fn, smtp_result_fn callback_fn, void* callback_arg);
+err_t smtp_send_mail_bodycback( const char *from, const char *to, const char *subject,
+                                smtp_bodycback_fn bodycback_fn, smtp_result_fn callback_fn, void *callback_arg );
 
 #endif /* SMTP_BODYDH */
 
 
-err_t smtp_set_server_addr(const char* server);
-void smtp_set_server_port(u16_t port);
+err_t smtp_set_server_addr( const char *server );
+void smtp_set_server_port( u16_t port );
 #if LWIP_ALTCP && LWIP_ALTCP_TLS
 struct altcp_tls_config;
-void smtp_set_tls_config(struct altcp_tls_config *tls_config);
+void smtp_set_tls_config( struct altcp_tls_config *tls_config );
 #endif
-err_t smtp_set_auth(const char* username, const char* pass);
-err_t smtp_send_mail(const char *from, const char* to, const char* subject, const char* body,
-                     smtp_result_fn callback_fn, void* callback_arg);
-err_t smtp_send_mail_static(const char *from, const char* to, const char* subject, const char* body,
-                     smtp_result_fn callback_fn, void* callback_arg);
-void smtp_send_mail_int(void *arg);
+err_t smtp_set_auth( const char *username, const char *pass );
+err_t smtp_send_mail( const char *from, const char *to, const char *subject, const char *body,
+                      smtp_result_fn callback_fn, void *callback_arg );
+err_t smtp_send_mail_static( const char *from, const char *to, const char *subject, const char *body,
+                             smtp_result_fn callback_fn, void *callback_arg );
+void smtp_send_mail_int( void *arg );
 #ifdef LWIP_DEBUG
-const char* smtp_result_str(u8_t smtp_result);
+const char *smtp_result_str( u8_t smtp_result );
 #endif
 
 #ifdef __cplusplus

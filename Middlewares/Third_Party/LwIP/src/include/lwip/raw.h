@@ -68,52 +68,53 @@ struct raw_pcb;
  * If returning 1, the callback is responsible for freeing the pbuf
  * if it's not used any more.
  */
-typedef u8_t (*raw_recv_fn)(void *arg, struct raw_pcb *pcb, struct pbuf *p,
-    const ip_addr_t *addr);
+typedef u8_t ( *raw_recv_fn )( void *arg, struct raw_pcb *pcb, struct pbuf *p,
+                               const ip_addr_t *addr );
 
 /** the RAW protocol control block */
-struct raw_pcb {
-  /* Common members of all PCB types */
-  IP_PCB;
+struct raw_pcb
+{
+    /* Common members of all PCB types */
+    IP_PCB;
 
-  struct raw_pcb *next;
+    struct raw_pcb *next;
 
-  u8_t protocol;
-  u8_t flags;
+    u8_t protocol;
+    u8_t flags;
 
 #if LWIP_MULTICAST_TX_OPTIONS
-  /** outgoing network interface for multicast packets, by interface index (if nonzero) */
-  u8_t mcast_ifindex;
-  /** TTL for outgoing multicast packets */
-  u8_t mcast_ttl;
+    /** outgoing network interface for multicast packets, by interface index (if nonzero) */
+    u8_t mcast_ifindex;
+    /** TTL for outgoing multicast packets */
+    u8_t mcast_ttl;
 #endif /* LWIP_MULTICAST_TX_OPTIONS */
 
-  /** receive callback function */
-  raw_recv_fn recv;
-  /* user-supplied argument for the recv callback */
-  void *recv_arg;
+    /** receive callback function */
+    raw_recv_fn recv;
+    /* user-supplied argument for the recv callback */
+    void *recv_arg;
 #if LWIP_IPV6
-  /* fields for handling checksum computations as per RFC3542. */
-  u16_t chksum_offset;
-  u8_t  chksum_reqd;
+    /* fields for handling checksum computations as per RFC3542. */
+    u16_t chksum_offset;
+    u8_t  chksum_reqd;
 #endif
 };
 
 /* The following functions is the application layer interface to the
    RAW code. */
-struct raw_pcb * raw_new        (u8_t proto);
-struct raw_pcb * raw_new_ip_type(u8_t type, u8_t proto);
-void             raw_remove     (struct raw_pcb *pcb);
-err_t            raw_bind       (struct raw_pcb *pcb, const ip_addr_t *ipaddr);
-void             raw_bind_netif (struct raw_pcb *pcb, const struct netif *netif);
-err_t            raw_connect    (struct raw_pcb *pcb, const ip_addr_t *ipaddr);
-void             raw_disconnect (struct raw_pcb *pcb);
+struct raw_pcb *raw_new( u8_t proto );
+struct raw_pcb *raw_new_ip_type( u8_t type, u8_t proto );
+void             raw_remove( struct raw_pcb *pcb );
+err_t            raw_bind( struct raw_pcb *pcb, const ip_addr_t *ipaddr );
+void             raw_bind_netif( struct raw_pcb *pcb, const struct netif *netif );
+err_t            raw_connect( struct raw_pcb *pcb, const ip_addr_t *ipaddr );
+void             raw_disconnect( struct raw_pcb *pcb );
 
-err_t            raw_sendto     (struct raw_pcb *pcb, struct pbuf *p, const ip_addr_t *ipaddr);
-err_t            raw_sendto_if_src(struct raw_pcb *pcb, struct pbuf *p, const ip_addr_t *dst_ip, struct netif *netif, const ip_addr_t *src_ip);
-err_t            raw_send       (struct raw_pcb *pcb, struct pbuf *p);
+err_t            raw_sendto( struct raw_pcb *pcb, struct pbuf *p, const ip_addr_t *ipaddr );
+err_t            raw_sendto_if_src( struct raw_pcb *pcb, struct pbuf *p, const ip_addr_t *dst_ip, struct netif *netif, const ip_addr_t *src_ip );
+err_t            raw_send( struct raw_pcb *pcb, struct pbuf *p );
 
-void             raw_recv       (struct raw_pcb *pcb, raw_recv_fn recv, void *recv_arg);
+void             raw_recv( struct raw_pcb *pcb, raw_recv_fn recv, void *recv_arg );
 
 #define          raw_flags(pcb) ((pcb)->flags)
 #define          raw_setflags(pcb,f)  ((pcb)->flags = (f))

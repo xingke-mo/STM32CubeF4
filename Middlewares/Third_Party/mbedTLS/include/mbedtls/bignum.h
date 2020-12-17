@@ -25,16 +25,16 @@
 #define MBEDTLS_BIGNUM_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
 #include <stdint.h>
 
 #if defined(MBEDTLS_FS_IO)
-#include <stdio.h>
+    #include <stdio.h>
 #endif
 
 #define MBEDTLS_ERR_MPI_FILE_IO_ERROR                     -0x0002  /**< An error occurred while reading from or writing to a file. */
@@ -59,27 +59,27 @@
 #define MBEDTLS_MPI_MAX_LIMBS                             10000
 
 #if !defined(MBEDTLS_MPI_WINDOW_SIZE)
-/*
- * Maximum window size used for modular exponentiation. Default: 6
- * Minimum value: 1. Maximum value: 6.
- *
- * Result is an array of ( 2 << MBEDTLS_MPI_WINDOW_SIZE ) MPIs used
- * for the sliding window calculation. (So 64 by default)
- *
- * Reduction in size, reduces speed.
- */
-#define MBEDTLS_MPI_WINDOW_SIZE                           6        /**< Maximum windows size used. */
+    /*
+    * Maximum window size used for modular exponentiation. Default: 6
+    * Minimum value: 1. Maximum value: 6.
+    *
+    * Result is an array of ( 2 << MBEDTLS_MPI_WINDOW_SIZE ) MPIs used
+    * for the sliding window calculation. (So 64 by default)
+    *
+    * Reduction in size, reduces speed.
+    */
+    #define MBEDTLS_MPI_WINDOW_SIZE                           6        /**< Maximum windows size used. */
 #endif /* !MBEDTLS_MPI_WINDOW_SIZE */
 
 #if !defined(MBEDTLS_MPI_MAX_SIZE)
-/*
- * Maximum size of MPIs allowed in bits and bytes for user-MPIs.
- * ( Default: 512 bytes => 4096 bits, Maximum tested: 2048 bytes => 16384 bits )
- *
- * Note: Calculations can temporarily result in larger MPIs. So the number
- * of limbs required (MBEDTLS_MPI_MAX_LIMBS) is higher.
- */
-#define MBEDTLS_MPI_MAX_SIZE                              1024     /**< Maximum number of bytes for usable MPIs. */
+    /*
+    * Maximum size of MPIs allowed in bits and bytes for user-MPIs.
+    * ( Default: 512 bytes => 4096 bits, Maximum tested: 2048 bytes => 16384 bits )
+    *
+    * Note: Calculations can temporarily result in larger MPIs. So the number
+    * of limbs required (MBEDTLS_MPI_MAX_LIMBS) is higher.
+    */
+    #define MBEDTLS_MPI_MAX_SIZE                              1024     /**< Maximum number of bytes for usable MPIs. */
 #endif /* !MBEDTLS_MPI_MAX_SIZE */
 
 #define MBEDTLS_MPI_MAX_BITS                              ( 8 * MBEDTLS_MPI_MAX_SIZE )    /**< Maximum number of bits for usable MPIs. */
@@ -117,49 +117,49 @@
  * disabled by defining MBEDTLS_NO_UDBL_DIVISION.
  */
 #if !defined(MBEDTLS_HAVE_INT32)
-    #if defined(_MSC_VER) && defined(_M_AMD64)
-        /* Always choose 64-bit when using MSC */
-        #if !defined(MBEDTLS_HAVE_INT64)
-            #define MBEDTLS_HAVE_INT64
-        #endif /* !MBEDTLS_HAVE_INT64 */
-        typedef  int64_t mbedtls_mpi_sint;
-        typedef uint64_t mbedtls_mpi_uint;
-    #elif defined(__GNUC__) && (                         \
+#if defined(_MSC_VER) && defined(_M_AMD64)
+/* Always choose 64-bit when using MSC */
+#if !defined(MBEDTLS_HAVE_INT64)
+    #define MBEDTLS_HAVE_INT64
+#endif /* !MBEDTLS_HAVE_INT64 */
+typedef  int64_t mbedtls_mpi_sint;
+typedef uint64_t mbedtls_mpi_uint;
+#elif defined(__GNUC__) && (                         \
         defined(__amd64__) || defined(__x86_64__)     || \
         defined(__ppc64__) || defined(__powerpc64__)  || \
         defined(__ia64__)  || defined(__alpha__)      || \
         ( defined(__sparc__) && defined(__arch64__) ) || \
         defined(__s390x__) || defined(__mips64) )
-        #if !defined(MBEDTLS_HAVE_INT64)
-            #define MBEDTLS_HAVE_INT64
-        #endif /* MBEDTLS_HAVE_INT64 */
-        typedef  int64_t mbedtls_mpi_sint;
-        typedef uint64_t mbedtls_mpi_uint;
-        #if !defined(MBEDTLS_NO_UDBL_DIVISION)
-            /* mbedtls_t_udbl defined as 128-bit unsigned int */
-            typedef unsigned int mbedtls_t_udbl __attribute__((mode(TI)));
-            #define MBEDTLS_HAVE_UDBL
-        #endif /* !MBEDTLS_NO_UDBL_DIVISION */
-    #elif defined(__ARMCC_VERSION) && defined(__aarch64__)
-        /*
-         * __ARMCC_VERSION is defined for both armcc and armclang and
-         * __aarch64__ is only defined by armclang when compiling 64-bit code
-         */
-        #if !defined(MBEDTLS_HAVE_INT64)
-            #define MBEDTLS_HAVE_INT64
-        #endif /* !MBEDTLS_HAVE_INT64 */
-        typedef  int64_t mbedtls_mpi_sint;
-        typedef uint64_t mbedtls_mpi_uint;
-        #if !defined(MBEDTLS_NO_UDBL_DIVISION)
-            /* mbedtls_t_udbl defined as 128-bit unsigned int */
-            typedef __uint128_t mbedtls_t_udbl;
-            #define MBEDTLS_HAVE_UDBL
-        #endif /* !MBEDTLS_NO_UDBL_DIVISION */
-    #elif defined(MBEDTLS_HAVE_INT64)
-        /* Force 64-bit integers with unknown compiler */
-        typedef  int64_t mbedtls_mpi_sint;
-        typedef uint64_t mbedtls_mpi_uint;
-    #endif
+#if !defined(MBEDTLS_HAVE_INT64)
+    #define MBEDTLS_HAVE_INT64
+#endif /* MBEDTLS_HAVE_INT64 */
+typedef  int64_t mbedtls_mpi_sint;
+typedef uint64_t mbedtls_mpi_uint;
+#if !defined(MBEDTLS_NO_UDBL_DIVISION)
+    /* mbedtls_t_udbl defined as 128-bit unsigned int */
+    typedef unsigned int mbedtls_t_udbl __attribute__( ( mode( TI ) ) );
+    #define MBEDTLS_HAVE_UDBL
+#endif /* !MBEDTLS_NO_UDBL_DIVISION */
+#elif defined(__ARMCC_VERSION) && defined(__aarch64__)
+/*
+ * __ARMCC_VERSION is defined for both armcc and armclang and
+ * __aarch64__ is only defined by armclang when compiling 64-bit code
+ */
+#if !defined(MBEDTLS_HAVE_INT64)
+    #define MBEDTLS_HAVE_INT64
+#endif /* !MBEDTLS_HAVE_INT64 */
+typedef  int64_t mbedtls_mpi_sint;
+typedef uint64_t mbedtls_mpi_uint;
+#if !defined(MBEDTLS_NO_UDBL_DIVISION)
+    /* mbedtls_t_udbl defined as 128-bit unsigned int */
+    typedef __uint128_t mbedtls_t_udbl;
+    #define MBEDTLS_HAVE_UDBL
+#endif /* !MBEDTLS_NO_UDBL_DIVISION */
+#elif defined(MBEDTLS_HAVE_INT64)
+/* Force 64-bit integers with unknown compiler */
+typedef  int64_t mbedtls_mpi_sint;
+typedef uint64_t mbedtls_mpi_uint;
+#endif
 #endif /* !MBEDTLS_HAVE_INT32 */
 
 #if !defined(MBEDTLS_HAVE_INT64)
@@ -817,8 +817,8 @@ int mbedtls_mpi_exp_mod( mbedtls_mpi *X, const mbedtls_mpi *A,
  *                 be relevant in applications like deterministic ECDSA.
  */
 int mbedtls_mpi_fill_random( mbedtls_mpi *X, size_t size,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief          Compute the greatest common divisor: G = gcd(A, B)
@@ -879,8 +879,8 @@ int mbedtls_mpi_inv_mod( mbedtls_mpi *X, const mbedtls_mpi *A,
  * \return         Another negative error code on other kinds of failure.
  */
 MBEDTLS_DEPRECATED int mbedtls_mpi_is_prime( const mbedtls_mpi *X,
-                          int (*f_rng)(void *, unsigned char *, size_t),
-                          void *p_rng );
+        int ( *f_rng )( void *, unsigned char *, size_t ),
+        void *p_rng );
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */
 
@@ -912,7 +912,7 @@ MBEDTLS_DEPRECATED int mbedtls_mpi_is_prime( const mbedtls_mpi *X,
  * \return         Another negative error code on other kinds of failure.
  */
 int mbedtls_mpi_is_prime_ext( const mbedtls_mpi *X, int rounds,
-                              int (*f_rng)(void *, unsigned char *, size_t),
+                              int ( *f_rng )( void *, unsigned char *, size_t ),
                               void *p_rng );
 /**
  * \brief Flags for mbedtls_mpi_gen_prime()
@@ -920,7 +920,8 @@ int mbedtls_mpi_is_prime_ext( const mbedtls_mpi *X, int rounds,
  * Each of these flags is a constraint on the result X returned by
  * mbedtls_mpi_gen_prime().
  */
-typedef enum {
+typedef enum
+{
     MBEDTLS_MPI_GEN_PRIME_FLAG_DH =      0x0001, /**< (X-1)/2 is prime too */
     MBEDTLS_MPI_GEN_PRIME_FLAG_LOW_ERR = 0x0002, /**< lower error rate from 2<sup>-80</sup> to 2<sup>-128</sup> */
 } mbedtls_mpi_gen_prime_flag_t;
@@ -945,8 +946,8 @@ typedef enum {
  *                 \c 3 and #MBEDTLS_MPI_MAX_BITS.
  */
 int mbedtls_mpi_gen_prime( mbedtls_mpi *X, size_t nbits, int flags,
-                   int (*f_rng)(void *, unsigned char *, size_t),
-                   void *p_rng );
+                           int ( *f_rng )( void *, unsigned char *, size_t ),
+                           void *p_rng );
 
 #if defined(MBEDTLS_SELF_TEST)
 

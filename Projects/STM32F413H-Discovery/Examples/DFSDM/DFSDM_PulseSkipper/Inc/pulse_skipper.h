@@ -31,21 +31,21 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  uint32_t  DFSDM1PulseSkipperCh;    /*!< Channels selection to generate pulse skipper of DFSDM1.
+    uint32_t  DFSDM1PulseSkipperCh;    /*!< Channels selection to generate pulse skipper of DFSDM1.
                                          This parameter can be a value of @ref DFSDM1_PULSESKIPPER_CH */
-  uint32_t  DFSDM2PulseSkipperCh;    /*!< Channels selection to generate pulse skipper of DFSDM2.
+    uint32_t  DFSDM2PulseSkipperCh;    /*!< Channels selection to generate pulse skipper of DFSDM2.
                                          This parameter can be a value of @ref DFSDM2_PULSESKIPPER_CH */
-}PulseSkipper_InitTypeDef;
+} PulseSkipper_InitTypeDef;
 /* Exported constants --------------------------------------------------------*/
-/** 
-  * @brief  Skipper Delay parameters structure definition  
-  */  
+/**
+  * @brief  Skipper Delay parameters structure definition
+  */
 
 /**
   * @brief DFSDM1_PULSESKIPPER_CH
@@ -72,10 +72,10 @@ typedef struct
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void             Pulse_Skipper_Init(void);
-void             Pulse_Skipper_Bitstream_Start(void);
-void             Pulse_Skipper_Bitstream_Stop(void);
-void             Pulse_Skipper_DeInit(void);
-void             Pulse_Skipper_Generate_Pulse(PulseSkipper_InitTypeDef* skipperstruct);
+void             Pulse_Skipper_Init( void );
+void             Pulse_Skipper_Bitstream_Start( void );
+void             Pulse_Skipper_Bitstream_Stop( void );
+void             Pulse_Skipper_DeInit( void );
+void             Pulse_Skipper_Generate_Pulse( PulseSkipper_InitTypeDef *skipperstruct );
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

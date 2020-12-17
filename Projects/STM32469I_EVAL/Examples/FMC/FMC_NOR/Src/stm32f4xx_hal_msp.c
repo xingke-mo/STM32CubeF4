@@ -63,68 +63,68 @@
   * @param hsram: NOR handle pointer
   * @retval None
   */
-void HAL_NOR_MspInit(NOR_HandleTypeDef *hnor)
+void HAL_NOR_MspInit( NOR_HandleTypeDef *hnor )
 {
-  GPIO_InitTypeDef GPIO_Init_Structure;
+    GPIO_InitTypeDef GPIO_Init_Structure;
 
-  /* Enable FMC clock */
-  __HAL_RCC_FMC_CLK_ENABLE();
+    /* Enable FMC clock */
+    __HAL_RCC_FMC_CLK_ENABLE();
 
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
 
-  /* Common GPIO configuration */
-  GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
-  GPIO_Init_Structure.Pull      = GPIO_PULLUP;
-  GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
-  GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
+    /* Common GPIO configuration */
+    GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
+    GPIO_Init_Structure.Pull      = GPIO_PULLUP;
+    GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
+    GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
 
-  /*## Data Bus #######*/
-  /* GPIOD configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_8 | GPIO_PIN_9 | \
-                              GPIO_PIN_10 | GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
+    /*## Data Bus #######*/
+    /* GPIOD configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_8 | GPIO_PIN_9 | \
+                                GPIO_PIN_10 | GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOD, &GPIO_Init_Structure );
 
-  /* GPIOE configuration */  
-  GPIO_Init_Structure.Pin   = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | \
-                              GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | \
-                              GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure);
-  
-  /*## Address Bus #######*/
-  /* GPIOF configuration */  
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | \
-                              GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | \
-                              GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOF, &GPIO_Init_Structure);
-  
-  /* GPIOG configuration */  
-  GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | \
-                              GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
-  HAL_GPIO_Init(GPIOG, &GPIO_Init_Structure);
-  
-  /* GPIOD configuration */
-  GPIO_Init_Structure.Pin   = GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13;
-  HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
+    /* GPIOE configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | \
+                                GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | \
+                                GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOE, &GPIO_Init_Structure );
 
-  /* GPIOE configuration */  
-  GPIO_Init_Structure.Pin   = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
-  HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure);
+    /*## Address Bus #######*/
+    /* GPIOF configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | \
+                                GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | \
+                                GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOF, &GPIO_Init_Structure );
 
-  /*## NOE and NWE configuration #######*/ 
-  GPIO_Init_Structure.Pin = GPIO_PIN_4 |GPIO_PIN_5;
-  HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
+    /* GPIOG configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | \
+                                GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
+    HAL_GPIO_Init( GPIOG, &GPIO_Init_Structure );
 
-  /*## Enable Bank pin configuration #######*/
-  GPIO_Init_Structure.Pin = GPIO_PIN_7;
-  HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
+    /* GPIOD configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13;
+    HAL_GPIO_Init( GPIOD, &GPIO_Init_Structure );
 
-  /*## NBL0, NBL1 configuration #######*/
-  GPIO_Init_Structure.Pin = GPIO_PIN_0 | GPIO_PIN_1;
-  HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure); 
+    /* GPIOE configuration */
+    GPIO_Init_Structure.Pin   = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
+    HAL_GPIO_Init( GPIOE, &GPIO_Init_Structure );
+
+    /*## NOE and NWE configuration #######*/
+    GPIO_Init_Structure.Pin = GPIO_PIN_4 | GPIO_PIN_5;
+    HAL_GPIO_Init( GPIOD, &GPIO_Init_Structure );
+
+    /*## Enable Bank pin configuration #######*/
+    GPIO_Init_Structure.Pin = GPIO_PIN_7;
+    HAL_GPIO_Init( GPIOD, &GPIO_Init_Structure );
+
+    /*## NBL0, NBL1 configuration #######*/
+    GPIO_Init_Structure.Pin = GPIO_PIN_0 | GPIO_PIN_1;
+    HAL_GPIO_Init( GPIOE, &GPIO_Init_Structure );
 }
 
 /**
@@ -135,23 +135,23 @@ void HAL_NOR_MspInit(NOR_HandleTypeDef *hnor)
   * @param hnor: NOR handle pointer
   * @retval None
   */
-void HAL_NOR_MspDeInit(NOR_HandleTypeDef *hnor)
+void HAL_NOR_MspDeInit( NOR_HandleTypeDef *hnor )
 {
-  /*## Disable peripherals and GPIO Clocks ###################################*/
-  /* Configure FMC as alternate function  */
-  HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5     | \
-                  GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
-                  GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
+    /*## Disable peripherals and GPIO Clocks ###################################*/
+    /* Configure FMC as alternate function  */
+    HAL_GPIO_DeInit( GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5     | \
+                     GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
+                     GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
 
-  HAL_GPIO_DeInit(GPIOE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_7     | \
-                  GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
-                  GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
+    HAL_GPIO_DeInit( GPIOE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_7     | \
+                     GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | \
+                     GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
 
-  HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
-                  GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
+    HAL_GPIO_DeInit( GPIOF, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
+                     GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 );
 
-  HAL_GPIO_DeInit(GPIOG, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
-                  GPIO_PIN_5 | GPIO_PIN_9);
+    HAL_GPIO_DeInit( GPIOG, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
+                     GPIO_PIN_5 | GPIO_PIN_9 );
 }
 
 /**

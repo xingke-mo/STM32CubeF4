@@ -58,16 +58,16 @@ extern "C" {
 typedef struct
 {
 
-  uint32_t Line_0_31;           /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 0 to 31
+    uint32_t Line_0_31;           /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 0 to 31
                                      This parameter can be any combination of @ref EXTI_LL_EC_LINE */
 
-  FunctionalState LineCommand;  /*!< Specifies the new state of the selected EXTI lines.
+    FunctionalState LineCommand;  /*!< Specifies the new state of the selected EXTI lines.
                                      This parameter can be set either to ENABLE or DISABLE */
 
-  uint8_t Mode;                 /*!< Specifies the mode for the EXTI lines.
+    uint8_t Mode;                 /*!< Specifies the mode for the EXTI lines.
                                      This parameter can be a value of @ref EXTI_LL_EC_MODE. */
 
-  uint8_t Trigger;              /*!< Specifies the trigger signal active edge for the EXTI lines.
+    uint8_t Trigger;              /*!< Specifies the trigger signal active edge for the EXTI lines.
                                      This parameter can be a value of @ref EXTI_LL_EC_TRIGGER. */
 } LL_EXTI_InitTypeDef;
 
@@ -266,9 +266,9 @@ typedef struct
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_EnableIT_0_31( uint32_t ExtiLine )
 {
-  SET_BIT(EXTI->IMR, ExtiLine);
+    SET_BIT( EXTI->IMR, ExtiLine );
 }
 
 /**
@@ -307,9 +307,9 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_DisableIT_0_31( uint32_t ExtiLine )
 {
-  CLEAR_BIT(EXTI->IMR, ExtiLine);
+    CLEAR_BIT( EXTI->IMR, ExtiLine );
 }
 
 
@@ -349,9 +349,9 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31( uint32_t ExtiLine )
 {
-  return (READ_BIT(EXTI->IMR, ExtiLine) == (ExtiLine));
+    return ( READ_BIT( EXTI->IMR, ExtiLine ) == ( ExtiLine ) );
 }
 
 
@@ -396,9 +396,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_EnableEvent_0_31( uint32_t ExtiLine )
 {
-  SET_BIT(EXTI->EMR, ExtiLine);
+    SET_BIT( EXTI->EMR, ExtiLine );
 
 }
 
@@ -436,9 +436,9 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_DisableEvent_0_31( uint32_t ExtiLine )
 {
-  CLEAR_BIT(EXTI->EMR, ExtiLine);
+    CLEAR_BIT( EXTI->EMR, ExtiLine );
 }
 
 
@@ -475,9 +475,9 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31( uint32_t ExtiLine )
 {
-  return (READ_BIT(EXTI->EMR, ExtiLine) == (ExtiLine));
+    return ( READ_BIT( EXTI->EMR, ExtiLine ) == ( ExtiLine ) );
 
 }
 
@@ -527,9 +527,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31( uint32_t ExtiLine )
 {
-  SET_BIT(EXTI->RTSR, ExtiLine);
+    SET_BIT( EXTI->RTSR, ExtiLine );
 
 }
 
@@ -571,9 +571,9 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31( uint32_t ExtiLine )
 {
-  CLEAR_BIT(EXTI->RTSR, ExtiLine);
+    CLEAR_BIT( EXTI->RTSR, ExtiLine );
 
 }
 
@@ -608,9 +608,9 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31( uint32_t ExtiLine )
 {
-  return (READ_BIT(EXTI->RTSR, ExtiLine) == (ExtiLine));
+    return ( READ_BIT( EXTI->RTSR, ExtiLine ) == ( ExtiLine ) );
 }
 
 
@@ -659,9 +659,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31( uint32_t ExtiLine )
 {
-  SET_BIT(EXTI->FTSR, ExtiLine);
+    SET_BIT( EXTI->FTSR, ExtiLine );
 }
 
 
@@ -701,9 +701,9 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31( uint32_t ExtiLine )
 {
-  CLEAR_BIT(EXTI->FTSR, ExtiLine);
+    CLEAR_BIT( EXTI->FTSR, ExtiLine );
 }
 
 
@@ -737,9 +737,9 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31( uint32_t ExtiLine )
 {
-  return (READ_BIT(EXTI->FTSR, ExtiLine) == (ExtiLine));
+    return ( READ_BIT( EXTI->FTSR, ExtiLine ) == ( ExtiLine ) );
 }
 
 
@@ -786,9 +786,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_GenerateSWI_0_31( uint32_t ExtiLine )
 {
-  SET_BIT(EXTI->SWIER, ExtiLine);
+    SET_BIT( EXTI->SWIER, ExtiLine );
 }
 
 
@@ -832,9 +832,9 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_0_31( uint32_t ExtiLine )
 {
-  return (READ_BIT(EXTI->PR, ExtiLine) == (ExtiLine));
+    return ( READ_BIT( EXTI->PR, ExtiLine ) == ( ExtiLine ) );
 }
 
 
@@ -870,9 +870,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval @note This bit is set when the selected edge event arrives on the interrupt
   */
-__STATIC_INLINE uint32_t LL_EXTI_ReadFlag_0_31(uint32_t ExtiLine)
+__STATIC_INLINE uint32_t LL_EXTI_ReadFlag_0_31( uint32_t ExtiLine )
 {
-  return (uint32_t)(READ_BIT(EXTI->PR, ExtiLine));
+    return ( uint32_t )( READ_BIT( EXTI->PR, ExtiLine ) );
 }
 
 
@@ -908,9 +908,9 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadFlag_0_31(uint32_t ExtiLine)
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
-__STATIC_INLINE void LL_EXTI_ClearFlag_0_31(uint32_t ExtiLine)
+__STATIC_INLINE void LL_EXTI_ClearFlag_0_31( uint32_t ExtiLine )
 {
-  WRITE_REG(EXTI->PR, ExtiLine);
+    WRITE_REG( EXTI->PR, ExtiLine );
 }
 
 
@@ -923,9 +923,9 @@ __STATIC_INLINE void LL_EXTI_ClearFlag_0_31(uint32_t ExtiLine)
   * @{
   */
 
-uint32_t LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct);
-uint32_t LL_EXTI_DeInit(void);
-void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
+uint32_t LL_EXTI_Init( LL_EXTI_InitTypeDef *EXTI_InitStruct );
+uint32_t LL_EXTI_DeInit( void );
+void LL_EXTI_StructInit( LL_EXTI_InitTypeDef *EXTI_InitStruct );
 
 
 /**

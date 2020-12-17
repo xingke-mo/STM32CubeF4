@@ -13,8 +13,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -36,14 +36,14 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void SysTick_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void DebugMon_Handler(void);
-void Toggle_Leds(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void SysTick_Handler( void );
+void MemManage_Handler( void );
+void BusFault_Handler( void );
+void UsageFault_Handler( void );
+void DebugMon_Handler( void );
+void Toggle_Leds( void );
 
 #ifdef __cplusplus
 }

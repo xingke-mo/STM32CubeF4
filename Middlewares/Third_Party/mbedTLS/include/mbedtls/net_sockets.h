@@ -41,9 +41,9 @@
 #define MBEDTLS_NET_SOCKETS_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "ssl.h"
@@ -255,7 +255,7 @@ int mbedtls_net_send( void *ctx, const unsigned char *buf, size_t len );
  *                 requires a different strategy.
  */
 int mbedtls_net_recv_timeout( void *ctx, unsigned char *buf, size_t len,
-                      uint32_t timeout );
+                              uint32_t timeout );
 
 /**
  * \brief          Gracefully shutdown the connection and free associated data

@@ -48,14 +48,14 @@
 #define __FLASH_IF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
 /* Exported types ------------------------------------------------------------*/
-typedef  void (*pFunction)(void);
+typedef  void ( *pFunction )( void );
 
 /* Exported constants --------------------------------------------------------*/
 /* Define the flash memory start address */
@@ -84,10 +84,10 @@ for the Firmware upgrade code */
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void FLASH_If_FlashUnlock(void);
-FlagStatus FLASH_If_ReadOutProtectionStatus(void);
-uint32_t FLASH_If_EraseSectors(uint32_t Address);
-uint32_t FLASH_If_Write(uint32_t Address, uint32_t Data);
+void FLASH_If_FlashUnlock( void );
+FlagStatus FLASH_If_ReadOutProtectionStatus( void );
+uint32_t FLASH_If_EraseSectors( uint32_t Address );
+uint32_t FLASH_If_Write( uint32_t Address, uint32_t Data );
 
 #ifdef __cplusplus
 }

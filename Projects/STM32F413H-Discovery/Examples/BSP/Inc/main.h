@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/main.h 
+  * @file    BSP/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -32,7 +32,7 @@
   *
   ******************************************************************************
   */
-  
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -54,22 +54,23 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void   (*DemoFunc)(void);
-  uint8_t DemoName[50]; 
-  uint32_t DemoIndex;
-}BSP_DemoTypedef;
+    void ( *DemoFunc )( void );
+    uint8_t DemoName[50];
+    uint32_t DemoIndex;
+} BSP_DemoTypedef;
 
-typedef enum {
-  AUDIO_ERROR_NONE = 0,
-  AUDIO_ERROR_NOTREADY,
-  AUDIO_ERROR_IO,
-  AUDIO_ERROR_EOF,
-}AUDIO_ErrorTypeDef;
+typedef enum
+{
+    AUDIO_ERROR_NONE = 0,
+    AUDIO_ERROR_NOTREADY,
+    AUDIO_ERROR_IO,
+    AUDIO_ERROR_EOF,
+} AUDIO_ErrorTypeDef;
 
 extern const unsigned char stlogo[];
 /* Exported global variables ---------------------------------------------------*/
 #ifndef USE_FULL_ASSERT
-extern uint16_t ErrorCounter;
+    extern uint16_t ErrorCounter;
 #endif
 extern uint32_t SdmmcTest;
 
@@ -109,33 +110,33 @@ extern uint32_t SdmmcTest;
 
 /* Exported functions ------------------------------------------------------- */
 
-void Touchscreen_demo1(void);
-void Touchscreen_demo2 (void);
-void Touchscreen_demo3(void);
-void Joystick_demo (void);
-void Joystick_exti_demo (void);
-void Joystick_SetCursorPosition(void);
-void AudioPlay_demo (void);
-void AudioRecDfsdm_demo(void);
-void LCD_demo (void);
-void SD_demo (void);
-void SD_DMA_demo (void);
-void SD_exti_demo(void);
-void QSPI_demo(void);
-void PSRAM_demo (void);
-void PSRAM_DMA_demo (void);
-void Log_demo(void);
-uint8_t AUDIO_Process(void);
-uint8_t  Touchscreen_Calibration (void);
-uint16_t TouchScreen_Get_Calibrated_X(uint16_t x);
-uint16_t TouchScreen_Get_Calibrated_Y(uint16_t y);
-uint8_t  TouchScreen_IsCalibrationDone(void);
-uint8_t TouchScreen_GetTouchPosition(void);
-void Touchscreen_DrawBackground_Circles(uint8_t state);
-void Touchscreen_DrawControl_Buttons(void);
-uint8_t TouchScreen_GetTouchButtonPosition(void);
-uint8_t CheckForUserInput(void);
-void Toggle_Leds(void);
+void Touchscreen_demo1( void );
+void Touchscreen_demo2( void );
+void Touchscreen_demo3( void );
+void Joystick_demo( void );
+void Joystick_exti_demo( void );
+void Joystick_SetCursorPosition( void );
+void AudioPlay_demo( void );
+void AudioRecDfsdm_demo( void );
+void LCD_demo( void );
+void SD_demo( void );
+void SD_DMA_demo( void );
+void SD_exti_demo( void );
+void QSPI_demo( void );
+void PSRAM_demo( void );
+void PSRAM_DMA_demo( void );
+void Log_demo( void );
+uint8_t AUDIO_Process( void );
+uint8_t  Touchscreen_Calibration( void );
+uint16_t TouchScreen_Get_Calibrated_X( uint16_t x );
+uint16_t TouchScreen_Get_Calibrated_Y( uint16_t y );
+uint8_t  TouchScreen_IsCalibrationDone( void );
+uint8_t TouchScreen_GetTouchPosition( void );
+void Touchscreen_DrawBackground_Circles( uint8_t state );
+void Touchscreen_DrawControl_Buttons( void );
+uint8_t TouchScreen_GetTouchButtonPosition( void );
+uint8_t CheckForUserInput( void );
+void Toggle_Leds( void );
 
 #endif /* __MAIN_H */
 

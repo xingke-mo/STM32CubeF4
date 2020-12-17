@@ -25,15 +25,15 @@
 #define MBEDTLS_DEBUG_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "ssl.h"
 
 #if defined(MBEDTLS_ECP_C)
-#include "ecp.h"
+    #include "ecp.h"
 #endif
 
 #if defined(MBEDTLS_DEBUG_C)
@@ -138,8 +138,8 @@ void mbedtls_debug_print_msg( const mbedtls_ssl_context *ssl, int level,
  *                  library only.
  */
 void mbedtls_debug_print_ret( const mbedtls_ssl_context *ssl, int level,
-                      const char *file, int line,
-                      const char *text, int ret );
+                              const char *file, int line,
+                              const char *text, int ret );
 
 /**
  * \brief   Output a buffer of size len bytes to the debug output. This function
@@ -159,8 +159,8 @@ void mbedtls_debug_print_ret( const mbedtls_ssl_context *ssl, int level,
  *                  library only.
  */
 void mbedtls_debug_print_buf( const mbedtls_ssl_context *ssl, int level,
-                      const char *file, int line, const char *text,
-                      const unsigned char *buf, size_t len );
+                              const char *file, int line, const char *text,
+                              const unsigned char *buf, size_t len );
 
 #if defined(MBEDTLS_BIGNUM_C)
 /**
@@ -180,8 +180,8 @@ void mbedtls_debug_print_buf( const mbedtls_ssl_context *ssl, int level,
  *                  library only.
  */
 void mbedtls_debug_print_mpi( const mbedtls_ssl_context *ssl, int level,
-                      const char *file, int line,
-                      const char *text, const mbedtls_mpi *X );
+                              const char *file, int line,
+                              const char *text, const mbedtls_mpi *X );
 #endif
 
 #if defined(MBEDTLS_ECP_C)
@@ -202,8 +202,8 @@ void mbedtls_debug_print_mpi( const mbedtls_ssl_context *ssl, int level,
  *                  library only.
  */
 void mbedtls_debug_print_ecp( const mbedtls_ssl_context *ssl, int level,
-                      const char *file, int line,
-                      const char *text, const mbedtls_ecp_point *X );
+                              const char *file, int line,
+                              const char *text, const mbedtls_ecp_point *X );
 #endif
 
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
@@ -223,8 +223,8 @@ void mbedtls_debug_print_ecp( const mbedtls_ssl_context *ssl, int level,
  *                  library only.
  */
 void mbedtls_debug_print_crt( const mbedtls_ssl_context *ssl, int level,
-                      const char *file, int line,
-                      const char *text, const mbedtls_x509_crt *crt );
+                              const char *file, int line,
+                              const char *text, const mbedtls_x509_crt *crt );
 #endif
 
 #if defined(MBEDTLS_ECDH_C)

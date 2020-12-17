@@ -31,16 +31,16 @@
 #define MBEDTLS_RSA_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "bignum.h"
 #include "md.h"
 
 #if defined(MBEDTLS_THREADING_C)
-#include "threading.h"
+    #include "threading.h"
 #endif
 
 /*
@@ -439,7 +439,7 @@ size_t mbedtls_rsa_get_len( const mbedtls_rsa_context *ctx );
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_gen_key( mbedtls_rsa_context *ctx,
-                         int (*f_rng)(void *, unsigned char *, size_t),
+                         int ( *f_rng )( void *, unsigned char *, size_t ),
                          void *p_rng,
                          unsigned int nbits, int exponent );
 
@@ -531,8 +531,8 @@ int mbedtls_rsa_check_pub_priv( const mbedtls_rsa_context *pub,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_public( mbedtls_rsa_context *ctx,
-                const unsigned char *input,
-                unsigned char *output );
+                        const unsigned char *input,
+                        unsigned char *output );
 
 /**
  * \brief          This function performs an RSA private key operation.
@@ -566,10 +566,10 @@ int mbedtls_rsa_public( mbedtls_rsa_context *ctx,
  *
  */
 int mbedtls_rsa_private( mbedtls_rsa_context *ctx,
-                 int (*f_rng)(void *, unsigned char *, size_t),
-                 void *p_rng,
-                 const unsigned char *input,
-                 unsigned char *output );
+                         int ( *f_rng )( void *, unsigned char *, size_t ),
+                         void *p_rng,
+                         const unsigned char *input,
+                         unsigned char *output );
 
 /**
  * \brief          This function adds the message padding, then performs an RSA
@@ -610,11 +610,11 @@ int mbedtls_rsa_private( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_pkcs1_encrypt( mbedtls_rsa_context *ctx,
-                       int (*f_rng)(void *, unsigned char *, size_t),
-                       void *p_rng,
-                       int mode, size_t ilen,
-                       const unsigned char *input,
-                       unsigned char *output );
+                               int ( *f_rng )( void *, unsigned char *, size_t ),
+                               void *p_rng,
+                               int mode, size_t ilen,
+                               const unsigned char *input,
+                               unsigned char *output );
 
 /**
  * \brief          This function performs a PKCS#1 v1.5 encryption operation
@@ -650,11 +650,11 @@ int mbedtls_rsa_pkcs1_encrypt( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsaes_pkcs1_v15_encrypt( mbedtls_rsa_context *ctx,
-                                 int (*f_rng)(void *, unsigned char *, size_t),
-                                 void *p_rng,
-                                 int mode, size_t ilen,
-                                 const unsigned char *input,
-                                 unsigned char *output );
+        int ( *f_rng )( void *, unsigned char *, size_t ),
+        void *p_rng,
+        int mode, size_t ilen,
+        const unsigned char *input,
+        unsigned char *output );
 
 /**
  * \brief            This function performs a PKCS#1 v2.1 OAEP encryption
@@ -694,13 +694,13 @@ int mbedtls_rsa_rsaes_pkcs1_v15_encrypt( mbedtls_rsa_context *ctx,
  * \return           An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsaes_oaep_encrypt( mbedtls_rsa_context *ctx,
-                            int (*f_rng)(void *, unsigned char *, size_t),
-                            void *p_rng,
-                            int mode,
-                            const unsigned char *label, size_t label_len,
-                            size_t ilen,
-                            const unsigned char *input,
-                            unsigned char *output );
+                                    int ( *f_rng )( void *, unsigned char *, size_t ),
+                                    void *p_rng,
+                                    int mode,
+                                    const unsigned char *label, size_t label_len,
+                                    size_t ilen,
+                                    const unsigned char *input,
+                                    unsigned char *output );
 
 /**
  * \brief          This function performs an RSA operation, then removes the
@@ -747,12 +747,12 @@ int mbedtls_rsa_rsaes_oaep_encrypt( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_pkcs1_decrypt( mbedtls_rsa_context *ctx,
-                       int (*f_rng)(void *, unsigned char *, size_t),
-                       void *p_rng,
-                       int mode, size_t *olen,
-                       const unsigned char *input,
-                       unsigned char *output,
-                       size_t output_max_len );
+                               int ( *f_rng )( void *, unsigned char *, size_t ),
+                               void *p_rng,
+                               int mode, size_t *olen,
+                               const unsigned char *input,
+                               unsigned char *output,
+                               size_t output_max_len );
 
 /**
  * \brief          This function performs a PKCS#1 v1.5 decryption
@@ -797,12 +797,12 @@ int mbedtls_rsa_pkcs1_decrypt( mbedtls_rsa_context *ctx,
  *
  */
 int mbedtls_rsa_rsaes_pkcs1_v15_decrypt( mbedtls_rsa_context *ctx,
-                                 int (*f_rng)(void *, unsigned char *, size_t),
-                                 void *p_rng,
-                                 int mode, size_t *olen,
-                                 const unsigned char *input,
-                                 unsigned char *output,
-                                 size_t output_max_len );
+        int ( *f_rng )( void *, unsigned char *, size_t ),
+        void *p_rng,
+        int mode, size_t *olen,
+        const unsigned char *input,
+        unsigned char *output,
+        size_t output_max_len );
 
 /**
  * \brief            This function performs a PKCS#1 v2.1 OAEP decryption
@@ -851,14 +851,14 @@ int mbedtls_rsa_rsaes_pkcs1_v15_decrypt( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsaes_oaep_decrypt( mbedtls_rsa_context *ctx,
-                            int (*f_rng)(void *, unsigned char *, size_t),
-                            void *p_rng,
-                            int mode,
-                            const unsigned char *label, size_t label_len,
-                            size_t *olen,
-                            const unsigned char *input,
-                            unsigned char *output,
-                            size_t output_max_len );
+                                    int ( *f_rng )( void *, unsigned char *, size_t ),
+                                    void *p_rng,
+                                    int mode,
+                                    const unsigned char *label, size_t label_len,
+                                    size_t *olen,
+                                    const unsigned char *input,
+                                    unsigned char *output,
+                                    size_t output_max_len );
 
 /**
  * \brief          This function performs a private RSA operation to sign
@@ -910,13 +910,13 @@ int mbedtls_rsa_rsaes_oaep_decrypt( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_pkcs1_sign( mbedtls_rsa_context *ctx,
-                    int (*f_rng)(void *, unsigned char *, size_t),
-                    void *p_rng,
-                    int mode,
-                    mbedtls_md_type_t md_alg,
-                    unsigned int hashlen,
-                    const unsigned char *hash,
-                    unsigned char *sig );
+                            int ( *f_rng )( void *, unsigned char *, size_t ),
+                            void *p_rng,
+                            int mode,
+                            mbedtls_md_type_t md_alg,
+                            unsigned int hashlen,
+                            const unsigned char *hash,
+                            unsigned char *sig );
 
 /**
  * \brief          This function performs a PKCS#1 v1.5 signature
@@ -957,13 +957,13 @@ int mbedtls_rsa_pkcs1_sign( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsassa_pkcs1_v15_sign( mbedtls_rsa_context *ctx,
-                               int (*f_rng)(void *, unsigned char *, size_t),
-                               void *p_rng,
-                               int mode,
-                               mbedtls_md_type_t md_alg,
-                               unsigned int hashlen,
-                               const unsigned char *hash,
-                               unsigned char *sig );
+                                       int ( *f_rng )( void *, unsigned char *, size_t ),
+                                       void *p_rng,
+                                       int mode,
+                                       mbedtls_md_type_t md_alg,
+                                       unsigned int hashlen,
+                                       const unsigned char *hash,
+                                       unsigned char *sig );
 
 /**
  * \brief          This function performs a PKCS#1 v2.1 PSS signature
@@ -1018,13 +1018,13 @@ int mbedtls_rsa_rsassa_pkcs1_v15_sign( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsassa_pss_sign( mbedtls_rsa_context *ctx,
-                         int (*f_rng)(void *, unsigned char *, size_t),
-                         void *p_rng,
-                         int mode,
-                         mbedtls_md_type_t md_alg,
-                         unsigned int hashlen,
-                         const unsigned char *hash,
-                         unsigned char *sig );
+                                 int ( *f_rng )( void *, unsigned char *, size_t ),
+                                 void *p_rng,
+                                 int mode,
+                                 mbedtls_md_type_t md_alg,
+                                 unsigned int hashlen,
+                                 const unsigned char *hash,
+                                 unsigned char *sig );
 
 /**
  * \brief          This function performs a public RSA operation and checks
@@ -1071,13 +1071,13 @@ int mbedtls_rsa_rsassa_pss_sign( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_pkcs1_verify( mbedtls_rsa_context *ctx,
-                      int (*f_rng)(void *, unsigned char *, size_t),
-                      void *p_rng,
-                      int mode,
-                      mbedtls_md_type_t md_alg,
-                      unsigned int hashlen,
-                      const unsigned char *hash,
-                      const unsigned char *sig );
+                              int ( *f_rng )( void *, unsigned char *, size_t ),
+                              void *p_rng,
+                              int mode,
+                              mbedtls_md_type_t md_alg,
+                              unsigned int hashlen,
+                              const unsigned char *hash,
+                              const unsigned char *sig );
 
 /**
  * \brief          This function performs a PKCS#1 v1.5 verification
@@ -1117,13 +1117,13 @@ int mbedtls_rsa_pkcs1_verify( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsassa_pkcs1_v15_verify( mbedtls_rsa_context *ctx,
-                                 int (*f_rng)(void *, unsigned char *, size_t),
-                                 void *p_rng,
-                                 int mode,
-                                 mbedtls_md_type_t md_alg,
-                                 unsigned int hashlen,
-                                 const unsigned char *hash,
-                                 const unsigned char *sig );
+        int ( *f_rng )( void *, unsigned char *, size_t ),
+        void *p_rng,
+        int mode,
+        mbedtls_md_type_t md_alg,
+        unsigned int hashlen,
+        const unsigned char *hash,
+        const unsigned char *sig );
 
 /**
  * \brief          This function performs a PKCS#1 v2.1 PSS verification
@@ -1174,13 +1174,13 @@ int mbedtls_rsa_rsassa_pkcs1_v15_verify( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsassa_pss_verify( mbedtls_rsa_context *ctx,
-                           int (*f_rng)(void *, unsigned char *, size_t),
-                           void *p_rng,
-                           int mode,
-                           mbedtls_md_type_t md_alg,
-                           unsigned int hashlen,
-                           const unsigned char *hash,
-                           const unsigned char *sig );
+                                   int ( *f_rng )( void *, unsigned char *, size_t ),
+                                   void *p_rng,
+                                   int mode,
+                                   mbedtls_md_type_t md_alg,
+                                   unsigned int hashlen,
+                                   const unsigned char *hash,
+                                   const unsigned char *sig );
 
 /**
  * \brief          This function performs a PKCS#1 v2.1 PSS verification
@@ -1222,15 +1222,15 @@ int mbedtls_rsa_rsassa_pss_verify( mbedtls_rsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_RSA_XXX error code on failure.
  */
 int mbedtls_rsa_rsassa_pss_verify_ext( mbedtls_rsa_context *ctx,
-                               int (*f_rng)(void *, unsigned char *, size_t),
-                               void *p_rng,
-                               int mode,
-                               mbedtls_md_type_t md_alg,
-                               unsigned int hashlen,
-                               const unsigned char *hash,
-                               mbedtls_md_type_t mgf1_hash_id,
-                               int expected_salt_len,
-                               const unsigned char *sig );
+                                       int ( *f_rng )( void *, unsigned char *, size_t ),
+                                       void *p_rng,
+                                       int mode,
+                                       mbedtls_md_type_t md_alg,
+                                       unsigned int hashlen,
+                                       const unsigned char *hash,
+                                       mbedtls_md_type_t mgf1_hash_id,
+                                       int expected_salt_len,
+                                       const unsigned char *sig );
 
 /**
  * \brief          This function copies the components of an RSA context.

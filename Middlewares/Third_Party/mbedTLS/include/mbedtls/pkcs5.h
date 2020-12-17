@@ -27,9 +27,9 @@
 #define MBEDTLS_PKCS5_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "asn1.h"
@@ -66,9 +66,9 @@ extern "C" {
  * \returns        0 on success, or a MBEDTLS_ERR_XXX code if verification fails.
  */
 int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
-                 const unsigned char *pwd,  size_t pwdlen,
-                 const unsigned char *data, size_t datalen,
-                 unsigned char *output );
+                         const unsigned char *pwd,  size_t pwdlen,
+                         const unsigned char *data, size_t datalen,
+                         unsigned char *output );
 
 #endif /* MBEDTLS_ASN1_PARSE_C */
 
@@ -87,9 +87,9 @@ int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
  * \returns        0 on success, or a MBEDTLS_ERR_XXX code if verification fails.
  */
 int mbedtls_pkcs5_pbkdf2_hmac( mbedtls_md_context_t *ctx, const unsigned char *password,
-                       size_t plen, const unsigned char *salt, size_t slen,
-                       unsigned int iteration_count,
-                       uint32_t key_length, unsigned char *output );
+                               size_t plen, const unsigned char *salt, size_t slen,
+                               unsigned int iteration_count,
+                               uint32_t key_length, unsigned char *output );
 
 #if defined(MBEDTLS_SELF_TEST)
 

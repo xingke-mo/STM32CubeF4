@@ -1,10 +1,10 @@
-/** 
+/**
   *
   *  Portions COPYRIGHT 2016 STMicroelectronics
   *  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
   *
   ******************************************************************************
-  * @file    mbedtls_config.h 
+  * @file    mbedtls_config.h
   * @author  MCD Application Team
   * @brief   the mbedtls custom config header file.
   ******************************************************************************
@@ -35,7 +35,7 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 #ifndef MBEDTLS_CONFIG_H
 #define MBEDTLS_CONFIG_H
@@ -3320,9 +3320,9 @@
 #define MBEDTLS_SSL_MAX_CONTENT_LEN             2048
 
 #ifdef USE_LCD
-#include "lcd_log.h"
-#define MBEDTLS_PLATFORM_C
-#define MBEDTLS_PLATFORM_PRINTF_MACRO LCD_UsrLog
+    #include "lcd_log.h"
+    #define MBEDTLS_PLATFORM_C
+    #define MBEDTLS_PLATFORM_PRINTF_MACRO LCD_UsrLog
 #endif
 
 #include "mbedtls/check_config.h"

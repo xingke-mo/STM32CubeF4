@@ -62,12 +62,12 @@
   * @param hrng: RNG handle pointer
   * @retval None
   */
-void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
-{  
+void HAL_RNG_MspInit( RNG_HandleTypeDef *hrng )
+{
 
 
-  /* RNG Peripheral clock enable */
-  __HAL_RCC_RNG_CLK_ENABLE();
+    /* RNG Peripheral clock enable */
+    __HAL_RCC_RNG_CLK_ENABLE();
 
 }
 
@@ -78,14 +78,14 @@ void HAL_RNG_MspInit(RNG_HandleTypeDef *hrng)
   * @param hrng: RNG handle pointer
   * @retval None
   */
-void HAL_RNG_MspDeInit(RNG_HandleTypeDef *hrng)
+void HAL_RNG_MspDeInit( RNG_HandleTypeDef *hrng )
 {
-  /* Enable RNG reset state */
-  __HAL_RCC_RNG_FORCE_RESET();
+    /* Enable RNG reset state */
+    __HAL_RCC_RNG_FORCE_RESET();
 
-  /* Release RNG from reset state */
-  __HAL_RCC_RNG_RELEASE_RESET();
-} 
+    /* Release RNG from reset state */
+    __HAL_RCC_RNG_RELEASE_RESET();
+}
 
 /**
   * @}

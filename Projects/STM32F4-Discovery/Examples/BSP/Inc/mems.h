@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/mems.h 
+  * @file    BSP/Inc/mems.h
   * @author  MCD Application Team
   * @brief   Header for mems.c module
   ******************************************************************************
@@ -47,8 +47,8 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void ACCELERO_MEMS_Test(void);
-void Audio_Test(void);
+void ACCELERO_MEMS_Test( void );
+void Audio_Test( void );
 #endif /* __MEMS_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -47,7 +47,7 @@
 #define __STM32469I_DISCOVERY_QSPI_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -106,12 +106,13 @@
 /**
  * @brief QSPI Info
  * */
-typedef struct {
-  uint32_t FlashSize;          /*!< Size of the flash                         */
-  uint32_t EraseSectorSize;    /*!< Size of sectors for the erase operation   */
-  uint32_t EraseSectorsNumber; /*!< Number of sectors for the erase operation */
-  uint32_t ProgPageSize;       /*!< Size of pages for the program operation   */
-  uint32_t ProgPagesNumber;    /*!< Number of pages for the program operation */
+typedef struct
+{
+    uint32_t FlashSize;          /*!< Size of the flash                         */
+    uint32_t EraseSectorSize;    /*!< Size of sectors for the erase operation   */
+    uint32_t EraseSectorsNumber; /*!< Number of sectors for the erase operation */
+    uint32_t ProgPageSize;       /*!< Size of pages for the program operation   */
+    uint32_t ProgPagesNumber;    /*!< Number of pages for the program operation */
 } QSPI_InfoTypeDef;
 
 /**
@@ -123,22 +124,22 @@ typedef struct {
 /** @addtogroup STM32469I_Discovery_QSPI_Exported_Functions STM32469I Discovery QSPI Exported Functions
   * @{
   */
-uint8_t BSP_QSPI_Init       (void);
-uint8_t BSP_QSPI_DeInit     (void);
-uint8_t BSP_QSPI_Read       (uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
-uint8_t BSP_QSPI_Write      (uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
-uint8_t BSP_QSPI_Erase_Block(uint32_t BlockAddress);
-uint8_t BSP_QSPI_Erase_Chip (void);
-uint8_t BSP_QSPI_GetStatus  (void);
-uint8_t BSP_QSPI_GetInfo    (QSPI_InfoTypeDef* pInfo);
-uint8_t BSP_QSPI_EnableMemoryMappedMode(void);
+uint8_t BSP_QSPI_Init( void );
+uint8_t BSP_QSPI_DeInit( void );
+uint8_t BSP_QSPI_Read( uint8_t *pData, uint32_t ReadAddr, uint32_t Size );
+uint8_t BSP_QSPI_Write( uint8_t *pData, uint32_t WriteAddr, uint32_t Size );
+uint8_t BSP_QSPI_Erase_Block( uint32_t BlockAddress );
+uint8_t BSP_QSPI_Erase_Chip( void );
+uint8_t BSP_QSPI_GetStatus( void );
+uint8_t BSP_QSPI_GetInfo( QSPI_InfoTypeDef *pInfo );
+uint8_t BSP_QSPI_EnableMemoryMappedMode( void );
 /* BSP Aliased function maintained for legacy purpose */
 #define BSP_QSPI_MemoryMappedMode      BSP_QSPI_EnableMemoryMappedMode
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void BSP_QSPI_MspInit(QSPI_HandleTypeDef *hqspi, void *Params);
-void BSP_QSPI_MspDeInit(QSPI_HandleTypeDef *hqspi, void *Params);
+void BSP_QSPI_MspInit( QSPI_HandleTypeDef *hqspi, void *Params );
+void BSP_QSPI_MspDeInit( QSPI_HandleTypeDef *hqspi, void *Params );
 
 /**
   * @}

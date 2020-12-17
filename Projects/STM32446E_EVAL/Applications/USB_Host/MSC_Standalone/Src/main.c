@@ -54,9 +54,9 @@ MSC_ApplicationTypeDef Appli_state = APPLICATION_IDLE;
 char USBDISKPath[4];            /* USB Host logical drive path */
 
 /* Private function prototypes -----------------------------------------------*/
-static void SystemClock_Config(void);
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
-static void MSC_InitApplication(void);
+static void SystemClock_Config( void );
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id );
+static void MSC_InitApplication( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -65,38 +65,38 @@ static void MSC_InitApplication(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* STM32F446xx HAL library initialization */
-  HAL_Init();
+    /* STM32F446xx HAL library initialization */
+    HAL_Init();
 
-  /* Configure the system clock to 180 Mhz */
-  SystemClock_Config();
+    /* Configure the system clock to 180 Mhz */
+    SystemClock_Config();
 
-  /* Initialize IO expander */
-  BSP_IO_Init();
+    /* Initialize IO expander */
+    BSP_IO_Init();
 
-  /* Init MSC Application */
-  MSC_InitApplication();
+    /* Init MSC Application */
+    MSC_InitApplication();
 
-  /* Init Host Library */
-  USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+    /* Init Host Library */
+    USBH_Init( &hUSBHost, USBH_UserProcess, 0 );
 
-  /* Add Supported Class */
-  USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+    /* Add Supported Class */
+    USBH_RegisterClass( &hUSBHost, USBH_MSC_CLASS );
 
-  /* Start Host Process */
-  USBH_Start(&hUSBHost);
+    /* Start Host Process */
+    USBH_Start( &hUSBHost );
 
-  /* Run Application (Blocking mode) */
-  while (1)
-  {
-    /* USB Host Background task */
-    USBH_Process(&hUSBHost);
+    /* Run Application (Blocking mode) */
+    while( 1 )
+    {
+        /* USB Host Background task */
+        USBH_Process( &hUSBHost );
 
-    /* MSC Menu Process */
-    MSC_MenuProcess();
-  }
+        /* MSC Menu Process */
+        MSC_MenuProcess();
+    }
 }
 
 /**
@@ -104,31 +104,31 @@ int main(void)
   * @param  None
   * @retval None
   */
-static void MSC_InitApplication(void)
+static void MSC_InitApplication( void )
 {
-  /* Configure Key Button */
-  BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
+    /* Configure Key Button */
+    BSP_PB_Init( BUTTON_KEY, BUTTON_MODE_GPIO );
 
-  /* Configure Joystick in EXTI mode */
-  BSP_JOY_Init(JOY_MODE_EXTI);
+    /* Configure Joystick in EXTI mode */
+    BSP_JOY_Init( JOY_MODE_EXTI );
 
-  /* Initialize the LCD */
-  BSP_LCD_Init();
+    /* Initialize the LCD */
+    BSP_LCD_Init();
 
-  /* Initialize the LCD Log module */
-  LCD_LOG_Init();
+    /* Initialize the LCD Log module */
+    LCD_LOG_Init();
 
 #ifdef USE_USB_HS
-  LCD_LOG_SetHeader((uint8_t *)" USB OTG HS MSC Host");
+    LCD_LOG_SetHeader( ( uint8_t * )" USB OTG HS MSC Host" );
 #else
-  LCD_LOG_SetHeader((uint8_t *)" USB OTG FS MSC Host");
+    LCD_LOG_SetHeader( ( uint8_t * )" USB OTG FS MSC Host" );
 #endif
 
-  LCD_UsrLog("USB Host library started.\n");
+    LCD_UsrLog( "USB Host library started.\n" );
 
-  /* Initialize menu and MSC process */
-  USBH_UsrLog("Starting MSC Demo");
-  Menu_Init();
+    /* Initialize menu and MSC process */
+    USBH_UsrLog( "Starting MSC Demo" );
+    Menu_Init();
 }
 
 /**
@@ -137,41 +137,44 @@ static void MSC_InitApplication(void)
   * @param  id: Host Library user message ID
   * @retval None
   */
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id )
 {
-  switch(id)
-  {
-  case HOST_USER_SELECT_CONFIGURATION:
-    break;
-
-  case HOST_USER_DISCONNECTION:
-    Appli_state = APPLICATION_DISCONNECT;
-    if (FATFS_UnLinkDriver(USBDISKPath) == 0)
+    switch( id )
     {
-      if(f_mount(NULL, "", 0) != FR_OK)
-      {
-        LCD_ErrLog("ERROR : Cannot DeInitialize FatFs! \n");
-      }
+    case HOST_USER_SELECT_CONFIGURATION:
+        break;
+
+    case HOST_USER_DISCONNECTION:
+        Appli_state = APPLICATION_DISCONNECT;
+
+        if( FATFS_UnLinkDriver( USBDISKPath ) == 0 )
+        {
+            if( f_mount( NULL, "", 0 ) != FR_OK )
+            {
+                LCD_ErrLog( "ERROR : Cannot DeInitialize FatFs! \n" );
+            }
+        }
+
+        break;
+
+    case HOST_USER_CLASS_ACTIVE:
+        Appli_state = APPLICATION_READY;
+        break;
+
+    case HOST_USER_CONNECTION:
+        if( FATFS_LinkDriver( &USBH_Driver, USBDISKPath ) == 0 )
+        {
+            if( f_mount( &USBH_fatfs, "", 0 ) != FR_OK )
+            {
+                LCD_ErrLog( "ERROR : Cannot Initialize FatFs! \n" );
+            }
+        }
+
+        break;
+
+    default:
+        break;
     }
-    break;
-
-  case HOST_USER_CLASS_ACTIVE:
-    Appli_state = APPLICATION_READY;
-    break;
-
-  case HOST_USER_CONNECTION:
-    if (FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
-    {
-      if (f_mount(&USBH_fatfs, "", 0) != FR_OK)
-      {
-        LCD_ErrLog("ERROR : Cannot Initialize FatFs! \n");
-      }
-    }
-    break;
-
-  default:
-    break;
-  }
 }
 
 /**
@@ -198,51 +201,51 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
-  /* Enable Power Control clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
+    /* Enable Power Control clock */
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* The voltage scaling allows optimizing the power consumption when the device is
-     clocked below the maximum system frequency, to update the voltage scaling value
-     regarding system frequency refer to product datasheet.  */
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /* The voltage scaling allows optimizing the power consumption when the device is
+       clocked below the maximum system frequency, to update the voltage scaling value
+       regarding system frequency refer to product datasheet.  */
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
-  /* Enable HSE Oscillator and activate PLL with HSE as source */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 360;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  RCC_OscInitStruct.PLL.PLLR = 2;
-  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+    /* Enable HSE Oscillator and activate PLL with HSE as source */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 360;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    RCC_OscInitStruct.PLL.PLLR = 2;
+    HAL_RCC_OscConfig( &RCC_OscInitStruct );
 
-  /* Activate the OverDrive to reach the 180 MHz Frequency */
-  HAL_PWREx_EnableOverDrive();
+    /* Activate the OverDrive to reach the 180 MHz Frequency */
+    HAL_PWREx_EnableOverDrive();
 
-  /* Select PLLSAI output as USB clock source */
-  PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
-  PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
-  PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CK48;
-  PeriphClkInitStruct.Clk48ClockSelection = RCC_CK48CLKSOURCE_PLLSAIP;
-  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+    /* Select PLLSAI output as USB clock source */
+    PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
+    PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
+    PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CK48;
+    PeriphClkInitStruct.Clk48ClockSelection = RCC_CK48CLKSOURCE_PLLSAIP;
+    HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct );
 
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
-     clocks dividers */
-  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+       clocks dividers */
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 );
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -253,15 +256,15 @@ void SystemClock_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

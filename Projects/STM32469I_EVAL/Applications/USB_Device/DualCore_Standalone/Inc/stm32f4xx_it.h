@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    USB_Device/DualCore_Standalone/Inc/stm32f4xx_it.h 
+  * @file    USB_Device/DualCore_Standalone/Inc/stm32f4xx_it.h
   * @author  MCD Application Team
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
@@ -14,8 +14,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -28,8 +28,8 @@
 #define __STM32F4xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -38,20 +38,20 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
-void OTG_FS_IRQHandler(void);
-void OTG_HS_IRQHandler(void);
-void USARTx_DMA_TX_IRQHandler(void);
-void USARTx_IRQHandler(void);
-void TIMx_IRQHandler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void MemManage_Handler( void );
+void BusFault_Handler( void );
+void UsageFault_Handler( void );
+void SVC_Handler( void );
+void DebugMon_Handler( void );
+void PendSV_Handler( void );
+void SysTick_Handler( void );
+void OTG_FS_IRQHandler( void );
+void OTG_HS_IRQHandler( void );
+void USARTx_DMA_TX_IRQHandler( void );
+void USARTx_IRQHandler( void );
+void TIMx_IRQHandler( void );
 
 #ifdef __cplusplus
 }

@@ -50,12 +50,13 @@
 /* Private macro ------------------------------------------------------------- */
 /* Private variables --------------------------------------------------------- */
 
-uint8_t *MSC_main_menu[] = {
-  (uint8_t *)
+uint8_t *MSC_main_menu[] =
+{
+    ( uint8_t * )
     "      1 - File Operations                                                   ",
-  (uint8_t *)
+    ( uint8_t * )
     "      2 - Explorer Disk                                                     ",
-  (uint8_t *)
+    ( uint8_t * )
     "      3 - Return                                                            ",
 };
 
@@ -69,74 +70,78 @@ extern DEMO_StateMachine demo;
   * @param  None
   * @retval None
   */
-void MSC_MenuProcess(void)
+void MSC_MenuProcess( void )
 {
-  switch (demo.msc_state)
-  {
-  case APPLI_MSC_IDLE:
-    Demo_SelectItem(MSC_main_menu, 0);
-    demo.msc_state = APPLI_MSC_WAIT;
-    demo.select = 0;
-    break;
-
-  case APPLI_MSC_WAIT:
-
-    if (demo.select != prev_select)
+    switch( demo.msc_state )
     {
-      prev_select = demo.select;
-      Demo_SelectItem(MSC_main_menu, demo.select & 0x7F);
+    case APPLI_MSC_IDLE:
+        Demo_SelectItem( MSC_main_menu, 0 );
+        demo.msc_state = APPLI_MSC_WAIT;
+        demo.select = 0;
+        break;
 
-      /* Handle select item */
-      if (demo.select & 0x80)
-      {
-        demo.select &= 0x7F;
+    case APPLI_MSC_WAIT:
 
-        switch (demo.select)
+        if( demo.select != prev_select )
         {
-        case 0:
-          demo.msc_state = APPLI_MSC_FILE_OPERATIONS;
-          break;
+            prev_select = demo.select;
+            Demo_SelectItem( MSC_main_menu, demo.select & 0x7F );
 
-        case 1:
-          demo.msc_state = APPLI_MSC_EXPLORER;
-          break;
+            /* Handle select item */
+            if( demo.select & 0x80 )
+            {
+                demo.select &= 0x7F;
 
-        case 2:                /* Return */
-          demo.state = DEMO_IDLE;
-          demo.select = 0;
-          LCD_UsrLogY("> MSC application closed.\n");
-          f_mount(0, 0, 0);
-          break;
+                switch( demo.select )
+                {
+                case 0:
+                    demo.msc_state = APPLI_MSC_FILE_OPERATIONS;
+                    break;
 
-        default:
-          break;
+                case 1:
+                    demo.msc_state = APPLI_MSC_EXPLORER;
+                    break;
+
+                case 2:                /* Return */
+                    demo.state = DEMO_IDLE;
+                    demo.select = 0;
+                    LCD_UsrLogY( "> MSC application closed.\n" );
+                    f_mount( 0, 0, 0 );
+                    break;
+
+                default:
+                    break;
+                }
+            }
         }
-      }
+
+        break;
+
+    case APPLI_MSC_FILE_OPERATIONS:
+
+        /* Read and Write File Here */
+        if( Appli_HS_state == APPLICATION_HS_READY )
+        {
+            MSC_File_Operations();
+        }
+
+        demo.msc_state = APPLI_MSC_WAIT;
+        break;
+
+    case APPLI_MSC_EXPLORER:
+
+        /* Display disk content */
+        if( Appli_HS_state == APPLICATION_HS_READY )
+        {
+            Explore_Disk( "0:/", 1 );
+        }
+
+        demo.msc_state = APPLI_MSC_WAIT;
+        break;
+
+    default:
+        break;
     }
-    break;
-
-  case APPLI_MSC_FILE_OPERATIONS:
-
-    /* Read and Write File Here */
-    if (Appli_HS_state == APPLICATION_HS_READY)
-    {
-      MSC_File_Operations();
-    }
-    demo.msc_state = APPLI_MSC_WAIT;
-    break;
-
-  case APPLI_MSC_EXPLORER:
-    /* Display disk content */
-    if (Appli_HS_state == APPLICATION_HS_READY)
-    {
-      Explore_Disk("0:/", 1);
-    }
-    demo.msc_state = APPLI_MSC_WAIT;
-    break;
-
-  default:
-    break;
-  }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

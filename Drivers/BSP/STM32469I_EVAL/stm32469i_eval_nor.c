@@ -97,7 +97,7 @@
 /** @defgroup STM32469I-EVAL_NOR_Private_Defines STM32469I EVAL NOR Private Defines
   * @{
   */
-  
+
 /**
   * @}
   */
@@ -138,65 +138,65 @@ static FMC_NORSRAM_TimingTypeDef Timing;
   * @brief  Initializes the NOR device.
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_Init(void)
+uint8_t BSP_NOR_Init( void )
 {
-  NorHandle.Instance  = FMC_NORSRAM_DEVICE;
-  NorHandle.Extended  = FMC_NORSRAM_EXTENDED_DEVICE;
+    NorHandle.Instance  = FMC_NORSRAM_DEVICE;
+    NorHandle.Extended  = FMC_NORSRAM_EXTENDED_DEVICE;
 
-  /* NOR device configuration */
-  Timing.AddressSetupTime      = 8;
-  Timing.AddressHoldTime       = 3;
-  Timing.DataSetupTime         = 9;
-  Timing.BusTurnAroundDuration = 0;
-  Timing.CLKDivision           = 2;
-  Timing.DataLatency           = 2;
-  Timing.AccessMode            = FMC_ACCESS_MODE_A;
+    /* NOR device configuration */
+    Timing.AddressSetupTime      = 8;
+    Timing.AddressHoldTime       = 3;
+    Timing.DataSetupTime         = 9;
+    Timing.BusTurnAroundDuration = 0;
+    Timing.CLKDivision           = 2;
+    Timing.DataLatency           = 2;
+    Timing.AccessMode            = FMC_ACCESS_MODE_A;
 
-  NorHandle.Init.NSBank             = FMC_NORSRAM_BANK1;
-  NorHandle.Init.DataAddressMux     = FMC_DATA_ADDRESS_MUX_DISABLE;
-  NorHandle.Init.MemoryType         = FMC_MEMORY_TYPE_NOR;
-  NorHandle.Init.MemoryDataWidth    = NOR_MEMORY_WIDTH;
-  NorHandle.Init.BurstAccessMode    = NOR_BURSTACCESS;
-  NorHandle.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW;
-  NorHandle.Init.WrapMode           = FMC_WRAP_MODE_DISABLE;
-  NorHandle.Init.WaitSignalActive   = FMC_WAIT_TIMING_BEFORE_WS;
-  NorHandle.Init.WriteOperation     = FMC_WRITE_OPERATION_ENABLE;
-  NorHandle.Init.WaitSignal         = FMC_WAIT_SIGNAL_ENABLE;
-  NorHandle.Init.ExtendedMode       = FMC_EXTENDED_MODE_DISABLE;
-  NorHandle.Init.AsynchronousWait   = FMC_ASYNCHRONOUS_WAIT_ENABLE;
-  NorHandle.Init.WriteBurst         = NOR_WRITEBURST;
-  NorHandle.Init.ContinuousClock    = CONTINUOUSCLOCK_FEATURE;
+    NorHandle.Init.NSBank             = FMC_NORSRAM_BANK1;
+    NorHandle.Init.DataAddressMux     = FMC_DATA_ADDRESS_MUX_DISABLE;
+    NorHandle.Init.MemoryType         = FMC_MEMORY_TYPE_NOR;
+    NorHandle.Init.MemoryDataWidth    = NOR_MEMORY_WIDTH;
+    NorHandle.Init.BurstAccessMode    = NOR_BURSTACCESS;
+    NorHandle.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW;
+    NorHandle.Init.WrapMode           = FMC_WRAP_MODE_DISABLE;
+    NorHandle.Init.WaitSignalActive   = FMC_WAIT_TIMING_BEFORE_WS;
+    NorHandle.Init.WriteOperation     = FMC_WRITE_OPERATION_ENABLE;
+    NorHandle.Init.WaitSignal         = FMC_WAIT_SIGNAL_ENABLE;
+    NorHandle.Init.ExtendedMode       = FMC_EXTENDED_MODE_DISABLE;
+    NorHandle.Init.AsynchronousWait   = FMC_ASYNCHRONOUS_WAIT_ENABLE;
+    NorHandle.Init.WriteBurst         = NOR_WRITEBURST;
+    NorHandle.Init.ContinuousClock    = CONTINUOUSCLOCK_FEATURE;
 
-  /* NOR controller initialization */
-  BSP_NOR_MspInit(&NorHandle, NULL);
+    /* NOR controller initialization */
+    BSP_NOR_MspInit( &NorHandle, NULL );
 
-  if(HAL_NOR_Init(&NorHandle, &Timing, &Timing) != HAL_OK)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    if( HAL_NOR_Init( &NorHandle, &Timing, &Timing ) != HAL_OK )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
   * @brief  DeInitializes the NOR device.
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_DeInit(void)
+uint8_t BSP_NOR_DeInit( void )
 {
-  /* NOR controller initialization */
-  BSP_NOR_MspDeInit(&NorHandle, NULL);
+    /* NOR controller initialization */
+    BSP_NOR_MspDeInit( &NorHandle, NULL );
 
-  if(HAL_NOR_DeInit(&NorHandle) != HAL_OK)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    if( HAL_NOR_DeInit( &NorHandle ) != HAL_OK )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
@@ -206,24 +206,24 @@ uint8_t BSP_NOR_DeInit(void)
   * @param  uwDataSize: Size of data to read
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_ReadData(uint32_t uwStartAddress, uint16_t* pData, uint32_t uwDataSize)
+uint8_t BSP_NOR_ReadData( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize )
 {
-  if(HAL_NOR_ReadBuffer(&NorHandle, NOR_DEVICE_ADDR + uwStartAddress, pData, uwDataSize) != HAL_OK)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    if( HAL_NOR_ReadBuffer( &NorHandle, NOR_DEVICE_ADDR + uwStartAddress, pData, uwDataSize ) != HAL_OK )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
   * @brief  Returns the NOR memory to read mode.
   */
-void BSP_NOR_ReturnToReadMode(void)
+void BSP_NOR_ReturnToReadMode( void )
 {
-   HAL_NOR_ReturnToReadMode(&NorHandle);
+    HAL_NOR_ReturnToReadMode( &NorHandle );
 }
 
 /**
@@ -233,28 +233,28 @@ void BSP_NOR_ReturnToReadMode(void)
   * @param  uwDataSize: Size of data to write
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_WriteData(uint32_t uwStartAddress, uint16_t* pData, uint32_t uwDataSize)
+uint8_t BSP_NOR_WriteData( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize )
 {
-  uint32_t index = uwDataSize;
+    uint32_t index = uwDataSize;
 
-  while(index > 0)
-  {
-    /* Write data to NOR */
-    HAL_NOR_Program(&NorHandle, (uint32_t *)(NOR_DEVICE_ADDR + uwStartAddress), pData);
-
-    /* Read NOR device status */
-    if(HAL_NOR_GetStatus(&NorHandle, NOR_DEVICE_ADDR, PROGRAM_TIMEOUT) != HAL_NOR_STATUS_SUCCESS)
+    while( index > 0 )
     {
-      return NOR_STATUS_ERROR;
+        /* Write data to NOR */
+        HAL_NOR_Program( &NorHandle, ( uint32_t * )( NOR_DEVICE_ADDR + uwStartAddress ), pData );
+
+        /* Read NOR device status */
+        if( HAL_NOR_GetStatus( &NorHandle, NOR_DEVICE_ADDR, PROGRAM_TIMEOUT ) != HAL_NOR_STATUS_SUCCESS )
+        {
+            return NOR_STATUS_ERROR;
+        }
+
+        /* Update the counters */
+        index--;
+        uwStartAddress += 2;
+        pData++;
     }
 
-    /* Update the counters */
-    index--;
-    uwStartAddress += 2;
-    pData++;
-  }
-  
-  return NOR_STATUS_OK;
+    return NOR_STATUS_OK;
 }
 
 /**
@@ -264,20 +264,20 @@ uint8_t BSP_NOR_WriteData(uint32_t uwStartAddress, uint16_t* pData, uint32_t uwD
   * @param  uwDataSize: Size of data to write
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_ProgramData(uint32_t uwStartAddress, uint16_t* pData, uint32_t uwDataSize)
+uint8_t BSP_NOR_ProgramData( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize )
 {
-  /* Send NOR program buffer operation */
-  HAL_NOR_ProgramBuffer(&NorHandle, uwStartAddress, pData, uwDataSize);
+    /* Send NOR program buffer operation */
+    HAL_NOR_ProgramBuffer( &NorHandle, uwStartAddress, pData, uwDataSize );
 
-  /* Return the NOR memory status */
-  if(HAL_NOR_GetStatus(&NorHandle, NOR_DEVICE_ADDR, PROGRAM_TIMEOUT) != HAL_NOR_STATUS_SUCCESS)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    /* Return the NOR memory status */
+    if( HAL_NOR_GetStatus( &NorHandle, NOR_DEVICE_ADDR, PROGRAM_TIMEOUT ) != HAL_NOR_STATUS_SUCCESS )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
@@ -285,40 +285,40 @@ uint8_t BSP_NOR_ProgramData(uint32_t uwStartAddress, uint16_t* pData, uint32_t u
   * @param  BlockAddress: Block address to erase
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_Erase_Block(uint32_t BlockAddress)
+uint8_t BSP_NOR_Erase_Block( uint32_t BlockAddress )
 {
-  /* Send NOR erase block operation */
-  HAL_NOR_Erase_Block(&NorHandle, BlockAddress, NOR_DEVICE_ADDR);
+    /* Send NOR erase block operation */
+    HAL_NOR_Erase_Block( &NorHandle, BlockAddress, NOR_DEVICE_ADDR );
 
-  /* Return the NOR memory status */
-  if(HAL_NOR_GetStatus(&NorHandle, NOR_DEVICE_ADDR, BLOCKERASE_TIMEOUT) != HAL_NOR_STATUS_SUCCESS)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    /* Return the NOR memory status */
+    if( HAL_NOR_GetStatus( &NorHandle, NOR_DEVICE_ADDR, BLOCKERASE_TIMEOUT ) != HAL_NOR_STATUS_SUCCESS )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
   * @brief  Erases the entire NOR chip.
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_Erase_Chip(void)
+uint8_t BSP_NOR_Erase_Chip( void )
 {
-  /* Send NOR Erase chip operation */
-  HAL_NOR_Erase_Chip(&NorHandle, NOR_DEVICE_ADDR);
+    /* Send NOR Erase chip operation */
+    HAL_NOR_Erase_Chip( &NorHandle, NOR_DEVICE_ADDR );
 
-  /* Return the NOR memory status */
-  if(HAL_NOR_GetStatus(&NorHandle, NOR_DEVICE_ADDR, CHIPERASE_TIMEOUT) != HAL_NOR_STATUS_SUCCESS)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  } 
+    /* Return the NOR memory status */
+    if( HAL_NOR_GetStatus( &NorHandle, NOR_DEVICE_ADDR, CHIPERASE_TIMEOUT ) != HAL_NOR_STATUS_SUCCESS )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
@@ -326,16 +326,16 @@ uint8_t BSP_NOR_Erase_Chip(void)
   * @param  pNOR_ID : Pointer to NOR ID structure
   * @retval NOR memory status
   */
-uint8_t BSP_NOR_Read_ID(NOR_IDTypeDef *pNOR_ID)
+uint8_t BSP_NOR_Read_ID( NOR_IDTypeDef *pNOR_ID )
 {
-  if(HAL_NOR_Read_ID(&NorHandle, pNOR_ID) != HAL_OK)
-  {
-    return NOR_STATUS_ERROR;
-  }
-  else
-  {
-    return NOR_STATUS_OK;
-  }
+    if( HAL_NOR_Read_ID( &NorHandle, pNOR_ID ) != HAL_OK )
+    {
+        return NOR_STATUS_ERROR;
+    }
+    else
+    {
+        return NOR_STATUS_OK;
+    }
 }
 
 /**
@@ -343,46 +343,46 @@ uint8_t BSP_NOR_Read_ID(NOR_IDTypeDef *pNOR_ID)
   * @param  hnor: pointer to nor structure
   * @param  Params : pointer on additional configuration parameters, can be NULL.
   */
-__weak void BSP_NOR_MspInit(NOR_HandleTypeDef *hnor, void *Params)
+__weak void BSP_NOR_MspInit( NOR_HandleTypeDef *hnor, void *Params )
 {
-  GPIO_InitTypeDef gpio_init_structure;
+    GPIO_InitTypeDef gpio_init_structure;
 
-  /* Enable FMC clock */
-  __HAL_RCC_FMC_CLK_ENABLE();
+    /* Enable FMC clock */
+    __HAL_RCC_FMC_CLK_ENABLE();
 
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
 
-  /* Common GPIO configuration */
-  gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
-  gpio_init_structure.Pull      = GPIO_PULLUP;
-  gpio_init_structure.Speed     = GPIO_SPEED_HIGH;
-  gpio_init_structure.Alternate = GPIO_AF12_FMC;
+    /* Common GPIO configuration */
+    gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
+    gpio_init_structure.Pull      = GPIO_PULLUP;
+    gpio_init_structure.Speed     = GPIO_SPEED_HIGH;
+    gpio_init_structure.Alternate = GPIO_AF12_FMC;
 
-  /* GPIOD configuration */
-  gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6   |\
-                              GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 |\
-                              GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOD, &gpio_init_structure);
+    /* GPIOD configuration */
+    gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6   | \
+                                GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | \
+                                GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOD, &gpio_init_structure );
 
-  /* GPIOE configuration */
-  gpio_init_structure.Pin   = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6   |\
-                              GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 |\
-                              GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOE, &gpio_init_structure);
+    /* GPIOE configuration */
+    gpio_init_structure.Pin   = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6   | \
+                                GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | \
+                                GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOE, &gpio_init_structure );
 
-  /* GPIOF configuration */
-  gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2| GPIO_PIN_3 | GPIO_PIN_4     |\
-                              GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOF, &gpio_init_structure);
+    /* GPIOF configuration */
+    gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4     | \
+                                GPIO_PIN_5 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+    HAL_GPIO_Init( GPIOF, &gpio_init_structure );
 
-  /* GPIOG configuration */
-  gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2| GPIO_PIN_3 | GPIO_PIN_4     |\
-                              GPIO_PIN_5;
-  HAL_GPIO_Init(GPIOG, &gpio_init_structure);
+    /* GPIOG configuration */
+    gpio_init_structure.Pin   = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4     | \
+                                GPIO_PIN_5;
+    HAL_GPIO_Init( GPIOG, &gpio_init_structure );
 }
 
 /**
@@ -391,14 +391,14 @@ __weak void BSP_NOR_MspInit(NOR_HandleTypeDef *hnor, void *Params)
   * @param  Params : pointer on additional configuration parameters, can be NULL.
   * @retval status
   */
-__weak uint8_t BSP_NOR_MspDeInit(NOR_HandleTypeDef *hnor, void *Params)
+__weak uint8_t BSP_NOR_MspDeInit( NOR_HandleTypeDef *hnor, void *Params )
 {
-  /* FMC won't be disabled because common to other functionalities */
+    /* FMC won't be disabled because common to other functionalities */
 
-  /* Disable only NOR specific GPIOs */
-  HAL_GPIO_DeInit(GPIOD, (GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7));
+    /* Disable only NOR specific GPIOs */
+    HAL_GPIO_DeInit( GPIOD, ( GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 ) );
 
-  return HAL_OK;
+    return HAL_OK;
 
 }
 
@@ -407,23 +407,23 @@ __weak uint8_t BSP_NOR_MspDeInit(NOR_HandleTypeDef *hnor, void *Params)
   * @param  hnor: Pointer to NOR handle
   * @param  Timeout: Timeout duration
   */
-void HAL_NOR_MspWait(NOR_HandleTypeDef *hnor, uint32_t Timeout)
+void HAL_NOR_MspWait( NOR_HandleTypeDef *hnor, uint32_t Timeout )
 {
-  uint32_t timeout = Timeout;
+    uint32_t timeout = Timeout;
 
-  /* Polling on Ready/Busy signal */
-  while((HAL_GPIO_ReadPin(NOR_READY_BUSY_GPIO, NOR_READY_BUSY_PIN) != NOR_BUSY_STATE) && (timeout > 0))
-  {
-    timeout--;
-  }
+    /* Polling on Ready/Busy signal */
+    while( ( HAL_GPIO_ReadPin( NOR_READY_BUSY_GPIO, NOR_READY_BUSY_PIN ) != NOR_BUSY_STATE ) && ( timeout > 0 ) )
+    {
+        timeout--;
+    }
 
-  timeout = Timeout;
+    timeout = Timeout;
 
-  /* Polling on Ready/Busy signal */
-  while((HAL_GPIO_ReadPin(NOR_READY_BUSY_GPIO, NOR_READY_BUSY_PIN) != NOR_READY_STATE) && (timeout > 0))
-  {
-    timeout--;
-  }
+    /* Polling on Ready/Busy signal */
+    while( ( HAL_GPIO_ReadPin( NOR_READY_BUSY_GPIO, NOR_READY_BUSY_PIN ) != NOR_READY_STATE ) && ( timeout > 0 ) )
+    {
+        timeout--;
+    }
 }
 
 /**

@@ -17,8 +17,8 @@
 
 /* Include auto-config file to find out which system include files we need. */
 
-#include "jconfig.h"		/* auto configuration options */
-#define JCONFIG_INCLUDED	/* so that jpeglib.h doesn't do it again */
+#include "jconfig.h"        /* auto configuration options */
+#define JCONFIG_INCLUDED    /* so that jpeglib.h doesn't do it again */
 
 
 
@@ -34,15 +34,15 @@
  */
 
 #ifdef HAVE_STDDEF_H
-#include <stddef.h>
+    #include <stddef.h>
 #endif
 
 #ifdef HAVE_STDLIB_H
-#include <stdlib.h>
+    #include <stdlib.h>
 #endif
 
 #ifdef NEED_SYS_TYPES_H
-#include <sys/types.h>
+    #include <sys/types.h>
 #endif
 
 #include <stdio.h>
@@ -59,15 +59,15 @@
 
 #ifdef NEED_BSD_STRINGS
 
-#include <strings.h>
-#define MEMZERO(target,size)	bzero((void *)(target), (size_t)(size))
-#define MEMCOPY(dest,src,size)	bcopy((const void *)(src), (void *)(dest), (size_t)(size))
+    #include <strings.h>
+    #define MEMZERO(target,size)    bzero((void *)(target), (size_t)(size))
+    #define MEMCOPY(dest,src,size)  bcopy((const void *)(src), (void *)(dest), (size_t)(size))
 
 #else /* not BSD, assume ANSI/SysV string lib */
 
-#include <string.h>
-#define MEMZERO(target,size)	memset((void *)(target), 0, (size_t)(size))
-#define MEMCOPY(dest,src,size)	memcpy((void *)(dest), (const void *)(src), (size_t)(size))
+    #include <string.h>
+    #define MEMZERO(target,size)    memset((void *)(target), 0, (size_t)(size))
+    #define MEMCOPY(dest,src,size)  memcpy((void *)(dest), (const void *)(src), (size_t)(size))
 
 #endif
 
@@ -79,4 +79,4 @@
  * we always use this SIZEOF() macro in place of using sizeof() directly.
  */
 
-#define SIZEOF(object)	((size_t) sizeof(object))
+#define SIZEOF(object)  ((size_t) sizeof(object))

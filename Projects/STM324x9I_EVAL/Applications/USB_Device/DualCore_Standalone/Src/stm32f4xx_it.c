@@ -3,7 +3,7 @@
   * @file    USB_Device/DualCore_Standalone/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -16,8 +16,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -45,7 +45,7 @@ extern UART_HandleTypeDef UartHandle;
 /* TIM handler declared in "usbd_cdc_interface.c" file */
 extern TIM_HandleTypeDef TimHandle;
 /* Private function prototypes ----------------------------------------------- */
-static void GetPointerData(uint8_t * pbuf);
+static void GetPointerData( uint8_t *pbuf );
 /* Private functions --------------------------------------------------------- */
 
 /******************************************************************************/
@@ -57,7 +57,7 @@ static void GetPointerData(uint8_t * pbuf);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -66,12 +66,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -79,12 +79,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -92,12 +92,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -105,12 +105,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -118,7 +118,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -127,7 +127,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -136,7 +136,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -145,20 +145,22 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  static __IO uint32_t counter = 0;
-  HAL_IncTick();
+    static __IO uint32_t counter = 0;
+    HAL_IncTick();
 
-  if (counter++ == 10)
-  {
-    GetPointerData(HID_Buffer);
-    if ((HID_Buffer[1] != 0) || (HID_Buffer[2] != 0))
+    if( counter++ == 10 )
     {
-      USBD_HID_SendReport(&USBD_Device_FS, HID_Buffer, 4);
+        GetPointerData( HID_Buffer );
+
+        if( ( HID_Buffer[1] != 0 ) || ( HID_Buffer[2] != 0 ) )
+        {
+            USBD_HID_SendReport( &USBD_Device_FS, HID_Buffer, 4 );
+        }
+
+        counter = 0;
     }
-    counter = 0;
-  }
 }
 
 /******************************************************************************/
@@ -173,36 +175,36 @@ void SysTick_Handler(void)
   * @param  pbuf: Pointer to report
   * @retval None
   */
-static void GetPointerData(uint8_t * pbuf)
+static void GetPointerData( uint8_t *pbuf )
 {
-  int8_t x = 0, y = 0;
+    int8_t x = 0, y = 0;
 
-  switch (BSP_JOY_GetState())
-  {
-  case JOY_LEFT:
-    x -= CURSOR_STEP;
-    break;
+    switch( BSP_JOY_GetState() )
+    {
+    case JOY_LEFT:
+        x -= CURSOR_STEP;
+        break;
 
-  case JOY_RIGHT:
-    x += CURSOR_STEP;
-    break;
+    case JOY_RIGHT:
+        x += CURSOR_STEP;
+        break;
 
-  case JOY_UP:
-    y -= CURSOR_STEP;
-    break;
+    case JOY_UP:
+        y -= CURSOR_STEP;
+        break;
 
-  case JOY_DOWN:
-    y += CURSOR_STEP;
-    break;
+    case JOY_DOWN:
+        y += CURSOR_STEP;
+        break;
 
-  default:
-    break;
-  }
+    default:
+        break;
+    }
 
-  pbuf[0] = 0;
-  pbuf[1] = x;
-  pbuf[2] = y;
-  pbuf[3] = 0;
+    pbuf[0] = 0;
+    pbuf[1] = x;
+    pbuf[2] = y;
+    pbuf[3] = 0;
 }
 
 /**
@@ -210,9 +212,9 @@ static void GetPointerData(uint8_t * pbuf)
   * @param  None
   * @retval None
   */
-void OTG_HS_IRQHandler(void)
+void OTG_HS_IRQHandler( void )
 {
-  HAL_PCD_IRQHandler(&hpcd_HS);
+    HAL_PCD_IRQHandler( &hpcd_HS );
 }
 
 /**
@@ -220,9 +222,9 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void OTG_FS_IRQHandler(void)
+void OTG_FS_IRQHandler( void )
 {
-  HAL_PCD_IRQHandler(&hpcd_FS);
+    HAL_PCD_IRQHandler( &hpcd_FS );
 }
 
 /**
@@ -230,19 +232,19 @@ void OTG_FS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void USARTx_DMA_TX_IRQHandler(void)
+void USARTx_DMA_TX_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(UartHandle.hdmatx);
+    HAL_DMA_IRQHandler( UartHandle.hdmatx );
 }
 
 /**
-  * @brief  This function handles UART interrupt request.  
+  * @brief  This function handles UART interrupt request.
   * @param  None
   * @retval None
   */
-void USARTx_IRQHandler(void)
+void USARTx_IRQHandler( void )
 {
-  HAL_UART_IRQHandler(&UartHandle);
+    HAL_UART_IRQHandler( &UartHandle );
 }
 
 /**
@@ -250,9 +252,9 @@ void USARTx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIMx_IRQHandler(void)
+void TIMx_IRQHandler( void )
 {
-  HAL_TIM_IRQHandler(&TimHandle);
+    HAL_TIM_IRQHandler( &TimHandle );
 }
 
 /**

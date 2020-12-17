@@ -63,27 +63,27 @@
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspInit( ADC_HandleTypeDef *hadc )
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
+    GPIO_InitTypeDef          GPIO_InitStruct;
 
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO clock ****************************************/
-  ADCx_CHANNEL_GPIO_CLK_ENABLE();
-  /* ADC3 Periph clock enable */
-  ADCx_CLK_ENABLE();
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* Enable GPIO clock ****************************************/
+    ADCx_CHANNEL_GPIO_CLK_ENABLE();
+    /* ADC3 Periph clock enable */
+    ADCx_CLK_ENABLE();
 
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* ADC Channel GPIO pin configuration */
-  GPIO_InitStruct.Pin = ADCx_CHANNEL_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ADCx_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    /* ADC Channel GPIO pin configuration */
+    GPIO_InitStruct.Pin = ADCx_CHANNEL_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init( ADCx_CHANNEL_GPIO_PORT, &GPIO_InitStruct );
 
-  /*##-3- Configure the NVIC #################################################*/
-  /* NVIC configuration for DMA transfer complete interrupt (USART1_TX) */
-  HAL_NVIC_SetPriority(ADCx_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(ADCx_IRQn);
+    /*##-3- Configure the NVIC #################################################*/
+    /* NVIC configuration for DMA transfer complete interrupt (USART1_TX) */
+    HAL_NVIC_SetPriority( ADCx_IRQn, 0, 0 );
+    HAL_NVIC_EnableIRQ( ADCx_IRQn );
 }
 
 /**
@@ -94,16 +94,16 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspDeInit( ADC_HandleTypeDef *hadc )
 {
 
-  /*##-1- Reset peripherals ##################################################*/
-  ADCx_FORCE_RESET();
-  ADCx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    ADCx_FORCE_RESET();
+    ADCx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
-  /* De-initialize the ADC Channel GPIO pin */
-  HAL_GPIO_DeInit(ADCx_CHANNEL_GPIO_PORT, ADCx_CHANNEL_PIN);
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    /* De-initialize the ADC Channel GPIO pin */
+    HAL_GPIO_DeInit( ADCx_CHANNEL_GPIO_PORT, ADCx_CHANNEL_PIN );
 }
 
 /**
@@ -114,10 +114,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
   * @param htim: TIM handle pointer
   * @retval None
   */
-void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_Base_MspInit( TIM_HandleTypeDef *htim )
 {
-  /* TIM8 Periph clock enable */
-  TIMx_CLK_ENABLE();
+    /* TIM8 Periph clock enable */
+    TIMx_CLK_ENABLE();
 }
 
 /**
@@ -128,12 +128,12 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
   * @param htim: TIM handle pointer
   * @retval None
   */
-void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_Base_MspDeInit( TIM_HandleTypeDef *htim )
 {
 
-  /*##-1- Reset peripherals ##################################################*/
-  TIMx_FORCE_RESET();
-  TIMx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    TIMx_FORCE_RESET();
+    TIMx_RELEASE_RESET();
 }
 
 /**

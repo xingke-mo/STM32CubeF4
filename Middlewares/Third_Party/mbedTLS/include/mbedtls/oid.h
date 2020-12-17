@@ -25,9 +25,9 @@
 #define MBEDTLS_OID_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "asn1.h"
@@ -36,15 +36,15 @@
 #include <stddef.h>
 
 #if defined(MBEDTLS_CIPHER_C)
-#include "cipher.h"
+    #include "cipher.h"
 #endif
 
 #if defined(MBEDTLS_MD_C)
-#include "md.h"
+    #include "md.h"
 #endif
 
 #if defined(MBEDTLS_X509_USE_C) || defined(MBEDTLS_X509_CREATE_C)
-#include "x509.h"
+    #include "x509.h"
 #endif
 
 #define MBEDTLS_ERR_OID_NOT_FOUND                         -0x002E  /**< OID is not found. */
@@ -467,7 +467,7 @@ int mbedtls_oid_get_pk_alg( const mbedtls_asn1_buf *oid, mbedtls_pk_type_t *pk_a
  * \return         0 if successful, or MBEDTLS_ERR_OID_NOT_FOUND
  */
 int mbedtls_oid_get_oid_by_pk_alg( mbedtls_pk_type_t pk_alg,
-                           const char **oid, size_t *olen );
+                                   const char **oid, size_t *olen );
 
 #if defined(MBEDTLS_ECP_C)
 /**
@@ -490,7 +490,7 @@ int mbedtls_oid_get_ec_grp( const mbedtls_asn1_buf *oid, mbedtls_ecp_group_id *g
  * \return         0 if successful, or MBEDTLS_ERR_OID_NOT_FOUND
  */
 int mbedtls_oid_get_oid_by_ec_grp( mbedtls_ecp_group_id grp_id,
-                           const char **oid, size_t *olen );
+                                   const char **oid, size_t *olen );
 #endif /* MBEDTLS_ECP_C */
 
 #if defined(MBEDTLS_MD_C)
@@ -504,7 +504,7 @@ int mbedtls_oid_get_oid_by_ec_grp( mbedtls_ecp_group_id grp_id,
  * \return         0 if successful, or MBEDTLS_ERR_OID_NOT_FOUND
  */
 int mbedtls_oid_get_sig_alg( const mbedtls_asn1_buf *oid,
-                     mbedtls_md_type_t *md_alg, mbedtls_pk_type_t *pk_alg );
+                             mbedtls_md_type_t *md_alg, mbedtls_pk_type_t *pk_alg );
 
 /**
  * \brief          Translate SignatureAlgorithm OID into description
@@ -527,7 +527,7 @@ int mbedtls_oid_get_sig_alg_desc( const mbedtls_asn1_buf *oid, const char **desc
  * \return         0 if successful, or MBEDTLS_ERR_OID_NOT_FOUND
  */
 int mbedtls_oid_get_oid_by_sig_alg( mbedtls_pk_type_t pk_alg, mbedtls_md_type_t md_alg,
-                            const char **oid, size_t *olen );
+                                    const char **oid, size_t *olen );
 
 /**
  * \brief          Translate hash algorithm OID into md_type
@@ -595,7 +595,7 @@ int mbedtls_oid_get_cipher_alg( const mbedtls_asn1_buf *oid, mbedtls_cipher_type
  * \return         0 if successful, or MBEDTLS_ERR_OID_NOT_FOUND
  */
 int mbedtls_oid_get_pkcs12_pbe_alg( const mbedtls_asn1_buf *oid, mbedtls_md_type_t *md_alg,
-                            mbedtls_cipher_type_t *cipher_alg );
+                                    mbedtls_cipher_type_t *cipher_alg );
 #endif /* MBEDTLS_PKCS12_C */
 
 #ifdef __cplusplus

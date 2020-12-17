@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    PWR/PWR_CurrentConsumption/stm32f4xx_lp_modes.c 
+  * @file    PWR/PWR_CurrentConsumption/stm32f4xx_lp_modes.c
   * @author  MCD Application Team
-  * @brief   This file provides firmware functions to manage the following 
+  * @brief   This file provides firmware functions to manage the following
   *          functionalities of the STM32F4xx Low Power Modes:
   *           - Sleep Mode
   *           - STOP mode with RTC
@@ -48,7 +48,7 @@
 
 /** @addtogroup PWR_CurrentConsumption
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -58,7 +58,7 @@
 RTC_HandleTypeDef RTCHandle;
 
 /* Private function prototypes -----------------------------------------------*/
-static void SYSCLKConfig_STOP(void);
+static void SYSCLKConfig_STOP( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -66,86 +66,86 @@ static void SYSCLKConfig_STOP(void);
   * @brief  This function configures the system to enter Sleep mode for
   *         current consumption measurement purpose.
   *         Sleep Mode
-  *         ==========  
+  *         ==========
   *            - System Running at PLL (168MHz)
   *            - Flash 5 wait state
   *            - Instruction and Data caches ON
-  *            - Prefetch ON   
+  *            - Prefetch ON
   *            - Code running from Internal FLASH
   *            - All peripherals disabled.
   *            - Wake-up using EXTI Line (Key Button)
   * @param  None
   * @retval None
   */
-void SleepMode_Measure(void)
+void SleepMode_Measure( void )
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitTypeDef GPIO_InitStruct;
 
-  /* Configure all GPIO as analog to reduce current consumption on non used IOs */
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOI_CLK_ENABLE();
+    /* Configure all GPIO as analog to reduce current consumption on non used IOs */
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+    __HAL_RCC_GPIOI_CLK_ENABLE();
 
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Pin = GPIO_PIN_All;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pin = GPIO_PIN_All;
+    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOB, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOC, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOD, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOE, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOF, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOG, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOH, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOI, &GPIO_InitStruct );
 
-  /* Disable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_DISABLE();
-  __HAL_RCC_GPIOB_CLK_DISABLE();
-  __HAL_RCC_GPIOC_CLK_DISABLE();
-  __HAL_RCC_GPIOD_CLK_DISABLE();
-  __HAL_RCC_GPIOE_CLK_DISABLE();
-  __HAL_RCC_GPIOF_CLK_DISABLE();
-  __HAL_RCC_GPIOG_CLK_DISABLE();
-  __HAL_RCC_GPIOH_CLK_DISABLE();
-  __HAL_RCC_GPIOI_CLK_DISABLE();
-  
-  /* Configure Key Button */
-  BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
-  
-  /* Suspend Tick increment to prevent wake-up by Systick interrupt. 
-     Otherwise the Systick interrupt will wake up the device within 1ms (HAL time base) */
-  HAL_SuspendTick();
-  
-  /* Request to enter SLEEP mode */
-  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-  
-  /* Resume Tick interrupt if disabled prior to sleep mode entry */
-  HAL_ResumeTick();
+    /* Disable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_DISABLE();
+    __HAL_RCC_GPIOB_CLK_DISABLE();
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+    __HAL_RCC_GPIOD_CLK_DISABLE();
+    __HAL_RCC_GPIOE_CLK_DISABLE();
+    __HAL_RCC_GPIOF_CLK_DISABLE();
+    __HAL_RCC_GPIOG_CLK_DISABLE();
+    __HAL_RCC_GPIOH_CLK_DISABLE();
+    __HAL_RCC_GPIOI_CLK_DISABLE();
 
-  /* Initialize LED6 */
-  BSP_LED_Init(LED6);
-  
-  /* Turn LED6 On */
-  BSP_LED_On(LED6);
-  
-  /* Inserted Delay */
-  HAL_Delay(200);
+    /* Configure Key Button */
+    BSP_PB_Init( BUTTON_KEY, BUTTON_MODE_EXTI );
+
+    /* Suspend Tick increment to prevent wake-up by Systick interrupt.
+       Otherwise the Systick interrupt will wake up the device within 1ms (HAL time base) */
+    HAL_SuspendTick();
+
+    /* Request to enter SLEEP mode */
+    HAL_PWR_EnterSLEEPMode( PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI );
+
+    /* Resume Tick interrupt if disabled prior to sleep mode entry */
+    HAL_ResumeTick();
+
+    /* Initialize LED6 */
+    BSP_LED_Init( LED6 );
+
+    /* Turn LED6 On */
+    BSP_LED_On( LED6 );
+
+    /* Inserted Delay */
+    HAL_Delay( 200 );
 }
 
 /**
-  * @brief  This function configures the system to enter Stop mode with RTC 
+  * @brief  This function configures the system to enter Stop mode with RTC
   *         clocked by LSE or LSI  for current consumption measurement purpose.
   *         STOP Mode with RTC clocked by LSE/LSI
-  *         =====================================   
+  *         =====================================
   *           - RTC Clocked by LSE or LSI
   *           - Regulator in LP mode
   *           - HSI, HSE OFF and LSI OFF if not used as RTC Clock source
@@ -155,99 +155,99 @@ void SleepMode_Measure(void)
   * @param  None
   * @retval None
   */
-void StopMode_Measure(void)
+void StopMode_Measure( void )
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
-  
-  /* Configure all GPIO as analog to reduce current consumption on non used IOs */
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOI_CLK_ENABLE();
+    GPIO_InitTypeDef GPIO_InitStruct;
 
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Pin = GPIO_PIN_All;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+    /* Configure all GPIO as analog to reduce current consumption on non used IOs */
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+    __HAL_RCC_GPIOI_CLK_ENABLE();
 
-  /* Disable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_DISABLE();
-  __HAL_RCC_GPIOB_CLK_DISABLE();
-  __HAL_RCC_GPIOC_CLK_DISABLE();
-  __HAL_RCC_GPIOD_CLK_DISABLE();
-  __HAL_RCC_GPIOE_CLK_DISABLE();
-  __HAL_RCC_GPIOF_CLK_DISABLE();
-  __HAL_RCC_GPIOG_CLK_DISABLE();
-  __HAL_RCC_GPIOH_CLK_DISABLE();
-  __HAL_RCC_GPIOI_CLK_DISABLE();
-  
-  RTCHandle.Instance = RTC;
-    
-  /* Configure RTC prescaler and RTC data registers as follow:
-  - Hour Format = Format 24
-  - Asynch Prediv = Value according to source clock
-  - Synch Prediv = Value according to source clock
-  - OutPut = Output Disable
-  - OutPutPolarity = High Polarity
-  - OutPutType = Open Drain */ 
-  RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
-  RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
-  RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
-  RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
-  RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  
-  if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
-  
-  /*## Configure the Wake up timer ###########################################*/
-  /*  RTC Wake-up Interrupt Generation:
-      Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
-      Wake-up Time = Wake-up Time Base * WakeUpCounter 
-                  = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
-      ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pin = GPIO_PIN_All;
+    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOB, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOC, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOD, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOE, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOF, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOG, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOH, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOI, &GPIO_InitStruct );
 
-      To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
-        RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16 
-        Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
-        Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
-        ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
-  HAL_RTCEx_SetWakeUpTimer_IT(&RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+    /* Disable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_DISABLE();
+    __HAL_RCC_GPIOB_CLK_DISABLE();
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+    __HAL_RCC_GPIOD_CLK_DISABLE();
+    __HAL_RCC_GPIOE_CLK_DISABLE();
+    __HAL_RCC_GPIOF_CLK_DISABLE();
+    __HAL_RCC_GPIOG_CLK_DISABLE();
+    __HAL_RCC_GPIOH_CLK_DISABLE();
+    __HAL_RCC_GPIOI_CLK_DISABLE();
 
-  /* FLASH Deep Power Down Mode enabled */
-  HAL_PWREx_EnableFlashPowerDown();
+    RTCHandle.Instance = RTC;
 
-  /* Enter Stop Mode */
-  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+    /* Configure RTC prescaler and RTC data registers as follow:
+    - Hour Format = Format 24
+    - Asynch Prediv = Value according to source clock
+    - Synch Prediv = Value according to source clock
+    - OutPut = Output Disable
+    - OutPutPolarity = High Polarity
+    - OutPutType = Open Drain */
+    RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+    RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+    RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+    RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+    RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+    RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 
-  /* Configures system clock after wake-up from STOP: enable HSE, PLL and select 
-  PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-  SYSCLKConfig_STOP();
-  
-  /* Disable Wake-up timer */
-  if(HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
+    if( HAL_RTC_Init( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /*## Configure the Wake up timer ###########################################*/
+    /*  RTC Wake-up Interrupt Generation:
+        Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
+        Wake-up Time = Wake-up Time Base * WakeUpCounter
+                    = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
+        ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
+
+        To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
+          RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16
+          Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
+          Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
+          ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
+    HAL_RTCEx_SetWakeUpTimer_IT( &RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16 );
+
+    /* FLASH Deep Power Down Mode enabled */
+    HAL_PWREx_EnableFlashPowerDown();
+
+    /* Enter Stop Mode */
+    HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI );
+
+    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
+    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
+    SYSCLKConfig_STOP();
+
+    /* Disable Wake-up timer */
+    if( HAL_RTCEx_DeactivateWakeUpTimer( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 }
 
 /**
@@ -261,33 +261,33 @@ void StopMode_Measure(void)
   * @param  None
   * @retval None
   */
-void StandbyMode_Measure(void)
+void StandbyMode_Measure( void )
 {
-  /* Enable Power Clock*/
-  __HAL_RCC_PWR_CLK_ENABLE();
-  
-  /* Allow access to Backup */
-  HAL_PWR_EnableBkUpAccess();
+    /* Enable Power Clock*/
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* Reset RTC Domain */
-  __HAL_RCC_BACKUPRESET_FORCE();
-  __HAL_RCC_BACKUPRESET_RELEASE();  
-  
-  /* Disable all used wake-up sources: Pin1(PA.0) */
-  HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
-  
-  /* Clear all related wake-up flags */
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-  
-  /* Re-enable all used wake-up sources: Pin1(PA.0) */
-  HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
+    /* Allow access to Backup */
+    HAL_PWR_EnableBkUpAccess();
 
-  /* Request to enter STANDBY mode  */
-  HAL_PWR_EnterSTANDBYMode();
+    /* Reset RTC Domain */
+    __HAL_RCC_BACKUPRESET_FORCE();
+    __HAL_RCC_BACKUPRESET_RELEASE();
+
+    /* Disable all used wake-up sources: Pin1(PA.0) */
+    HAL_PWR_DisableWakeUpPin( PWR_WAKEUP_PIN1 );
+
+    /* Clear all related wake-up flags */
+    __HAL_PWR_CLEAR_FLAG( PWR_FLAG_WU );
+
+    /* Re-enable all used wake-up sources: Pin1(PA.0) */
+    HAL_PWR_EnableWakeUpPin( PWR_WAKEUP_PIN1 );
+
+    /* Request to enter STANDBY mode  */
+    HAL_PWR_EnterSTANDBYMode();
 }
 
 /**
-  * @brief  This function configures the system to enter Standby mode with RTC 
+  * @brief  This function configures the system to enter Standby mode with RTC
   *         clocked by LSE or LSI for current consumption measurement purpose.
   *         STANDBY Mode with RTC clocked by LSE/LSI
   *         ========================================
@@ -298,66 +298,66 @@ void StandbyMode_Measure(void)
   * @param  None
   * @retval None
   */
-void StandbyRTCMode_Measure(void)
+void StandbyRTCMode_Measure( void )
 {
-  RTCHandle.Instance = RTC;  
-  /* Configure RTC prescaler and RTC data registers as follow:
-  - Hour Format = Format 24
-  - Asynch Prediv = Value according to source clock
-  - Synch Prediv = Value according to source clock
-  - OutPut = Output Disable
-  - OutPutPolarity = High Polarity
-  - OutPutType = Open Drain */ 
-  RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
-  RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
-  RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
-  RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
-  RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  
-  if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
-  
-  /*## Configure the Wake up timer ###########################################*/
-  /*  RTC Wake-up Interrupt Generation:
-      Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
-      Wake-up Time = Wake-up Time Base * WakeUpCounter 
-                  = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
-      ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
+    RTCHandle.Instance = RTC;
+    /* Configure RTC prescaler and RTC data registers as follow:
+    - Hour Format = Format 24
+    - Asynch Prediv = Value according to source clock
+    - Synch Prediv = Value according to source clock
+    - OutPut = Output Disable
+    - OutPutPolarity = High Polarity
+    - OutPutType = Open Drain */
+    RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+    RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+    RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+    RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+    RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+    RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 
-      To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
-        RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16 
-        Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
-        Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
-        ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
-  /* Disable Wake-up timer */
-  if(HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
-  
-  /*#### Clear all related wake-up flags ######################################*/
-  /* Clear PWR wake up Flag */
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-  
-  /* Clear RTC Wake Up timer Flag */
-  __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(&RTCHandle, RTC_FLAG_WUTF);
-  
-  /*#### Setting the Wake up time ############################################*/
-  HAL_RTCEx_SetWakeUpTimer_IT(&RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
-  
-  /*#### Enter the Standby mode ##############################################*/
-  /* Request to enter STANDBY mode  */
-  HAL_PWR_EnterSTANDBYMode(); 
+    if( HAL_RTC_Init( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /*## Configure the Wake up timer ###########################################*/
+    /*  RTC Wake-up Interrupt Generation:
+        Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
+        Wake-up Time = Wake-up Time Base * WakeUpCounter
+                    = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
+        ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
+
+        To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
+          RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16
+          Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
+          Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
+          ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
+    /* Disable Wake-up timer */
+    if( HAL_RTCEx_DeactivateWakeUpTimer( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /*#### Clear all related wake-up flags ######################################*/
+    /* Clear PWR wake up Flag */
+    __HAL_PWR_CLEAR_FLAG( PWR_FLAG_WU );
+
+    /* Clear RTC Wake Up timer Flag */
+    __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG( &RTCHandle, RTC_FLAG_WUTF );
+
+    /*#### Setting the Wake up time ############################################*/
+    HAL_RTCEx_SetWakeUpTimer_IT( &RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16 );
+
+    /*#### Enter the Standby mode ##############################################*/
+    /* Request to enter STANDBY mode  */
+    HAL_PWR_EnterSTANDBYMode();
 }
 
 /**
-  * @brief  This function configures the system to enter Standby mode with RTC 
-  *         clocked by LSE or LSI and with Backup SRAM ON for current consumption 
+  * @brief  This function configures the system to enter Standby mode with RTC
+  *         clocked by LSE or LSI and with Backup SRAM ON for current consumption
   *         measurement purpose.
   *         STANDBY Mode with RTC clocked by LSE/LSI and BKPSRAM
   *         ====================================================
@@ -368,67 +368,67 @@ void StandbyRTCMode_Measure(void)
   * @param  None
   * @retval None
   */
-void StandbyRTCBKPSRAMMode_Measure(void)
-{   
-  /* Configure RTC prescaler and RTC data registers as follow:
-  - Hour Format = Format 24
-  - Asynch Prediv = Value according to source clock
-  - Synch Prediv = Value according to source clock
-  - OutPut = Output Disable
-  - OutPutPolarity = High Polarity
-  - OutPutType = Open Drain */ 
-  RTCHandle.Instance = RTC;
-  RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
-  RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
-  RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
-  RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
-  RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  
-  if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
+void StandbyRTCBKPSRAMMode_Measure( void )
+{
+    /* Configure RTC prescaler and RTC data registers as follow:
+    - Hour Format = Format 24
+    - Asynch Prediv = Value according to source clock
+    - Synch Prediv = Value according to source clock
+    - OutPut = Output Disable
+    - OutPutPolarity = High Polarity
+    - OutPutType = Open Drain */
+    RTCHandle.Instance = RTC;
+    RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+    RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+    RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+    RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+    RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+    RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 
-  /*## Configure the Wake up timer ###########################################*/
-  /*  RTC Wake-up Interrupt Generation:
-      Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
-      Wake-up Time = Wake-up Time Base * WakeUpCounter 
-                  = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
-      ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
+    if( HAL_RTC_Init( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
-      To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
-        RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16 
-        Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
-        Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
-        ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
-  /* Disable Wake-up timer */
-  if(HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler(); 
-  }
-  
-  /*#### Clear all related wake-up flags ######################################*/
-  /* Clear PWR wake up Flag */
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-  
-  /* Clear RTC Wake Up timer Flag */
-  __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(&RTCHandle, RTC_FLAG_WUTF);
-  
-  /*#### Setting the Wake up time ############################################*/
-  HAL_RTCEx_SetWakeUpTimer_IT(&RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+    /*## Configure the Wake up timer ###########################################*/
+    /*  RTC Wake-up Interrupt Generation:
+        Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
+        Wake-up Time = Wake-up Time Base * WakeUpCounter
+                    = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
+        ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
 
-  /* Enable BKPRAM Clock */
-  __HAL_RCC_BKPSRAM_CLK_ENABLE();
-  
-  /* Enable the Backup SRAM low power Regulator */
-  HAL_PWREx_EnableBkUpReg();
+        To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
+          RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16
+          Wake-up Time Base = 16 /(~32.768KHz) = ~0,488 ms
+          Wake-up Time = ~20s = 0,488ms  * WakeUpCounter
+          ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
+    /* Disable Wake-up timer */
+    if( HAL_RTCEx_DeactivateWakeUpTimer( &RTCHandle ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
-  /*#### Enter the Standby mode ##############################################*/
-  /* Request to enter STANDBY mode  */
-  HAL_PWR_EnterSTANDBYMode();    
+    /*#### Clear all related wake-up flags ######################################*/
+    /* Clear PWR wake up Flag */
+    __HAL_PWR_CLEAR_FLAG( PWR_FLAG_WU );
+
+    /* Clear RTC Wake Up timer Flag */
+    __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG( &RTCHandle, RTC_FLAG_WUTF );
+
+    /*#### Setting the Wake up time ############################################*/
+    HAL_RTCEx_SetWakeUpTimer_IT( &RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16 );
+
+    /* Enable BKPRAM Clock */
+    __HAL_RCC_BKPSRAM_CLK_ENABLE();
+
+    /* Enable the Backup SRAM low power Regulator */
+    HAL_PWREx_EnableBkUpReg();
+
+    /*#### Enter the Standby mode ##############################################*/
+    /* Request to enter STANDBY mode  */
+    HAL_PWR_EnterSTANDBYMode();
 }
 
 /**
@@ -437,43 +437,45 @@ void StandbyRTCBKPSRAMMode_Measure(void)
   * @param  None
   * @retval None
   */
-static void SYSCLKConfig_STOP(void)
+static void SYSCLKConfig_STOP( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  uint32_t pFLatency = 0;
-  
-  /* Get the Oscillators configuration according to the internal RCC registers */
-  HAL_RCC_GetOscConfig(&RCC_OscInitStruct);
-  
-  /* After wake-up from STOP reconfigure the system clock: Enable HSE and PLL */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+    uint32_t pFLatency = 0;
 
-  /* Get the Clocks configuration according to the internal RCC registers */
-  HAL_RCC_GetClockConfig(&RCC_ClkInitStruct, &pFLatency);
-  
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
-     clocks dividers */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, pFLatency) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /* Get the Oscillators configuration according to the internal RCC registers */
+    HAL_RCC_GetOscConfig( &RCC_OscInitStruct );
+
+    /* After wake-up from STOP reconfigure the system clock: Enable HSE and PLL */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /* Get the Clocks configuration according to the internal RCC registers */
+    HAL_RCC_GetClockConfig( &RCC_ClkInitStruct, &pFLatency );
+
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+       clocks dividers */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, pFLatency ) != HAL_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    Examples_LL/USART/USART_Communication_Tx_IT/Src/stm32f4xx_it.c
   * @author  MCD Application Team
@@ -63,7 +63,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -72,12 +72,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -85,12 +85,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -98,12 +98,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -111,12 +111,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -124,7 +124,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -133,7 +133,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -142,7 +142,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -151,7 +151,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -167,17 +167,17 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void USER_BUTTON_IRQHANDLER(void)
+void USER_BUTTON_IRQHANDLER( void )
 {
-  /* Manage Flags */
-  if(LL_EXTI_IsActiveFlag_0_31(USER_BUTTON_EXTI_LINE) != RESET)
-  {
-    /* Clear EXTI flag */
-    LL_EXTI_ClearFlag_0_31(USER_BUTTON_EXTI_LINE);
+    /* Manage Flags */
+    if( LL_EXTI_IsActiveFlag_0_31( USER_BUTTON_EXTI_LINE ) != RESET )
+    {
+        /* Clear EXTI flag */
+        LL_EXTI_ClearFlag_0_31( USER_BUTTON_EXTI_LINE );
 
-    /* Handle user button press in dedicated function */
-    UserButton_Callback(); 
-  }
+        /* Handle user button press in dedicated function */
+        UserButton_Callback();
+    }
 }
 
 /**
@@ -185,31 +185,31 @@ void USER_BUTTON_IRQHANDLER(void)
   * Param   None
   * Retval  None
   */
-void USARTx_IRQHandler(void)
+void USARTx_IRQHandler( void )
 {
-  if(LL_USART_IsEnabledIT_TXE(USARTx_INSTANCE) && LL_USART_IsActiveFlag_TXE(USARTx_INSTANCE))
-  {
-    /* TXE flag will be automatically cleared when writing new data in DR register */
+    if( LL_USART_IsEnabledIT_TXE( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_TXE( USARTx_INSTANCE ) )
+    {
+        /* TXE flag will be automatically cleared when writing new data in DR register */
 
-    /* Call function in charge of handling empty DR => will lead to transmission of next character */
-    USART_TXEmpty_Callback();
-  }
+        /* Call function in charge of handling empty DR => will lead to transmission of next character */
+        USART_TXEmpty_Callback();
+    }
 
-  if(LL_USART_IsEnabledIT_TC(USARTx_INSTANCE) && LL_USART_IsActiveFlag_TC(USARTx_INSTANCE))
-  {
-    /* Clear TC flag */
-    LL_USART_ClearFlag_TC(USARTx_INSTANCE);
-    /* Call function in charge of handling end of transmission of sent character
-       and prepare next charcater transmission */
-    USART_CharTransmitComplete_Callback();
-  }
+    if( LL_USART_IsEnabledIT_TC( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_TC( USARTx_INSTANCE ) )
+    {
+        /* Clear TC flag */
+        LL_USART_ClearFlag_TC( USARTx_INSTANCE );
+        /* Call function in charge of handling end of transmission of sent character
+           and prepare next charcater transmission */
+        USART_CharTransmitComplete_Callback();
+    }
 
-  if(LL_USART_IsEnabledIT_ERROR(USARTx_INSTANCE) && LL_USART_IsActiveFlag_NE(USARTx_INSTANCE))
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
-	
+    if( LL_USART_IsEnabledIT_ERROR( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_NE( USARTx_INSTANCE ) )
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
+
 }
 
 /**

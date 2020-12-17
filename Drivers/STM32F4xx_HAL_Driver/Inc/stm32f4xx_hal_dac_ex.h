@@ -22,7 +22,7 @@
 #define __STM32F4xx_HAL_DAC_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx) || defined(STM32F417xx) ||\
@@ -92,15 +92,15 @@
   * @{
   */
 /* Extension features functions ***********************************************/
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef* hdac);
-HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t Amplitude);
-HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t Amplitude);
-HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef* hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
+uint32_t HAL_DACEx_DualGetValue( DAC_HandleTypeDef *hdac );
+HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate( DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude );
+HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate( DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude );
+HAL_StatusTypeDef HAL_DACEx_DualSetValue( DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2 );
 
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef* hdac);
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef* hdac);
-void HAL_DACEx_ErrorCallbackCh2(DAC_HandleTypeDef* hdac);
-void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef* hdac);
+void HAL_DACEx_ConvCpltCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_ConvHalfCpltCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_ErrorCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_DMAUnderrunCallbackCh2( DAC_HandleTypeDef *hdac );
 /**
   * @}
   */
@@ -155,16 +155,16 @@ void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef* hdac);
 /** @defgroup DACEx_Private_Functions DAC Private Functions
   * @{
   */
-void DAC_DMAConvCpltCh2(DMA_HandleTypeDef *hdma);
-void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma);
-void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma); 
+void DAC_DMAConvCpltCh2( DMA_HandleTypeDef *hdma );
+void DAC_DMAErrorCh2( DMA_HandleTypeDef *hdma );
+void DAC_DMAHalfConvCpltCh2( DMA_HandleTypeDef *hdma );
 /**
   * @}
   */
 #endif /* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx ||\
           STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx ||\
           STM32F410xx || STM32F446xx || STM32F469xx || STM32F479xx ||\
-		  STM32F413xx || STM32F423xx */
+          STM32F413xx || STM32F423xx */
 
 /**
   * @}
@@ -173,7 +173,7 @@ void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma);
 /**
   * @}
   */
-  
+
 #ifdef __cplusplus
 }
 #endif

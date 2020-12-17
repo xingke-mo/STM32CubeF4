@@ -40,37 +40,37 @@ Purpose     : Configuration file of GUIDemo
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without 
+  * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice, 
+  * 1. Redistribution of source code must retain the above copyright notice,
   *    this list of conditions and the following disclaimer.
   * 2. Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
   *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other 
-  *    contributors to this software may be used to endorse or promote products 
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
   *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this 
+  * 4. This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
   *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under 
-  *    this license is void and will automatically terminate your rights under 
-  *    this license. 
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
-  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
-  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
@@ -87,19 +87,19 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #include "GUI.h"
 
 #if GUI_WINSUPPORT
-  #include "WM.h"
+#include "WM.h"
 
-  #include "CHECKBOX.h"
-  #include "FRAMEWIN.h"
-  #include "PROGBAR.h"
-  #include "TEXT.h"
-  #include "BUTTON.h"
-  #include "SLIDER.h"
-  #include "HEADER.h"
-  #include "GRAPH.h"
-  #include "ICONVIEW.h"
-  #include "LISTVIEW.h"
-  #include "TREEVIEW.h"
+#include "CHECKBOX.h"
+#include "FRAMEWIN.h"
+#include "PROGBAR.h"
+#include "TEXT.h"
+#include "BUTTON.h"
+#include "SLIDER.h"
+#include "HEADER.h"
+#include "GRAPH.h"
+#include "ICONVIEW.h"
+#include "LISTVIEW.h"
+#include "TREEVIEW.h"
 #endif
 
 /*********************************************************************
@@ -140,43 +140,43 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 */
 
 #ifndef   SHOW_GUIDEMO_BITMAP
-  #define SHOW_GUIDEMO_BITMAP            (1)
+#define SHOW_GUIDEMO_BITMAP            (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_COLORBAR
-  #define SHOW_GUIDEMO_COLORBAR          (1)
+#define SHOW_GUIDEMO_COLORBAR          (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_CURSOR
-  #define SHOW_GUIDEMO_CURSOR            (1)
+#define SHOW_GUIDEMO_CURSOR            (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_GRAPH
-  #define SHOW_GUIDEMO_GRAPH             (1)
+#define SHOW_GUIDEMO_GRAPH             (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_LISTVIEW
-  #define SHOW_GUIDEMO_LISTVIEW          (1)
+#define SHOW_GUIDEMO_LISTVIEW          (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_SPEED
-  #define SHOW_GUIDEMO_SPEED             (1)
+#define SHOW_GUIDEMO_SPEED             (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_TREEVIEW
-  #define SHOW_GUIDEMO_TREEVIEW          (1)
+#define SHOW_GUIDEMO_TREEVIEW          (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_ICONVIEW
-  #define SHOW_GUIDEMO_ICONVIEW          (1)
+#define SHOW_GUIDEMO_ICONVIEW          (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_AUTOMOTIVE
-  #define SHOW_GUIDEMO_AUTOMOTIVE        (1)
+#define SHOW_GUIDEMO_AUTOMOTIVE        (1)
 #endif
 
 #ifndef   SHOW_GUIDEMO_TRANSPARENTDIALOG
-  #define SHOW_GUIDEMO_TRANSPARENTDIALOG (1)
+#define SHOW_GUIDEMO_TRANSPARENTDIALOG (1)
 #endif
 
 /*********************************************************************
@@ -186,13 +186,13 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 **********************************************************************
 */
 #ifndef   GUIDEMO_SHOW_SPRITES
-  #define GUIDEMO_SHOW_SPRITES    (1)
+#define GUIDEMO_SHOW_SPRITES    (1)
 #endif
 #ifndef   GUIDEMO_USE_VNC
-  #define GUIDEMO_USE_VNC         (0)
+#define GUIDEMO_USE_VNC         (0)
 #endif
 #ifndef   GUIDEMO_USE_AUTO_BK
-  #define GUIDEMO_USE_AUTO_BK     (1)
+#define GUIDEMO_USE_AUTO_BK     (1)
 #endif
 
 #define GUIDEMO_CF_SHOW_SPRITES (GUIDEMO_SHOW_SPRITES <<  0)
@@ -203,13 +203,14 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 *       GUIDEMO_CONFIG
 */
-typedef struct GUIDEMO_CONFIG {
-  void (* * apFunc)(void);
-  int       NumDemos;
-  U16       Flags;
-  #if GUIDEMO_USE_VNC
-    int  (* pGUI_VNC_X_StartServer)(int LayerIndex, int ServerIndex);
-  #endif
+typedef struct GUIDEMO_CONFIG
+{
+    void ( * * apFunc )( void );
+    int       NumDemos;
+    U16       Flags;
+#if GUIDEMO_USE_VNC
+    int ( * pGUI_VNC_X_StartServer )( int LayerIndex, int ServerIndex );
+#endif
 } GUIDEMO_CONFIG;
 
 /*********************************************************************
@@ -218,26 +219,26 @@ typedef struct GUIDEMO_CONFIG {
 *
 **********************************************************************
 */
-void GUIDEMO_AddIntToString   (char * acText, unsigned int Number);
-void GUIDEMO_AddStringToString(char * acText, const char * acAdd);
-int  GUIDEMO_CheckCancel      (void);
-void GUIDEMO_ClearText        (char * acText);
-void GUIDEMO_Config           (GUIDEMO_CONFIG * pConfig);
-void GUIDEMO_Delay            (int t);
-void GUIDEMO_DrawBk           (int DrawLogo);
-U16  GUIDEMO_GetConfFlag      (U16 Flag);
-int  GUIDEMO_GetTime          (void);
-void GUIDEMO_HideControlWin   (void);
-void GUIDEMO_HideInfoWin      (void);
-void GUIDEMO_NotifyStartNext  (void);
-void GUIDEMO_SetDrawLogo      (U8 OnOff);
-void GUIDEMO_ShowControlWin   (void);
-void GUIDEMO_ShowInfo         (const char * acInfo);
-void GUIDEMO_ShowInfoWin      (void);
-void GUIDEMO_ShowIntro        (const char * acText, const char * acDescription);
-void GUIDEMO_UpdateControlText(void);
-void GUIDEMO_Wait             (int TimeWait);
-void GUIDEMO_Main             (void);
+void GUIDEMO_AddIntToString( char *acText, unsigned int Number );
+void GUIDEMO_AddStringToString( char *acText, const char *acAdd );
+int  GUIDEMO_CheckCancel( void );
+void GUIDEMO_ClearText( char *acText );
+void GUIDEMO_Config( GUIDEMO_CONFIG *pConfig );
+void GUIDEMO_Delay( int t );
+void GUIDEMO_DrawBk( int DrawLogo );
+U16  GUIDEMO_GetConfFlag( U16 Flag );
+int  GUIDEMO_GetTime( void );
+void GUIDEMO_HideControlWin( void );
+void GUIDEMO_HideInfoWin( void );
+void GUIDEMO_NotifyStartNext( void );
+void GUIDEMO_SetDrawLogo( U8 OnOff );
+void GUIDEMO_ShowControlWin( void );
+void GUIDEMO_ShowInfo( const char *acInfo );
+void GUIDEMO_ShowInfoWin( void );
+void GUIDEMO_ShowIntro( const char *acText, const char *acDescription );
+void GUIDEMO_UpdateControlText( void );
+void GUIDEMO_Wait( int TimeWait );
+void GUIDEMO_Main( void );
 
 /*********************************************************************
 *
@@ -245,27 +246,27 @@ void GUIDEMO_Main             (void);
 *
 **********************************************************************
 */
-void GUIDEMO_AntialiasedText  (void);
-void GUIDEMO_Automotive       (void);
-void GUIDEMO_BarGraph         (void);
-void GUIDEMO_Bitmap           (void);
-void GUIDEMO_ColorBar         (void);
-void GUIDEMO_Cursor           (void);
-void GUIDEMO_Fading           (void);
-void GUIDEMO_Graph            (void);
-void GUIDEMO_IconView         (void);
-void GUIDEMO_ImageFlow        (void);
-void GUIDEMO_Intro            (void);
-void GUIDEMO_Listview         (void);
-void GUIDEMO_RadialMenu       (void);
-void GUIDEMO_Skinning         (void);
-void GUIDEMO_Speed            (void);
-void GUIDEMO_Speedometer      (void);
-void GUIDEMO_TransparentDialog(void);
-void GUIDEMO_Treeview         (void);
-void GUIDEMO_VScreen          (void);
-void GUIDEMO_WashingMachine   (void);
-void GUIDEMO_ZoomAndRotate    (void);
+void GUIDEMO_AntialiasedText( void );
+void GUIDEMO_Automotive( void );
+void GUIDEMO_BarGraph( void );
+void GUIDEMO_Bitmap( void );
+void GUIDEMO_ColorBar( void );
+void GUIDEMO_Cursor( void );
+void GUIDEMO_Fading( void );
+void GUIDEMO_Graph( void );
+void GUIDEMO_IconView( void );
+void GUIDEMO_ImageFlow( void );
+void GUIDEMO_Intro( void );
+void GUIDEMO_Listview( void );
+void GUIDEMO_RadialMenu( void );
+void GUIDEMO_Skinning( void );
+void GUIDEMO_Speed( void );
+void GUIDEMO_Speedometer( void );
+void GUIDEMO_TransparentDialog( void );
+void GUIDEMO_Treeview( void );
+void GUIDEMO_VScreen( void );
+void GUIDEMO_WashingMachine( void );
+void GUIDEMO_ZoomAndRotate( void );
 
 /*********************************************************************
 *
@@ -287,7 +288,7 @@ extern GUI_CONST_STORAGE GUI_FONT   GUI_FontAA4_32;
 
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif // avoid multiple inclusion

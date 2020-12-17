@@ -36,8 +36,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -50,36 +50,36 @@
 #define __STM32F4xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"   
+#include "main.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void MemManage_Handler( void );
+void BusFault_Handler( void );
+void UsageFault_Handler( void );
+void SVC_Handler( void );
+void DebugMon_Handler( void );
+void PendSV_Handler( void );
+void SysTick_Handler( void );
 #ifdef USE_USB_FS
-void OTG_FS_IRQHandler(void);
+void OTG_FS_IRQHandler( void );
 #else
-void OTG_HS_IRQHandler(void);
+void OTG_HS_IRQHandler( void );
 #endif
-void EXTI9_5_IRQHandler(void);
-void EXTI2_IRQHandler(void);
-void EXTI15_10_IRQHandler(void);
-void AUDIO_SAIx_DMAx_IRQHandler(void);
-void DMA2_Stream5_IRQHandler(void);
-void DMA1_Stream2_IRQHandler(void);
+void EXTI9_5_IRQHandler( void );
+void EXTI2_IRQHandler( void );
+void EXTI15_10_IRQHandler( void );
+void AUDIO_SAIx_DMAx_IRQHandler( void );
+void DMA2_Stream5_IRQHandler( void );
+void DMA1_Stream2_IRQHandler( void );
 #ifdef __cplusplus
 }
 #endif

@@ -26,9 +26,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_MD4_C)
@@ -39,12 +39,12 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_MD4_ALT)
@@ -80,7 +80,9 @@ void mbedtls_md4_init( mbedtls_md4_context *ctx )
 void mbedtls_md4_free( mbedtls_md4_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_md4_context ) );
 }
@@ -258,24 +260,30 @@ int mbedtls_md4_update_ret( mbedtls_md4_context *ctx,
     uint32_t left;
 
     if( ilen == 0 )
+    {
         return( 0 );
+    }
 
     left = ctx->total[0] & 0x3F;
     fill = 64 - left;
 
-    ctx->total[0] += (uint32_t) ilen;
+    ctx->total[0] += ( uint32_t ) ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if( ctx->total[0] < (uint32_t) ilen )
+    if( ctx->total[0] < ( uint32_t ) ilen )
+    {
         ctx->total[1]++;
+    }
 
     if( left && ilen >= fill )
     {
-        memcpy( (void *) (ctx->buffer + left),
-                (void *) input, fill );
+        memcpy( ( void * )( ctx->buffer + left ),
+                ( void * ) input, fill );
 
         if( ( ret = mbedtls_internal_md4_process( ctx, ctx->buffer ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += fill;
         ilen  -= fill;
@@ -285,7 +293,9 @@ int mbedtls_md4_update_ret( mbedtls_md4_context *ctx,
     while( ilen >= 64 )
     {
         if( ( ret = mbedtls_internal_md4_process( ctx, input ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += 64;
         ilen  -= 64;
@@ -293,8 +303,8 @@ int mbedtls_md4_update_ret( mbedtls_md4_context *ctx,
 
     if( ilen > 0 )
     {
-        memcpy( (void *) (ctx->buffer + left),
-                (void *) input, ilen );
+        memcpy( ( void * )( ctx->buffer + left ),
+                ( void * ) input, ilen );
     }
 
     return( 0 );
@@ -311,7 +321,7 @@ void mbedtls_md4_update( mbedtls_md4_context *ctx,
 
 static const unsigned char md4_padding[64] =
 {
- 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -329,7 +339,7 @@ int mbedtls_md4_finish_ret( mbedtls_md4_context *ctx,
     unsigned char msglen[8];
 
     high = ( ctx->total[0] >> 29 )
-         | ( ctx->total[1] <<  3 );
+           | ( ctx->total[1] <<  3 );
     low  = ( ctx->total[0] <<  3 );
 
     PUT_UINT32_LE( low,  msglen, 0 );
@@ -338,12 +348,17 @@ int mbedtls_md4_finish_ret( mbedtls_md4_context *ctx,
     last = ctx->total[0] & 0x3F;
     padn = ( last < 56 ) ? ( 56 - last ) : ( 120 - last );
 
-    ret = mbedtls_md4_update_ret( ctx, (unsigned char *)md4_padding, padn );
+    ret = mbedtls_md4_update_ret( ctx, ( unsigned char * )md4_padding, padn );
+
     if( ret != 0 )
+    {
         return( ret );
+    }
 
     if( ( ret = mbedtls_md4_update_ret( ctx, msglen, 8 ) ) != 0 )
+    {
         return( ret );
+    }
 
 
     PUT_UINT32_LE( ctx->state[0], output,  0 );
@@ -377,13 +392,19 @@ int mbedtls_md4_ret( const unsigned char *input,
     mbedtls_md4_init( &ctx );
 
     if( ( ret = mbedtls_md4_starts_ret( &ctx ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_md4_update_ret( &ctx, input, ilen ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_md4_finish_ret( &ctx, output ) ) != 0 )
+    {
         goto exit;
+    }
 
 exit:
     mbedtls_md4_free( &ctx );
@@ -413,8 +434,10 @@ static const unsigned char md4_test_str[7][81] =
     { "message digest" },
     { "abcdefghijklmnopqrstuvwxyz" },
     { "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" },
-    { "12345678901234567890123456789012345678901234567890123456789012"
-      "345678901234567890" }
+    {
+        "12345678901234567890123456789012345678901234567890123456789012"
+        "345678901234567890"
+    }
 };
 
 static const size_t md4_test_strlen[7] =
@@ -424,20 +447,34 @@ static const size_t md4_test_strlen[7] =
 
 static const unsigned char md4_test_sum[7][16] =
 {
-    { 0x31, 0xD6, 0xCF, 0xE0, 0xD1, 0x6A, 0xE9, 0x31,
-      0xB7, 0x3C, 0x59, 0xD7, 0xE0, 0xC0, 0x89, 0xC0 },
-    { 0xBD, 0xE5, 0x2C, 0xB3, 0x1D, 0xE3, 0x3E, 0x46,
-      0x24, 0x5E, 0x05, 0xFB, 0xDB, 0xD6, 0xFB, 0x24 },
-    { 0xA4, 0x48, 0x01, 0x7A, 0xAF, 0x21, 0xD8, 0x52,
-      0x5F, 0xC1, 0x0A, 0xE8, 0x7A, 0xA6, 0x72, 0x9D },
-    { 0xD9, 0x13, 0x0A, 0x81, 0x64, 0x54, 0x9F, 0xE8,
-      0x18, 0x87, 0x48, 0x06, 0xE1, 0xC7, 0x01, 0x4B },
-    { 0xD7, 0x9E, 0x1C, 0x30, 0x8A, 0xA5, 0xBB, 0xCD,
-      0xEE, 0xA8, 0xED, 0x63, 0xDF, 0x41, 0x2D, 0xA9 },
-    { 0x04, 0x3F, 0x85, 0x82, 0xF2, 0x41, 0xDB, 0x35,
-      0x1C, 0xE6, 0x27, 0xE1, 0x53, 0xE7, 0xF0, 0xE4 },
-    { 0xE3, 0x3B, 0x4D, 0xDC, 0x9C, 0x38, 0xF2, 0x19,
-      0x9C, 0x3E, 0x7B, 0x16, 0x4F, 0xCC, 0x05, 0x36 }
+    {
+        0x31, 0xD6, 0xCF, 0xE0, 0xD1, 0x6A, 0xE9, 0x31,
+        0xB7, 0x3C, 0x59, 0xD7, 0xE0, 0xC0, 0x89, 0xC0
+    },
+    {
+        0xBD, 0xE5, 0x2C, 0xB3, 0x1D, 0xE3, 0x3E, 0x46,
+        0x24, 0x5E, 0x05, 0xFB, 0xDB, 0xD6, 0xFB, 0x24
+    },
+    {
+        0xA4, 0x48, 0x01, 0x7A, 0xAF, 0x21, 0xD8, 0x52,
+        0x5F, 0xC1, 0x0A, 0xE8, 0x7A, 0xA6, 0x72, 0x9D
+    },
+    {
+        0xD9, 0x13, 0x0A, 0x81, 0x64, 0x54, 0x9F, 0xE8,
+        0x18, 0x87, 0x48, 0x06, 0xE1, 0xC7, 0x01, 0x4B
+    },
+    {
+        0xD7, 0x9E, 0x1C, 0x30, 0x8A, 0xA5, 0xBB, 0xCD,
+        0xEE, 0xA8, 0xED, 0x63, 0xDF, 0x41, 0x2D, 0xA9
+    },
+    {
+        0x04, 0x3F, 0x85, 0x82, 0xF2, 0x41, 0xDB, 0x35,
+        0x1C, 0xE6, 0x27, 0xE1, 0x53, 0xE7, 0xF0, 0xE4
+    },
+    {
+        0xE3, 0x3B, 0x4D, 0xDC, 0x9C, 0x38, 0xF2, 0x19,
+        0x9C, 0x3E, 0x7B, 0x16, 0x4F, 0xCC, 0x05, 0x36
+    }
 };
 
 /*
@@ -451,11 +488,16 @@ int mbedtls_md4_self_test( int verbose )
     for( i = 0; i < 7; i++ )
     {
         if( verbose != 0 )
+        {
             mbedtls_printf( "  MD4 test #%d: ", i + 1 );
+        }
 
         ret = mbedtls_md4_ret( md4_test_str[i], md4_test_strlen[i], md4sum );
+
         if( ret != 0 )
+        {
             goto fail;
+        }
 
         if( memcmp( md4sum, md4_test_sum[i], 16 ) != 0 )
         {
@@ -464,17 +506,24 @@ int mbedtls_md4_self_test( int verbose )
         }
 
         if( verbose != 0 )
+        {
             mbedtls_printf( "passed\n" );
+        }
     }
 
     if( verbose != 0 )
+    {
         mbedtls_printf( "\n" );
+    }
 
     return( 0 );
 
 fail:
+
     if( verbose != 0 )
+    {
         mbedtls_printf( "failed\n" );
+    }
 
     return( ret );
 }

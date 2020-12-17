@@ -32,32 +32,32 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32446E_EVAL_IO_H
 #define __STM32446E_EVAL_IO_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif   
-   
+extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32446e_eval.h"
 /* Include IO component driver */
-#include "../Components/mfxstm32l152/mfxstm32l152.h"  
-   
+#include "../Components/mfxstm32l152/mfxstm32l152.h"
+
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup STM32446E_EVAL
   * @{
   */
-    
+
 /** @defgroup STM32446E_EVAL_IO STM32446E EVAL IO
   * @{
-  */    
+  */
 
 /** @defgroup STM32446E_EVAL_IO_Exported_Types STM32446E EVAL IO Exported Types
   * @{
@@ -65,16 +65,16 @@
 
 typedef enum
 {
-  BSP_IO_PIN_RESET = 0,
-  BSP_IO_PIN_SET   = 1
-}BSP_IO_PinStateTypeDef;
- 
-typedef enum 
+    BSP_IO_PIN_RESET = 0,
+    BSP_IO_PIN_SET   = 1
+} BSP_IO_PinStateTypeDef;
+
+typedef enum
 {
-  IO_OK       = 0,
-  IO_ERROR    = 1,
-  IO_TIMEOUT  = 2
-}IO_StatusTypeDef;
+    IO_OK       = 0,
+    IO_ERROR    = 1,
+    IO_TIMEOUT  = 2
+} IO_StatusTypeDef;
 
 /**
   * @}
@@ -82,7 +82,7 @@ typedef enum
 
 /** @defgroup STM32446E_EVAL_IO_Exported_Constants STM32446E EVAL IO Exported Constants
   * @{
-  */    
+  */
 #define IO_PIN_0                  ((uint32_t)0x0001)
 #define IO_PIN_1                  ((uint32_t)0x0002)
 #define IO_PIN_2                  ((uint32_t)0x0004)
@@ -107,14 +107,14 @@ typedef enum
 #define IO_PIN_21               ((uint32_t)0x200000)
 #define IO_PIN_22               ((uint32_t)0x400000)
 #define IO_PIN_23               ((uint32_t)0x800000)
-#define IO_PIN_ALL              ((uint32_t)0xFFFFFF)  
+#define IO_PIN_ALL              ((uint32_t)0xFFFFFF)
 /**
   * @}
   */
 
 /** @defgroup STM32446E_EVAL_IO_Exported_Macro STM32446E EVAL IO Exported Macro
   * @{
-  */ 
+  */
 /**
   * @}
   */
@@ -122,19 +122,15 @@ typedef enum
 /** @defgroup STM32446E_EVAL_IO_Exported_Functions STM32446E EVAL IO Exported Functions
   * @{
   */
-uint8_t  BSP_IO_Init(void);
-uint8_t  BSP_IO_DeInit(void);
-uint8_t  BSP_IO_ConfigIrqOutPin(uint8_t IoIrqOutPinPolarity, uint8_t IoIrqOutPinType);
-uint32_t BSP_IO_ITGetStatus(uint32_t IoPin);
-void     BSP_IO_ITClear(void);
-uint8_t  BSP_IO_ConfigPin(uint32_t IoPin, IO_ModeTypedef IoMode);
-void     BSP_IO_WritePin(uint32_t IoPin, BSP_IO_PinStateTypeDef PinState);
-uint32_t BSP_IO_ReadPin(uint32_t IoPin);
-void     BSP_IO_TogglePin(uint32_t IoPin);
-
-/**
-  * @}
-  */ 
+uint8_t  BSP_IO_Init( void );
+uint8_t  BSP_IO_DeInit( void );
+uint8_t  BSP_IO_ConfigIrqOutPin( uint8_t IoIrqOutPinPolarity, uint8_t IoIrqOutPinType );
+uint32_t BSP_IO_ITGetStatus( uint32_t IoPin );
+void     BSP_IO_ITClear( void );
+uint8_t  BSP_IO_ConfigPin( uint32_t IoPin, IO_ModeTypedef IoMode );
+void     BSP_IO_WritePin( uint32_t IoPin, BSP_IO_PinStateTypeDef PinState );
+uint32_t BSP_IO_ReadPin( uint32_t IoPin );
+void     BSP_IO_TogglePin( uint32_t IoPin );
 
 /**
   * @}
@@ -142,7 +138,11 @@ void     BSP_IO_TogglePin(uint32_t IoPin);
 
 /**
   * @}
-  */ 
+  */
+
+/**
+  * @}
+  */
 
 /**
   * @}

@@ -91,20 +91,21 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void   (*DemoFunc)(void);
-  uint8_t DemoName[50];
-  uint32_t DemoIndex;
+    void ( *DemoFunc )( void );
+    uint8_t DemoName[50];
+    uint32_t DemoIndex;
 
 } BSP_DemoTypedef;
 
 extern const unsigned char stlogo[];
 
-typedef enum {
-  AUDIO_ERROR_NONE = 0,
-  AUDIO_ERROR_NOTREADY,
-  AUDIO_ERROR_IO,
-  AUDIO_ERROR_EOF,
-}AUDIO_ErrorTypeDef;
+typedef enum
+{
+    AUDIO_ERROR_NONE = 0,
+    AUDIO_ERROR_NOTREADY,
+    AUDIO_ERROR_IO,
+    AUDIO_ERROR_EOF,
+} AUDIO_ErrorTypeDef;
 
 /* Exported variables ---------------------------------------------------*/
 extern volatile uint8_t exti0_received;
@@ -119,38 +120,38 @@ extern LCD_OrientationTypeDef lcd_display_orientation;
 
 /* Exported functions ------------------------------------------------------- */
 #ifdef JOYSTICK
-void Joystick_gpio_demo (void);
-void Joystick_exti_demo (void);
-void Joystick_SetCursorPosition(void);
+    void Joystick_gpio_demo( void );
+    void Joystick_exti_demo( void );
+    void Joystick_SetCursorPosition( void );
 #endif
 
-void AudioPlay_demo (void);
-void AudioRec_demo (void);
+void AudioPlay_demo( void );
+void AudioRec_demo( void );
 
-uint8_t  Touchscreen_Calibration (void);
-uint16_t TouchScreen_Get_Calibrated_X(uint16_t x);
-uint16_t TouchScreen_Get_Calibrated_Y(uint16_t y);
-uint8_t  TouchScreen_IsCalibrationDone(void);
-void     Touchscreen_DrawBackground_Circle_Buttons(uint8_t state);
-uint8_t  TouchScreen_GetTouchPosition(void);
-void     Touchscreen_demo1 (void);
-void     Touchscreen_demo2 (void);
-void     Touchscreen_demo3 (void);
+uint8_t  Touchscreen_Calibration( void );
+uint16_t TouchScreen_Get_Calibrated_X( uint16_t x );
+uint16_t TouchScreen_Get_Calibrated_Y( uint16_t y );
+uint8_t  TouchScreen_IsCalibrationDone( void );
+void     Touchscreen_DrawBackground_Circle_Buttons( uint8_t state );
+uint8_t  TouchScreen_GetTouchPosition( void );
+void     Touchscreen_demo1( void );
+void     Touchscreen_demo2( void );
+void     Touchscreen_demo3( void );
 
-void LCD_demo (void);
-void SD_demo (void);
-void SD_exti_demo (void);
-void Log_demo(void);
-void SDRAM_demo(void);
-void SDRAM_DMA_demo(void);
-void EEPROM_demo(void);
-void Animation_demo(void);
-uint8_t AUDIO_Play_Process(void);
-AUDIO_ErrorTypeDef AUDIO_Play_Start(uint32_t *psrc_address, uint32_t file_size);
-void QSPI_demo(void);
-uint8_t CheckForUserInput(void);
-uint8_t CheckForUserEarlyExit(void);
-void Toggle_Leds(void);
+void LCD_demo( void );
+void SD_demo( void );
+void SD_exti_demo( void );
+void Log_demo( void );
+void SDRAM_demo( void );
+void SDRAM_DMA_demo( void );
+void EEPROM_demo( void );
+void Animation_demo( void );
+uint8_t AUDIO_Play_Process( void );
+AUDIO_ErrorTypeDef AUDIO_Play_Start( uint32_t *psrc_address, uint32_t file_size );
+void QSPI_demo( void );
+uint8_t CheckForUserInput( void );
+uint8_t CheckForUserEarlyExit( void );
+void Toggle_Leds( void );
 
 #endif /* __MAIN_H */
 

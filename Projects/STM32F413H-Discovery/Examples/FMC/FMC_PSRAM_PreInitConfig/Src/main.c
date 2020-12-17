@@ -49,12 +49,12 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 #if defined(__ICCARM__)
-#pragma section =".psram"
+    #pragma section =".psram"
 #endif
 
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void GpioToggle(void);
+static void GpioToggle( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -63,25 +63,25 @@ static void GpioToggle(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
-  HAL_Init();
-  
-  /* Configure LEDs */
-  BSP_LED_Init(LED4);
-  BSP_LED_Init(LED3);
-  
-  while(1)
-  {
-    /* Execute the code from PSRAM memory ------------------------------------ */
-    GpioToggle();
-  }
+    /* STM32F4xx HAL library initialization:
+         - Configure the Flash prefetch, instruction and Data caches
+         - Configure the Systick to generate an interrupt each 1 msec
+         - Set NVIC Group Priority to 4
+         - Global MSP (MCU Support Package) initialization
+       */
+    HAL_Init();
+
+    /* Configure LEDs */
+    BSP_LED_Init( LED4 );
+    BSP_LED_Init( LED3 );
+
+    while( 1 )
+    {
+        /* Execute the code from PSRAM memory ------------------------------------ */
+        GpioToggle();
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -92,15 +92,15 @@ int main(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 
@@ -110,24 +110,24 @@ void assert_failed(uint8_t *file, uint32_t line)
   * @retval None
   */
 #if defined(__CC_ARM)
- #pragma arm section code = ".psram"
- #pragma no_inline
- static void GpioToggle(void)
+    #pragma arm section code = ".psram"
+    #pragma no_inline
+    static void GpioToggle( void )
 #elif defined(__ICCARM__)
- static void GpioToggle(void) @ ".psram"
+    static void GpioToggle( void ) @ ".psram"
 #elif defined(__GNUC__)
- static void __attribute__((section(".psram"), noinline)) GpioToggle(void)
+    static void __attribute__( ( section( ".psram" ), noinline ) ) GpioToggle( void )
 #endif
 {
-  BSP_LED_Toggle(LED4);
-  /* Insert delay 200 ms */
-  HAL_Delay(200);
-  BSP_LED_Toggle(LED3);
-  /* Insert delay 200 ms */
-  HAL_Delay(200);
+    BSP_LED_Toggle( LED4 );
+    /* Insert delay 200 ms */
+    HAL_Delay( 200 );
+    BSP_LED_Toggle( LED3 );
+    /* Insert delay 200 ms */
+    HAL_Delay( 200 );
 }
 #if defined(__CC_ARM)
-#pragma arm section code
+    #pragma arm section code
 #endif
 
 /**

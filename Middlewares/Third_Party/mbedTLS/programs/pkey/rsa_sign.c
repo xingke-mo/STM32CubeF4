@@ -20,22 +20,22 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_fprintf         fprintf
-#define mbedtls_printf          printf
-#define mbedtls_snprintf        snprintf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_fprintf         fprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_snprintf        snprintf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_RSA_C) ||  \
@@ -43,9 +43,9 @@
     !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
-            "MBEDTLS_MD_C and/or "
-            "MBEDTLS_SHA256_C and/or MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
+                    "MBEDTLS_MD_C and/or "
+                    "MBEDTLS_SHA256_C and/or MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -103,23 +103,24 @@ int main( int argc, char *argv[] )
     if( ( f = fopen( "rsa_priv.txt", "rb" ) ) == NULL )
     {
         mbedtls_printf( " failed\n  ! Could not open rsa_priv.txt\n" \
-                "  ! Please run rsa_genkey first\n\n" );
+                        "  ! Please run rsa_genkey first\n\n" );
         goto exit;
     }
 
-    if( ( ret = mbedtls_mpi_read_file( &N , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &E , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &D , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &P , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &Q , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &DP , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &DQ , 16, f ) ) != 0 ||
-        ( ret = mbedtls_mpi_read_file( &QP , 16, f ) ) != 0 )
+    if( ( ret = mbedtls_mpi_read_file( &N, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &E, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &D, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &P, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &Q, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &DP, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &DQ, 16, f ) ) != 0 ||
+            ( ret = mbedtls_mpi_read_file( &QP, 16, f ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_mpi_read_file returned %d\n\n", ret );
         fclose( f );
         goto exit;
     }
+
     fclose( f );
 
     if( ( ret = mbedtls_rsa_import( &rsa, &N, &P, &Q, &D, &E ) ) != 0 )
@@ -138,6 +139,7 @@ int main( int argc, char *argv[] )
 
     mbedtls_printf( "\n  . Checking the private key" );
     fflush( stdout );
+
     if( ( ret = mbedtls_rsa_check_privkey( &rsa ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_rsa_check_privkey failed with -0x%0x\n", -ret );
@@ -160,7 +162,7 @@ int main( int argc, char *argv[] )
     }
 
     if( ( ret = mbedtls_rsa_pkcs1_sign( &rsa, NULL, NULL, MBEDTLS_RSA_PRIVATE, MBEDTLS_MD_SHA256,
-                                20, hash, buf ) ) != 0 )
+                                        20, hash, buf ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_rsa_pkcs1_sign returned -0x%0x\n\n", -ret );
         goto exit;
@@ -169,7 +171,7 @@ int main( int argc, char *argv[] )
     /*
      * Write the signature into <filename>.sig
      */
-    mbedtls_snprintf( filename, sizeof(filename), "%s.sig", argv[1] );
+    mbedtls_snprintf( filename, sizeof( filename ), "%s.sig", argv[1] );
 
     if( ( f = fopen( filename, "wb+" ) ) == NULL )
     {
@@ -179,7 +181,7 @@ int main( int argc, char *argv[] )
 
     for( i = 0; i < rsa.len; i++ )
         mbedtls_fprintf( f, "%02X%s", buf[i],
-                 ( i + 1 ) % 16 == 0 ? "\r\n" : " " );
+                         ( i + 1 ) % 16 == 0 ? "\r\n" : " " );
 
     fclose( f );
 

@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    UART/UART_TwoBoards_ComDMA/Src/stm32f4xx_it.c 
+  * @file    UART/UART_TwoBoards_ComDMA/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -38,7 +38,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_it.h"
-   
+
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
   */
@@ -66,7 +66,7 @@ extern UART_HandleTypeDef UartHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -75,12 +75,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -88,12 +88,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -101,12 +101,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -114,12 +114,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -127,7 +127,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -136,7 +136,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -145,7 +145,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -154,9 +154,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -169,21 +169,21 @@ void SysTick_Handler(void)
 /**
   * @brief  This function handles DMA RX interrupt request.
   * @param  None
-  * @retval None   
+  * @retval None
   */
-void USARTx_DMA_RX_IRQHandler(void)
+void USARTx_DMA_RX_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(UartHandle.hdmarx);
+    HAL_DMA_IRQHandler( UartHandle.hdmarx );
 }
 
 /**
   * @brief  This function handles DMA TX interrupt request.
   * @param  None
-  * @retval None  
+  * @retval None
   */
-void USARTx_DMA_TX_IRQHandler(void)
+void USARTx_DMA_TX_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(UartHandle.hdmatx);
+    HAL_DMA_IRQHandler( UartHandle.hdmatx );
 }
 
 /**
@@ -191,9 +191,9 @@ void USARTx_DMA_TX_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void USARTx_IRQHandler(void)
+void USARTx_IRQHandler( void )
 {
-  HAL_UART_IRQHandler(&UartHandle);
+    HAL_UART_IRQHandler( &UartHandle );
 }
 
 /**
@@ -207,7 +207,7 @@ void USARTx_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}

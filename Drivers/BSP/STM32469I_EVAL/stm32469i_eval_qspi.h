@@ -32,23 +32,23 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup STM32469I_EVAL
   * @{
   */
-    
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32469I_EVAL_QSPI_H
 #define __STM32469I_EVAL_QSPI_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -58,10 +58,10 @@
 
 /** @addtogroup STM32469I_EVAL_QSPI
   * @{
-  */    
+  */
 
-  
-/* Exported constants --------------------------------------------------------*/ 
+
+/* Exported constants --------------------------------------------------------*/
 /** @defgroup STM32446E_EVAL_QSPI_Exported_Constants STM32469I EVAL QSPI Exported Constants
   * @{
   */
@@ -110,51 +110,52 @@
 /**
  * @brief QSPI Info
  * */
-typedef struct {
-  uint32_t FlashSize;          /*!< Size of the flash                         */
-  uint32_t EraseSectorSize;    /*!< Size of sectors for the erase operation   */
-  uint32_t EraseSectorsNumber; /*!< Number of sectors for the erase operation */
-  uint32_t ProgPageSize;       /*!< Size of pages for the program operation   */
-  uint32_t ProgPagesNumber;    /*!< Number of pages for the program operation */
-  uint32_t DummyCyclesRead;    /*!< Number of dummy read cycles               */
-  uint8_t  ManufID;            /*!< Manufacturor value                        */
-  uint32_t SectorEraseMaxTime; /*!< Sector Erase max value                    */
-  uint32_t BulkEraseMaxTime;   /*!< Bulk Erase Max Time                       */
+typedef struct
+{
+    uint32_t FlashSize;          /*!< Size of the flash                         */
+    uint32_t EraseSectorSize;    /*!< Size of sectors for the erase operation   */
+    uint32_t EraseSectorsNumber; /*!< Number of sectors for the erase operation */
+    uint32_t ProgPageSize;       /*!< Size of pages for the program operation   */
+    uint32_t ProgPagesNumber;    /*!< Number of pages for the program operation */
+    uint32_t DummyCyclesRead;    /*!< Number of dummy read cycles               */
+    uint8_t  ManufID;            /*!< Manufacturor value                        */
+    uint32_t SectorEraseMaxTime; /*!< Sector Erase max value                    */
+    uint32_t BulkEraseMaxTime;   /*!< Bulk Erase Max Time                       */
 } QSPI_InfoTypeDef;
 
 /**
   * @}
   */
 
-  
+
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup STM32469I_EVAL_QSPI_Exported_Functions STM32469I EVAL QSPI Exported Functions
   * @{
-  */  
-uint8_t BSP_QSPI_Init       (void);
-uint8_t BSP_QSPI_DeInit     (void);
-uint8_t BSP_QSPI_Read       (uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
-uint8_t BSP_QSPI_Write      (uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
-uint8_t BSP_QSPI_Erase_Block(uint32_t BlockAddress);
-uint8_t BSP_QSPI_Erase_Chip (void);
-uint8_t BSP_QSPI_GetStatus  (void);
-uint8_t BSP_QSPI_GetInfo    (QSPI_InfoTypeDef* pInfo);
-uint8_t BSP_QSPI_EnableMemoryMappedMode(void);
+  */
+uint8_t BSP_QSPI_Init( void );
+uint8_t BSP_QSPI_DeInit( void );
+uint8_t BSP_QSPI_Read( uint8_t *pData, uint32_t ReadAddr, uint32_t Size );
+uint8_t BSP_QSPI_Write( uint8_t *pData, uint32_t WriteAddr, uint32_t Size );
+uint8_t BSP_QSPI_Erase_Block( uint32_t BlockAddress );
+uint8_t BSP_QSPI_Erase_Chip( void );
+uint8_t BSP_QSPI_GetStatus( void );
+uint8_t BSP_QSPI_GetInfo( QSPI_InfoTypeDef *pInfo );
+uint8_t BSP_QSPI_EnableMemoryMappedMode( void );
 /* BSP Aliased function maintained for legacy purpose */
 #define BSP_QSPI_MemoryMappedMode      BSP_QSPI_EnableMemoryMappedMode
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void BSP_QSPI_MspInit(QSPI_HandleTypeDef *hqspi, void *Params);
-void BSP_QSPI_MspDeInit(QSPI_HandleTypeDef *hqspi, void *Params);
+void BSP_QSPI_MspInit( QSPI_HandleTypeDef *hqspi, void *Params );
+void BSP_QSPI_MspDeInit( QSPI_HandleTypeDef *hqspi, void *Params );
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 #ifdef __cplusplus
 }
@@ -163,10 +164,10 @@ void BSP_QSPI_MspDeInit(QSPI_HandleTypeDef *hqspi, void *Params);
 #endif /* __STM32446E_EVAL_QSPI_H */
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

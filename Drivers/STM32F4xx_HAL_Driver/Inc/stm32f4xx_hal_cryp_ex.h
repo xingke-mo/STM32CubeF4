@@ -105,8 +105,8 @@ extern "C" {
 /** @addtogroup CRYPEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
-HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG( CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout );
+HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG( CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout );
 /**
   * @}
   */
@@ -116,8 +116,8 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 /** @addtogroup CRYPEx_Exported_Functions_Group2
   * @{
   */
-void  HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
-void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
+void  HAL_CRYPEx_EnableAutoKeyDerivation( CRYP_HandleTypeDef *hcryp );
+void  HAL_CRYPEx_DisableAutoKeyDerivation( CRYP_HandleTypeDef *hcryp );
 /**
   * @}
   */

@@ -3,7 +3,7 @@
   * @file    stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -33,7 +33,7 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -42,11 +42,11 @@
   * @{
   */
 
-/** @defgroup 
-  * @brief  
+/** @defgroup
+  * @brief
   * @{
   */
-  
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -62,7 +62,7 @@ extern __IO uint32_t uwMeasurementDone;
 uint16_t tmpCC4[2] = {0, 0};
 /* Private function prototypes -----------------------------------------------*/
 #if defined (STM32F429xx)
-extern void LTDC_ISR_Handler(void);
+    extern void LTDC_ISR_Handler( void );
 #endif
 
 /* Private functions ---------------------------------------------------------*/
@@ -76,7 +76,7 @@ extern void LTDC_ISR_Handler(void);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -85,24 +85,24 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 /**
   * @brief  This function handles Memory Manage exception.
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -110,12 +110,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -123,12 +123,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -136,7 +136,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -145,9 +145,9 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  osSystickHandler(); 
+    osSystickHandler();
 }
 
 /******************************************************************************/
@@ -163,12 +163,12 @@ void SysTick_Handler(void)
   * @retval None
   */
 #ifdef USE_USB_FS
-void OTG_FS_IRQHandler(void)
+    void OTG_FS_IRQHandler( void )
 #else
-void OTG_HS_IRQHandler(void)
+    void OTG_HS_IRQHandler( void )
 #endif
 {
-  HAL_HCD_IRQHandler(&hhcd);
+    HAL_HCD_IRQHandler( &hhcd );
 }
 
 #if defined (STM32F429xx)
@@ -177,9 +177,9 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_IRQHandler(void)
+void LTDC_IRQHandler( void )
 {
-  HAL_LTDC_IRQHandler(&hltdc);
+    HAL_LTDC_IRQHandler( &hltdc );
 }
 #endif /* STM32F439xx */
 
@@ -189,21 +189,21 @@ void LTDC_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM5_IRQHandler(void)
-{ 
-  HAL_TIM_IRQHandler(&TimInputCaptureHandle);
-  {    
-    /* Get the Input Capture value */
-    tmpCC4[uwCaptureNumber++] = HAL_TIM_ReadCapturedValue(&TimInputCaptureHandle, TIM_CHANNEL_4);
-    
-    if (uwCaptureNumber >= 2)
+void TIM5_IRQHandler( void )
+{
+    HAL_TIM_IRQHandler( &TimInputCaptureHandle );
     {
-      /* Compute the period length */
-      uwPeriodValue = (uint16_t)(0xFFFF - tmpCC4[0] + tmpCC4[1] + 1);
-      uwMeasurementDone = 1;
-      uwCaptureNumber = 0;
+        /* Get the Input Capture value */
+        tmpCC4[uwCaptureNumber++] = HAL_TIM_ReadCapturedValue( &TimInputCaptureHandle, TIM_CHANNEL_4 );
+
+        if( uwCaptureNumber >= 2 )
+        {
+            /* Compute the period length */
+            uwPeriodValue = ( uint16_t )( 0xFFFF - tmpCC4[0] + tmpCC4[1] + 1 );
+            uwMeasurementDone = 1;
+            uwCaptureNumber = 0;
+        }
     }
-  }
 }
 /**
   * @brief  This function handles PPP interrupt request.

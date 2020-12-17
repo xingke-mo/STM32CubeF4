@@ -60,80 +60,86 @@ static int32_t recurseLevel = -1;
   * @param  recu_level: Disk content level
   * @retval Operation result
   */
-FRESULT Explore_Disk(char *path, uint8_t recu_level)
+FRESULT Explore_Disk( char *path, uint8_t recu_level )
 {
-  FRESULT res = FR_OK;
-  FILINFO fno;
-  DIR dir;
-  char tmp[14];
-  uint8_t line_idx = 0;
+    FRESULT res = FR_OK;
+    FILINFO fno;
+    DIR dir;
+    char tmp[14];
+    uint8_t line_idx = 0;
 
-  recurseLevel++;
-  res = f_opendir(&dir, path);
-  if (res == FR_OK)
-  {
-    while (USBH_MSC_IsReady(&hUSBHost))
+    recurseLevel++;
+    res = f_opendir( &dir, path );
+
+    if( res == FR_OK )
     {
-      res = f_readdir(&dir, &fno);
-      if (res != FR_OK || fno.fname[0] == 0)
-      {
-        break;
-      }
-      if (fno.fname[0] == '.')
-      {
-        continue;
-      }
-
-      strcpy(tmp, fno.fname);
-
-      line_idx++;
-      if (line_idx > YWINDOW_SIZE)
-      {
-        line_idx = 0;
-        LCD_UsrLog("> Press [KEY] To Continue.\n");
-
-        /* KEY Button in polling */
-        while ((BSP_PB_GetState(BUTTON_KEY) != SET) &&
-               (Appli_state != APPLICATION_DISCONNECT))
+        while( USBH_MSC_IsReady( &hUSBHost ) )
         {
-          /* Wait for User Input */
+            res = f_readdir( &dir, &fno );
+
+            if( res != FR_OK || fno.fname[0] == 0 )
+            {
+                break;
+            }
+
+            if( fno.fname[0] == '.' )
+            {
+                continue;
+            }
+
+            strcpy( tmp, fno.fname );
+
+            line_idx++;
+
+            if( line_idx > YWINDOW_SIZE )
+            {
+                line_idx = 0;
+                LCD_UsrLog( "> Press [KEY] To Continue.\n" );
+
+                /* KEY Button in polling */
+                while( ( BSP_PB_GetState( BUTTON_KEY ) != SET ) &&
+                        ( Appli_state != APPLICATION_DISCONNECT ) )
+                {
+                    /* Wait for User Input */
+                }
+            }
+
+            if( recu_level == 1 )
+            {
+                LCD_DbgLog( "   |__" );
+            }
+            else if( recu_level == 2 )
+            {
+                LCD_DbgLog( "   |   |__" );
+            }
+
+            if( fno.fattrib & AM_DIR )
+            {
+                strcat( tmp, "\n" );
+                LCD_UsrLog( ( void * )tmp );
+                Explore_Disk( fno.fname, 2 );
+            }
+            else
+            {
+                strcat( tmp, "\n" );
+                LCD_DbgLog( ( void * )tmp );
+            }
+
+            if( ( fno.fattrib & AM_DIR ) && ( recu_level == 2 ) )
+            {
+                Explore_Disk( fno.fname, 2 );
+            }
         }
-      }
 
-      if (recu_level == 1)
-      {
-        LCD_DbgLog("   |__");
-      }
-      else if (recu_level == 2)
-      {
-        LCD_DbgLog("   |   |__");
-      }
-      if (fno.fattrib & AM_DIR)
-      {
-        strcat(tmp, "\n");
-        LCD_UsrLog((void *)tmp);
-        Explore_Disk(fno.fname, 2);
-      }
-      else
-      {
-        strcat(tmp, "\n");
-        LCD_DbgLog((void *)tmp);
-      }
-
-      if ((fno.fattrib & AM_DIR) && (recu_level == 2))
-      {
-        Explore_Disk(fno.fname, 2);
-      }
+        f_closedir( &dir );
     }
-    f_closedir(&dir);
-  }
 
-  if (--recurseLevel == -1)
-  {
-    LCD_UsrLog("> Select an operation to Continue.\n");
-  }
+    if( --recurseLevel == -1 )
+    {
+        LCD_UsrLog( "> Select an operation to Continue.\n" );
+    }
 
-  return res;
+    return res;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

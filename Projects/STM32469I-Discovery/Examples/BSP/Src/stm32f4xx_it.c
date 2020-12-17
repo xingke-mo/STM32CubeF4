@@ -63,7 +63,7 @@ extern SAI_HandleTypeDef haudio_out_sai;
 extern I2S_HandleTypeDef haudio_in_i2s;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-extern void BSP_SDRAM_DMA_IRQHandler(void);
+extern void BSP_SDRAM_DMA_IRQHandler( void );
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */
@@ -74,7 +74,7 @@ extern void BSP_SDRAM_DMA_IRQHandler(void);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -83,12 +83,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -96,12 +96,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -109,12 +109,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -122,12 +122,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -135,7 +135,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -144,7 +144,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -153,7 +153,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -162,14 +162,14 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
-  Toggle_Leds();
-  /* Check periodically the buffer state and fill played buffer with new data
-     following the state that has been updated by the BSP_AUDIO_OUT_TransferComplete_CallBack()
-     and BSP_AUDIO_OUT_HalfTransfer_CallBack() */
-  AUDIO_Play_Process();
+    HAL_IncTick();
+    Toggle_Leds();
+    /* Check periodically the buffer state and fill played buffer with new data
+       following the state that has been updated by the BSP_AUDIO_OUT_TransferComplete_CallBack()
+       and BSP_AUDIO_OUT_HalfTransfer_CallBack() */
+    AUDIO_Play_Process();
 }
 
 /******************************************************************************/
@@ -184,9 +184,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(USER_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( USER_BUTTON_PIN );
 }
 
 /**
@@ -194,9 +194,9 @@ void EXTI0_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI2_IRQHandler(void)
+void EXTI2_IRQHandler( void )
 {
-   HAL_GPIO_EXTI_IRQHandler(SD_DETECT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( SD_DETECT_PIN );
 }
 
 /**
@@ -204,9 +204,9 @@ void EXTI2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI9_5_IRQHandler(void)
+void EXTI9_5_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(TS_INT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( TS_INT_PIN );
 }
 
 /**
@@ -214,7 +214,7 @@ void EXTI9_5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI15_10_IRQHandler(void)
+void EXTI15_10_IRQHandler( void )
 {
 
 }
@@ -224,9 +224,9 @@ void EXTI15_10_IRQHandler(void)
   * @param None
   * @retval None
   */
-void AUDIO_I2Sx_DMAx_IRQHandler(void)
+void AUDIO_I2Sx_DMAx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_in_i2s.hdmarx);
+    HAL_DMA_IRQHandler( haudio_in_i2s.hdmarx );
 }
 
 /**
@@ -234,10 +234,10 @@ void AUDIO_I2Sx_DMAx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void SDRAM_DMAx_IRQHandler(void)
+void SDRAM_DMAx_IRQHandler( void )
 {
-  /* Check the interrupt and clear flag */
-  BSP_SDRAM_DMA_IRQHandler();
+    /* Check the interrupt and clear flag */
+    BSP_SDRAM_DMA_IRQHandler();
 }
 
 /**
@@ -245,9 +245,9 @@ void SDRAM_DMAx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void AUDIO_SAIx_DMAx_IRQHandler(void)
+void AUDIO_SAIx_DMAx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+    HAL_DMA_IRQHandler( haudio_out_sai.hdmatx );
 }
 
 /**
@@ -255,9 +255,9 @@ void AUDIO_SAIx_DMAx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2D_IRQHandler(void)
+void DMA2D_IRQHandler( void )
 {
-  BSP_LCD_DMA2D_IRQHandler();
+    BSP_LCD_DMA2D_IRQHandler();
 }
 
 /**
@@ -265,9 +265,9 @@ void DMA2D_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_IRQHandler(void)
+void LTDC_IRQHandler( void )
 {
-  BSP_LCD_LTDC_IRQHandler();
+    BSP_LCD_LTDC_IRQHandler();
 }
 
 /**
@@ -276,9 +276,9 @@ void LTDC_IRQHandler(void)
   * @retval None
   */
 
-void LTDC_ER_IRQHandler(void)
+void LTDC_ER_IRQHandler( void )
 {
-  BSP_LCD_LTDC_ER_IRQHandler();
+    BSP_LCD_LTDC_ER_IRQHandler();
 }
 
 /**
@@ -286,9 +286,9 @@ void LTDC_ER_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DSI_IRQHandler(void)
+void DSI_IRQHandler( void )
 {
-  BSP_LCD_DSI_IRQHandler();
+    BSP_LCD_DSI_IRQHandler();
 }
 
 
@@ -297,9 +297,9 @@ void DSI_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void QuadSPI_IRQHandler(void)
+void QuadSPI_IRQHandler( void )
 {
-  HAL_QSPI_IRQHandler(&QSPIHandle);
+    HAL_QSPI_IRQHandler( &QSPIHandle );
 }
 
 /**

@@ -25,21 +25,21 @@
 #define _POSIX_C_SOURCE 1
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_fprintf         fprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_fprintf         fprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #include "mbedtls/aes.h"
@@ -51,13 +51,13 @@
 #include <string.h>
 
 #if defined(_WIN32)
-#include <windows.h>
-#if !defined(_WIN32_WCE)
-#include <io.h>
-#endif
+    #include <windows.h>
+    #if !defined(_WIN32_WCE)
+        #include <io.h>
+    #endif
 #else
-#include <sys/types.h>
-#include <unistd.h>
+    #include <sys/types.h>
+    #include <unistd.h>
 #endif
 
 #define MODE_ENCRYPT    0
@@ -73,9 +73,9 @@
     !defined(MBEDTLS_FS_IO) || !defined(MBEDTLS_MD_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_AES_C and/or MBEDTLS_SHA256_C "
+    mbedtls_printf( "MBEDTLS_AES_C and/or MBEDTLS_SHA256_C "
                     "and/or MBEDTLS_FS_IO and/or MBEDTLS_MD_C "
-                    "not defined.\n");
+                    "not defined.\n" );
     return( 0 );
 }
 #else
@@ -117,16 +117,17 @@ int main( int argc, char *argv[] )
 #if defined(_WIN32_WCE)
     long filesize, offset;
 #elif defined(_WIN32)
-       LARGE_INTEGER li_size;
+    LARGE_INTEGER li_size;
     __int64 filesize, offset;
 #else
-      off_t filesize, offset;
+    off_t filesize, offset;
 #endif
 
     mbedtls_aes_init( &aes_ctx );
     mbedtls_md_init( &sha_ctx );
 
     ret = mbedtls_md_setup( &sha_ctx, mbedtls_md_info_from_type( MBEDTLS_MD_SHA256 ), 1 );
+
     if( ret != 0 )
     {
         mbedtls_printf( "  ! mbedtls_md_setup() returned -0x%04x\n", -ret );
@@ -194,9 +195,9 @@ int main( int argc, char *argv[] )
             keylen = 0;
 
             while( sscanf( p, "%02X", &n ) > 0 &&
-                   keylen < (int) sizeof( key ) )
+                    keylen < ( int ) sizeof( key ) )
             {
-                key[keylen++] = (unsigned char) n;
+                key[keylen++] = ( unsigned char ) n;
                 p += 2;
             }
         }
@@ -204,8 +205,10 @@ int main( int argc, char *argv[] )
         {
             keylen = strlen( argv[4] );
 
-            if( keylen > (int) sizeof( key ) )
-                keylen = (int) sizeof( key );
+            if( keylen > ( int ) sizeof( key ) )
+            {
+                keylen = ( int ) sizeof( key );
+            }
 
             memcpy( key, argv[4], keylen );
         }
@@ -220,7 +223,7 @@ int main( int argc, char *argv[] )
      */
     li_size.QuadPart = 0;
     li_size.LowPart  =
-        SetFilePointer( (HANDLE) _get_osfhandle( _fileno( fin ) ),
+        SetFilePointer( ( HANDLE ) _get_osfhandle( _fileno( fin ) ),
                         li_size.LowPart, &li_size.HighPart, FILE_END );
 
     if( li_size.LowPart == 0xFFFFFFFF && GetLastError() != NO_ERROR )
@@ -231,11 +234,13 @@ int main( int argc, char *argv[] )
 
     filesize = li_size.QuadPart;
 #else
+
     if( ( filesize = lseek( fileno( fin ), 0, SEEK_END ) ) < 0 )
     {
         perror( "lseek" );
         goto exit;
     }
+
 #endif
 #endif
 
@@ -252,13 +257,15 @@ int main( int argc, char *argv[] )
          * IV = SHA-256( filesize || filename )[0..15]
          */
         for( i = 0; i < 8; i++ )
-            buffer[i] = (unsigned char)( filesize >> ( i << 3 ) );
+        {
+            buffer[i] = ( unsigned char )( filesize >> ( i << 3 ) );
+        }
 
         p = argv[2];
 
         mbedtls_md_starts( &sha_ctx );
         mbedtls_md_update( &sha_ctx, buffer, 8 );
-        mbedtls_md_update( &sha_ctx, (unsigned char *) p, strlen( p ) );
+        mbedtls_md_update( &sha_ctx, ( unsigned char * ) p, strlen( p ) );
         mbedtls_md_finish( &sha_ctx, digest );
 
         memcpy( IV, digest, 16 );
@@ -267,10 +274,10 @@ int main( int argc, char *argv[] )
          * The last four bits in the IV are actually used
          * to store the file size modulo the AES block size.
          */
-        lastn = (int)( filesize & 0x0F );
+        lastn = ( int )( filesize & 0x0F );
 
-        IV[15] = (unsigned char)
-            ( ( IV[15] & 0xF0 ) | lastn );
+        IV[15] = ( unsigned char )
+                 ( ( IV[15] & 0xF0 ) | lastn );
 
         /*
          * Append the IV at the beginning of the output.
@@ -304,17 +311,19 @@ int main( int argc, char *argv[] )
          */
         for( offset = 0; offset < filesize; offset += 16 )
         {
-            n = ( filesize - offset > 16 ) ? 16 : (int)
+            n = ( filesize - offset > 16 ) ? 16 : ( int )
                 ( filesize - offset );
 
-            if( fread( buffer, 1, n, fin ) != (size_t) n )
+            if( fread( buffer, 1, n, fin ) != ( size_t ) n )
             {
                 mbedtls_fprintf( stderr, "fread(%d bytes) failed\n", n );
                 goto exit;
             }
 
             for( i = 0; i < 16; i++ )
-                buffer[i] = (unsigned char)( buffer[i] ^ IV[i] );
+            {
+                buffer[i] = ( unsigned char )( buffer[i] ^ IV[i] );
+            }
 
             mbedtls_aes_crypt_ecb( &aes_ctx, MBEDTLS_AES_ENCRYPT, buffer, buffer );
             mbedtls_md_hmac_update( &sha_ctx, buffer, 16 );
@@ -415,14 +424,16 @@ int main( int argc, char *argv[] )
             mbedtls_aes_crypt_ecb( &aes_ctx, MBEDTLS_AES_DECRYPT, buffer, buffer );
 
             for( i = 0; i < 16; i++ )
-                buffer[i] = (unsigned char)( buffer[i] ^ IV[i] );
+            {
+                buffer[i] = ( unsigned char )( buffer[i] ^ IV[i] );
+            }
 
             memcpy( IV, tmp, 16 );
 
             n = ( lastn > 0 && offset == filesize - 16 )
                 ? lastn : 16;
 
-            if( fwrite( buffer, 1, n, fout ) != (size_t) n )
+            if( fwrite( buffer, 1, n, fout ) != ( size_t ) n )
             {
                 mbedtls_fprintf( stderr, "fwrite(%d bytes) failed\n", n );
                 goto exit;
@@ -442,8 +453,11 @@ int main( int argc, char *argv[] )
 
         /* Use constant-time buffer comparison */
         diff = 0;
+
         for( i = 0; i < 32; i++ )
+        {
             diff |= digest[i] ^ buffer[i];
+        }
 
         if( diff != 0 )
         {
@@ -456,16 +470,24 @@ int main( int argc, char *argv[] )
     exit_code = MBEDTLS_EXIT_SUCCESS;
 
 exit:
+
     if( fin )
+    {
         fclose( fin );
+    }
+
     if( fout )
+    {
         fclose( fout );
+    }
 
     /* Zeroize all command line arguments to also cover
        the case when the user has missed or reordered some,
        in which case the key might not be in argv[4]. */
-    for( i = 0; i < (unsigned int) argc; i++ )
+    for( i = 0; i < ( unsigned int ) argc; i++ )
+    {
         mbedtls_platform_zeroize( argv[i], strlen( argv[i] ) );
+    }
 
     mbedtls_platform_zeroize( IV,     sizeof( IV ) );
     mbedtls_platform_zeroize( key,    sizeof( key ) );

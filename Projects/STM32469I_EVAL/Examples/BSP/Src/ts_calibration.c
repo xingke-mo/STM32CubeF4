@@ -1,37 +1,37 @@
-  /**
-  ******************************************************************************
-  * @file    BSP/Src/ts_calibration.c
-  * @author  MCD Application Team
-  * @brief   This example code shows how to calibrate the touchscreen.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/**
+******************************************************************************
+* @file    BSP/Src/ts_calibration.c
+* @author  MCD Application Team
+* @brief   This example code shows how to calibrate the touchscreen.
+******************************************************************************
+* @attention
+*
+* <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+*
+* Redistribution and use in source and binary forms, with or without modification,
+* are permitted provided that the following conditions are met:
+*   1. Redistributions of source code must retain the above copyright notice,
+*      this list of conditions and the following disclaimer.
+*   2. Redistributions in binary form must reproduce the above copyright notice,
+*      this list of conditions and the following disclaimer in the documentation
+*      and/or other materials provided with the distribution.
+*   3. Neither the name of STMicroelectronics nor the names of its contributors
+*      may be used to endorse or promote products derived from this software
+*      without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+******************************************************************************
+*/
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -55,9 +55,9 @@ static uint8_t ts_calibration_done = 0;
 static int16_t  A1, A2, B1, B2;
 static int16_t aPhysX[2], aPhysY[2], aLogX[2], aLogY[2];
 /* Private function prototypes -----------------------------------------------*/
-static void TouchscreenCalibration_SetHint(void);
-static void TouchScreen_Calibration_GetPhysValues(int16_t LogX, int16_t LogY, int16_t * pPhysX, int16_t * pPhysY) ;
-static void TouchScreen_Calibration_WaitForPressedState(uint8_t Pressed) ;
+static void TouchscreenCalibration_SetHint( void );
+static void TouchScreen_Calibration_GetPhysValues( int16_t LogX, int16_t LogY, int16_t *pPhysX, int16_t *pPhysY ) ;
+static void TouchScreen_Calibration_WaitForPressedState( uint8_t Pressed ) ;
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -65,67 +65,69 @@ static void TouchScreen_Calibration_WaitForPressedState(uint8_t Pressed) ;
   * @param  None
   * @retval Status (TS_OK = 0/ TS_ERROR = 1 / TS_TIMEOUT = 1 / TS_DEVICE_NOT_FOUND = 3)
   */
-uint8_t Touchscreen_Calibration(void)
+uint8_t Touchscreen_Calibration( void )
 {
-  uint8_t ts_status = TS_OK;
-  uint8_t i;
-  uint16_t ts_SizeX;
-  uint16_t ts_SizeY;
+    uint8_t ts_status = TS_OK;
+    uint8_t i;
+    uint16_t ts_SizeX;
+    uint16_t ts_SizeY;
 
-  ts_SizeX = BSP_LCD_GetXSize();
-  ts_SizeY = BSP_LCD_GetYSize();
+    ts_SizeX = BSP_LCD_GetXSize();
+    ts_SizeY = BSP_LCD_GetYSize();
 
-  TouchscreenCalibration_SetHint();
+    TouchscreenCalibration_SetHint();
 
-  /* Start touchscreen internal calibration and configuration + start */
-  ts_status = BSP_TS_Init(ts_SizeX, ts_SizeY);
-  if (ts_status != TS_OK)
-  {
-    BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-    BSP_LCD_SetTextColor(LCD_COLOR_RED);
-    BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 95, (uint8_t *)"ERROR", CENTER_MODE);
-    BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 80, (uint8_t *)"Touchscreen cannot be calibrated", CENTER_MODE);
-    if(ts_status == TS_ERROR)
+    /* Start touchscreen internal calibration and configuration + start */
+    ts_status = BSP_TS_Init( ts_SizeX, ts_SizeY );
+
+    if( ts_status != TS_OK )
     {
-      BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 65, (uint8_t *)"Touchscreen undefined error", CENTER_MODE);
-    }
-    else if(ts_status == TS_TIMEOUT)
-    {
-      BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 65, (uint8_t *)"Touchscreen Timeout", CENTER_MODE);
+        BSP_LCD_SetBackColor( LCD_COLOR_WHITE );
+        BSP_LCD_SetTextColor( LCD_COLOR_RED );
+        BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 95, ( uint8_t * )"ERROR", CENTER_MODE );
+        BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 80, ( uint8_t * )"Touchscreen cannot be calibrated", CENTER_MODE );
+
+        if( ts_status == TS_ERROR )
+        {
+            BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 65, ( uint8_t * )"Touchscreen undefined error", CENTER_MODE );
+        }
+        else if( ts_status == TS_TIMEOUT )
+        {
+            BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 65, ( uint8_t * )"Touchscreen Timeout", CENTER_MODE );
+        }
+        else
+        {
+            /* TS_DEVICE_NOT_FOUND */
+            BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 65, ( uint8_t * )"Touchscreen Not Found", CENTER_MODE );
+        }
     }
     else
     {
-      /* TS_DEVICE_NOT_FOUND */
-      BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 65, (uint8_t *)"Touchscreen Not Found", CENTER_MODE);
+        /* status == TS_OK */
+        BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() - 65, ( uint8_t * )"FT6x06 internal calibration passed", CENTER_MODE );
+
+        /* Get touch points for SW calibration processing */
+        aLogX[0] = 40;
+        aLogY[0] = 40;
+        aLogX[1] = BSP_LCD_GetXSize() - 40;
+        aLogY[1] = BSP_LCD_GetYSize() - 40;
+
+        for( i = 0; i < 2; i++ )
+        {
+            TouchScreen_Calibration_GetPhysValues( aLogX[i], aLogY[i], &aPhysX[i], &aPhysY[i] );
+        }
+
+        /* Compute calibration coefficients */
+        A1 = ( 1000 * ( aLogX[1] - aLogX[0] ) ) / ( aPhysX[1] - aPhysX[0] );
+        B1 = ( 1000 * aLogX[0] ) - A1 * aPhysX[0];
+
+        A2 = ( 1000 * ( aLogY[1] - aLogY[0] ) ) / ( aPhysY[1] - aPhysY[0] );
+        B2 = ( 1000 * aLogY[0] ) - A2 * aPhysY[0];
+
+        ts_calibration_done = 1;
     }
-  }
-  else
-  {
-    /* status == TS_OK */
-    BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 65, (uint8_t *)"FT6x06 internal calibration passed", CENTER_MODE);
 
-    /* Get touch points for SW calibration processing */
-    aLogX[0] = 40;
-    aLogY[0] = 40;
-    aLogX[1] = BSP_LCD_GetXSize() - 40;
-    aLogY[1] = BSP_LCD_GetYSize() - 40;
-
-    for (i = 0; i < 2; i++) 
-    {
-      TouchScreen_Calibration_GetPhysValues(aLogX[i], aLogY[i], &aPhysX[i], &aPhysY[i]);
-    }
-
-    /* Compute calibration coefficients */
-    A1 = (1000 * (aLogX[1] - aLogX[0])) / (aPhysX[1] - aPhysX[0]);
-    B1 = (1000 * aLogX[0]) - A1 * aPhysX[0];
-
-    A2 = (1000 * (aLogY[1] - aLogY[0])) / (aPhysY[1] - aPhysY[0]);
-    B2 = (1000 * aLogY[0]) - A2 * aPhysY[0];
-
-    ts_calibration_done = 1;
-  }
-
-  return (ts_status);
+    return ( ts_status );
 }
 
 /**
@@ -133,23 +135,23 @@ uint8_t Touchscreen_Calibration(void)
   * @param  None
   * @retval None
   */
-static void TouchscreenCalibration_SetHint(void)
+static void TouchscreenCalibration_SetHint( void )
 {
-  /* Clear the LCD */
-  BSP_LCD_Clear(LCD_COLOR_WHITE);
+    /* Clear the LCD */
+    BSP_LCD_Clear( LCD_COLOR_WHITE );
 
-  /* Set Touchscreen Demo description */
-  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-  BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+    /* Set Touchscreen Demo description */
+    BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+    BSP_LCD_SetBackColor( LCD_COLOR_WHITE );
 
-  BSP_LCD_SetFont(&Font20);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 - 35, (uint8_t *)"Before using the Touchscreen", CENTER_MODE);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 - 15, (uint8_t *)"you need to calibrate it.", CENTER_MODE);
-  BSP_LCD_SetFont(&Font24);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 7, (uint8_t *)"WAIT until the black circle appears", CENTER_MODE);
-  BSP_LCD_SetFont(&Font20);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t *)"THEN Press precisly on the black circles", CENTER_MODE);
-  BSP_LCD_SetFont(&Font12);
+    BSP_LCD_SetFont( &Font20 );
+    BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() / 2 - 35, ( uint8_t * )"Before using the Touchscreen", CENTER_MODE );
+    BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() / 2 - 15, ( uint8_t * )"you need to calibrate it.", CENTER_MODE );
+    BSP_LCD_SetFont( &Font24 );
+    BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() / 2 + 7, ( uint8_t * )"WAIT until the black circle appears", CENTER_MODE );
+    BSP_LCD_SetFont( &Font20 );
+    BSP_LCD_DisplayStringAt( 0, BSP_LCD_GetYSize() / 2 + 30, ( uint8_t * )"THEN Press precisly on the black circles", CENTER_MODE );
+    BSP_LCD_SetFont( &Font12 );
 }
 
 
@@ -161,27 +163,27 @@ static void TouchscreenCalibration_SetHint(void)
   * @param  pPhysY : Physical Y position
   * @retval None
   */
-static void TouchScreen_Calibration_GetPhysValues(int16_t LogX, int16_t LogY, int16_t * pPhysX, int16_t * pPhysY)
+static void TouchScreen_Calibration_GetPhysValues( int16_t LogX, int16_t LogY, int16_t *pPhysX, int16_t *pPhysY )
 {
-  /* Draw the ring */
+    /* Draw the ring */
 
-  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-  BSP_LCD_FillCircle(LogX, LogY, 20);
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  BSP_LCD_FillCircle(LogX, LogY, 10);
+    BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+    BSP_LCD_FillCircle( LogX, LogY, 20 );
+    BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+    BSP_LCD_FillCircle( LogX, LogY, 10 );
 
-  /* Wait until pressed state on the touch panel */
-  TouchScreen_Calibration_WaitForPressedState(1);
+    /* Wait until pressed state on the touch panel */
+    TouchScreen_Calibration_WaitForPressedState( 1 );
 
-  /* Return as physical touch values the positions of first touch, even if double touched occurred */
-  *pPhysX = TS_State.touchX[0];
-  *pPhysY = TS_State.touchY[0];
+    /* Return as physical touch values the positions of first touch, even if double touched occurred */
+    *pPhysX = TS_State.touchX[0];
+    *pPhysY = TS_State.touchY[0];
 
-  /* Wait until touch is released on touch panel */
-  TouchScreen_Calibration_WaitForPressedState(0);
+    /* Wait until touch is released on touch panel */
+    TouchScreen_Calibration_WaitForPressedState( 0 );
 
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  BSP_LCD_FillCircle(LogX, LogY, 20);
+    BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+    BSP_LCD_FillCircle( LogX, LogY, 20 );
 }
 
 /**
@@ -195,82 +197,82 @@ static void TouchScreen_Calibration_GetPhysValues(int16_t LogX, int16_t LogY, in
   *         - Await no touch detection if Pressed == 0
   * @retval None
   */
-static void TouchScreen_Calibration_WaitForPressedState(uint8_t Pressed)
+static void TouchScreen_Calibration_WaitForPressedState( uint8_t Pressed )
 {
-  uint16_t TimeStart = 0;
-  uint8_t  status = TS_OK;
-  uint32_t exitFirstLevelWhileLoopReq = 0;  /* By default no exit request from first level while loop  */
-  uint32_t exitSecondLevelWhileLoopReq = 0; /* By default no exit request from second level while loop */
+    uint16_t TimeStart = 0;
+    uint8_t  status = TS_OK;
+    uint32_t exitFirstLevelWhileLoopReq = 0;  /* By default no exit request from first level while loop  */
+    uint32_t exitSecondLevelWhileLoopReq = 0; /* By default no exit request from second level while loop */
 
-  /* First level while loop entry */
-  do
-  {
-    /* reset exit second level while loop in case it was set */
-    exitSecondLevelWhileLoopReq = 0;
-
-    /* Sense of touch state from touch IC until get the awaited state in parameter 'Pressed' */
-    status = BSP_TS_GetState(&TS_State);
-    if(status == TS_OK)
+    /* First level while loop entry */
+    do
     {
-      if (((Pressed == 0) && (TS_State.touchDetected == 0)) ||
-          ((Pressed == 1) && ((TS_State.touchDetected == 1) || (TS_State.touchDetected == 2))))
-      {
-        /* Got awaited press state */
-        /* Record in 'TimeStart' the time of awaited touch event for anti-rebound calculation */
-        /* The state should persist for a minimum sufficient time */
-        TimeStart = HAL_GetTick();
+        /* reset exit second level while loop in case it was set */
+        exitSecondLevelWhileLoopReq = 0;
 
-        /* Is state of the touch changing ? */
-        /* Second level while loop entry */
-        do
+        /* Sense of touch state from touch IC until get the awaited state in parameter 'Pressed' */
+        status = BSP_TS_GetState( &TS_State );
+
+        if( status == TS_OK )
         {
-          /* New sense of touch state from touch IC : to evaluate if state was stable */
-          status = BSP_TS_GetState(&TS_State);
-          if(status == TS_OK)
-          {
-            /* Is there a state change compared since having found the awaited state ? */
-            if (((Pressed == 0) && ((TS_State.touchDetected == 1) || (TS_State.touchDetected == 2))) ||
-                ((Pressed == 1) && ((TS_State.touchDetected == 0))))
+            if( ( ( Pressed == 0 ) && ( TS_State.touchDetected == 0 ) ) ||
+                    ( ( Pressed == 1 ) && ( ( TS_State.touchDetected == 1 ) || ( TS_State.touchDetected == 2 ) ) ) )
             {
-              /* Too rapid state change => anti-rebound management : restart first touch search */
-              exitSecondLevelWhileLoopReq = 1; /* exit request from second level while loop */
-            }
-            else if ((HAL_GetTick() - 100) > TimeStart)
-            {
-              /* State have not changed for the timeout duration (stable touch for 100 ms) */
-              /* This means the touch state is stable : can exit function */
+                /* Got awaited press state */
+                /* Record in 'TimeStart' the time of awaited touch event for anti-rebound calculation */
+                /* The state should persist for a minimum sufficient time */
+                TimeStart = HAL_GetTick();
 
-              /* found valid touch, exit both while levels */
-              exitSecondLevelWhileLoopReq = 1;
-              exitFirstLevelWhileLoopReq  = 1;
-            }
+                /* Is state of the touch changing ? */
+                /* Second level while loop entry */
+                do
+                {
+                    /* New sense of touch state from touch IC : to evaluate if state was stable */
+                    status = BSP_TS_GetState( &TS_State );
 
-            /* Wait 10 ms before next sense of touch at next loop iteration */
-            HAL_Delay(10);
+                    if( status == TS_OK )
+                    {
+                        /* Is there a state change compared since having found the awaited state ? */
+                        if( ( ( Pressed == 0 ) && ( ( TS_State.touchDetected == 1 ) || ( TS_State.touchDetected == 2 ) ) ) ||
+                                ( ( Pressed == 1 ) && ( ( TS_State.touchDetected == 0 ) ) ) )
+                        {
+                            /* Too rapid state change => anti-rebound management : restart first touch search */
+                            exitSecondLevelWhileLoopReq = 1; /* exit request from second level while loop */
+                        }
+                        else if( ( HAL_GetTick() - 100 ) > TimeStart )
+                        {
+                            /* State have not changed for the timeout duration (stable touch for 100 ms) */
+                            /* This means the touch state is stable : can exit function */
 
-          } /* of if(status == TS_OK) */
+                            /* found valid touch, exit both while levels */
+                            exitSecondLevelWhileLoopReq = 1;
+                            exitFirstLevelWhileLoopReq  = 1;
+                        }
+
+                        /* Wait 10 ms before next sense of touch at next loop iteration */
+                        HAL_Delay( 10 );
+
+                    } /* of if(status == TS_OK) */
+                } while( !exitSecondLevelWhileLoopReq );
+
+            } /* of if (((Pressed == 0) && .... */
+
+        } /* of if(status == TS_OK) */
+
+        if( !exitFirstLevelWhileLoopReq )
+        {
+            /* Wait some time before next sense of touch at next loop iteration */
+            HAL_Delay( 10 );
         }
-        while (!exitSecondLevelWhileLoopReq);
 
-      } /* of if (((Pressed == 0) && .... */
+        /* Scan Tamper button in case early exit requested by user to switch to an other use case while calibrating */
+        /* the touch screen                                                                                         */
+        if( CheckForUserInput() > 0 )
+        {
+            exitSecondLevelWhileLoopReq = 1;
+        }
 
-    } /* of if(status == TS_OK) */
-
-    if(!exitFirstLevelWhileLoopReq)
-    {
-      /* Wait some time before next sense of touch at next loop iteration */
-      HAL_Delay(10);
-    }
-
-    /* Scan Tamper button in case early exit requested by user to switch to an other use case while calibrating */
-    /* the touch screen                                                                                         */
-    if (CheckForUserInput() > 0)
-    {
-      exitSecondLevelWhileLoopReq = 1;
-    }
-
-  }
-  while (!exitSecondLevelWhileLoopReq);
+    } while( !exitSecondLevelWhileLoopReq );
 }
 
 /**
@@ -278,9 +280,9 @@ static void TouchScreen_Calibration_WaitForPressedState(uint8_t Pressed)
   * @param  x : X position
   * @retval calibrated x
   */
-uint16_t TouchScreen_Get_Calibrated_X(uint16_t x)
+uint16_t TouchScreen_Get_Calibrated_X( uint16_t x )
 {
-  return (((A1 * x) + B1) / 1000);
+    return ( ( ( A1 * x ) + B1 ) / 1000 );
 }
 
 /**
@@ -288,18 +290,18 @@ uint16_t TouchScreen_Get_Calibrated_X(uint16_t x)
   * @param  y : Y position
   * @retval calibrated y
   */
-uint16_t TouchScreen_Get_Calibrated_Y(uint16_t y)
+uint16_t TouchScreen_Get_Calibrated_Y( uint16_t y )
 {
-  return (((A2 * y) + B2) / 1000);
+    return ( ( ( A2 * y ) + B2 ) / 1000 );
 }
 
 /**check if the TS is calibrated
   * @param  None
 * @retval calibration state (1 : calibrated / 0: no)
   */
-uint8_t TouchScreen_IsCalibrationDone(void)
+uint8_t TouchScreen_IsCalibrationDone( void )
 {
-  return (ts_calibration_done);
+    return ( ts_calibration_done );
 }
 
 /**

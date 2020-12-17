@@ -136,18 +136,18 @@ extern "C" {
 
 /* Extended features functions *************************************************/
 /* Blocking mode: Polling */
-HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
-                                            uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_I2SEx_TransmitReceive( I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
+        uint16_t Size, uint32_t Timeout );
 /* Non-Blocking mode: Interrupt */
-HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
-                                               uint16_t Size);
+HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT( I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
+        uint16_t Size );
 /* Non-Blocking mode: DMA */
-HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
-                                                uint16_t Size);
+HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA( I2S_HandleTypeDef *hi2s, uint16_t *pTxData, uint16_t *pRxData,
+        uint16_t Size );
 /* I2S IRQHandler and Callbacks used in non blocking modes (Interrupt and DMA) */
-void HAL_I2SEx_FullDuplex_IRQHandler(I2S_HandleTypeDef *hi2s);
-void HAL_I2SEx_TxRxHalfCpltCallback(I2S_HandleTypeDef *hi2s);
-void HAL_I2SEx_TxRxCpltCallback(I2S_HandleTypeDef *hi2s);
+void HAL_I2SEx_FullDuplex_IRQHandler( I2S_HandleTypeDef *hi2s );
+void HAL_I2SEx_TxRxHalfCpltCallback( I2S_HandleTypeDef *hi2s );
+void HAL_I2SEx_TxRxCpltCallback( I2S_HandleTypeDef *hi2s );
 /**
   * @}
   */

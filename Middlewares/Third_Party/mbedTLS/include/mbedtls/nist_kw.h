@@ -38,9 +38,9 @@
 #define MBEDTLS_NIST_KW_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "cipher.h"
@@ -66,7 +66,8 @@ typedef enum
  * \note     The definition of this type may change in future library versions.
  *           Don't make any assumptions on this context!
  */
-typedef struct {
+typedef struct
+{
     mbedtls_cipher_context_t cipher_ctx;    /*!< The cipher context used. */
 } mbedtls_nist_kw_context;
 
@@ -137,7 +138,7 @@ void mbedtls_nist_kw_free( mbedtls_nist_kw_context *ctx );
  */
 int mbedtls_nist_kw_wrap( mbedtls_nist_kw_context *ctx, mbedtls_nist_kw_mode_t mode,
                           const unsigned char *input, size_t in_len,
-                          unsigned char *output, size_t* out_len, size_t out_size );
+                          unsigned char *output, size_t *out_len, size_t out_size );
 
 /**
  * \brief           This function decrypts a buffer using key wrapping.
@@ -164,7 +165,7 @@ int mbedtls_nist_kw_wrap( mbedtls_nist_kw_context *ctx, mbedtls_nist_kw_mode_t m
  */
 int mbedtls_nist_kw_unwrap( mbedtls_nist_kw_context *ctx, mbedtls_nist_kw_mode_t mode,
                             const unsigned char *input, size_t in_len,
-                            unsigned char *output, size_t* out_len, size_t out_size);
+                            unsigned char *output, size_t *out_len, size_t out_size );
 
 
 #if defined(MBEDTLS_SELF_TEST) && defined(MBEDTLS_AES_C)

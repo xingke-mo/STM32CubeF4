@@ -25,9 +25,9 @@
 #define MBEDTLS_BASE64_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -59,7 +59,7 @@ extern "C" {
  *                 required buffer size in *olen
  */
 int mbedtls_base64_encode( unsigned char *dst, size_t dlen, size_t *olen,
-                   const unsigned char *src, size_t slen );
+                           const unsigned char *src, size_t slen );
 
 /**
  * \brief          Decode a base64-formatted buffer
@@ -79,7 +79,7 @@ int mbedtls_base64_encode( unsigned char *dst, size_t dlen, size_t *olen,
  *                 the required buffer size in *olen
  */
 int mbedtls_base64_decode( unsigned char *dst, size_t dlen, size_t *olen,
-                   const unsigned char *src, size_t slen );
+                           const unsigned char *src, size_t slen );
 
 #if defined(MBEDTLS_SELF_TEST)
 /**

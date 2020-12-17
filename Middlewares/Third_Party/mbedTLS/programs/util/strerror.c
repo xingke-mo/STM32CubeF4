@@ -20,24 +20,24 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#define mbedtls_printf     printf
+    #include <stdio.h>
+    #define mbedtls_printf     printf
 #endif
 
 #if defined(MBEDTLS_ERROR_C) || defined(MBEDTLS_ERROR_STRERROR_DUMMY)
-#include "mbedtls/error.h"
+    #include "mbedtls/error.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
 #endif
 
 #define USAGE \
@@ -47,7 +47,7 @@
 #if !defined(MBEDTLS_ERROR_C) && !defined(MBEDTLS_ERROR_STRERROR_DUMMY)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_ERROR_C and/or MBEDTLS_ERROR_STRERROR_DUMMY not defined.\n");
+    mbedtls_printf( "MBEDTLS_ERROR_C and/or MBEDTLS_ERROR_STRERROR_DUMMY not defined.\n" );
     return( 0 );
 }
 #else
@@ -63,23 +63,28 @@ int main( int argc, char *argv[] )
     }
 
     val = strtol( argv[1], &end, 10 );
+
     if( *end != '\0' )
     {
         val = strtol( argv[1], &end, 16 );
+
         if( *end != '\0' )
         {
             mbedtls_printf( USAGE );
             return( 0 );
         }
     }
+
     if( val > 0 )
+    {
         val = -val;
+    }
 
     if( val != 0 )
     {
         char error_buf[200];
         mbedtls_strerror( val, error_buf, 200 );
-        mbedtls_printf("Last error was: -0x%04x - %s\n\n", (int) -val, error_buf );
+        mbedtls_printf( "Last error was: -0x%04x - %s\n\n", ( int ) - val, error_buf );
     }
 
 #if defined(_WIN32)

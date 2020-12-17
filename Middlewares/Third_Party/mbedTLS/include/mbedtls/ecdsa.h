@@ -33,9 +33,9 @@
 #define MBEDTLS_ECDSA_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "ecp.h"
@@ -56,7 +56,7 @@
  * and less than 124 (total len <= 255) for the sequence)
  */
 #if MBEDTLS_ECP_MAX_BYTES > 124
-#error "MBEDTLS_ECP_MAX_BYTES bigger than expected, please fix MBEDTLS_ECDSA_MAX_LEN"
+    #error "MBEDTLS_ECP_MAX_BYTES bigger than expected, please fix MBEDTLS_ECDSA_MAX_LEN"
 #endif
 /** The maximal size of an ECDSA signature in Bytes. */
 #define MBEDTLS_ECDSA_MAX_LEN  ( 3 + 2 * ( 3 + MBEDTLS_ECP_MAX_BYTES ) )
@@ -157,8 +157,8 @@ typedef void mbedtls_ecdsa_restart_ctx;
  *                  or \c MBEDTLS_MPI_XXX error code on failure.
  */
 int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp, mbedtls_mpi *r, mbedtls_mpi *s,
-                const mbedtls_mpi *d, const unsigned char *buf, size_t blen,
-                int (*f_rng)(void *, unsigned char *, size_t), void *p_rng );
+                        const mbedtls_mpi *d, const unsigned char *buf, size_t blen,
+                        int ( *f_rng )( void *, unsigned char *, size_t ), void *p_rng );
 
 #if defined(MBEDTLS_ECDSA_DETERMINISTIC)
 /**
@@ -237,7 +237,7 @@ int mbedtls_ecdsa_sign_det( mbedtls_ecp_group *grp, mbedtls_mpi *r,
 int mbedtls_ecdsa_verify( mbedtls_ecp_group *grp,
                           const unsigned char *buf, size_t blen,
                           const mbedtls_ecp_point *Q, const mbedtls_mpi *r,
-                          const mbedtls_mpi *s);
+                          const mbedtls_mpi *s );
 
 /**
  * \brief           This function computes the ECDSA signature and writes it
@@ -288,10 +288,10 @@ int mbedtls_ecdsa_verify( mbedtls_ecp_group *grp,
  */
 int mbedtls_ecdsa_write_signature( mbedtls_ecdsa_context *ctx,
                                    mbedtls_md_type_t md_alg,
-                           const unsigned char *hash, size_t hlen,
-                           unsigned char *sig, size_t *slen,
-                           int (*f_rng)(void *, unsigned char *, size_t),
-                           void *p_rng );
+                                   const unsigned char *hash, size_t hlen,
+                                   unsigned char *sig, size_t *slen,
+                                   int ( *f_rng )( void *, unsigned char *, size_t ),
+                                   void *p_rng );
 
 /**
  * \brief           This function computes the ECDSA signature and writes it
@@ -333,12 +333,12 @@ int mbedtls_ecdsa_write_signature( mbedtls_ecdsa_context *ctx,
  *                  \c MBEDTLS_ERR_ASN1_XXX error code on failure.
  */
 int mbedtls_ecdsa_write_signature_restartable( mbedtls_ecdsa_context *ctx,
-                           mbedtls_md_type_t md_alg,
-                           const unsigned char *hash, size_t hlen,
-                           unsigned char *sig, size_t *slen,
-                           int (*f_rng)(void *, unsigned char *, size_t),
-                           void *p_rng,
-                           mbedtls_ecdsa_restart_ctx *rs_ctx );
+        mbedtls_md_type_t md_alg,
+        const unsigned char *hash, size_t hlen,
+        unsigned char *sig, size_t *slen,
+        int ( *f_rng )( void *, unsigned char *, size_t ),
+        void *p_rng,
+        mbedtls_ecdsa_restart_ctx *rs_ctx );
 
 #if defined(MBEDTLS_ECDSA_DETERMINISTIC)
 #if ! defined(MBEDTLS_DEPRECATED_REMOVED)
@@ -391,9 +391,9 @@ int mbedtls_ecdsa_write_signature_restartable( mbedtls_ecdsa_context *ctx,
  *                  \c MBEDTLS_ERR_ASN1_XXX error code on failure.
  */
 int mbedtls_ecdsa_write_signature_det( mbedtls_ecdsa_context *ctx,
-                               const unsigned char *hash, size_t hlen,
-                               unsigned char *sig, size_t *slen,
-                               mbedtls_md_type_t md_alg ) MBEDTLS_DEPRECATED;
+                                       const unsigned char *hash, size_t hlen,
+                                       unsigned char *sig, size_t *slen,
+                                       mbedtls_md_type_t md_alg ) MBEDTLS_DEPRECATED;
 #undef MBEDTLS_DEPRECATED
 #endif /* MBEDTLS_DEPRECATED_REMOVED */
 #endif /* MBEDTLS_ECDSA_DETERMINISTIC */
@@ -426,8 +426,8 @@ int mbedtls_ecdsa_write_signature_det( mbedtls_ecdsa_context *ctx,
  *                  error code on failure for any other reason.
  */
 int mbedtls_ecdsa_read_signature( mbedtls_ecdsa_context *ctx,
-                          const unsigned char *hash, size_t hlen,
-                          const unsigned char *sig, size_t slen );
+                                  const unsigned char *hash, size_t hlen,
+                                  const unsigned char *sig, size_t slen );
 
 /**
  * \brief           This function reads and verifies an ECDSA signature,
@@ -461,9 +461,9 @@ int mbedtls_ecdsa_read_signature( mbedtls_ecdsa_context *ctx,
  *                  error code on failure for any other reason.
  */
 int mbedtls_ecdsa_read_signature_restartable( mbedtls_ecdsa_context *ctx,
-                          const unsigned char *hash, size_t hlen,
-                          const unsigned char *sig, size_t slen,
-                          mbedtls_ecdsa_restart_ctx *rs_ctx );
+        const unsigned char *hash, size_t hlen,
+        const unsigned char *sig, size_t slen,
+        mbedtls_ecdsa_restart_ctx *rs_ctx );
 
 /**
  * \brief          This function generates an ECDSA keypair on the given curve.
@@ -482,7 +482,7 @@ int mbedtls_ecdsa_read_signature_restartable( mbedtls_ecdsa_context *ctx,
  * \return         An \c MBEDTLS_ERR_ECP_XXX code on failure.
  */
 int mbedtls_ecdsa_genkey( mbedtls_ecdsa_context *ctx, mbedtls_ecp_group_id gid,
-                  int (*f_rng)(void *, unsigned char *, size_t), void *p_rng );
+                          int ( *f_rng )( void *, unsigned char *, size_t ), void *p_rng );
 
 /**
  * \brief           This function sets up an ECDSA context from an EC key pair.

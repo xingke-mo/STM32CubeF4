@@ -30,7 +30,7 @@
 #define MBEDTLS_CONFIG_H
 
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_DEPRECATE)
-#define _CRT_SECURE_NO_DEPRECATE 1
+    #define _CRT_SECURE_NO_DEPRECATE 1
 #endif
 
 /**
@@ -3286,7 +3286,7 @@
  *
  */
 #if defined(MBEDTLS_USER_CONFIG_FILE)
-#include MBEDTLS_USER_CONFIG_FILE
+    #include MBEDTLS_USER_CONFIG_FILE
 #endif
 
 #include "check_config.h"

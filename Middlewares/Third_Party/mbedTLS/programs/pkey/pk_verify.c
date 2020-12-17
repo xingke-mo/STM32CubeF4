@@ -20,21 +20,21 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_snprintf        snprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_snprintf        snprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_MD_C) || \
@@ -42,9 +42,9 @@
     !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_MD_C and/or "
-           "MBEDTLS_SHA256_C and/or MBEDTLS_PK_PARSE_C and/or "
-           "MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_MD_C and/or "
+                    "MBEDTLS_SHA256_C and/or MBEDTLS_PK_PARSE_C and/or "
+                    "MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -104,7 +104,7 @@ int main( int argc, char *argv[] )
     /*
      * Extract the signature from the file
      */
-    mbedtls_snprintf( filename, sizeof(filename), "%s.sig", argv[2] );
+    mbedtls_snprintf( filename, sizeof( filename ), "%s.sig", argv[2] );
 
     if( ( f = fopen( filename, "rb" ) ) == NULL )
     {
@@ -113,7 +113,7 @@ int main( int argc, char *argv[] )
     }
 
 
-    i = fread( buf, 1, sizeof(buf), f );
+    i = fread( buf, 1, sizeof( buf ), f );
 
     fclose( f );
 
@@ -133,7 +133,7 @@ int main( int argc, char *argv[] )
     }
 
     if( ( ret = mbedtls_pk_verify( &pk, MBEDTLS_MD_SHA256, hash, 0,
-                           buf, i ) ) != 0 )
+                                   buf, i ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_pk_verify returned -0x%04x\n", -ret );
         goto exit;
@@ -147,11 +147,13 @@ exit:
     mbedtls_pk_free( &pk );
 
 #if defined(MBEDTLS_ERROR_C)
+
     if( exit_code != MBEDTLS_EXIT_SUCCESS )
     {
-        mbedtls_strerror( ret, (char *) buf, sizeof(buf) );
+        mbedtls_strerror( ret, ( char * ) buf, sizeof( buf ) );
         mbedtls_printf( "  !  Last error was: %s\n", buf );
     }
+
 #endif
 
 #if defined(_WIN32)

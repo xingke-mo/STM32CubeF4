@@ -58,23 +58,26 @@
 #include "usbh_diskio_dma.h"
 
 /* Exported types ------------------------------------------------------------*/
-typedef enum {
-  MSC_DEMO_IDLE = 0,
-  MSC_DEMO_START,
-  MSC_DEMO_FILE_OPERATIONS,
-  MSC_DEMO_EXPLORER,
-}MSC_Demo_State;
+typedef enum
+{
+    MSC_DEMO_IDLE = 0,
+    MSC_DEMO_START,
+    MSC_DEMO_FILE_OPERATIONS,
+    MSC_DEMO_EXPLORER,
+} MSC_Demo_State;
 
-typedef struct _DemoStateMachine {
-  __IO MSC_Demo_State state;
-  __IO uint8_t        select;
-}MSC_DEMO_StateMachine;
+typedef struct _DemoStateMachine
+{
+    __IO MSC_Demo_State state;
+    __IO uint8_t        select;
+} MSC_DEMO_StateMachine;
 
-typedef enum {
-  APPLICATION_IDLE = 0,
-  APPLICATION_READY,
-  APPLICATION_DISCONNECT,
-}MSC_ApplicationTypeDef;
+typedef enum
+{
+    APPLICATION_IDLE = 0,
+    APPLICATION_READY,
+    APPLICATION_DISCONNECT,
+} MSC_ApplicationTypeDef;
 
 extern USBH_HandleTypeDef hUSBHost;
 extern FATFS USBH_fatfs;
@@ -84,9 +87,9 @@ extern osSemaphoreId MenuEvent;
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-FRESULT Explore_Disk(char *path, uint8_t recu_level);
-void MSC_File_Operations(void);
-void Menu_Init(void);
+FRESULT Explore_Disk( char *path, uint8_t recu_level );
+void MSC_File_Operations( void );
+void Menu_Init( void );
 
 #endif /* __MAIN_H */
 

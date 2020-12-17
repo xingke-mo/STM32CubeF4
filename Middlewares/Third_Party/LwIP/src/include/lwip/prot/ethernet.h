@@ -57,8 +57,9 @@ extern "C" {
 #endif
 PACK_STRUCT_BEGIN
 /** An Ethernet MAC address */
-struct eth_addr {
-  PACK_STRUCT_FLD_8(u8_t addr[ETH_HWADDR_LEN]);
+struct eth_addr
+{
+    PACK_STRUCT_FLD_8( u8_t addr[ETH_HWADDR_LEN] );
 } PACK_STRUCT_STRUCT;
 PACK_STRUCT_END
 #ifdef PACK_STRUCT_USE_INCLUDES
@@ -73,13 +74,14 @@ PACK_STRUCT_END
 #endif
 PACK_STRUCT_BEGIN
 /** Ethernet header */
-struct eth_hdr {
+struct eth_hdr
+{
 #if ETH_PAD_SIZE
-  PACK_STRUCT_FLD_8(u8_t padding[ETH_PAD_SIZE]);
+    PACK_STRUCT_FLD_8( u8_t padding[ETH_PAD_SIZE] );
 #endif
-  PACK_STRUCT_FLD_S(struct eth_addr dest);
-  PACK_STRUCT_FLD_S(struct eth_addr src);
-  PACK_STRUCT_FIELD(u16_t type);
+    PACK_STRUCT_FLD_S( struct eth_addr dest );
+    PACK_STRUCT_FLD_S( struct eth_addr src );
+    PACK_STRUCT_FIELD( u16_t type );
 } PACK_STRUCT_STRUCT;
 PACK_STRUCT_END
 #ifdef PACK_STRUCT_USE_INCLUDES
@@ -95,9 +97,10 @@ PACK_STRUCT_BEGIN
 /** VLAN header inserted between ethernet header and payload
  * if 'type' in ethernet header is ETHTYPE_VLAN.
  * See IEEE802.Q */
-struct eth_vlan_hdr {
-  PACK_STRUCT_FIELD(u16_t prio_vid);
-  PACK_STRUCT_FIELD(u16_t tpid);
+struct eth_vlan_hdr
+{
+    PACK_STRUCT_FIELD( u16_t prio_vid );
+    PACK_STRUCT_FIELD( u16_t tpid );
 } PACK_STRUCT_STRUCT;
 PACK_STRUCT_END
 #ifdef PACK_STRUCT_USE_INCLUDES

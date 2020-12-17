@@ -62,16 +62,17 @@ extern "C" {
 #define ALTCP_MBEDTLS_FLAGS_RX_CLOSED         0x08
 #define ALTCP_MBEDTLS_FLAGS_APPLDATA_SENT     0x10
 
-typedef struct altcp_mbedtls_state_s {
-  void *conf;
-  mbedtls_ssl_context ssl_context;
-  /* chain of rx pbufs (before decryption) */
-  struct pbuf *rx;
-  struct pbuf *rx_app;
-  u8_t flags;
-  int rx_passed_unrecved;
-  int bio_bytes_read;
-  int bio_bytes_appl;
+typedef struct altcp_mbedtls_state_s
+{
+    void *conf;
+    mbedtls_ssl_context ssl_context;
+    /* chain of rx pbufs (before decryption) */
+    struct pbuf *rx;
+    struct pbuf *rx_app;
+    u8_t flags;
+    int rx_passed_unrecved;
+    int bio_bytes_read;
+    int bio_bytes_appl;
 } altcp_mbedtls_state_t;
 
 #ifdef __cplusplus

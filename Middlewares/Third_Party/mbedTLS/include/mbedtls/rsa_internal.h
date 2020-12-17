@@ -58,9 +58,9 @@
 #define MBEDTLS_RSA_INTERNAL_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "bignum.h"
@@ -120,9 +120,9 @@ int mbedtls_rsa_deduce_primes( mbedtls_mpi const *N, mbedtls_mpi const *E,
  *
  */
 int mbedtls_rsa_deduce_private_exponent( mbedtls_mpi const *P,
-                                         mbedtls_mpi const *Q,
-                                         mbedtls_mpi const *E,
-                                         mbedtls_mpi *D );
+        mbedtls_mpi const *Q,
+        mbedtls_mpi const *E,
+        mbedtls_mpi *D );
 
 
 /**
@@ -183,7 +183,7 @@ int mbedtls_rsa_deduce_crt( const mbedtls_mpi *P, const mbedtls_mpi *Q,
 int mbedtls_rsa_validate_params( const mbedtls_mpi *N, const mbedtls_mpi *P,
                                  const mbedtls_mpi *Q, const mbedtls_mpi *D,
                                  const mbedtls_mpi *E,
-                                 int (*f_rng)(void *, unsigned char *, size_t),
+                                 int ( *f_rng )( void *, unsigned char *, size_t ),
                                  void *p_rng );
 
 /**

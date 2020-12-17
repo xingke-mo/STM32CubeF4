@@ -79,13 +79,13 @@
 /**
   * @brief  LCD FB_StartAddress
   * LCD Frame buffer start address : starts at beginning of SDRAM
-  */                                                           
+  */
 #define LCD_FB_LENGTH              ((uint32_t)(OTM8009A_480X800_HEIGHT * OTM8009A_480X800_WIDTH * ARBG8888_BYTE_PER_PIXEL))
 
-                                                           /**
-  * @brief  Camera frame buffer start address
-  * Assuming LCD frame buffer is of size 480x800 and format ARGB8888 (32 bits per pixel).
-  */
+/**
+* @brief  Camera frame buffer start address
+* Assuming LCD frame buffer is of size 480x800 and format ARGB8888 (32 bits per pixel).
+*/
 #define CAMERA_FB_START_ADDR       ((uint32_t)(LCD_FB_START_ADDRESS + LCD_FB_LENGTH))
 #define CAMERA_FB_LENGTH           ((uint32_t)(CAMERA_RES_MAX_X * CAMERA_RES_MAX_Y * RGB565_BYTE_PER_PIXEL))
 /**
@@ -107,20 +107,21 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void   (*DemoFunc)(void);
-  uint8_t DemoName[50];
-  uint32_t DemoIndex;
+    void ( *DemoFunc )( void );
+    uint8_t DemoName[50];
+    uint32_t DemoIndex;
 
 } BSP_DemoTypedef;
 
 extern const unsigned char stlogo[];
 
-typedef enum {
-  AUDIO_ERROR_NONE = 0,
-  AUDIO_ERROR_NOTREADY,
-  AUDIO_ERROR_IO,
-  AUDIO_ERROR_EOF,
-}AUDIO_ErrorTypeDef;
+typedef enum
+{
+    AUDIO_ERROR_NONE = 0,
+    AUDIO_ERROR_NOTREADY,
+    AUDIO_ERROR_IO,
+    AUDIO_ERROR_EOF,
+} AUDIO_ErrorTypeDef;
 
 /* Exported variables ---------------------------------------------------*/
 extern volatile uint8_t mfx_exti_received;
@@ -135,36 +136,36 @@ extern volatile uint32_t Camera_AllowDma2dCopyCamFrmBuffToLcdFrmBuff;
 #define COUNT_OF_EXAMPLE(x)    (sizeof(x)/sizeof(BSP_DemoTypedef))
 
 /* Exported functions ------------------------------------------------------- */
-void Joystick_gpio_demo (void);
-void Joystick_exti_demo (void);
-void Joystick_SetCursorPosition(void);
+void Joystick_gpio_demo( void );
+void Joystick_exti_demo( void );
+void Joystick_SetCursorPosition( void );
 
-void AudioPlay_demo (void);
-void AudioRec_demo (void);
+void AudioPlay_demo( void );
+void AudioRec_demo( void );
 
-uint8_t  Touchscreen_Calibration (void);
-uint16_t TouchScreen_Get_Calibrated_X(uint16_t x);
-uint16_t TouchScreen_Get_Calibrated_Y(uint16_t y);
-uint8_t  TouchScreen_IsCalibrationDone(void);
-void     Touchscreen_demo1 (void);
-void     Touchscreen_demo2 (void);
-void     Touchscreen_demo3 (void);
+uint8_t  Touchscreen_Calibration( void );
+uint16_t TouchScreen_Get_Calibrated_X( uint16_t x );
+uint16_t TouchScreen_Get_Calibrated_Y( uint16_t y );
+uint8_t  TouchScreen_IsCalibrationDone( void );
+void     Touchscreen_demo1( void );
+void     Touchscreen_demo2( void );
+void     Touchscreen_demo3( void );
 
-void LCD_demo (void);
-void SD_demo (void);
-void SD_exti_demo (void);
-void Log_demo(void);
-void SDRAM_demo(void);
-void SDRAM_DMA_demo(void);
-void SRAM_demo(void);
-void NOR_demo(void);
-void EEPROM_demo(void);
-void Camera_demo(void);
-void Animation_demo(void);
-uint8_t AUDIO_Process(void);
-void QSPI_demo(void);
-uint8_t CheckForUserInput(void);
-void Toggle_Leds(void);
+void LCD_demo( void );
+void SD_demo( void );
+void SD_exti_demo( void );
+void Log_demo( void );
+void SDRAM_demo( void );
+void SDRAM_DMA_demo( void );
+void SRAM_demo( void );
+void NOR_demo( void );
+void EEPROM_demo( void );
+void Camera_demo( void );
+void Animation_demo( void );
+uint8_t AUDIO_Process( void );
+void QSPI_demo( void );
+uint8_t CheckForUserInput( void );
+void Toggle_Leds( void );
 
 #endif /* __MAIN_H */
 

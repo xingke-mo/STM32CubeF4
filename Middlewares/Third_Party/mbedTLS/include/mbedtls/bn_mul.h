@@ -39,9 +39,9 @@
 #define MBEDTLS_BN_MUL_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "bignum.h"
@@ -49,7 +49,7 @@
 #if defined(MBEDTLS_HAVE_ASM)
 
 #ifndef asm
-#define asm __asm
+    #define asm __asm
 #endif
 
 /* armcc5 --gnu defines __GNUC__ but doesn't support GNU's extended asm */
@@ -445,7 +445,7 @@
                 "addx    %%g1, 0, %%o2          \n\t"   \
                 "inc     4, %%o1                \n\t"
 
-        #define MULADDC_STOP                            \
+#define MULADDC_STOP                            \
                 "st      %%o2, %0               \n\t"   \
                 "stx     %%o1, %1               \n\t"   \
                 "stx     %%o0, %2               \n\t"   \
@@ -582,7 +582,7 @@
  * the build error and is pretty reasonable anyway.
  */
 #if defined(__GNUC__) && !defined(__OPTIMIZE__)
-#define MULADDC_CANNOT_USE_R7
+    #define MULADDC_CANNOT_USE_R7
 #endif
 
 #if defined(__arm__) && !defined(MULADDC_CANNOT_USE_R7)

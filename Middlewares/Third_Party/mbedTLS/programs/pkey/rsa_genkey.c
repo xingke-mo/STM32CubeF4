@@ -20,33 +20,33 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if defined(MBEDTLS_BIGNUM_C) && defined(MBEDTLS_ENTROPY_C) && \
     defined(MBEDTLS_RSA_C) && defined(MBEDTLS_GENPRIME) && \
     defined(MBEDTLS_FS_IO) && defined(MBEDTLS_CTR_DRBG_C)
-#include "mbedtls/entropy.h"
-#include "mbedtls/ctr_drbg.h"
-#include "mbedtls/bignum.h"
-#include "mbedtls/x509.h"
-#include "mbedtls/rsa.h"
+    #include "mbedtls/entropy.h"
+    #include "mbedtls/ctr_drbg.h"
+    #include "mbedtls/bignum.h"
+    #include "mbedtls/x509.h"
+    #include "mbedtls/rsa.h"
 
-#include <stdio.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <string.h>
 #endif
 
 #define KEY_SIZE 2048
@@ -57,9 +57,9 @@
     !defined(MBEDTLS_FS_IO) || !defined(MBEDTLS_CTR_DRBG_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_ENTROPY_C and/or "
-           "MBEDTLS_RSA_C and/or MBEDTLS_GENPRIME and/or "
-           "MBEDTLS_FS_IO and/or MBEDTLS_CTR_DRBG_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_ENTROPY_C and/or "
+                    "MBEDTLS_RSA_C and/or MBEDTLS_GENPRIME and/or "
+                    "MBEDTLS_FS_IO and/or MBEDTLS_CTR_DRBG_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -98,9 +98,10 @@ int main( void )
     fflush( stdout );
 
     mbedtls_entropy_init( &entropy );
+
     if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
+                                       ( const unsigned char * ) pers,
+                                       strlen( pers ) ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret );
         goto exit;
@@ -119,8 +120,8 @@ int main( void )
     mbedtls_printf( " ok\n  . Exporting the public  key in rsa_pub.txt...." );
     fflush( stdout );
 
-    if( ( ret = mbedtls_rsa_export    ( &rsa, &N, &P, &Q, &D, &E ) ) != 0 ||
-        ( ret = mbedtls_rsa_export_crt( &rsa, &DP, &DQ, &QP ) )      != 0 )
+    if( ( ret = mbedtls_rsa_export( &rsa, &N, &P, &Q, &D, &E ) ) != 0 ||
+            ( ret = mbedtls_rsa_export_crt( &rsa, &DP, &DQ, &QP ) )      != 0 )
     {
         mbedtls_printf( " failed\n  ! could not export RSA parameters\n\n" );
         goto exit;
@@ -133,7 +134,7 @@ int main( void )
     }
 
     if( ( ret = mbedtls_mpi_write_file( "N = ", &N, 16, fpub ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "E = ", &E, 16, fpub ) ) != 0 )
+            ( ret = mbedtls_mpi_write_file( "E = ", &E, 16, fpub ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_mpi_write_file returned %d\n\n", ret );
         goto exit;
@@ -148,31 +149,32 @@ int main( void )
         goto exit;
     }
 
-    if( ( ret = mbedtls_mpi_write_file( "N = " , &N , 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "E = " , &E , 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "D = " , &D , 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "P = " , &P , 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "Q = " , &Q , 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "DP = ", &DP, 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "DQ = ", &DQ, 16, fpriv ) ) != 0 ||
-        ( ret = mbedtls_mpi_write_file( "QP = ", &QP, 16, fpriv ) ) != 0 )
+    if( ( ret = mbedtls_mpi_write_file( "N = ", &N, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "E = ", &E, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "D = ", &D, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "P = ", &P, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "Q = ", &Q, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "DP = ", &DP, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "DQ = ", &DQ, 16, fpriv ) ) != 0 ||
+            ( ret = mbedtls_mpi_write_file( "QP = ", &QP, 16, fpriv ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_mpi_write_file returned %d\n\n", ret );
         goto exit;
     }
-/*
-    mbedtls_printf( " ok\n  . Generating the certificate..." );
 
-    x509write_init_raw( &cert );
-    x509write_add_pubkey( &cert, &rsa );
-    x509write_add_subject( &cert, "CN='localhost'" );
-    x509write_add_validity( &cert, "2007-09-06 17:00:32",
-                                   "2010-09-06 17:00:32" );
-    x509write_create_selfsign( &cert, &rsa );
-    x509write_crtfile( &cert, "cert.der", X509_OUTPUT_DER );
-    x509write_crtfile( &cert, "cert.pem", X509_OUTPUT_PEM );
-    x509write_free_raw( &cert );
-*/
+    /*
+        mbedtls_printf( " ok\n  . Generating the certificate..." );
+
+        x509write_init_raw( &cert );
+        x509write_add_pubkey( &cert, &rsa );
+        x509write_add_subject( &cert, "CN='localhost'" );
+        x509write_add_validity( &cert, "2007-09-06 17:00:32",
+                                       "2010-09-06 17:00:32" );
+        x509write_create_selfsign( &cert, &rsa );
+        x509write_crtfile( &cert, "cert.der", X509_OUTPUT_DER );
+        x509write_crtfile( &cert, "cert.pem", X509_OUTPUT_PEM );
+        x509write_free_raw( &cert );
+    */
     mbedtls_printf( " ok\n\n" );
 
     exit_code = MBEDTLS_EXIT_SUCCESS;
@@ -180,10 +182,14 @@ int main( void )
 exit:
 
     if( fpub  != NULL )
+    {
         fclose( fpub );
+    }
 
     if( fpriv != NULL )
+    {
         fclose( fpriv );
+    }
 
     mbedtls_mpi_free( &N ); mbedtls_mpi_free( &P ); mbedtls_mpi_free( &Q );
     mbedtls_mpi_free( &D ); mbedtls_mpi_free( &E ); mbedtls_mpi_free( &DP );

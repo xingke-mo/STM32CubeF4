@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @version V2.1.0
   * @date    22-February-2016
-  * @brief   This file contains all the functions prototypes for the 
+  * @brief   This file contains all the functions prototypes for the
   *          wm8994.c driver.
   ******************************************************************************
   * @attention
@@ -45,12 +45,12 @@
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup Component
   * @{
-  */ 
-  
+  */
+
 /** @addtogroup WM8994
   * @{
   */
@@ -65,7 +65,7 @@
 
 /** @defgroup WM8994_Exported_Constants
   * @{
-  */ 
+  */
 
 /******************************************************************************/
 /***************************  Codec User defines ******************************/
@@ -106,7 +106,7 @@
 #define AUDIO_FREQUENCY_22K           ((uint32_t)22050)
 #define AUDIO_FREQUENCY_16K           ((uint32_t)16000)
 #define AUDIO_FREQUENCY_11K           ((uint32_t)11025)
-#define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
+#define AUDIO_FREQUENCY_8K            ((uint32_t)8000)
 
 #define VOLUME_CONVERT(Volume)        (((Volume) > 100)? 100:((uint8_t)(((Volume) * 63) / 100)))
 #define VOLUME_IN_CONVERT(Volume)     (((Volume) >= 100)? 239:((uint8_t)(((Volume) * 240) / 100)))
@@ -114,55 +114,55 @@
 /******************************************************************************/
 /****************************** REGISTER MAPPING ******************************/
 /******************************************************************************/
-/** 
-  * @brief  WM8994 ID  
-  */  
+/**
+  * @brief  WM8994 ID
+  */
 #define  WM8994_ID    0x8994
 
 /**
-  * @brief Device ID Register: Reading from this register will indicate device 
+  * @brief Device ID Register: Reading from this register will indicate device
   *                            family ID 8994h
   */
 #define WM8994_CHIPID_ADDR                  0x00
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup WM8994_Exported_Macros
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup WM8994_Exported_Functions
   * @{
   */
-    
+
 /*------------------------------------------------------------------------------
-                           Audio Codec functions 
+                           Audio Codec functions
 ------------------------------------------------------------------------------*/
 /* High Layer codec functions */
-uint32_t wm8994_Init(uint16_t DeviceAddr, uint16_t OutputInputDevice, uint8_t Volume, uint32_t AudioFreq);
-void     wm8994_DeInit(void);
-uint32_t wm8994_ReadID(uint16_t DeviceAddr);
-uint32_t wm8994_Play(uint16_t DeviceAddr, uint16_t* pBuffer, uint16_t Size);
-uint32_t wm8994_Pause(uint16_t DeviceAddr);
-uint32_t wm8994_Resume(uint16_t DeviceAddr);
-uint32_t wm8994_Stop(uint16_t DeviceAddr, uint32_t Cmd);
-uint32_t wm8994_SetVolume(uint16_t DeviceAddr, uint8_t Volume);
-uint32_t wm8994_SetMute(uint16_t DeviceAddr, uint32_t Cmd);
-uint32_t wm8994_SetOutputMode(uint16_t DeviceAddr, uint8_t Output);
-uint32_t wm8994_SetFrequency(uint16_t DeviceAddr, uint32_t AudioFreq);
-uint32_t wm8994_Reset(uint16_t DeviceAddr);
+uint32_t wm8994_Init( uint16_t DeviceAddr, uint16_t OutputInputDevice, uint8_t Volume, uint32_t AudioFreq );
+void     wm8994_DeInit( void );
+uint32_t wm8994_ReadID( uint16_t DeviceAddr );
+uint32_t wm8994_Play( uint16_t DeviceAddr, uint16_t *pBuffer, uint16_t Size );
+uint32_t wm8994_Pause( uint16_t DeviceAddr );
+uint32_t wm8994_Resume( uint16_t DeviceAddr );
+uint32_t wm8994_Stop( uint16_t DeviceAddr, uint32_t Cmd );
+uint32_t wm8994_SetVolume( uint16_t DeviceAddr, uint8_t Volume );
+uint32_t wm8994_SetMute( uint16_t DeviceAddr, uint32_t Cmd );
+uint32_t wm8994_SetOutputMode( uint16_t DeviceAddr, uint8_t Output );
+uint32_t wm8994_SetFrequency( uint16_t DeviceAddr, uint32_t AudioFreq );
+uint32_t wm8994_Reset( uint16_t DeviceAddr );
 
 /* AUDIO IO functions */
-void    AUDIO_IO_Init(void);
-void    AUDIO_IO_DeInit(void);
-void    AUDIO_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value);
-uint8_t AUDIO_IO_Read(uint8_t Addr, uint16_t Reg);
-void    AUDIO_IO_Delay(uint32_t Delay);
+void    AUDIO_IO_Init( void );
+void    AUDIO_IO_DeInit( void );
+void    AUDIO_IO_Write( uint8_t Addr, uint16_t Reg, uint16_t Value );
+uint8_t AUDIO_IO_Read( uint8_t Addr, uint16_t Reg );
+void    AUDIO_IO_Delay( uint32_t Delay );
 
 /* Audio driver structure */
 extern AUDIO_DrvTypeDef   wm8994_drv;
@@ -171,11 +171,7 @@ extern AUDIO_DrvTypeDef   wm8994_drv;
 
 /**
   * @}
-  */ 
-
-/**
-  * @}
-  */ 
+  */
 
 /**
   * @}
@@ -183,6 +179,10 @@ extern AUDIO_DrvTypeDef   wm8994_drv;
 
 /**
   * @}
-  */ 
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

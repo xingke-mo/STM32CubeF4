@@ -58,10 +58,10 @@
   * @param  None
   * @retval None
   */
-void Menu_Init(void)
+void Menu_Init( void )
 {
-  msc_demo.state = MSC_DEMO_START;
-  hid_demo.state = HID_DEMO_START;
+    msc_demo.state = MSC_DEMO_START;
+    hid_demo.state = HID_DEMO_START;
 }
 
 /**
@@ -69,33 +69,33 @@ void Menu_Init(void)
   * @param  None
   * @retval None
   */
-void DS_MenuProcess(void)
+void DS_MenuProcess( void )
 {
-  switch(Appli_state)
-  {
-  case APPLICATION_IDLE:
-    break;
+    switch( Appli_state )
+    {
+    case APPLICATION_IDLE:
+        break;
 
-  case APPLICATION_MSC:
-    MSC_MenuProcess();
-    break;
+    case APPLICATION_MSC:
+        MSC_MenuProcess();
+        break;
 
-  case APPLICATION_HID:
-    HID_MenuProcess();
-    break;
+    case APPLICATION_HID:
+        HID_MenuProcess();
+        break;
 
-  default:
-	break;
-  }
+    default:
+        break;
+    }
 
-  if(Appli_state == APPLICATION_DISCONNECT)
-  {
-    Appli_state = APPLICATION_IDLE;
-    LCD_ErrLog("USB device disconnected!\n");
-    Menu_Init();
+    if( Appli_state == APPLICATION_DISCONNECT )
+    {
+        Appli_state = APPLICATION_IDLE;
+        LCD_ErrLog( "USB device disconnected!\n" );
+        Menu_Init();
 
-    LCD_UsrLog("Plug your device To Continue...\n");
-  }
+        LCD_UsrLog( "Plug your device To Continue...\n" );
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -3,7 +3,7 @@
   * @file    stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -33,32 +33,32 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
- /** @addtogroup CORE
+/** @addtogroup CORE
+ * @{
+ */
+
+/** @defgroup
+  * @brief
   * @{
   */
 
-/** @defgroup 
-  * @brief  
-  * @{
-  */
-  
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern HCD_HandleTypeDef  hhcd;
 extern PCD_HandleTypeDef  hpcd;
-extern LTDC_HandleTypeDef hltdc;  
+extern LTDC_HandleTypeDef hltdc;
 extern SAI_HandleTypeDef  haudio_out_sai;
 
 /* Private function prototypes -----------------------------------------------*/
 #if defined (STM32F439xx)
-extern void LTDC_ISR_Handler(void);
+    extern void LTDC_ISR_Handler( void );
 #endif
 
 /* Private functions ---------------------------------------------------------*/
@@ -72,7 +72,7 @@ extern void LTDC_ISR_Handler(void);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -81,12 +81,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -94,12 +94,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -107,12 +107,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -120,12 +120,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -133,7 +133,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -142,9 +142,9 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  osSystickHandler();
+    osSystickHandler();
 }
 
 /******************************************************************************/
@@ -159,9 +159,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void OTG_HS_IRQHandler(void)
+void OTG_HS_IRQHandler( void )
 {
-  HAL_HCD_IRQHandler(&hhcd);
+    HAL_HCD_IRQHandler( &hhcd );
 }
 
 /**
@@ -169,9 +169,9 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void OTG_FS_IRQHandler(void)
+void OTG_FS_IRQHandler( void )
 {
-  HAL_PCD_IRQHandler(&hpcd);
+    HAL_PCD_IRQHandler( &hpcd );
 }
 
 #if defined (STM32F439xx)
@@ -180,9 +180,9 @@ void OTG_FS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_IRQHandler(void)
+void LTDC_IRQHandler( void )
 {
-  HAL_LTDC_IRQHandler(&hltdc);
+    HAL_LTDC_IRQHandler( &hltdc );
 }
 #endif /* STM32F439xx */
 
@@ -191,9 +191,9 @@ void LTDC_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI9_5_IRQHandler(void)
+void EXTI9_5_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8); 
+    HAL_GPIO_EXTI_IRQHandler( GPIO_PIN_8 );
 }
 
 /**
@@ -201,9 +201,9 @@ void EXTI9_5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream3_IRQHandler(void)
+void DMA2_Stream3_IRQHandler( void )
 {
-  BSP_SD_DMA_Rx_IRQHandler();
+    BSP_SD_DMA_Rx_IRQHandler();
 }
 
 /**
@@ -211,9 +211,9 @@ void DMA2_Stream3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream6_IRQHandler(void)
+void DMA2_Stream6_IRQHandler( void )
 {
-  BSP_SD_DMA_Tx_IRQHandler(); 
+    BSP_SD_DMA_Tx_IRQHandler();
 }
 
 /**
@@ -221,9 +221,9 @@ void DMA2_Stream6_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void SDIO_IRQHandler(void)
+void SDIO_IRQHandler( void )
 {
-  BSP_SD_IRQHandler();
+    BSP_SD_IRQHandler();
 }
 
 /**
@@ -231,9 +231,9 @@ void SDIO_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream5_IRQHandler(void)
+void DMA2_Stream5_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+    HAL_DMA_IRQHandler( haudio_out_sai.hdmatx );
 }
 
 /**
@@ -241,9 +241,9 @@ void DMA2_Stream5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream1_IRQHandler(void)
+void DMA2_Stream1_IRQHandler( void )
 {
-  BSP_CAMERA_DMA_IRQHandler();   
+    BSP_CAMERA_DMA_IRQHandler();
 }
 
 /**
@@ -251,9 +251,9 @@ void DMA2_Stream1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DCMI_IRQHandler(void)
+void DCMI_IRQHandler( void )
 {
-  BSP_CAMERA_IRQHandler();
+    BSP_CAMERA_IRQHandler();
 }
 
 /**
@@ -272,5 +272,5 @@ void DCMI_IRQHandler(void)
 /**
   * @}
   */
-    
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

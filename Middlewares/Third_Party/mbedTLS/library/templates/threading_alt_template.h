@@ -42,13 +42,14 @@ extern "C" {
 
 
 #include "cmsis_os.h"
-typedef struct {
+typedef struct
+{
 #if (osCMSIS < 0x20000U)
-     osMutexId mutex_id;
-     osStatus status;
+    osMutexId mutex_id;
+    osStatus status;
 #else
-     osMutexId_t mutex_id;
-     osStatus_t status;
+    osMutexId_t mutex_id;
+    osStatus_t status;
 #endif
 
 } mbedtls_threading_mutex_t;

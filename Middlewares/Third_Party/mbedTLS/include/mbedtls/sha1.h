@@ -32,9 +32,9 @@
 #define MBEDTLS_SHA1_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -225,8 +225,8 @@ MBEDTLS_DEPRECATED void mbedtls_sha1_starts( mbedtls_sha1_context *ctx );
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_sha1_update( mbedtls_sha1_context *ctx,
-                                             const unsigned char *input,
-                                             size_t ilen );
+        const unsigned char *input,
+        size_t ilen );
 
 /**
  * \brief          This function finishes the SHA-1 operation, and writes
@@ -244,7 +244,7 @@ MBEDTLS_DEPRECATED void mbedtls_sha1_update( mbedtls_sha1_context *ctx,
  *                 This must be a writable buffer of length \c 20 Bytes.
  */
 MBEDTLS_DEPRECATED void mbedtls_sha1_finish( mbedtls_sha1_context *ctx,
-                                             unsigned char output[20] );
+        unsigned char output[20] );
 
 /**
  * \brief          SHA-1 process data block (internal use only).
@@ -261,7 +261,7 @@ MBEDTLS_DEPRECATED void mbedtls_sha1_finish( mbedtls_sha1_context *ctx,
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_sha1_process( mbedtls_sha1_context *ctx,
-                                              const unsigned char data[64] );
+        const unsigned char data[64] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */

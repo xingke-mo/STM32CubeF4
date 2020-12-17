@@ -22,7 +22,7 @@
 #define STM32F4xx_HAL_SPDIFRX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,34 +48,34 @@
   */
 typedef struct
 {
-  uint32_t InputSelection;           /*!< Specifies the SPDIF input selection.
+    uint32_t InputSelection;           /*!< Specifies the SPDIF input selection.
                                           This parameter can be a value of @ref SPDIFRX_Input_Selection */
 
-  uint32_t Retries;                  /*!< Specifies the Maximum allowed re-tries during synchronization phase.
+    uint32_t Retries;                  /*!< Specifies the Maximum allowed re-tries during synchronization phase.
                                           This parameter can be a value of @ref SPDIFRX_Max_Retries */
 
-  uint32_t WaitForActivity;          /*!< Specifies the wait for activity on SPDIF selected input.
+    uint32_t WaitForActivity;          /*!< Specifies the wait for activity on SPDIF selected input.
                                           This parameter can be a value of @ref SPDIFRX_Wait_For_Activity. */
 
-  uint32_t ChannelSelection;         /*!< Specifies whether the control flow will take the channel status from channel A or B.
+    uint32_t ChannelSelection;         /*!< Specifies whether the control flow will take the channel status from channel A or B.
                                           This parameter can be a value of @ref SPDIFRX_Channel_Selection */
 
-  uint32_t DataFormat;               /*!< Specifies the Data samples format (LSB, MSB, ...).
+    uint32_t DataFormat;               /*!< Specifies the Data samples format (LSB, MSB, ...).
                                           This parameter can be a value of @ref SPDIFRX_Data_Format */
 
-  uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
+    uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
                                           This parameter can be a value of @ref SPDIFRX_Stereo_Mode */
 
-  uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
+    uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
                                            This parameter can be a value of @ref SPDIFRX_PT_Mask */
 
-  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
+    uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_ChannelStatus_Mask */
 
-  uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
+    uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_V_Mask */
 
-  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
+    uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_PE_Mask */
 } SPDIFRX_InitTypeDef;
 
@@ -84,22 +84,22 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t DataFormat;               /*!< Specifies the Data samples format (LSB, MSB, ...).
+    uint32_t DataFormat;               /*!< Specifies the Data samples format (LSB, MSB, ...).
                                           This parameter can be a value of @ref SPDIFRX_Data_Format */
 
-  uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
+    uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
                                           This parameter can be a value of @ref SPDIFRX_Stereo_Mode */
 
-  uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
+    uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
                                                                                    This parameter can be a value of @ref SPDIFRX_PT_Mask */
 
-  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
+    uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
                                                                                   This parameter can be a value of @ref SPDIFRX_ChannelStatus_Mask */
 
-  uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
+    uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
                                                                                   This parameter can be a value of @ref SPDIFRX_V_Mask */
 
-  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
+    uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
                                                                                   This parameter can be a value of @ref SPDIFRX_PE_Mask */
 
 } SPDIFRX_SetDataFormatTypeDef;
@@ -109,12 +109,12 @@ typedef struct
   */
 typedef enum
 {
-  HAL_SPDIFRX_STATE_RESET      = 0x00U,  /*!< SPDIFRX not yet initialized or disabled                */
-  HAL_SPDIFRX_STATE_READY      = 0x01U,  /*!< SPDIFRX initialized and ready for use                  */
-  HAL_SPDIFRX_STATE_BUSY       = 0x02U,  /*!< SPDIFRX internal process is ongoing                    */
-  HAL_SPDIFRX_STATE_BUSY_RX    = 0x03U,  /*!< SPDIFRX internal Data Flow RX process is ongoing       */
-  HAL_SPDIFRX_STATE_BUSY_CX    = 0x04U,  /*!< SPDIFRX internal Control Flow RX process is ongoing    */
-  HAL_SPDIFRX_STATE_ERROR      = 0x07U   /*!< SPDIFRX error state                                    */
+    HAL_SPDIFRX_STATE_RESET      = 0x00U,  /*!< SPDIFRX not yet initialized or disabled                */
+    HAL_SPDIFRX_STATE_READY      = 0x01U,  /*!< SPDIFRX initialized and ready for use                  */
+    HAL_SPDIFRX_STATE_BUSY       = 0x02U,  /*!< SPDIFRX internal process is ongoing                    */
+    HAL_SPDIFRX_STATE_BUSY_RX    = 0x03U,  /*!< SPDIFRX internal Data Flow RX process is ongoing       */
+    HAL_SPDIFRX_STATE_BUSY_CX    = 0x04U,  /*!< SPDIFRX internal Control Flow RX process is ongoing    */
+    HAL_SPDIFRX_STATE_ERROR      = 0x07U   /*!< SPDIFRX error state                                    */
 } HAL_SPDIFRX_StateTypeDef;
 
 /**
@@ -126,50 +126,50 @@ typedef struct __SPDIFRX_HandleTypeDef
 typedef struct
 #endif
 {
-  SPDIFRX_TypeDef            *Instance;    /* SPDIFRX registers base address */
+    SPDIFRX_TypeDef            *Instance;    /* SPDIFRX registers base address */
 
-  SPDIFRX_InitTypeDef        Init;         /* SPDIFRX communication parameters */
+    SPDIFRX_InitTypeDef        Init;         /* SPDIFRX communication parameters */
 
-  uint32_t                   *pRxBuffPtr;  /* Pointer to SPDIFRX Rx transfer buffer */
+    uint32_t                   *pRxBuffPtr;  /* Pointer to SPDIFRX Rx transfer buffer */
 
-  uint32_t                   *pCsBuffPtr;  /* Pointer to SPDIFRX Cx transfer buffer */
+    uint32_t                   *pCsBuffPtr;  /* Pointer to SPDIFRX Cx transfer buffer */
 
-  __IO uint16_t              RxXferSize;   /* SPDIFRX Rx transfer size */
+    __IO uint16_t              RxXferSize;   /* SPDIFRX Rx transfer size */
 
-  __IO uint16_t              RxXferCount;  /* SPDIFRX Rx transfer counter
+    __IO uint16_t              RxXferCount;  /* SPDIFRX Rx transfer counter
                                               (This field is initialized at the
                                                same value as transfer size at the
                                                beginning of the transfer and
                                                decremented when a sample is received.
                                                NbSamplesReceived = RxBufferSize-RxBufferCount) */
 
-  __IO uint16_t              CsXferSize;   /* SPDIFRX Rx transfer size */
+    __IO uint16_t              CsXferSize;   /* SPDIFRX Rx transfer size */
 
-  __IO uint16_t              CsXferCount;  /* SPDIFRX Rx transfer counter
+    __IO uint16_t              CsXferCount;  /* SPDIFRX Rx transfer counter
                                               (This field is initialized at the
                                                same value as transfer size at the
                                                beginning of the transfer and
                                                decremented when a sample is received.
                                                NbSamplesReceived = RxBufferSize-RxBufferCount) */
 
-  DMA_HandleTypeDef          *hdmaCsRx;    /* SPDIFRX EC60958_channel_status and user_information DMA handle parameters */
+    DMA_HandleTypeDef          *hdmaCsRx;    /* SPDIFRX EC60958_channel_status and user_information DMA handle parameters */
 
-  DMA_HandleTypeDef          *hdmaDrRx;    /* SPDIFRX Rx DMA handle parameters */
+    DMA_HandleTypeDef          *hdmaDrRx;    /* SPDIFRX Rx DMA handle parameters */
 
-  __IO HAL_LockTypeDef       Lock;         /* SPDIFRX locking object */
+    __IO HAL_LockTypeDef       Lock;         /* SPDIFRX locking object */
 
-  __IO HAL_SPDIFRX_StateTypeDef  State;    /* SPDIFRX communication state */
+    __IO HAL_SPDIFRX_StateTypeDef  State;    /* SPDIFRX communication state */
 
-  __IO uint32_t  ErrorCode;                /* SPDIFRX Error code */
+    __IO uint32_t  ErrorCode;                /* SPDIFRX Error code */
 
 #if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
-  void (*RxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Data flow half completed callback */
-  void (*RxCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);       /*!< SPDIFRX Data flow completed callback */
-  void (*CxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Control flow half completed callback */
-  void (*CxCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);       /*!< SPDIFRX Control flow completed callback */
-  void (*ErrorCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);        /*!< SPDIFRX error callback */
-  void (* MspInitCallback)( struct __SPDIFRX_HandleTypeDef * hspdif);   /*!< SPDIFRX Msp Init callback  */
-  void (* MspDeInitCallback)( struct __SPDIFRX_HandleTypeDef * hspdif); /*!< SPDIFRX Msp DeInit callback  */
+    void ( *RxHalfCpltCallback )( struct __SPDIFRX_HandleTypeDef *hspdif ); /*!< SPDIFRX Data flow half completed callback */
+    void ( *RxCpltCallback )( struct __SPDIFRX_HandleTypeDef *hspdif );   /*!< SPDIFRX Data flow completed callback */
+    void ( *CxHalfCpltCallback )( struct __SPDIFRX_HandleTypeDef *hspdif ); /*!< SPDIFRX Control flow half completed callback */
+    void ( *CxCpltCallback )( struct __SPDIFRX_HandleTypeDef *hspdif );   /*!< SPDIFRX Control flow completed callback */
+    void ( *ErrorCallback )( struct __SPDIFRX_HandleTypeDef *hspdif );    /*!< SPDIFRX error callback */
+    void ( * MspInitCallback )( struct __SPDIFRX_HandleTypeDef *hspdif ); /*!< SPDIFRX Msp Init callback  */
+    void ( * MspDeInitCallback )( struct __SPDIFRX_HandleTypeDef *hspdif ); /*!< SPDIFRX Msp DeInit callback  */
 #endif /* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 } SPDIFRX_HandleTypeDef;
@@ -183,19 +183,19 @@ typedef struct
   */
 typedef enum
 {
-  HAL_SPDIFRX_RX_HALF_CB_ID   = 0x00U,    /*!< SPDIFRX Data flow half completed callback ID */
-  HAL_SPDIFRX_RX_CPLT_CB_ID   = 0x01U,    /*!< SPDIFRX Data flow completed callback */
-  HAL_SPDIFRX_CX_HALF_CB_ID   = 0x02U,    /*!< SPDIFRX Control flow half completed callback */
-  HAL_SPDIFRX_CX_CPLT_CB_ID   = 0x03U,    /*!< SPDIFRX Control flow completed callback */
-  HAL_SPDIFRX_ERROR_CB_ID     = 0x04U,    /*!< SPDIFRX error callback */
-  HAL_SPDIFRX_MSPINIT_CB_ID   = 0x05U,    /*!< SPDIFRX Msp Init callback ID     */
-  HAL_SPDIFRX_MSPDEINIT_CB_ID = 0x06U     /*!< SPDIFRX Msp DeInit callback ID   */
-}HAL_SPDIFRX_CallbackIDTypeDef;
+    HAL_SPDIFRX_RX_HALF_CB_ID   = 0x00U,    /*!< SPDIFRX Data flow half completed callback ID */
+    HAL_SPDIFRX_RX_CPLT_CB_ID   = 0x01U,    /*!< SPDIFRX Data flow completed callback */
+    HAL_SPDIFRX_CX_HALF_CB_ID   = 0x02U,    /*!< SPDIFRX Control flow half completed callback */
+    HAL_SPDIFRX_CX_CPLT_CB_ID   = 0x03U,    /*!< SPDIFRX Control flow completed callback */
+    HAL_SPDIFRX_ERROR_CB_ID     = 0x04U,    /*!< SPDIFRX error callback */
+    HAL_SPDIFRX_MSPINIT_CB_ID   = 0x05U,    /*!< SPDIFRX Msp Init callback ID     */
+    HAL_SPDIFRX_MSPDEINIT_CB_ID = 0x06U     /*!< SPDIFRX Msp DeInit callback ID   */
+} HAL_SPDIFRX_CallbackIDTypeDef;
 
 /**
   * @brief  HAL SPDIFRX Callback pointer definition
   */
-typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef * hspdif); /*!< pointer to an SPDIFRX callback function */
+typedef  void ( *pSPDIFRX_CallbackTypeDef )( SPDIFRX_HandleTypeDef *hspdif ); /*!< pointer to an SPDIFRX callback function */
 #endif /* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 /* Exported constants --------------------------------------------------------*/
@@ -471,16 +471,16 @@ typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef * hspdif); /*!< 
   * @{
   */
 /* Initialization/de-initialization functions  **********************************/
-HAL_StatusTypeDef HAL_SPDIFRX_Init(SPDIFRX_HandleTypeDef *hspdif);
-HAL_StatusTypeDef HAL_SPDIFRX_DeInit (SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_MspInit(SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_MspDeInit(SPDIFRX_HandleTypeDef *hspdif);
-HAL_StatusTypeDef HAL_SPDIFRX_SetDataFormat(SPDIFRX_HandleTypeDef *hspdif, SPDIFRX_SetDataFormatTypeDef  sDataFormat);
+HAL_StatusTypeDef HAL_SPDIFRX_Init( SPDIFRX_HandleTypeDef *hspdif );
+HAL_StatusTypeDef HAL_SPDIFRX_DeInit( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_MspInit( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_MspDeInit( SPDIFRX_HandleTypeDef *hspdif );
+HAL_StatusTypeDef HAL_SPDIFRX_SetDataFormat( SPDIFRX_HandleTypeDef *hspdif, SPDIFRX_SetDataFormatTypeDef  sDataFormat );
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_SPDIFRX_RegisterCallback(SPDIFRX_HandleTypeDef *hspdif, HAL_SPDIFRX_CallbackIDTypeDef CallbackID, pSPDIFRX_CallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_SPDIFRX_UnRegisterCallback(SPDIFRX_HandleTypeDef *hspdif, HAL_SPDIFRX_CallbackIDTypeDef CallbackID);
+HAL_StatusTypeDef HAL_SPDIFRX_RegisterCallback( SPDIFRX_HandleTypeDef *hspdif, HAL_SPDIFRX_CallbackIDTypeDef CallbackID, pSPDIFRX_CallbackTypeDef pCallback );
+HAL_StatusTypeDef HAL_SPDIFRX_UnRegisterCallback( SPDIFRX_HandleTypeDef *hspdif, HAL_SPDIFRX_CallbackIDTypeDef CallbackID );
 #endif /* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 /**
   * @}
@@ -490,26 +490,26 @@ HAL_StatusTypeDef HAL_SPDIFRX_UnRegisterCallback(SPDIFRX_HandleTypeDef *hspdif, 
   * @{
   */
 /* I/O operation functions  ***************************************************/
- /* Blocking mode: Polling */
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size, uint32_t Timeout);
+/* Blocking mode: Polling */
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size, uint32_t Timeout );
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size, uint32_t Timeout );
 
 /* Non-Blocking mode: Interrupt */
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_IT(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_IT(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size);
-void HAL_SPDIFRX_IRQHandler(SPDIFRX_HandleTypeDef *hspdif);
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_IT( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size );
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_IT( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size );
+void HAL_SPDIFRX_IRQHandler( SPDIFRX_HandleTypeDef *hspdif );
 
 /* Non-Blocking mode: DMA */
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_DMA(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_DMA(SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SPDIFRX_DMAStop(SPDIFRX_HandleTypeDef *hspdif);
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_DMA( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size );
+HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_DMA( SPDIFRX_HandleTypeDef *hspdif, uint32_t *pData, uint16_t Size );
+HAL_StatusTypeDef HAL_SPDIFRX_DMAStop( SPDIFRX_HandleTypeDef *hspdif );
 
 /* Callbacks used in non blocking modes (Interrupt and DMA) *******************/
-void HAL_SPDIFRX_RxHalfCpltCallback(SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_RxCpltCallback(SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_ErrorCallback(SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_CxHalfCpltCallback(SPDIFRX_HandleTypeDef *hspdif);
-void HAL_SPDIFRX_CxCpltCallback(SPDIFRX_HandleTypeDef *hspdif);
+void HAL_SPDIFRX_RxHalfCpltCallback( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_RxCpltCallback( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_ErrorCallback( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_CxHalfCpltCallback( SPDIFRX_HandleTypeDef *hspdif );
+void HAL_SPDIFRX_CxCpltCallback( SPDIFRX_HandleTypeDef *hspdif );
 /**
   * @}
   */
@@ -518,8 +518,8 @@ void HAL_SPDIFRX_CxCpltCallback(SPDIFRX_HandleTypeDef *hspdif);
   * @{
   */
 /* Peripheral Control and State functions  ************************************/
-HAL_SPDIFRX_StateTypeDef HAL_SPDIFRX_GetState(SPDIFRX_HandleTypeDef const * const hspdif);
-uint32_t HAL_SPDIFRX_GetError(SPDIFRX_HandleTypeDef const * const hspdif);
+HAL_SPDIFRX_StateTypeDef HAL_SPDIFRX_GetState( SPDIFRX_HandleTypeDef const *const hspdif );
+uint32_t HAL_SPDIFRX_GetError( SPDIFRX_HandleTypeDef const *const hspdif );
 /**
   * @}
   */

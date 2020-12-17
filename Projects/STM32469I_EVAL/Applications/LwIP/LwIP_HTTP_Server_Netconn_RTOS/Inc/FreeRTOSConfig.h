@@ -85,8 +85,8 @@
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
- #include <stdint.h>
- extern uint32_t SystemCoreClock;
+    #include <stdint.h>
+    extern uint32_t SystemCoreClock;
 #endif
 
 
@@ -98,9 +98,9 @@
 #define configMAX_PRIORITIES        (  7 )
 #define configMINIMAL_STACK_SIZE    ( ( uint16_t ) 128 )
 #if defined(__GNUC__)
-#define configTOTAL_HEAP_SIZE      ( ( size_t ) ( 25 * 1024 ) )
+    #define configTOTAL_HEAP_SIZE      ( ( size_t ) ( 25 * 1024 ) )
 #else
- #define configTOTAL_HEAP_SIZE      ( ( size_t ) ( 20 * 1024 ) )
+    #define configTOTAL_HEAP_SIZE      ( ( size_t ) ( 20 * 1024 ) )
 #endif
 #define configMAX_TASK_NAME_LEN               ( 16 )
 #define configUSE_TRACE_FACILITY              1
@@ -139,10 +139,10 @@ to exclude the API function. */
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
-  /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
-  #define configPRIO_BITS           __NVIC_PRIO_BITS
+    /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
+    #define configPRIO_BITS           __NVIC_PRIO_BITS
 #else
-  #define configPRIO_BITS           4        /* 15 priority levels */
+    #define configPRIO_BITS           4        /* 15 priority levels */
 #endif
 
 /* The lowest interrupt priority that can be used in a call to a "set priority"
@@ -171,7 +171,7 @@ standard names. */
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 
-/* IMPORTANT: This define MUST be commented when used with STM32Cube firmware, 
+/* IMPORTANT: This define MUST be commented when used with STM32Cube firmware,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
 /* #define xPortSysTickHandler SysTick_Handler */
 

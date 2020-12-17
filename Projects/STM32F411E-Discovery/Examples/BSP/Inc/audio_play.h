@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/audio_play.h 
+  * @file    BSP/Inc/audio_play.h
   * @author  MCD Application Team
   * @brief   Header for audio_play.c module
   ******************************************************************************
@@ -45,7 +45,7 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void AudioPlay_Test(void);
+void AudioPlay_Test( void );
 #endif /* __AUDIO_PLAY_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

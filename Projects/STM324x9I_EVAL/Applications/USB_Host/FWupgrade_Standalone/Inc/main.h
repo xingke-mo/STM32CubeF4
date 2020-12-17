@@ -58,12 +58,13 @@
 #include "command.h"
 
 /* Exported types ------------------------------------------------------------*/
-typedef enum {
-  APPLICATION_IDLE = 0,
-  APPLICATION_READY,
-  APPLICATION_CONNECT,
-  APPLICATION_DISCONNECT,
-}FW_ApplicationTypeDef;
+typedef enum
+{
+    APPLICATION_IDLE = 0,
+    APPLICATION_READY,
+    APPLICATION_CONNECT,
+    APPLICATION_DISCONNECT,
+} FW_ApplicationTypeDef;
 
 extern USBH_HandleTypeDef hUSBHost;
 extern FATFS USBH_fatfs;
@@ -77,10 +78,10 @@ extern __IO uint32_t UploadCondition;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void FW_UPGRADE_Process(void);
-void Fail_Handler(void);
-void FatFs_Fail_Handler(void);
-void Erase_Fail_Handler(void);
+void FW_UPGRADE_Process( void );
+void Fail_Handler( void );
+void FatFs_Fail_Handler( void );
+void Erase_Fail_Handler( void );
 
 #endif /* __MAIN_H */
 

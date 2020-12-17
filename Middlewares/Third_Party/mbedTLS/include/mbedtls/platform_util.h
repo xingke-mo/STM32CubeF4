@@ -26,15 +26,15 @@
 #define MBEDTLS_PLATFORM_UTIL_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
 #if defined(MBEDTLS_HAVE_TIME_DATE)
-#include "platform_time.h"
-#include <time.h>
+    #include "platform_time.h"
+    #include <time.h>
 #endif /* MBEDTLS_HAVE_TIME_DATE */
 
 #ifdef __cplusplus
@@ -110,7 +110,7 @@ void mbedtls_param_failed( const char *failure_condition,
  * it, too. We might want to move all these definitions here at
  * some point for uniformity. */
 #define MBEDTLS_DEPRECATED __attribute__((deprecated))
-MBEDTLS_DEPRECATED typedef char const * mbedtls_deprecated_string_constant_t;
+MBEDTLS_DEPRECATED typedef char const *mbedtls_deprecated_string_constant_t;
 #define MBEDTLS_DEPRECATED_STRING_CONSTANT( VAL )       \
     ( (mbedtls_deprecated_string_constant_t) ( VAL ) )
 MBEDTLS_DEPRECATED typedef int mbedtls_deprecated_numeric_constant_t;

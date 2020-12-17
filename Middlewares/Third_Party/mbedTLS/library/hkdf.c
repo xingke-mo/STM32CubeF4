@@ -19,9 +19,9 @@
  *  This file is part of mbed TLS (https://tls.mbed.org)
  */
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_HKDF_C)
@@ -108,13 +108,13 @@ int mbedtls_hkdf_expand( const mbedtls_md_info_t *md, const unsigned char *prk,
 
     if( info == NULL )
     {
-        info = (const unsigned char *) "";
+        info = ( const unsigned char * ) "";
         info_len = 0;
     }
 
     n = okm_len / hash_len;
 
-    if( (okm_len % hash_len) != 0 )
+    if( ( okm_len % hash_len ) != 0 )
     {
         n++;
     }
@@ -130,7 +130,7 @@ int mbedtls_hkdf_expand( const mbedtls_md_info_t *md, const unsigned char *prk,
 
     mbedtls_md_init( &ctx );
 
-    if( (ret = mbedtls_md_setup( &ctx, md, 1) ) != 0 )
+    if( ( ret = mbedtls_md_setup( &ctx, md, 1 ) ) != 0 )
     {
         goto exit;
     }
@@ -145,18 +145,21 @@ int mbedtls_hkdf_expand( const mbedtls_md_info_t *md, const unsigned char *prk,
         unsigned char c = i & 0xff;
 
         ret = mbedtls_md_hmac_starts( &ctx, prk, prk_len );
+
         if( ret != 0 )
         {
             goto exit;
         }
 
         ret = mbedtls_md_hmac_update( &ctx, t, t_len );
+
         if( ret != 0 )
         {
             goto exit;
         }
 
         ret = mbedtls_md_hmac_update( &ctx, info, info_len );
+
         if( ret != 0 )
         {
             goto exit;
@@ -165,12 +168,14 @@ int mbedtls_hkdf_expand( const mbedtls_md_info_t *md, const unsigned char *prk,
         /* The constant concatenated to the end of each T(n) is a single octet.
          * */
         ret = mbedtls_md_hmac_update( &ctx, &c, 1 );
+
         if( ret != 0 )
         {
             goto exit;
         }
 
         ret = mbedtls_md_hmac_finish( &ctx, t );
+
         if( ret != 0 )
         {
             goto exit;

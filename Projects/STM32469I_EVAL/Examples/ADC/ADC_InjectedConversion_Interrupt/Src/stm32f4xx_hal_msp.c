@@ -63,34 +63,34 @@
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspInit( ADC_HandleTypeDef *hadc )
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
+    GPIO_InitTypeDef          GPIO_InitStruct;
 
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* ADC3 Periph clock enable */
-  ADCx_CLK_ENABLE();
-  /* Enable GPIO clock ****************************************/
-  ADCx_REG_CHANNEL_GPIO_CLK_ENABLE();
-  ADCx_INJ_CHANNEL_GPIO_CLK_ENABLE();
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* ADC3 Periph clock enable */
+    ADCx_CLK_ENABLE();
+    /* Enable GPIO clock ****************************************/
+    ADCx_REG_CHANNEL_GPIO_CLK_ENABLE();
+    ADCx_INJ_CHANNEL_GPIO_CLK_ENABLE();
 
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* ADC ADC_CHANNEL_10 GPIO pin configuration */
-  GPIO_InitStruct.Pin = ADCx_REG_CHANNEL_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ADCx_REG_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    /* ADC ADC_CHANNEL_10 GPIO pin configuration */
+    GPIO_InitStruct.Pin = ADCx_REG_CHANNEL_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init( ADCx_REG_CHANNEL_GPIO_PORT, &GPIO_InitStruct );
 
-  /* ADC ADC_CHANNEL_12 GPIO pin configuration */
-  GPIO_InitStruct.Pin = ADCx_INJ_CHANNEL_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ADCx_INJ_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
+    /* ADC ADC_CHANNEL_12 GPIO pin configuration */
+    GPIO_InitStruct.Pin = ADCx_INJ_CHANNEL_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init( ADCx_INJ_CHANNEL_GPIO_PORT, &GPIO_InitStruct );
 
-  /*##-3- Configure the NVIC #################################################*/
-  /* NVIC configuration for conversion complete interrupt */
-  HAL_NVIC_SetPriority(ADCx_IRQn, 15, 0);
-  HAL_NVIC_EnableIRQ(ADCx_IRQn);
+    /*##-3- Configure the NVIC #################################################*/
+    /* NVIC configuration for conversion complete interrupt */
+    HAL_NVIC_SetPriority( ADCx_IRQn, 15, 0 );
+    HAL_NVIC_EnableIRQ( ADCx_IRQn );
 }
 
 /**
@@ -101,18 +101,18 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspDeInit( ADC_HandleTypeDef *hadc )
 {
 
-  /*##-1- Reset peripherals ##################################################*/
-  ADCx_FORCE_RESET();
-  ADCx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    ADCx_FORCE_RESET();
+    ADCx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
-  /* De-initialize the ADC ADC_CHANNEL_10 GPIO pin */
-  HAL_GPIO_DeInit(ADCx_REG_CHANNEL_GPIO_PORT, ADCx_REG_CHANNEL_PIN);
-  /* De-initialize the ADC ADC_CHANNEL_12 GPIO pin */
-  HAL_GPIO_DeInit(ADCx_INJ_CHANNEL_GPIO_PORT, ADCx_INJ_CHANNEL_PIN);
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    /* De-initialize the ADC ADC_CHANNEL_10 GPIO pin */
+    HAL_GPIO_DeInit( ADCx_REG_CHANNEL_GPIO_PORT, ADCx_REG_CHANNEL_PIN );
+    /* De-initialize the ADC ADC_CHANNEL_12 GPIO pin */
+    HAL_GPIO_DeInit( ADCx_INJ_CHANNEL_GPIO_PORT, ADCx_INJ_CHANNEL_PIN );
 }
 
 /**

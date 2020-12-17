@@ -133,26 +133,28 @@ static IO_DrvTypeDef *IoDrv = NULL;
   *         than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   * @retval IO_OK if all initializations are OK. Other value if error.
   */
-uint8_t BSP_IO_Init(void)
+uint8_t BSP_IO_Init( void )
 {
-  uint8_t ret = IO_ERROR;
-  uint8_t mfxstm32l152_id = 0;
-  HAL_Delay(1);
-  /* Read ID and verify the IO expander is ready */
-  mfxstm32l152_id = mfxstm32l152_io_drv.ReadID(IO_I2C_ADDRESS);
-  if((mfxstm32l152_id == MFXSTM32L152_ID_1) || (mfxstm32l152_id == MFXSTM32L152_ID_2))
-  {
-    /* Initialize the IO driver structure */
-    IoDrv = &mfxstm32l152_io_drv;
-    ret = IO_OK;
-  }
+    uint8_t ret = IO_ERROR;
+    uint8_t mfxstm32l152_id = 0;
+    HAL_Delay( 1 );
+    /* Read ID and verify the IO expander is ready */
+    mfxstm32l152_id = mfxstm32l152_io_drv.ReadID( IO_I2C_ADDRESS );
 
-  if(ret == IO_OK)
-  {
-    IoDrv->Init(IO_I2C_ADDRESS);
-    IoDrv->Start(IO_I2C_ADDRESS, IO_PIN_ALL);
-  }
-  return ret;
+    if( ( mfxstm32l152_id == MFXSTM32L152_ID_1 ) || ( mfxstm32l152_id == MFXSTM32L152_ID_2 ) )
+    {
+        /* Initialize the IO driver structure */
+        IoDrv = &mfxstm32l152_io_drv;
+        ret = IO_OK;
+    }
+
+    if( ret == IO_OK )
+    {
+        IoDrv->Init( IO_I2C_ADDRESS );
+        IoDrv->Start( IO_I2C_ADDRESS, IO_PIN_ALL );
+    }
+
+    return ret;
 }
 
 /**
@@ -161,10 +163,10 @@ uint8_t BSP_IO_Init(void)
   *         BSP_IO_DeInit() allows to erase the pointer such to allow init to be effective
   * @retval IO_OK
   */
-uint8_t BSP_IO_DeInit(void)
+uint8_t BSP_IO_DeInit( void )
 {
-  IoDrv = NULL;
-  return IO_OK;
+    IoDrv = NULL;
+    return IO_OK;
 }
 
 /**
@@ -173,29 +175,29 @@ uint8_t BSP_IO_DeInit(void)
   *          This parameter can be any combination of the IO pins.
   * @retval IO_OK if read status OK. Other value if error.
   */
-uint32_t BSP_IO_ITGetStatus(uint32_t IoPin)
+uint32_t BSP_IO_ITGetStatus( uint32_t IoPin )
 {
-  /* Return the IO Pin IT status */
-  return (IoDrv->ITStatus(IO_I2C_ADDRESS, IoPin));
+    /* Return the IO Pin IT status */
+    return ( IoDrv->ITStatus( IO_I2C_ADDRESS, IoPin ) );
 }
 
 /**
   * @brief  Clears all the IO IT pending bits.
   */
-void BSP_IO_ITClear(void)
+void BSP_IO_ITClear( void )
 {
-  /* Clear all IO IT pending bits */
-  IoDrv->ClearIT(IO_I2C_ADDRESS, MFXSTM32L152_GPIO_PINS_ALL);
+    /* Clear all IO IT pending bits */
+    IoDrv->ClearIT( IO_I2C_ADDRESS, MFXSTM32L152_GPIO_PINS_ALL );
 }
 
 /**
   * @brief  Clear only one or a selection of IO IT pending bits.
   * @param  IO_Pins_To_Clear : MFX IRQ status IO pin to clear (or combination of several IOs)
   */
-void BSP_IO_ITClearPin(uint32_t IO_Pins_To_Clear)
+void BSP_IO_ITClearPin( uint32_t IO_Pins_To_Clear )
 {
-  /* Clear only the selected list of IO IT pending bits */
-  IoDrv->ClearIT(IO_I2C_ADDRESS, IO_Pins_To_Clear);
+    /* Clear only the selected list of IO IT pending bits */
+    IoDrv->ClearIT( IO_I2C_ADDRESS, IO_Pins_To_Clear );
 }
 
 /**
@@ -231,12 +233,12 @@ void BSP_IO_ITClearPin(uint32_t IO_Pins_To_Clear)
   *            @arg  IO_MODE_IT_HIGH_LEVEL_PD
   * @retval IO_OK if all initializations are OK. Other value if error.
   */
-uint8_t BSP_IO_ConfigPin(uint32_t IO_Pin, IO_ModeTypedef IO_Mode)
+uint8_t BSP_IO_ConfigPin( uint32_t IO_Pin, IO_ModeTypedef IO_Mode )
 {
-  /* Configure the selected IO pin(s) mode */
-  IoDrv->Config(IO_I2C_ADDRESS, IO_Pin, IO_Mode);
+    /* Configure the selected IO pin(s) mode */
+    IoDrv->Config( IO_I2C_ADDRESS, IO_Pin, IO_Mode );
 
-  return IO_OK;
+    return IO_OK;
 }
 
 /**
@@ -245,10 +247,10 @@ uint8_t BSP_IO_ConfigPin(uint32_t IO_Pin, IO_ModeTypedef IO_Mode)
   *          This parameter can be any combination of the IO pins.
   * @param  PinState: New pins state to write
   */
-void BSP_IO_WritePin(uint32_t IO_Pin, BSP_IO_PinStateTypeDef PinState)
+void BSP_IO_WritePin( uint32_t IO_Pin, BSP_IO_PinStateTypeDef PinState )
 {
-  /* Set the Pin state */
-  IoDrv->WritePin(IO_I2C_ADDRESS, IO_Pin, PinState);
+    /* Set the Pin state */
+    IoDrv->WritePin( IO_I2C_ADDRESS, IO_Pin, PinState );
 }
 
 /**
@@ -257,9 +259,9 @@ void BSP_IO_WritePin(uint32_t IO_Pin, BSP_IO_PinStateTypeDef PinState)
   *          This parameter can be any combination of the IO pins.
   * @retval The current pins state
   */
-uint32_t BSP_IO_ReadPin(uint32_t IO_Pin)
+uint32_t BSP_IO_ReadPin( uint32_t IO_Pin )
 {
- return(IoDrv->ReadPin(IO_I2C_ADDRESS, IO_Pin));
+    return( IoDrv->ReadPin( IO_I2C_ADDRESS, IO_Pin ) );
 }
 
 /**
@@ -268,17 +270,17 @@ uint32_t BSP_IO_ReadPin(uint32_t IO_Pin)
   *         This parameter can be any combination of the IO pins.
   * @note   This function is only used to toggle one pin in the same time
   */
-void BSP_IO_TogglePin(uint32_t IO_Pin)
+void BSP_IO_TogglePin( uint32_t IO_Pin )
 {
-  /* Toggle the current pin state */
-  if(IoDrv->ReadPin(IO_I2C_ADDRESS, IO_Pin) != 0) /* Set */
-  {
-    IoDrv->WritePin(IO_I2C_ADDRESS, IO_Pin, 0); /* Reset */
-  }
-  else
-  {
-    IoDrv->WritePin(IO_I2C_ADDRESS, IO_Pin, 1); /* Set */
-  }
+    /* Toggle the current pin state */
+    if( IoDrv->ReadPin( IO_I2C_ADDRESS, IO_Pin ) != 0 ) /* Set */
+    {
+        IoDrv->WritePin( IO_I2C_ADDRESS, IO_Pin, 0 ); /* Reset */
+    }
+    else
+    {
+        IoDrv->WritePin( IO_I2C_ADDRESS, IO_Pin, 1 ); /* Set */
+    }
 }
 
 /**

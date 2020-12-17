@@ -20,29 +20,29 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if defined(MBEDTLS_BIGNUM_C) && \
     defined(MBEDTLS_PK_PARSE_C) && defined(MBEDTLS_FS_IO)
-#include "mbedtls/error.h"
-#include "mbedtls/rsa.h"
-#include "mbedtls/x509.h"
+    #include "mbedtls/error.h"
+    #include "mbedtls/rsa.h"
+    #include "mbedtls/x509.h"
 
-#include <string.h>
+    #include <string.h>
 #endif
 
 #define MODE_NONE               0
@@ -69,8 +69,8 @@
     !defined(MBEDTLS_PK_PARSE_C) || !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or "
-           "MBEDTLS_PK_PARSE_C and/or MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or "
+                    "MBEDTLS_PK_PARSE_C and/or MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -113,7 +113,7 @@ int main( int argc, char *argv[] )
      * Set to sane values
      */
     mbedtls_pk_init( &pk );
-    memset( buf, 0, sizeof(buf) );
+    memset( buf, 0, sizeof( buf ) );
 
     mbedtls_mpi_init( &N ); mbedtls_mpi_init( &P ); mbedtls_mpi_init( &Q );
     mbedtls_mpi_init( &D ); mbedtls_mpi_init( &E ); mbedtls_mpi_init( &DP );
@@ -121,7 +121,7 @@ int main( int argc, char *argv[] )
 
     if( argc == 0 )
     {
-    usage:
+usage:
         mbedtls_printf( USAGE );
         goto cleanup;
     }
@@ -134,27 +134,45 @@ int main( int argc, char *argv[] )
     for( i = 1; i < argc; i++ )
     {
         p = argv[i];
+
         if( ( q = strchr( p, '=' ) ) == NULL )
+        {
             goto usage;
+        }
+
         *q++ = '\0';
 
         if( strcmp( p, "mode" ) == 0 )
         {
             if( strcmp( q, "private" ) == 0 )
+            {
                 opt.mode = MODE_PRIVATE;
+            }
             else if( strcmp( q, "public" ) == 0 )
+            {
                 opt.mode = MODE_PUBLIC;
+            }
             else
+            {
                 goto usage;
+            }
         }
         else if( strcmp( p, "filename" ) == 0 )
+        {
             opt.filename = q;
+        }
         else if( strcmp( p, "password" ) == 0 )
+        {
             opt.password = q;
+        }
         else if( strcmp( p, "password_file" ) == 0 )
+        {
             opt.password_file = q;
+        }
         else
+        {
             goto usage;
+        }
     }
 
     if( opt.mode == MODE_PRIVATE )
@@ -170,22 +188,34 @@ int main( int argc, char *argv[] )
             FILE *f;
 
             mbedtls_printf( "\n  . Loading the password file ..." );
+
             if( ( f = fopen( opt.password_file, "rb" ) ) == NULL )
             {
                 mbedtls_printf( " failed\n  !  fopen returned NULL\n" );
                 goto cleanup;
             }
-            if( fgets( buf, sizeof(buf), f ) == NULL )
+
+            if( fgets( buf, sizeof( buf ), f ) == NULL )
             {
                 fclose( f );
                 mbedtls_printf( "Error: fgets() failed to retrieve password\n" );
                 goto cleanup;
             }
+
             fclose( f );
 
-            i = (int) strlen( buf );
-            if( buf[i - 1] == '\n' ) buf[i - 1] = '\0';
-            if( buf[i - 2] == '\r' ) buf[i - 2] = '\0';
+            i = ( int ) strlen( buf );
+
+            if( buf[i - 1] == '\n' )
+            {
+                buf[i - 1] = '\0';
+            }
+
+            if( buf[i - 2] == '\r' )
+            {
+                buf[i - 2] = '\0';
+            }
+
             opt.password = buf;
         }
 
@@ -210,12 +240,13 @@ int main( int argc, char *argv[] )
          */
         mbedtls_printf( "  . Key information    ...\n" );
 #if defined(MBEDTLS_RSA_C)
+
         if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_RSA )
         {
             mbedtls_rsa_context *rsa = mbedtls_pk_rsa( pk );
 
-            if( ( ret = mbedtls_rsa_export    ( rsa, &N, &P, &Q, &D, &E ) ) != 0 ||
-                ( ret = mbedtls_rsa_export_crt( rsa, &DP, &DQ, &QP ) )      != 0 )
+            if( ( ret = mbedtls_rsa_export( rsa, &N, &P, &Q, &D, &E ) ) != 0 ||
+                    ( ret = mbedtls_rsa_export_crt( rsa, &DP, &DQ, &QP ) )      != 0 )
             {
                 mbedtls_printf( " failed\n  ! could not export RSA parameters\n\n" );
                 goto cleanup;
@@ -233,20 +264,20 @@ int main( int argc, char *argv[] )
         else
 #endif
 #if defined(MBEDTLS_ECP_C)
-        if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_ECKEY )
-        {
-            mbedtls_ecp_keypair *ecp = mbedtls_pk_ec( pk );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(X): ", &ecp->Q.X, 16, NULL ) );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Y): ", &ecp->Q.Y, 16, NULL ) );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Z): ", &ecp->Q.Z, 16, NULL ) );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "D   : ", &ecp->d  , 16, NULL ) );
-        }
-        else
+            if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_ECKEY )
+            {
+                mbedtls_ecp_keypair *ecp = mbedtls_pk_ec( pk );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(X): ", &ecp->Q.X, 16, NULL ) );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Y): ", &ecp->Q.Y, 16, NULL ) );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Z): ", &ecp->Q.Z, 16, NULL ) );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "D   : ", &ecp->d, 16, NULL ) );
+            }
+            else
 #endif
-        {
-            mbedtls_printf("Do not know how to print key information for this type\n" );
-            goto cleanup;
-        }
+            {
+                mbedtls_printf( "Do not know how to print key information for this type\n" );
+                goto cleanup;
+            }
     }
     else if( opt.mode == MODE_PUBLIC )
     {
@@ -268,6 +299,7 @@ int main( int argc, char *argv[] )
 
         mbedtls_printf( "  . Key information    ...\n" );
 #if defined(MBEDTLS_RSA_C)
+
         if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_RSA )
         {
             mbedtls_rsa_context *rsa = mbedtls_pk_rsa( pk );
@@ -278,39 +310,44 @@ int main( int argc, char *argv[] )
                 mbedtls_printf( " failed\n  ! could not export RSA parameters\n\n" );
                 goto cleanup;
             }
+
             MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "N:  ", &N, 16, NULL ) );
             MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "E:  ", &E, 16, NULL ) );
         }
         else
 #endif
 #if defined(MBEDTLS_ECP_C)
-        if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_ECKEY )
-        {
-            mbedtls_ecp_keypair *ecp = mbedtls_pk_ec( pk );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(X): ", &ecp->Q.X, 16, NULL ) );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Y): ", &ecp->Q.Y, 16, NULL ) );
-            MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Z): ", &ecp->Q.Z, 16, NULL ) );
-        }
-        else
+            if( mbedtls_pk_get_type( &pk ) == MBEDTLS_PK_ECKEY )
+            {
+                mbedtls_ecp_keypair *ecp = mbedtls_pk_ec( pk );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(X): ", &ecp->Q.X, 16, NULL ) );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Y): ", &ecp->Q.Y, 16, NULL ) );
+                MBEDTLS_MPI_CHK( mbedtls_mpi_write_file( "Q(Z): ", &ecp->Q.Z, 16, NULL ) );
+            }
+            else
 #endif
-        {
-            mbedtls_printf("Do not know how to print key information for this type\n" );
-            goto cleanup;
-        }
+            {
+                mbedtls_printf( "Do not know how to print key information for this type\n" );
+                goto cleanup;
+            }
     }
     else
+    {
         goto usage;
+    }
 
     exit_code = MBEDTLS_EXIT_SUCCESS;
 
 cleanup:
 
 #if defined(MBEDTLS_ERROR_C)
+
     if( exit_code != MBEDTLS_EXIT_SUCCESS )
     {
         mbedtls_strerror( ret, buf, sizeof( buf ) );
         mbedtls_printf( "  !  Last error was: %s\n", buf );
     }
+
 #endif
 
     mbedtls_pk_free( &pk );

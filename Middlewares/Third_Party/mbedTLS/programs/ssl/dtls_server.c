@@ -20,30 +20,30 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#define mbedtls_printf     printf
-#define mbedtls_fprintf    fprintf
-#define mbedtls_time_t     time_t
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #define mbedtls_printf     printf
+    #define mbedtls_fprintf    fprintf
+    #define mbedtls_time_t     time_t
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif
 
 /* Uncomment out the following line to default to IPv4 and disable IPv6 */
 //#define FORCE_IPV4
 
 #ifdef FORCE_IPV4
-#define BIND_IP     "0.0.0.0"     /* Forces IPv4 */
+    #define BIND_IP     "0.0.0.0"     /* Forces IPv4 */
 #else
-#define BIND_IP     "::"
+    #define BIND_IP     "::"
 #endif
 
 #if !defined(MBEDTLS_SSL_SRV_C) || !defined(MBEDTLS_SSL_PROTO_DTLS) ||    \
@@ -66,7 +66,7 @@ int main( void )
 #else
 
 #if defined(_WIN32)
-#include <windows.h>
+    #include <windows.h>
 #endif
 
 #include <string.h>
@@ -85,7 +85,7 @@ int main( void )
 #include "mbedtls/timing.h"
 
 #if defined(MBEDTLS_SSL_CACHE_C)
-#include "mbedtls/ssl_cache.h"
+    #include "mbedtls/ssl_cache.h"
 #endif
 
 #define READ_TIMEOUT_MS 10000   /* 5 seconds */
@@ -107,10 +107,10 @@ static void my_debug( void *ctx, int level,
                       const char *file, int line,
                       const char *str )
 {
-    ((void) level);
+    ( ( void ) level );
 
-    mbedtls_fprintf( (FILE *) ctx, "%s:%04d: %s", file, line, str );
-    fflush(  (FILE *) ctx  );
+    mbedtls_fprintf( ( FILE * ) ctx, "%s:%04d: %s", file, line, str );
+    fflush( ( FILE * ) ctx );
 }
 
 int main( void )
@@ -162,24 +162,27 @@ int main( void )
      * Instead, you may want to use mbedtls_x509_crt_parse_file() to read the
      * server and CA certificates, as well as mbedtls_pk_parse_keyfile().
      */
-    ret = mbedtls_x509_crt_parse( &srvcert, (const unsigned char *) mbedtls_test_srv_crt,
-                          mbedtls_test_srv_crt_len );
+    ret = mbedtls_x509_crt_parse( &srvcert, ( const unsigned char * ) mbedtls_test_srv_crt,
+                                  mbedtls_test_srv_crt_len );
+
     if( ret != 0 )
     {
         printf( " failed\n  !  mbedtls_x509_crt_parse returned %d\n\n", ret );
         goto exit;
     }
 
-    ret = mbedtls_x509_crt_parse( &srvcert, (const unsigned char *) mbedtls_test_cas_pem,
-                          mbedtls_test_cas_pem_len );
+    ret = mbedtls_x509_crt_parse( &srvcert, ( const unsigned char * ) mbedtls_test_cas_pem,
+                                  mbedtls_test_cas_pem_len );
+
     if( ret != 0 )
     {
         printf( " failed\n  !  mbedtls_x509_crt_parse returned %d\n\n", ret );
         goto exit;
     }
 
-    ret =  mbedtls_pk_parse_key( &pkey, (const unsigned char *) mbedtls_test_srv_key,
-                         mbedtls_test_srv_key_len, NULL, 0 );
+    ret =  mbedtls_pk_parse_key( &pkey, ( const unsigned char * ) mbedtls_test_srv_key,
+                                 mbedtls_test_srv_key_len, NULL, 0 );
+
     if( ret != 0 )
     {
         printf( " failed\n  !  mbedtls_pk_parse_key returned %d\n\n", ret );
@@ -209,8 +212,8 @@ int main( void )
     fflush( stdout );
 
     if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
+                                       ( const unsigned char * ) pers,
+                                       strlen( pers ) ) ) != 0 )
     {
         printf( " failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret );
         goto exit;
@@ -225,9 +228,9 @@ int main( void )
     fflush( stdout );
 
     if( ( ret = mbedtls_ssl_config_defaults( &conf,
-                    MBEDTLS_SSL_IS_SERVER,
-                    MBEDTLS_SSL_TRANSPORT_DATAGRAM,
-                    MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
+                MBEDTLS_SSL_IS_SERVER,
+                MBEDTLS_SSL_TRANSPORT_DATAGRAM,
+                MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ssl_config_defaults returned %d\n\n", ret );
         goto exit;
@@ -238,26 +241,27 @@ int main( void )
 
 #if defined(MBEDTLS_SSL_CACHE_C)
     mbedtls_ssl_conf_session_cache( &conf, &cache,
-                                   mbedtls_ssl_cache_get,
-                                   mbedtls_ssl_cache_set );
+                                    mbedtls_ssl_cache_get,
+                                    mbedtls_ssl_cache_set );
 #endif
 
     mbedtls_ssl_conf_ca_chain( &conf, srvcert.next, NULL );
-   if( ( ret = mbedtls_ssl_conf_own_cert( &conf, &srvcert, &pkey ) ) != 0 )
+
+    if( ( ret = mbedtls_ssl_conf_own_cert( &conf, &srvcert, &pkey ) ) != 0 )
     {
         printf( " failed\n  ! mbedtls_ssl_conf_own_cert returned %d\n\n", ret );
         goto exit;
     }
 
     if( ( ret = mbedtls_ssl_cookie_setup( &cookie_ctx,
-                                  mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+                                          mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
     {
         printf( " failed\n  ! mbedtls_ssl_cookie_setup returned %d\n\n", ret );
         goto exit;
     }
 
     mbedtls_ssl_conf_dtls_cookies( &conf, mbedtls_ssl_cookie_write, mbedtls_ssl_cookie_check,
-                               &cookie_ctx );
+                                   &cookie_ctx );
 
     if( ( ret = mbedtls_ssl_setup( &ssl, &conf ) ) != 0 )
     {
@@ -266,18 +270,20 @@ int main( void )
     }
 
     mbedtls_ssl_set_timer_cb( &ssl, &timer, mbedtls_timing_set_delay,
-                                            mbedtls_timing_get_delay );
+                              mbedtls_timing_get_delay );
 
     printf( " ok\n" );
 
 reset:
 #ifdef MBEDTLS_ERROR_C
+
     if( ret != 0 )
     {
         char error_buf[100];
         mbedtls_strerror( ret, error_buf, 100 );
-        printf("Last error was: %d - %s\n\n", ret, error_buf );
+        printf( "Last error was: %d - %s\n\n", ret, error_buf );
     }
+
 #endif
 
     mbedtls_net_free( &client_fd );
@@ -291,7 +297,7 @@ reset:
     fflush( stdout );
 
     if( ( ret = mbedtls_net_accept( &listen_fd, &client_fd,
-                    client_ip, sizeof( client_ip ), &cliip_len ) ) != 0 )
+                                    client_ip, sizeof( client_ip ), &cliip_len ) ) != 0 )
     {
         printf( " failed\n  ! mbedtls_net_accept returned %d\n\n", ret );
         goto exit;
@@ -299,7 +305,7 @@ reset:
 
     /* For HelloVerifyRequest cookies */
     if( ( ret = mbedtls_ssl_set_client_transport_id( &ssl,
-                    client_ip, cliip_len ) ) != 0 )
+                client_ip, cliip_len ) ) != 0 )
     {
         printf( " failed\n  ! "
                 "mbedtls_ssl_set_client_transport_id() returned -0x%x\n\n", -ret );
@@ -317,9 +323,12 @@ reset:
     printf( "  . Performing the DTLS handshake..." );
     fflush( stdout );
 
-    do ret = mbedtls_ssl_handshake( &ssl );
-    while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
-           ret == MBEDTLS_ERR_SSL_WANT_WRITE );
+    do
+    {
+        ret = mbedtls_ssl_handshake( &ssl );
+    } while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
+
+             ret == MBEDTLS_ERR_SSL_WANT_WRITE );
 
     if( ret == MBEDTLS_ERR_SSL_HELLO_VERIFY_REQUIRED )
     {
@@ -344,26 +353,29 @@ reset:
     len = sizeof( buf ) - 1;
     memset( buf, 0, sizeof( buf ) );
 
-    do ret = mbedtls_ssl_read( &ssl, buf, len );
-    while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
-           ret == MBEDTLS_ERR_SSL_WANT_WRITE );
+    do
+    {
+        ret = mbedtls_ssl_read( &ssl, buf, len );
+    } while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
+
+             ret == MBEDTLS_ERR_SSL_WANT_WRITE );
 
     if( ret <= 0 )
     {
         switch( ret )
         {
-            case MBEDTLS_ERR_SSL_TIMEOUT:
-                printf( " timeout\n\n" );
-                goto reset;
+        case MBEDTLS_ERR_SSL_TIMEOUT:
+            printf( " timeout\n\n" );
+            goto reset;
 
-            case MBEDTLS_ERR_SSL_PEER_CLOSE_NOTIFY:
-                printf( " connection was closed gracefully\n" );
-                ret = 0;
-                goto close_notify;
+        case MBEDTLS_ERR_SSL_PEER_CLOSE_NOTIFY:
+            printf( " connection was closed gracefully\n" );
+            ret = 0;
+            goto close_notify;
 
-            default:
-                printf( " mbedtls_ssl_read returned -0x%x\n\n", -ret );
-                goto reset;
+        default:
+            printf( " mbedtls_ssl_read returned -0x%x\n\n", -ret );
+            goto reset;
         }
     }
 
@@ -376,9 +388,12 @@ reset:
     printf( "  > Write to client:" );
     fflush( stdout );
 
-    do ret = mbedtls_ssl_write( &ssl, buf, len );
-    while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
-           ret == MBEDTLS_ERR_SSL_WANT_WRITE );
+    do
+    {
+        ret = mbedtls_ssl_write( &ssl, buf, len );
+    } while( ret == MBEDTLS_ERR_SSL_WANT_READ ||
+
+             ret == MBEDTLS_ERR_SSL_WANT_WRITE );
 
     if( ret < 0 )
     {
@@ -396,8 +411,11 @@ close_notify:
     printf( "  . Closing the connection..." );
 
     /* No error checking, the connection might be closed already */
-    do ret = mbedtls_ssl_close_notify( &ssl );
-    while( ret == MBEDTLS_ERR_SSL_WANT_WRITE );
+    do
+    {
+        ret = mbedtls_ssl_close_notify( &ssl );
+    } while( ret == MBEDTLS_ERR_SSL_WANT_WRITE );
+
     ret = 0;
 
     printf( " done\n" );
@@ -410,12 +428,14 @@ close_notify:
 exit:
 
 #ifdef MBEDTLS_ERROR_C
+
     if( ret != 0 )
     {
         char error_buf[100];
         mbedtls_strerror( ret, error_buf, 100 );
         printf( "Last error was: %d - %s\n\n", ret, error_buf );
     }
+
 #endif
 
     mbedtls_net_free( &client_fd );
@@ -439,7 +459,9 @@ exit:
 
     /* Shell can not handle large exit numbers -> 1 for errors */
     if( ret < 0 )
+    {
         ret = 1;
+    }
 
     return( ret );
 }

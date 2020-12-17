@@ -6,37 +6,37 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without 
+  * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice, 
+  * 1. Redistribution of source code must retain the above copyright notice,
   *    this list of conditions and the following disclaimer.
   * 2. Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
   *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other 
-  *    contributors to this software may be used to endorse or promote products 
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
   *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this 
+  * 4. This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
   *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under 
-  *    this license is void and will automatically terminate your rights under 
-  *    this license. 
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
-  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
-  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
@@ -54,32 +54,32 @@
   * @brief home alarm routines
   * @{
   */
-  
+
 /* External variables --------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void Startup(WM_HWIN hWin, uint16_t xpos, uint16_t ypos);
+static void Startup( WM_HWIN hWin, uint16_t xpos, uint16_t ypos );
 
 
 /* Private typedef -----------------------------------------------------------*/
 K_ModuleItem_Typedef  home_alarm_board =
 {
-  6,
-  "home alarm",
-  open_alarm,
-  0,
-  Startup,
-  NULL,
+    6,
+    "home alarm",
+    open_alarm,
+    0,
+    Startup,
+    NULL,
 }
 ;
 
 typedef union
 {
-  uint32_t d32;
-  struct
-  {
-    uint32_t camera         : 5;
-    uint32_t alarm          : 2;    
-  }b;
+    uint32_t d32;
+    struct
+    {
+        uint32_t camera         : 5;
+        uint32_t alarm          : 2;
+    } b;
 }
 HomeSettingsTypeDef;
 
@@ -129,17 +129,17 @@ uint32_t cameraStatus  = 0;
 
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static const GUI_WIDGET_CREATE_INFO _aDialog[] = 
+static const GUI_WIDGET_CREATE_INFO _aDialog[] =
 {
-  { WINDOW_CreateIndirect, "", ID_WINDOW_0, 0, 0, 800, 480, 0, 0x64, 0 }, 
-  { TEXT_CreateIndirect,      "room",     ID_TEXT_ALARM1,      70,  370,  70,  20,  0, 0x0,  0 },
-  { TEXT_CreateIndirect,      "alarm",    ID_TEXT_ALARM2,      130, 370,  70,  20,  0, 0x0,  0 },
-  { TEXT_CreateIndirect,      "(on/off)", ID_TEXT_ALARM3,      95,  390,  70,  20,  0, 0x0,  0 },	
-  { TEXT_CreateIndirect,      "watch",    ID_TEXT_CAMERA1,     70,  190,  70,  20,  0, 0x0,  0 },
-  { TEXT_CreateIndirect,      "room",     ID_TEXT_CAMERA2,     140,  190,      70,  20,  0, 0x0,  0 },	
+    { WINDOW_CreateIndirect, "", ID_WINDOW_0, 0, 0, 800, 480, 0, 0x64, 0 },
+    { TEXT_CreateIndirect,      "room",     ID_TEXT_ALARM1,      70,  370,  70,  20,  0, 0x0,  0 },
+    { TEXT_CreateIndirect,      "alarm",    ID_TEXT_ALARM2,      130, 370,  70,  20,  0, 0x0,  0 },
+    { TEXT_CreateIndirect,      "(on/off)", ID_TEXT_ALARM3,      95,  390,  70,  20,  0, 0x0,  0 },
+    { TEXT_CreateIndirect,      "watch",    ID_TEXT_CAMERA1,     70,  190,  70,  20,  0, 0x0,  0 },
+    { TEXT_CreateIndirect,      "room",     ID_TEXT_CAMERA2,     140,  190,      70,  20,  0, 0x0,  0 },
 };
 
-static WM_HWIN                     HOME_hWin; 
+static WM_HWIN                     HOME_hWin;
 static HomeSettingsTypeDef         HomeSettings;
 /* Private functions ---------------------------------------------------------*/
 
@@ -148,18 +148,19 @@ static HomeSettingsTypeDef         HomeSettings;
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_exit(BUTTON_Handle hObj) {
+static void _OnPaint_exit( BUTTON_Handle hObj )
+{
 
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
 
-  GUI_SetColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_AA_FillCircle(100, 0, 100);
+    GUI_SetColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_AA_FillCircle( 100, 0, 100 );
 
-  GUI_SetBkColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_SetColor(GUI_WHITE);
-  GUI_SetFont(&GUI_FontLubalGraph32);
-  GUI_DispStringAt("Menu", 20, 20);
+    GUI_SetBkColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_SetColor( GUI_WHITE );
+    GUI_SetFont( &GUI_FontLubalGraph32 );
+    GUI_DispStringAt( "Menu", 20, 20 );
 }
 
 /**
@@ -167,16 +168,19 @@ static void _OnPaint_exit(BUTTON_Handle hObj) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_exit(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_exit( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_exit(pMsg->hWin);
-      break;
+        _OnPaint_exit( pMsg->hWin );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -184,24 +188,25 @@ static void _cbButton_exit(WM_MESSAGE * pMsg) {
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_camera(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
-  
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-    
-  GUI_DrawBitmap(&bmcamera, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {     
-    if(HomeSettings.b.camera != CAM_DESACTIVATED)
+static void _OnPaint_camera( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
+
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmcamera, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmdes_camera, 0, 0);
+        if( HomeSettings.b.camera != CAM_DESACTIVATED )
+        {
+            GUI_DrawBitmap( &bmdes_camera, 0, 0 );
+        }
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmcamera, 0, 0);
-  }
+    else
+    {
+        GUI_DrawBitmap( &bmcamera, 0, 0 );
+    }
 }
 
 /**
@@ -209,16 +214,19 @@ static void _OnPaint_camera(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t 
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_camera(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_camera( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_camera(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_camera( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -226,48 +234,50 @@ static void _cbButton_camera(WM_MESSAGE * pMsg) {
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_alarm(BUTTON_Handle hObj, uint32_t alarm_status) {
-  
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-    
-  if(HomeSettings.b.alarm == ALARM_OFF)
-  { 
-    GUI_DrawBitmap(&bmdes_alarm, 0, 0);
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmalarm, 0, 0);
-  }
-}
+static void _OnPaint_alarm( BUTTON_Handle hObj, uint32_t alarm_status )
+{
 
-/**
-  * @brief  Paints cam1 button 
-  * @param  hObj: button handle
-  * @retval None
-  */
-static void _OnPaint_cam1(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
-  
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB1_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_1)
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    if( HomeSettings.b.alarm == ALARM_OFF )
     {
-      GUI_DrawBitmap(&bmB1_ON, 0, 0);
+        GUI_DrawBitmap( &bmdes_alarm, 0, 0 );
     }
     else
     {
-      GUI_DrawBitmap(&bmB1_DES, 0, 0);
+        GUI_DrawBitmap( &bmalarm, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB1_OFF, 0, 0);
-  }  
+}
+
+/**
+  * @brief  Paints cam1 button
+  * @param  hObj: button handle
+  * @retval None
+  */
+static void _OnPaint_cam1( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
+
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB1_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
+    {
+        if( HomeSettings.b.camera == CAM_1 )
+        {
+            GUI_DrawBitmap( &bmB1_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB1_DES, 0, 0 );
+        }
+    }
+    else
+    {
+        GUI_DrawBitmap( &bmB1_OFF, 0, 0 );
+    }
 }
 
 /**
@@ -275,28 +285,29 @@ static void _OnPaint_cam1(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t ca
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_cam2(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
-  
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB2_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_2)
+static void _OnPaint_cam2( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
+
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB2_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmB2_ON, 0, 0);
+        if( HomeSettings.b.camera == CAM_2 )
+        {
+            GUI_DrawBitmap( &bmB2_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB2_DES, 0, 0 );
+        }
     }
     else
     {
-      GUI_DrawBitmap(&bmB2_DES, 0, 0);
+        GUI_DrawBitmap( &bmB2_OFF, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB2_OFF, 0, 0);
-  }  
 }
 
 /**
@@ -304,28 +315,29 @@ static void _OnPaint_cam2(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t ca
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_cam3(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
+static void _OnPaint_cam3( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
 
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB3_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_3)
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB3_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmB3_ON, 0, 0);
+        if( HomeSettings.b.camera == CAM_3 )
+        {
+            GUI_DrawBitmap( &bmB3_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB3_DES, 0, 0 );
+        }
     }
     else
     {
-      GUI_DrawBitmap(&bmB3_DES, 0, 0);
+        GUI_DrawBitmap( &bmB3_OFF, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB3_OFF, 0, 0);
-  }  
 }
 
 /**
@@ -333,28 +345,29 @@ static void _OnPaint_cam3(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t ca
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_cam4(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
+static void _OnPaint_cam4( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
 
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB4_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_4)
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB4_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmB4_ON, 0, 0);
+        if( HomeSettings.b.camera == CAM_4 )
+        {
+            GUI_DrawBitmap( &bmB4_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB4_DES, 0, 0 );
+        }
     }
     else
     {
-      GUI_DrawBitmap(&bmB4_DES, 0, 0);
+        GUI_DrawBitmap( &bmB4_OFF, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB4_OFF, 0, 0);
-  }  
 }
 
 /**
@@ -362,28 +375,29 @@ static void _OnPaint_cam4(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t ca
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_cam5(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
+static void _OnPaint_cam5( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
 
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB5_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_5)
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB5_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmB5_ON, 0, 0);
+        if( HomeSettings.b.camera == CAM_5 )
+        {
+            GUI_DrawBitmap( &bmB5_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB5_DES, 0, 0 );
+        }
     }
     else
     {
-      GUI_DrawBitmap(&bmB5_DES, 0, 0);
+        GUI_DrawBitmap( &bmB5_OFF, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB5_OFF, 0, 0);
-  }  
 }
 
 /**
@@ -391,28 +405,29 @@ static void _OnPaint_cam5(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t ca
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_cam5_1(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status) {
+static void _OnPaint_cam5_1( BUTTON_Handle hObj, uint32_t alarm_status, uint32_t camera_status )
+{
 
-  GUI_SetBkColor(FRAMEWIN_GetDefaultClientColor());
-  GUI_Clear();
-  
-  GUI_DrawBitmap(&bmB6_OFF, 0, 0);
-  
-  if(HomeSettings.b.alarm == ALARM_ON)
-  {
-    if(HomeSettings.b.camera == CAM_5)
+    GUI_SetBkColor( FRAMEWIN_GetDefaultClientColor() );
+    GUI_Clear();
+
+    GUI_DrawBitmap( &bmB6_OFF, 0, 0 );
+
+    if( HomeSettings.b.alarm == ALARM_ON )
     {
-      GUI_DrawBitmap(&bmB6_ON, 0, 0);
+        if( HomeSettings.b.camera == CAM_5 )
+        {
+            GUI_DrawBitmap( &bmB6_ON, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmB6_DES, 0, 0 );
+        }
     }
     else
     {
-      GUI_DrawBitmap(&bmB6_DES, 0, 0);
+        GUI_DrawBitmap( &bmB6_OFF, 0, 0 );
     }
-  }
-  else
-  {
-    GUI_DrawBitmap(&bmB6_OFF, 0, 0);
-  }  
 }
 
 /**
@@ -420,15 +435,16 @@ static void _OnPaint_cam5_1(BUTTON_Handle hObj, uint32_t alarm_status, uint32_t 
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_exit1(BUTTON_Handle hObj) {
+static void _OnPaint_exit1( BUTTON_Handle hObj )
+{
 
-  GUI_SetColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_AA_FillCircle(0, 100, 100);
+    GUI_SetColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_AA_FillCircle( 0, 100, 100 );
 
-  GUI_SetBkColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_SetColor(GUI_WHITE);
-  GUI_SetFont(&GUI_FontLubalGraph32);
-  GUI_DispStringAt("back", 10, 35); 
+    GUI_SetBkColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_SetColor( GUI_WHITE );
+    GUI_SetFont( &GUI_FontLubalGraph32 );
+    GUI_DispStringAt( "back", 10, 35 );
 }
 
 /**
@@ -436,15 +452,16 @@ static void _OnPaint_exit1(BUTTON_Handle hObj) {
   * @param  hObj: button handle
   * @retval None
   */
-static void _OnPaint_menu(BUTTON_Handle hObj) {
+static void _OnPaint_menu( BUTTON_Handle hObj )
+{
 
-  GUI_SetColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_AA_FillCircle(100, 0, 100);
+    GUI_SetColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_AA_FillCircle( 100, 0, 100 );
 
-  GUI_SetBkColor(GUI_STCOLOR_LIGHTBLUE);
-  GUI_SetColor(GUI_WHITE);
-  GUI_SetFont(&GUI_FontLubalGraph32);
-  GUI_DispStringAt("Menu", 20, 20);
+    GUI_SetBkColor( GUI_STCOLOR_LIGHTBLUE );
+    GUI_SetColor( GUI_WHITE );
+    GUI_SetFont( &GUI_FontLubalGraph32 );
+    GUI_DispStringAt( "Menu", 20, 20 );
 }
 
 /**
@@ -452,16 +469,19 @@ static void _OnPaint_menu(BUTTON_Handle hObj) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_alarm(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_alarm( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_alarm(pMsg->hWin, HomeSettings.b.alarm);
-      break;
+        _OnPaint_alarm( pMsg->hWin, HomeSettings.b.alarm );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -469,16 +489,19 @@ static void _cbButton_alarm(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam1(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam1( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam1(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam1( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -486,16 +509,19 @@ static void _cbButton_cam1(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam2(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam2( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam2(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam2( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -503,16 +529,19 @@ static void _cbButton_cam2(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam3(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam3( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam3(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam3( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -520,16 +549,19 @@ static void _cbButton_cam3(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam4(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam4( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam4(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam4( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -537,16 +569,19 @@ static void _cbButton_cam4(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam5(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam5( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam5(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam5( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -554,16 +589,19 @@ static void _cbButton_cam5(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_cam5_1(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
+static void _cbButton_cam5_1( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
     case WM_PAINT:
-      _OnPaint_cam5_1(pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera);
-      break;
+        _OnPaint_cam5_1( pMsg->hWin, HomeSettings.b.alarm, HomeSettings.b.camera );
+        break;
+
     default:
-      /* The original callback */
-      BUTTON_Callback(pMsg);
-      break;
-  }
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -571,16 +609,19 @@ static void _cbButton_cam5_1(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_exit1(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
-  case WM_PAINT:
-    _OnPaint_exit1(pMsg->hWin);
-    break;
-  default:
-    /* The original callback */
-    BUTTON_Callback(pMsg);
-    break;
-  }
+static void _cbButton_exit1( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
+    case WM_PAINT:
+        _OnPaint_exit1( pMsg->hWin );
+        break;
+
+    default:
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -588,16 +629,19 @@ static void _cbButton_exit1(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbButton_menu(WM_MESSAGE * pMsg) {
-  switch (pMsg->MsgId) {
-  case WM_PAINT:
-    _OnPaint_menu(pMsg->hWin);
-    break;
-  default:
-    /* The original callback */
-    BUTTON_Callback(pMsg);
-    break;
-  }
+static void _cbButton_menu( WM_MESSAGE *pMsg )
+{
+    switch( pMsg->MsgId )
+    {
+    case WM_PAINT:
+        _OnPaint_menu( pMsg->hWin );
+        break;
+
+    default:
+        /* The original callback */
+        BUTTON_Callback( pMsg );
+        break;
+    }
 }
 
 /**
@@ -605,491 +649,523 @@ static void _cbButton_menu(WM_MESSAGE * pMsg) {
   * @param  pMsg: pointer to data structure of type WM_MESSAGE
   * @retval None
   */
-static void _cbCameraWindow(WM_MESSAGE * pMsg)
+static void _cbCameraWindow( WM_MESSAGE *pMsg )
 {
-  int     NCode;
-  int     Id;
-  WM_HWIN hItem;
-    
-  switch (pMsg->MsgId)
-  {
-    
-  case WM_CREATE:
-    if(HomeSettings.b.camera == CAM_1)
+    int     NCode;
+    int     Id;
+    WM_HWIN hItem;
+
+    switch( pMsg->MsgId )
     {
-      /* Title Initialization in play list */   
-      hItem = TEXT_CreateEx(20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 1");
-      TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-      TEXT_SetTextColor(hItem, GUI_WHITE); 
-    }
-    else if(HomeSettings.b.camera == CAM_2)
-    {
-      /* Title Initialization in play list */   
-      hItem = TEXT_CreateEx(20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 2");
-      TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-      TEXT_SetTextColor(hItem, GUI_WHITE); 
-    }
-    else if(HomeSettings.b.camera == CAM_3)
-    {
-      /* Title Initialization in play list */   
-      hItem = TEXT_CreateEx(20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 3");
-      TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-      TEXT_SetTextColor(hItem, GUI_WHITE);
-    }
-    else if(HomeSettings.b.camera == CAM_4)
-    {
-      /* Title Initialization in play list */   
-      hItem = TEXT_CreateEx(20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 4");
-      TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-      TEXT_SetTextColor(hItem, GUI_WHITE);
-    }
-    else
-    {
-      /* Title Initialization in play list */   
-      hItem = TEXT_CreateEx(20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 5");
-      TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-      TEXT_SetTextColor(hItem, GUI_WHITE);      
-    }  
-    
-    hItem = BUTTON_CreateEx(700, 0, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_MENU);
-    WM_SetCallback(hItem, _cbButton_menu);     
-    
-    hItem = BUTTON_CreateEx(0, 379, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_EXIT_FROM_CAM);
-    WM_SetCallback(hItem, _cbButton_exit1); 
-    break;
-    
-  case WM_PAINT:
-    if(HomeSettings.b.camera == CAM_1)
-    {
-      GUI_DrawBitmap(&bmcam1, 0, 0);      
-    }
-    else if(HomeSettings.b.camera == CAM_2)
-    {
-      GUI_DrawBitmap(&bmcam2, 0, 0);
-    }
-    else if(HomeSettings.b.camera == CAM_3)
-    {
-      GUI_DrawBitmap(&bmcam3, 0, 0);      
-    }
-    else if(HomeSettings.b.camera == CAM_4)
-    {
-      GUI_DrawBitmap(&bmcam4, 0, 0);      
-    }
-    else
-    {
-      GUI_DrawBitmap(&bmcam5, 0, 0);      
-    }  
-    GUI_SetColor(GUI_STCOLOR_LIGHTBLUE);
-    GUI_AA_FillRoundedRect((-30), 10, 100, 75, 30);
-    break;
-    
-    
-  case WM_NOTIFY_PARENT:
-    Id    = WM_GetId(pMsg->hWinSrc);    /* Id of widget */
-    NCode = pMsg->Data.v;               /* Notification code */
- 
-    switch(Id) {
-      
-    case ID_BUTTON_EXIT_FROM_CAM: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-        /* re-initialize the NOR pin*/
-        GUI_EndDialog(pMsg->hWin, 0);
-        WM_HideWindow(hCameraFrame);        
-        WM_Exec();        
-        WM_DeleteWindow(hCameraFrame);
-        WM_InvalidateWindow(HOME_hWin);
-        break;     
-      }
-      break;
 
-    case ID_BUTTON_MENU: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-        GUI_EndDialog(pMsg->hWin, 0);
-        WM_DeleteWindow(hCameraFrame);
-        WM_DeleteWindow(HOME_hWin);
-        break;
-      }
-      break;
-    }
-    break;
-    
-  case WM_DELETE:
-    break;
-    
-  default:
-    WM_DefaultProc(pMsg);
-  }
-}
-
-
-static void _cbDialog(WM_MESSAGE * pMsg) {
-  WM_HWIN hItem;
-  int Id, NCode;
-
-  
-  switch (pMsg->MsgId) {
-  case WM_INIT_DIALOG:
-    
-    hItem = BUTTON_CreateEx(700, 0, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_EXIT);
-    WM_SetCallback(hItem, _cbButton_exit);
-
-    hItem = BUTTON_CreateEx(50, 40, 150, 135, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAMERA);
-    WM_SetCallback(hItem, _cbButton_camera); 
-
-    hItem = BUTTON_CreateEx(50, 235, 150,  135, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_ALARM);
-    WM_SetCallback(hItem, _cbButton_alarm);
-    
-    hItem = BUTTON_CreateEx(410, 302, 100, 133, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM1);
-    WM_SetCallback(hItem, _cbButton_cam1); 
-
-    hItem = BUTTON_CreateEx(510, 302, 180, 132, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM2);
-    WM_SetCallback(hItem, _cbButton_cam2); 
-
-    hItem = BUTTON_CreateEx(510, 192, 180, 111, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM3);
-    WM_SetCallback(hItem, _cbButton_cam3); 
-
-    hItem = BUTTON_CreateEx(510, 60, 180, 132, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM4);
-    WM_SetCallback(hItem, _cbButton_cam4); 
-
-    hItem = BUTTON_CreateEx(240, 60, 270, 242, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM5);
-    WM_SetCallback(hItem, _cbButton_cam5); 
-
-    hItem = BUTTON_CreateEx(240, 302, 170, 133, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM5_1);
-    WM_SetCallback(hItem, _cbButton_cam5_1); 
-    
-    /* Title Initialization in play list */
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_CAMERA1);
-    TEXT_SetText(hItem, "watch");
-    TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-    TEXT_SetTextColor(hItem, GUI_STCOLOR_LIGHTBLUE);
-	
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_CAMERA2);
-    TEXT_SetText(hItem, "room");
-    TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-    TEXT_SetTextColor(hItem, GUI_STCOLOR_DARKBLUE);	
-    
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_ALARM1);
-    TEXT_SetText(hItem, "room");
-    TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-    TEXT_SetTextColor(hItem, GUI_STCOLOR_LIGHTBLUE);			
-		
-    /* Title Initialization in play list */
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_ALARM2);
-    TEXT_SetText(hItem, "alarm");
-    TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-    TEXT_SetTextColor(hItem, GUI_STCOLOR_DARKBLUE);    
-    
-    /* Duration */
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_ALARM3);
-    TEXT_SetText(hItem, "(on/off)");
-    TEXT_SetFont(hItem, &GUI_FontLubalGraph24B);
-    TEXT_SetTextColor(hItem, GUI_STCOLOR_DARKBLUE); 
-    break;     
-
-  case WM_NOTIFY_PARENT:
-    Id    = WM_GetId(pMsg->hWinSrc);    /* Id of widget */
-    NCode = pMsg->Data.v;               /* Notification code */
-    
-    
-    switch(Id) {
-    case ID_BUTTON_EXIT: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-        GUI_EndDialog(pMsg->hWin, 0);
-        break;
-      }
-      break;
-    case ID_BUTTON_ALARM: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        if(HomeSettings.b.alarm == ALARM_ON)
+    case WM_CREATE:
+        if( HomeSettings.b.camera == CAM_1 )
         {
-          HomeSettings.b.alarm = ALARM_OFF;
+            /* Title Initialization in play list */
+            hItem = TEXT_CreateEx( 20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 1" );
+            TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+            TEXT_SetTextColor( hItem, GUI_WHITE );
+        }
+        else if( HomeSettings.b.camera == CAM_2 )
+        {
+            /* Title Initialization in play list */
+            hItem = TEXT_CreateEx( 20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 2" );
+            TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+            TEXT_SetTextColor( hItem, GUI_WHITE );
+        }
+        else if( HomeSettings.b.camera == CAM_3 )
+        {
+            /* Title Initialization in play list */
+            hItem = TEXT_CreateEx( 20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 3" );
+            TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+            TEXT_SetTextColor( hItem, GUI_WHITE );
+        }
+        else if( HomeSettings.b.camera == CAM_4 )
+        {
+            /* Title Initialization in play list */
+            hItem = TEXT_CreateEx( 20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 4" );
+            TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+            TEXT_SetTextColor( hItem, GUI_WHITE );
         }
         else
         {
-          HomeSettings.b.alarm = ALARM_ON;
+            /* Title Initialization in play list */
+            hItem = TEXT_CreateEx( 20, 30, 65, 24, pMsg->hWin, WM_CF_SHOW, 0, ID_CAM, "CAM 5" );
+            TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+            TEXT_SetTextColor( hItem, GUI_WHITE );
         }
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
+        hItem = BUTTON_CreateEx( 700, 0, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_MENU );
+        WM_SetCallback( hItem, _cbButton_menu );
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
+        hItem = BUTTON_CreateEx( 0, 379, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_EXIT_FROM_CAM );
+        WM_SetCallback( hItem, _cbButton_exit1 );
+        break;
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);  
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);        
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem); 
-        
-        break;         
-        
-      }
-      break;     
-
-
-    case ID_BUTTON_CAMERA: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        if(HomeSettings.b.alarm == ALARM_ON)
+    case WM_PAINT:
+        if( HomeSettings.b.camera == CAM_1 )
         {
-          if(HomeSettings.b.camera != CAM_DESACTIVATED)
-          {      
-            /* Camera frame initialization */            
-            hCameraFrame = WM_CreateWindowAsChild(0, 0, 800, 480, pMsg->hWin,  WM_CF_SHOW | WM_CF_LATE_CLIP, _cbCameraWindow, 0);    
-          }
-        }     
-        break;         
-        
-      }
-      break;      
-      
-    case ID_BUTTON_CAM1: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
+            GUI_DrawBitmap( &bmcam1, 0, 0 );
+        }
+        else if( HomeSettings.b.camera == CAM_2 )
+        {
+            GUI_DrawBitmap( &bmcam2, 0, 0 );
+        }
+        else if( HomeSettings.b.camera == CAM_3 )
+        {
+            GUI_DrawBitmap( &bmcam3, 0, 0 );
+        }
+        else if( HomeSettings.b.camera == CAM_4 )
+        {
+            GUI_DrawBitmap( &bmcam4, 0, 0 );
+        }
+        else
+        {
+            GUI_DrawBitmap( &bmcam5, 0, 0 );
+        }
 
-        HomeSettings.b.camera = CAM_1;     
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);        
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem); 
-        
+        GUI_SetColor( GUI_STCOLOR_LIGHTBLUE );
+        GUI_AA_FillRoundedRect( ( -30 ), 10, 100, 75, 30 );
         break;
-      }
-      break; 
-        
-    case ID_BUTTON_CAM2: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
 
-        HomeSettings.b.camera = CAM_2;    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
+    case WM_NOTIFY_PARENT:
+        Id    = WM_GetId( pMsg->hWinSrc );  /* Id of widget */
+        NCode = pMsg->Data.v;               /* Notification code */
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
+        switch( Id )
+        {
 
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);  
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem); 
-        
+        case ID_BUTTON_EXIT_FROM_CAM:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+                /* re-initialize the NOR pin*/
+                GUI_EndDialog( pMsg->hWin, 0 );
+                WM_HideWindow( hCameraFrame );
+                WM_Exec();
+                WM_DeleteWindow( hCameraFrame );
+                WM_InvalidateWindow( HOME_hWin );
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_MENU:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+                GUI_EndDialog( pMsg->hWin, 0 );
+                WM_DeleteWindow( hCameraFrame );
+                WM_DeleteWindow( HOME_hWin );
+                break;
+            }
+
+            break;
+        }
+
         break;
-      }
-      break;
 
-    case ID_BUTTON_CAM3: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        HomeSettings.b.camera = CAM_3; 
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);         
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem); 
-        
+    case WM_DELETE:
         break;
-      }
-      break;
 
-    case ID_BUTTON_CAM4: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        HomeSettings.b.camera = CAM_4;
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem); 
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);         
-        
-        break;
-      }
-      break;
-
-    case ID_BUTTON_CAM5: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        HomeSettings.b.camera = CAM_5;
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5_1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);         
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);         
-        
-        break;
-      }
-      break;
-
-    case ID_BUTTON_CAM5_1: 
-      switch(NCode) {
-      case WM_NOTIFICATION_RELEASED:
-
-        HomeSettings.b.camera = CAM_5;
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM1);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);    
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM2);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM3);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM4);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);
-
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAM5);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);           
-        
-        hItem = WM_GetDialogItem(pMsg->hWin, ID_BUTTON_CAMERA);
-        WM_InvalidateWindow(hItem);
-        WM_Update(hItem);         
-        
-        break;
-      }
-      break;        
-      
+    default:
+        WM_DefaultProc( pMsg );
     }
-    break;
-  default:
-    WM_DefaultProc(pMsg);
-    break;
-  }    
+}
+
+
+static void _cbDialog( WM_MESSAGE *pMsg )
+{
+    WM_HWIN hItem;
+    int Id, NCode;
+
+
+    switch( pMsg->MsgId )
+    {
+    case WM_INIT_DIALOG:
+
+        hItem = BUTTON_CreateEx( 700, 0, 100, 100, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_EXIT );
+        WM_SetCallback( hItem, _cbButton_exit );
+
+        hItem = BUTTON_CreateEx( 50, 40, 150, 135, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAMERA );
+        WM_SetCallback( hItem, _cbButton_camera );
+
+        hItem = BUTTON_CreateEx( 50, 235, 150,  135, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_ALARM );
+        WM_SetCallback( hItem, _cbButton_alarm );
+
+        hItem = BUTTON_CreateEx( 410, 302, 100, 133, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM1 );
+        WM_SetCallback( hItem, _cbButton_cam1 );
+
+        hItem = BUTTON_CreateEx( 510, 302, 180, 132, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM2 );
+        WM_SetCallback( hItem, _cbButton_cam2 );
+
+        hItem = BUTTON_CreateEx( 510, 192, 180, 111, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM3 );
+        WM_SetCallback( hItem, _cbButton_cam3 );
+
+        hItem = BUTTON_CreateEx( 510, 60, 180, 132, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM4 );
+        WM_SetCallback( hItem, _cbButton_cam4 );
+
+        hItem = BUTTON_CreateEx( 240, 60, 270, 242, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM5 );
+        WM_SetCallback( hItem, _cbButton_cam5 );
+
+        hItem = BUTTON_CreateEx( 240, 302, 170, 133, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CAM5_1 );
+        WM_SetCallback( hItem, _cbButton_cam5_1 );
+
+        /* Title Initialization in play list */
+        hItem = WM_GetDialogItem( pMsg->hWin, ID_TEXT_CAMERA1 );
+        TEXT_SetText( hItem, "watch" );
+        TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+        TEXT_SetTextColor( hItem, GUI_STCOLOR_LIGHTBLUE );
+
+        hItem = WM_GetDialogItem( pMsg->hWin, ID_TEXT_CAMERA2 );
+        TEXT_SetText( hItem, "room" );
+        TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+        TEXT_SetTextColor( hItem, GUI_STCOLOR_DARKBLUE );
+
+        hItem = WM_GetDialogItem( pMsg->hWin, ID_TEXT_ALARM1 );
+        TEXT_SetText( hItem, "room" );
+        TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+        TEXT_SetTextColor( hItem, GUI_STCOLOR_LIGHTBLUE );
+
+        /* Title Initialization in play list */
+        hItem = WM_GetDialogItem( pMsg->hWin, ID_TEXT_ALARM2 );
+        TEXT_SetText( hItem, "alarm" );
+        TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+        TEXT_SetTextColor( hItem, GUI_STCOLOR_DARKBLUE );
+
+        /* Duration */
+        hItem = WM_GetDialogItem( pMsg->hWin, ID_TEXT_ALARM3 );
+        TEXT_SetText( hItem, "(on/off)" );
+        TEXT_SetFont( hItem, &GUI_FontLubalGraph24B );
+        TEXT_SetTextColor( hItem, GUI_STCOLOR_DARKBLUE );
+        break;
+
+    case WM_NOTIFY_PARENT:
+        Id    = WM_GetId( pMsg->hWinSrc );  /* Id of widget */
+        NCode = pMsg->Data.v;               /* Notification code */
+
+
+        switch( Id )
+        {
+        case ID_BUTTON_EXIT:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+                GUI_EndDialog( pMsg->hWin, 0 );
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_ALARM:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                if( HomeSettings.b.alarm == ALARM_ON )
+                {
+                    HomeSettings.b.alarm = ALARM_OFF;
+                }
+                else
+                {
+                    HomeSettings.b.alarm = ALARM_ON;
+                }
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+
+            }
+
+            break;
+
+
+        case ID_BUTTON_CAMERA:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                if( HomeSettings.b.alarm == ALARM_ON )
+                {
+                    if( HomeSettings.b.camera != CAM_DESACTIVATED )
+                    {
+                        /* Camera frame initialization */
+                        hCameraFrame = WM_CreateWindowAsChild( 0, 0, 800, 480, pMsg->hWin,  WM_CF_SHOW | WM_CF_LATE_CLIP, _cbCameraWindow, 0 );
+                    }
+                }
+
+                break;
+
+            }
+
+            break;
+
+        case ID_BUTTON_CAM1:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_1;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_CAM2:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_2;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_CAM3:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_3;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_CAM4:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_4;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_CAM5:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_5;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5_1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        case ID_BUTTON_CAM5_1:
+            switch( NCode )
+            {
+            case WM_NOTIFICATION_RELEASED:
+
+                HomeSettings.b.camera = CAM_5;
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM1 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM2 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM3 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM4 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAM5 );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                hItem = WM_GetDialogItem( pMsg->hWin, ID_BUTTON_CAMERA );
+                WM_InvalidateWindow( hItem );
+                WM_Update( hItem );
+
+                break;
+            }
+
+            break;
+
+        }
+
+        break;
+
+    default:
+        WM_DefaultProc( pMsg );
+        break;
+    }
 }
 
 
 /**
   * @brief  home alarm window Startup
   * @param  hWin: pointer to the parent handle.
-  * @param  xpos: X position 
+  * @param  xpos: X position
   * @param  ypos: Y position
   * @retval None
   */
-static void Startup(WM_HWIN hWin, uint16_t xpos, uint16_t ypos)
+static void Startup( WM_HWIN hWin, uint16_t xpos, uint16_t ypos )
 {
-  HomeSettings.b.alarm  = ALARM_ON;
-  HomeSettings.b.camera = CAM_DESACTIVATED;
-  HOME_hWin = GUI_CreateDialogBox(_aDialog, GUI_COUNTOF(_aDialog), _cbDialog, hWin, xpos, ypos);
+    HomeSettings.b.alarm  = ALARM_ON;
+    HomeSettings.b.camera = CAM_DESACTIVATED;
+    HOME_hWin = GUI_CreateDialogBox( _aDialog, GUI_COUNTOF( _aDialog ), _cbDialog, hWin, xpos, ypos );
 }
 
 /**
@@ -1099,5 +1175,5 @@ static void Startup(WM_HWIN hWin, uint16_t xpos, uint16_t ypos)
 /**
   * @}
   */
-  
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

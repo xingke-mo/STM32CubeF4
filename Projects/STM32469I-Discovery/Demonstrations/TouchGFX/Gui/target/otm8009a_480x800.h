@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 
@@ -21,7 +21,7 @@
 #define __OTM8009A_480X800_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -57,7 +57,7 @@
 #define  VPITCH_480X800_16BIT             ((uint16_t)(800 * 2)) /* RGB565 horizontal pitch */
 #define  HPITCH_480X800_24BIT             ((uint16_t)(480 * 3)) /* RGB565 horizontal pitch */
 #define  VPITCH_480X800_24BIT             ((uint16_t)(800 * 3)) /* RGB565 horizontal pitch */
-   
+
 
 /* Width and Height in Landscape mode */
 #define  OTM8009A_800X480_WIDTH           ((uint16_t)800)     /* LCD PIXEL WIDTH   */
@@ -151,8 +151,8 @@
   */
 #define OTM8009A_480X800_FREQUENCY_DIVIDER  2   /* LCD Frequency divider      */
 
-#define OTM8009A_FORMAT_RGB888				      0
-#define OTM8009A_FORMAT_RGB565				      1
+#define OTM8009A_FORMAT_RGB888                    0
+#define OTM8009A_FORMAT_RGB565                    1
 
 /**
   * @}

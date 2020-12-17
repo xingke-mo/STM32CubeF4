@@ -28,9 +28,9 @@
 #define MBEDTLS_SHA256_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -171,7 +171,7 @@ int mbedtls_internal_sha256_process( mbedtls_sha256_context *ctx,
  *                 either \c 0 for SHA-256, or \c 1 for SHA-224.
  */
 MBEDTLS_DEPRECATED void mbedtls_sha256_starts( mbedtls_sha256_context *ctx,
-                                               int is224 );
+        int is224 );
 
 /**
  * \brief          This function feeds an input buffer into an ongoing
@@ -186,8 +186,8 @@ MBEDTLS_DEPRECATED void mbedtls_sha256_starts( mbedtls_sha256_context *ctx,
  * \param ilen     The length of the input data in Bytes.
  */
 MBEDTLS_DEPRECATED void mbedtls_sha256_update( mbedtls_sha256_context *ctx,
-                                               const unsigned char *input,
-                                               size_t ilen );
+        const unsigned char *input,
+        size_t ilen );
 
 /**
  * \brief          This function finishes the SHA-256 operation, and writes
@@ -201,7 +201,7 @@ MBEDTLS_DEPRECATED void mbedtls_sha256_update( mbedtls_sha256_context *ctx,
  *                 a writable buffer of length \c 32 Bytes.
  */
 MBEDTLS_DEPRECATED void mbedtls_sha256_finish( mbedtls_sha256_context *ctx,
-                                               unsigned char output[32] );
+        unsigned char output[32] );
 
 /**
  * \brief          This function processes a single data block within
@@ -215,7 +215,7 @@ MBEDTLS_DEPRECATED void mbedtls_sha256_finish( mbedtls_sha256_context *ctx,
  *                 a readable buffer of size \c 64 Bytes.
  */
 MBEDTLS_DEPRECATED void mbedtls_sha256_process( mbedtls_sha256_context *ctx,
-                                                const unsigned char data[64] );
+        const unsigned char data[64] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */

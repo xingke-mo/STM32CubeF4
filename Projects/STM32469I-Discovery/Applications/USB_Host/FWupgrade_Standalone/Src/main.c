@@ -57,11 +57,11 @@ uint32_t JumpAddress;
 pFunction Jump_To_Application;
 
 /* Private function prototypes ----------------------------------------------- */
-static void SystemClock_Config(void);
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
-static void FW_InitApplication(void);
-static void Error_Handler(void);
-void Toggle_Leds(void);
+static void SystemClock_Config( void );
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id );
+static void FW_InitApplication( void );
+static void Error_Handler( void );
+void Toggle_Leds( void );
 
 /* Private functions --------------------------------------------------------- */
 
@@ -70,56 +70,56 @@ void Toggle_Leds(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* Configure Key Button */
-  BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
+    /* Configure Key Button */
+    BSP_PB_Init( BUTTON_WAKEUP, BUTTON_MODE_GPIO );
 
-  /* Unlock the Flash to enable the flash control register access */
-  FLASH_If_FlashUnlock();
+    /* Unlock the Flash to enable the flash control register access */
+    FLASH_If_FlashUnlock();
 
-  /* Test if User button is pressed */
-  if (BSP_PB_GetState(BUTTON_WAKEUP) != GPIO_PIN_SET)
-  {
-    /* Check Vector Table: Test if user code is programmed starting from address
-    "APPLICATION_ADDRESS" */
-    if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0xFF000000 ) == 0x20000000)
+    /* Test if User button is pressed */
+    if( BSP_PB_GetState( BUTTON_WAKEUP ) != GPIO_PIN_SET )
     {
-      /* Jump to user application */
-      JumpAddress = *(__IO uint32_t*) (APPLICATION_ADDRESS + 4);
-      Jump_To_Application = (pFunction) JumpAddress;
-      /* Initialize user application's Stack Pointer */
-      __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);
-      Jump_To_Application();
+        /* Check Vector Table: Test if user code is programmed starting from address
+        "APPLICATION_ADDRESS" */
+        if( ( ( *( __IO uint32_t * )APPLICATION_ADDRESS ) & 0xFF000000 ) == 0x20000000 )
+        {
+            /* Jump to user application */
+            JumpAddress = *( __IO uint32_t * )( APPLICATION_ADDRESS + 4 );
+            Jump_To_Application = ( pFunction ) JumpAddress;
+            /* Initialize user application's Stack Pointer */
+            __set_MSP( *( __IO uint32_t * ) APPLICATION_ADDRESS );
+            Jump_To_Application();
+        }
     }
-  }
 
-  /* STM32F469xx HAL library initialization */
-  HAL_Init();
+    /* STM32F469xx HAL library initialization */
+    HAL_Init();
 
-  /* Configure the System clock to have a frequency of 180 MHz */
-  SystemClock_Config();
+    /* Configure the System clock to have a frequency of 180 MHz */
+    SystemClock_Config();
 
-  /* Init FW upgrade Application */
-  FW_InitApplication();
+    /* Init FW upgrade Application */
+    FW_InitApplication();
 
-  /* Init Host Library */
-  USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+    /* Init Host Library */
+    USBH_Init( &hUSBHost, USBH_UserProcess, 0 );
 
-  /* Add Supported Class */
-  USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+    /* Add Supported Class */
+    USBH_RegisterClass( &hUSBHost, USBH_MSC_CLASS );
 
-  /* Start Host Process */
-  USBH_Start(&hUSBHost);
+    /* Start Host Process */
+    USBH_Start( &hUSBHost );
 
-  while (1)
-  {
-    /* USB Host Background task */
-    USBH_Process(&hUSBHost);
+    while( 1 )
+    {
+        /* USB Host Background task */
+        USBH_Process( &hUSBHost );
 
-    /* FW Menu Process */
-    FW_UPGRADE_Process();
-  }
+        /* FW Menu Process */
+        FW_UPGRADE_Process();
+    }
 }
 
 /**
@@ -127,13 +127,13 @@ int main(void)
   * @param  None
   * @retval None
   */
-static void FW_InitApplication(void)
+static void FW_InitApplication( void )
 {
-  /* Configure LED1, LED2, LED3 and LED4 */
-  BSP_LED_Init(LED1);
-  BSP_LED_Init(LED2);
-  BSP_LED_Init(LED3);
-  BSP_LED_Init(LED4);
+    /* Configure LED1, LED2, LED3 and LED4 */
+    BSP_LED_Init( LED1 );
+    BSP_LED_Init( LED2 );
+    BSP_LED_Init( LED3 );
+    BSP_LED_Init( LED4 );
 }
 
 /**
@@ -142,36 +142,39 @@ static void FW_InitApplication(void)
   * @param  id: Host Library user message ID
   * @retval None
   */
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id )
 {
-  switch(id)
-  {
-  case HOST_USER_SELECT_CONFIGURATION:
-    break;
-
-  case HOST_USER_DISCONNECTION:
-    Appli_state = APPLICATION_DISCONNECT;
-    if (f_mount(NULL, "", 0) != FR_OK)
+    switch( id )
     {
-      FatFs_Fail_Handler();
+    case HOST_USER_SELECT_CONFIGURATION:
+        break;
+
+    case HOST_USER_DISCONNECTION:
+        Appli_state = APPLICATION_DISCONNECT;
+
+        if( f_mount( NULL, "", 0 ) != FR_OK )
+        {
+            FatFs_Fail_Handler();
+        }
+
+        if( FATFS_UnLinkDriver( USBDISKPath ) != 0 )
+        {
+            FatFs_Fail_Handler();
+        }
+
+        break;
+
+    case HOST_USER_CLASS_ACTIVE:
+        Appli_state = APPLICATION_READY;
+        break;
+
+    case HOST_USER_CONNECTION:
+        Appli_state = APPLICATION_CONNECT;
+        break;
+
+    default:
+        break;
     }
-    if (FATFS_UnLinkDriver(USBDISKPath) != 0)
-    {
-      FatFs_Fail_Handler();
-    }
-    break;
-
-  case HOST_USER_CLASS_ACTIVE:
-    Appli_state = APPLICATION_READY;
-    break;
-
-  case HOST_USER_CONNECTION:
-    Appli_state = APPLICATION_CONNECT;
-    break;
-
-  default:
-    break;
-  }
 }
 
 /**
@@ -199,64 +202,66 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
+static void SystemClock_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
-  /* Enable Power Control clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
+    /* Enable Power Control clock */
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* The voltage scaling allows optimizing the power consumption when the device is
-     clocked below the maximum system frequency, to update the voltage scaling value
-     regarding system frequency refer to product datasheet.  */
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /* The voltage scaling allows optimizing the power consumption when the device is
+       clocked below the maximum system frequency, to update the voltage scaling value
+       regarding system frequency refer to product datasheet.  */
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
-  /* Enable HSE Oscillator and activate PLL with HSE as source */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    /* Enable HSE Oscillator and activate PLL with HSE as source */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 #if defined(USE_STM32469I_DISCO_REVA)
-  RCC_OscInitStruct.PLL.PLLM = 25;
+    RCC_OscInitStruct.PLL.PLLM = 25;
 #else
-  RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLM = 8;
 #endif /* USE_STM32469I_DISCO_REVA */
-  RCC_OscInitStruct.PLL.PLLN = 360;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  RCC_OscInitStruct.PLL.PLLR = 2;
-  if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    RCC_OscInitStruct.PLL.PLLN = 360;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    RCC_OscInitStruct.PLL.PLLR = 2;
 
-  /* Enable the OverDrive to reach the 180 Mhz Frequency */
-  if(HAL_PWREx_EnableOverDrive() != HAL_OK)
-  {
-    Error_Handler();
-  }
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        Error_Handler();
+    }
 
-  /* Select PLLSAI output as USB clock source */
-  PeriphClkInitStruct.PLLSAI.PLLSAIQ = 7;
-  PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
-  PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CK48;
-  PeriphClkInitStruct.Clk48ClockSelection = RCC_CK48CLKSOURCE_PLLSAIP;
-  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+    /* Enable the OverDrive to reach the 180 Mhz Frequency */
+    if( HAL_PWREx_EnableOverDrive() != HAL_OK )
+    {
+        Error_Handler();
+    }
 
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
-     clocks dividers */
-  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-  if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /* Select PLLSAI output as USB clock source */
+    PeriphClkInitStruct.PLLSAI.PLLSAIQ = 7;
+    PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
+    PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CK48;
+    PeriphClkInitStruct.Clk48ClockSelection = RCC_CK48CLKSOURCE_PLLSAIP;
+    HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct );
+
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+       clocks dividers */
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 ) != HAL_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /**
@@ -268,15 +273,15 @@ static void SystemClock_Config(void)
   * @retval None
   */
 
-void HAL_Delay(__IO uint32_t Delay)
+void HAL_Delay( __IO uint32_t Delay )
 {
-  while(Delay)
-  {
-    if (SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk)
+    while( Delay )
     {
-      Delay--;
+        if( SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk )
+        {
+            Delay--;
+        }
     }
-  }
 }
 
 /**
@@ -284,12 +289,12 @@ void HAL_Delay(__IO uint32_t Delay)
   * @param  None
   * @retval None
   */
-static void Error_Handler(void)
+static void Error_Handler( void )
 {
-  /* User may add here some code to deal with this error */
-  while(1)
-  {
-  }
+    /* User may add here some code to deal with this error */
+    while( 1 )
+    {
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -300,15 +305,15 @@ static void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

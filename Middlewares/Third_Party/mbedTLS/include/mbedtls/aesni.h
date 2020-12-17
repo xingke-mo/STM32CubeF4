@@ -28,9 +28,9 @@
 #define MBEDTLS_AESNI_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "aes.h"
@@ -41,7 +41,7 @@
 #if defined(MBEDTLS_HAVE_ASM) && defined(__GNUC__) &&  \
     ( defined(__amd64__) || defined(__x86_64__) )   &&  \
     ! defined(MBEDTLS_HAVE_X86_64)
-#define MBEDTLS_HAVE_X86_64
+    #define MBEDTLS_HAVE_X86_64
 #endif
 
 #if defined(MBEDTLS_HAVE_X86_64)

@@ -79,10 +79,10 @@ extern "C" {
   */
 
 /* Peripheral Control functions  ************************************************/
-HAL_StatusTypeDef HAL_FMPI2CEx_ConfigAnalogFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t AnalogFilter);
-HAL_StatusTypeDef HAL_FMPI2CEx_ConfigDigitalFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t DigitalFilter);
-void HAL_FMPI2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus);
-void HAL_FMPI2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
+HAL_StatusTypeDef HAL_FMPI2CEx_ConfigAnalogFilter( FMPI2C_HandleTypeDef *hfmpi2c, uint32_t AnalogFilter );
+HAL_StatusTypeDef HAL_FMPI2CEx_ConfigDigitalFilter( FMPI2C_HandleTypeDef *hfmpi2c, uint32_t DigitalFilter );
+void HAL_FMPI2CEx_EnableFastModePlus( uint32_t ConfigFastModePlus );
+void HAL_FMPI2CEx_DisableFastModePlus( uint32_t ConfigFastModePlus );
 
 /* Private constants ---------------------------------------------------------*/
 /** @defgroup FMPI2CEx_Private_Constants FMPI2C Extended Private Constants

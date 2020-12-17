@@ -81,8 +81,8 @@
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
- #include <stdint.h>
- extern uint32_t SystemCoreClock;
+    #include <stdint.h>
+    extern uint32_t SystemCoreClock;
 #endif
 
 
@@ -132,10 +132,10 @@ to exclude the API function. */
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
-  /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
-  #define configPRIO_BITS           __NVIC_PRIO_BITS
+    /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
+    #define configPRIO_BITS           __NVIC_PRIO_BITS
 #else
-  #define configPRIO_BITS           4        /* 15 priority levels */
+    #define configPRIO_BITS           4        /* 15 priority levels */
 #endif
 
 /* The lowest interrupt priority that can be used in a call to a "set priority"
@@ -160,25 +160,25 @@ header file. */
 #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
-standard names. */ 
+standard names. */
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
-void PreSleepProcessing(uint32_t *ulExpectedIdleTime);
-void PostSleepProcessing(uint32_t *ulExpectedIdleTime);
+    void PreSleepProcessing( uint32_t *ulExpectedIdleTime );
+    void PostSleepProcessing( uint32_t *ulExpectedIdleTime );
 #endif /* defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__) */
 
 /* The configPRE_SLEEP_PROCESSING() and configPOST_SLEEP_PROCESSING() macros
 allow the application writer to add additional code before and after the MCU is
 placed into the low power state respectively.  The empty implementations
-provided in this demo can be extended to save even more power. */ 
-#if configUSE_TICKLESS_IDLE == 1 
-#define configPRE_SLEEP_PROCESSING                        PreSleepProcessing
-#define configPOST_SLEEP_PROCESSING                       PostSleepProcessing
+provided in this demo can be extended to save even more power. */
+#if configUSE_TICKLESS_IDLE == 1
+    #define configPRE_SLEEP_PROCESSING                        PreSleepProcessing
+    #define configPOST_SLEEP_PROCESSING                       PostSleepProcessing
 #endif /* configUSE_TICKLESS_IDLE == 1 */
 
-/* IMPORTANT: This define MUSTbe commented when used with STM32Cube firmware, 
+/* IMPORTANT: This define MUSTbe commented when used with STM32Cube firmware,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
 /* #define xPortSysTickHandler SysTick_Handler */
 

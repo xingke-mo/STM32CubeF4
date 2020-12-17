@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    TIM/TIM_OnePulse/Src/main.c 
+  * @file    TIM/TIM_OnePulse/Src/main.c
   * @author  MCD Application Team
   * @brief   This sample code shows how to use STM32F4xx TIM HAL API to generate
   *          a one pulse signal
@@ -44,7 +44,7 @@
 
 /** @addtogroup TIM_OnePulse
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -60,8 +60,8 @@ uint32_t uwPrescalerValue = 0;
 TIM_OnePulse_InitTypeDef sConfig;
 
 /* Private function prototypes -----------------------------------------------*/
-static void SystemClock_Config(void);
-static void Error_Handler(void);
+static void SystemClock_Config( void );
+static void Error_Handler( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -70,72 +70,72 @@ static void Error_Handler(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
-  HAL_Init();
-  
-  /* Configure the system clock to 180 MHz */
-  SystemClock_Config();
-  
-  /* Configure LED3 */
-  BSP_LED_Init(LED3);
-  
-  /* Compute the prescaler value, to have TIM4Freq = 45 MHz */
-  uwPrescalerValue = (uint32_t) (((SystemCoreClock / 2) / 45000000) - 1);
-  
-  /*##-1- Configure the TIM peripheral #######################################*/
-  /* Initialize TIMx peripheral as follow:
-  
-        + Prescaler = (SystemCoreClock/2)/45000000 to have TIMCLK = 45 MHz
-        + Period = 0xFFFF
-        + ClockDivision = 0
-        + Counter direction = Up
-  */
-  TimHandle.Instance = TIMx;
-  
-  TimHandle.Init.Period = 0xFFFF;
-  TimHandle.Init.Prescaler = uwPrescalerValue;
-  TimHandle.Init.ClockDivision = 0;
-  TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-  TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  
-  if(HAL_TIM_OnePulse_Init(&TimHandle, TIM_OPMODE_SINGLE) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  
-  /*##-2- Configure the Channel 1 in One Pulse mode ##########################*/ 
-  sConfig.OCMode = TIM_OCMODE_PWM2;
-  sConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfig.Pulse = 16383;
-  sConfig.ICPolarity = TIM_ICPOLARITY_RISING;
-  sConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
-  sConfig.ICFilter = 0;
-  
-  if(HAL_TIM_OnePulse_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1, TIM_CHANNEL_2) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  
-  /*##-3- Start the One Pulse mode ###########################################*/ 
-  if(HAL_TIM_OnePulse_Start(&TimHandle, TIM_CHANNEL_2) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* STM32F4xx HAL library initialization:
+         - Configure the Flash prefetch, instruction and Data caches
+         - Configure the Systick to generate an interrupt each 1 msec
+         - Set NVIC Group Priority to 4
+         - Global MSP (MCU Support Package) initialization
+       */
+    HAL_Init();
+
+    /* Configure the system clock to 180 MHz */
+    SystemClock_Config();
+
+    /* Configure LED3 */
+    BSP_LED_Init( LED3 );
+
+    /* Compute the prescaler value, to have TIM4Freq = 45 MHz */
+    uwPrescalerValue = ( uint32_t )( ( ( SystemCoreClock / 2 ) / 45000000 ) - 1 );
+
+    /*##-1- Configure the TIM peripheral #######################################*/
+    /* Initialize TIMx peripheral as follow:
+
+          + Prescaler = (SystemCoreClock/2)/45000000 to have TIMCLK = 45 MHz
+          + Period = 0xFFFF
+          + ClockDivision = 0
+          + Counter direction = Up
+    */
+    TimHandle.Instance = TIMx;
+
+    TimHandle.Init.Period = 0xFFFF;
+    TimHandle.Init.Prescaler = uwPrescalerValue;
+    TimHandle.Init.ClockDivision = 0;
+    TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+    if( HAL_TIM_OnePulse_Init( &TimHandle, TIM_OPMODE_SINGLE ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /*##-2- Configure the Channel 1 in One Pulse mode ##########################*/
+    sConfig.OCMode = TIM_OCMODE_PWM2;
+    sConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
+    sConfig.Pulse = 16383;
+    sConfig.ICPolarity = TIM_ICPOLARITY_RISING;
+    sConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
+    sConfig.ICFilter = 0;
+
+    if( HAL_TIM_OnePulse_ConfigChannel( &TimHandle, &sConfig, TIM_CHANNEL_1, TIM_CHANNEL_2 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /*##-3- Start the One Pulse mode ###########################################*/
+    if( HAL_TIM_OnePulse_Start( &TimHandle, TIM_CHANNEL_2 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -143,18 +143,19 @@ int main(void)
   * @param  None
   * @retval None
   */
-static void Error_Handler(void)
+static void Error_Handler( void )
 {
-  /* Turn LED3 on */
-  BSP_LED_On(LED3);
-  while(1)
-  {
-  }
+    /* Turn LED3 on */
+    BSP_LED_On( LED3 );
+
+    while( 1 )
+    {
+    }
 }
 
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
+  *         The system Clock is configured as follow :
   *            System Clock source            = PLL (HSE)
   *            SYSCLK(Hz)                     = 180000000
   *            HCLK(Hz)                       = 180000000
@@ -172,41 +173,41 @@ static void Error_Handler(void)
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
+static void SystemClock_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
 
-  /* Enable Power Control clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
+    /* Enable Power Control clock */
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* The voltage scaling allows optimizing the power consumption when the device is 
-     clocked below the maximum system frequency, to update the voltage scaling value 
-     regarding system frequency refer to product datasheet.  */
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /* The voltage scaling allows optimizing the power consumption when the device is
+       clocked below the maximum system frequency, to update the voltage scaling value
+       regarding system frequency refer to product datasheet.  */
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
-  /* Enable HSE Oscillator and activate PLL with HSE as source */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 360;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+    /* Enable HSE Oscillator and activate PLL with HSE as source */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 25;
+    RCC_OscInitStruct.PLL.PLLN = 360;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    HAL_RCC_OscConfig( &RCC_OscInitStruct );
 
-  /* Activate the Over-Drive mode */
-  HAL_PWREx_EnableOverDrive();
-    
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
-     clocks dividers */
-  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  
-  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+    /* Activate the Over-Drive mode */
+    HAL_PWREx_EnableOverDrive();
+
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+       clocks dividers */
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 );
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -217,15 +218,15 @@ static void SystemClock_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
-{ 
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+void assert_failed( uint8_t *file, uint32_t line )
+{
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

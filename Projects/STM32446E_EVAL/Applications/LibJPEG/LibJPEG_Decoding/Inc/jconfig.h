@@ -28,7 +28,7 @@
  * Note that the max_memory_to_use option is ignored by this implementation.
  */
 #include "jdata_conf.h"
- 
+
 /*
  * These symbols indicate the properties of your machine or compiler.
  * #define the symbol if yes, #undef it if no.
@@ -111,10 +111,10 @@
 /* Define "boolean" as unsigned char, not int, on Windows systems.
  */
 #ifdef _WIN32
-#ifndef __RPCNDR_H__		/* don't conflict if rpcndr.h already read */
-typedef unsigned char boolean;
-#endif
-#define HAVE_BOOLEAN		/* prevent jmorecfg.h from redefining it */
+    #ifndef __RPCNDR_H__        /* don't conflict if rpcndr.h already read */
+        typedef unsigned char boolean;
+    #endif
+    #define HAVE_BOOLEAN        /* prevent jmorecfg.h from redefining it */
 #endif
 
 
@@ -127,11 +127,11 @@ typedef unsigned char boolean;
 
 #ifdef JPEG_INTERNALS
 
-/* Define this if your compiler implements ">>" on signed values as a logical
- * (unsigned) shift; leave it undefined if ">>" is a signed (arithmetic) shift,
- * which is the normal and rational definition.
- */
-#undef RIGHT_SHIFT_IS_UNSIGNED
+    /* Define this if your compiler implements ">>" on signed values as a logical
+    * (unsigned) shift; leave it undefined if ">>" is a signed (arithmetic) shift,
+    * which is the normal and rational definition.
+    */
+    #undef RIGHT_SHIFT_IS_UNSIGNED
 
 
 #endif /* JPEG_INTERNALS */
@@ -145,36 +145,36 @@ typedef unsigned char boolean;
 
 #ifdef JPEG_CJPEG_DJPEG
 
-/* These defines indicate which image (non-JPEG) file formats are allowed. */
+    /* These defines indicate which image (non-JPEG) file formats are allowed. */
 
-#define BMP_SUPPORTED		/* BMP image file format */
-#define GIF_SUPPORTED		/* GIF image file format */
-#define PPM_SUPPORTED		/* PBMPLUS PPM/PGM image file format */
-#undef RLE_SUPPORTED		/* Utah RLE image file format */
-#define TARGA_SUPPORTED		/* Targa image file format */
+    #define BMP_SUPPORTED       /* BMP image file format */
+    #define GIF_SUPPORTED       /* GIF image file format */
+    #define PPM_SUPPORTED       /* PBMPLUS PPM/PGM image file format */
+    #undef RLE_SUPPORTED        /* Utah RLE image file format */
+    #define TARGA_SUPPORTED     /* Targa image file format */
 
-/* Define this if you want to name both input and output files on the command
- * line, rather than using stdout and optionally stdin.  You MUST do this if
- * your system can't cope with binary I/O to stdin/stdout.  See comments at
- * head of cjpeg.c or djpeg.c.
- */
-#undef TWO_FILE_COMMANDLINE
+    /* Define this if you want to name both input and output files on the command
+    * line, rather than using stdout and optionally stdin.  You MUST do this if
+    * your system can't cope with binary I/O to stdin/stdout.  See comments at
+    * head of cjpeg.c or djpeg.c.
+    */
+    #undef TWO_FILE_COMMANDLINE
 
-/* Define this if your system needs explicit cleanup of temporary files.
- * This is crucial under MS-DOS, where the temporary "files" may be areas
- * of extended memory; on most other systems it's not as important.
- */
-#undef NEED_SIGNAL_CATCHER
+    /* Define this if your system needs explicit cleanup of temporary files.
+    * This is crucial under MS-DOS, where the temporary "files" may be areas
+    * of extended memory; on most other systems it's not as important.
+    */
+    #undef NEED_SIGNAL_CATCHER
 
-/* By default, we open image files with fopen(...,"rb") or fopen(...,"wb").
- * This is necessary on systems that distinguish text files from binary files,
- * and is harmless on most systems that don't.  If you have one of the rare
- * systems that complains about the "b" spec, define this symbol.
- */
-#undef DONT_USE_B_MODE
+    /* By default, we open image files with fopen(...,"rb") or fopen(...,"wb").
+    * This is necessary on systems that distinguish text files from binary files,
+    * and is harmless on most systems that don't.  If you have one of the rare
+    * systems that complains about the "b" spec, define this symbol.
+    */
+    #undef DONT_USE_B_MODE
 
-/* Define this if you want percent-done progress reports from cjpeg/djpeg.
- */
-#undef PROGRESS_REPORT
-    
+    /* Define this if you want percent-done progress reports from cjpeg/djpeg.
+    */
+    #undef PROGRESS_REPORT
+
 #endif /* JPEG_CJPEG_DJPEG */

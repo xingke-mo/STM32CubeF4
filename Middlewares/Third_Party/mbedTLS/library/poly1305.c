@@ -21,9 +21,9 @@
  *  This file is part of mbed TLS (https://tls.mbed.org)
  */
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_POLY1305_C)
@@ -34,19 +34,19 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_POLY1305_ALT)
 
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
-#define inline __inline
+    #define inline __inline
 #endif
 
 /* Parameter validation macros */
@@ -72,22 +72,22 @@
 static uint64_t mul64( uint32_t a, uint32_t b )
 {
     /* a = al + 2**16 ah, b = bl + 2**16 bh */
-    const uint16_t al = (uint16_t) a;
-    const uint16_t bl = (uint16_t) b;
+    const uint16_t al = ( uint16_t ) a;
+    const uint16_t bl = ( uint16_t ) b;
     const uint16_t ah = a >> 16;
     const uint16_t bh = b >> 16;
 
     /* ab = al*bl + 2**16 (ah*bl + bl*bh) + 2**32 ah*bh */
-    const uint32_t lo = (uint32_t) al * bl;
-    const uint64_t me = (uint64_t)( (uint32_t) ah * bl ) + (uint32_t) al * bh;
-    const uint32_t hi = (uint32_t) ah * bh;
+    const uint32_t lo = ( uint32_t ) al * bl;
+    const uint64_t me = ( uint64_t )( ( uint32_t ) ah * bl ) + ( uint32_t ) al * bh;
+    const uint32_t hi = ( uint32_t ) ah * bh;
 
-    return( lo + ( me << 16 ) + ( (uint64_t) hi << 32 ) );
+    return( lo + ( me << 16 ) + ( ( uint64_t ) hi << 32 ) );
 }
 #else
 static inline uint64_t mul64( uint32_t a, uint32_t b )
 {
-    return( (uint64_t) a * b );
+    return( ( uint64_t ) a * b );
 }
 #endif
 
@@ -134,41 +134,41 @@ static void poly1305_process( mbedtls_poly1305_context *ctx,
     for( i = 0U; i < nblocks; i++ )
     {
         /* The input block is treated as a 128-bit little-endian integer */
-        d0   = BYTES_TO_U32_LE( input, offset + 0  );
-        d1   = BYTES_TO_U32_LE( input, offset + 4  );
-        d2   = BYTES_TO_U32_LE( input, offset + 8  );
+        d0   = BYTES_TO_U32_LE( input, offset + 0 );
+        d1   = BYTES_TO_U32_LE( input, offset + 4 );
+        d2   = BYTES_TO_U32_LE( input, offset + 8 );
         d3   = BYTES_TO_U32_LE( input, offset + 12 );
 
         /* Compute: acc += (padded) block as a 130-bit integer */
-        d0  += (uint64_t) acc0;
-        d1  += (uint64_t) acc1 + ( d0 >> 32U );
-        d2  += (uint64_t) acc2 + ( d1 >> 32U );
-        d3  += (uint64_t) acc3 + ( d2 >> 32U );
-        acc0 = (uint32_t) d0;
-        acc1 = (uint32_t) d1;
-        acc2 = (uint32_t) d2;
-        acc3 = (uint32_t) d3;
-        acc4 += (uint32_t) ( d3 >> 32U ) + needs_padding;
+        d0  += ( uint64_t ) acc0;
+        d1  += ( uint64_t ) acc1 + ( d0 >> 32U );
+        d2  += ( uint64_t ) acc2 + ( d1 >> 32U );
+        d3  += ( uint64_t ) acc3 + ( d2 >> 32U );
+        acc0 = ( uint32_t ) d0;
+        acc1 = ( uint32_t ) d1;
+        acc2 = ( uint32_t ) d2;
+        acc3 = ( uint32_t ) d3;
+        acc4 += ( uint32_t )( d3 >> 32U ) + needs_padding;
 
         /* Compute: acc *= r */
-        d0 = mul64( acc0, r0  ) +
+        d0 = mul64( acc0, r0 ) +
              mul64( acc1, rs3 ) +
              mul64( acc2, rs2 ) +
              mul64( acc3, rs1 );
-        d1 = mul64( acc0, r1  ) +
-             mul64( acc1, r0  ) +
+        d1 = mul64( acc0, r1 ) +
+             mul64( acc1, r0 ) +
              mul64( acc2, rs3 ) +
              mul64( acc3, rs2 ) +
              mul64( acc4, rs1 );
-        d2 = mul64( acc0, r2  ) +
-             mul64( acc1, r1  ) +
-             mul64( acc2, r0  ) +
+        d2 = mul64( acc0, r2 ) +
+             mul64( acc1, r1 ) +
+             mul64( acc2, r0 ) +
              mul64( acc3, rs3 ) +
              mul64( acc4, rs2 );
-        d3 = mul64( acc0, r3  ) +
-             mul64( acc1, r2  ) +
-             mul64( acc2, r1  ) +
-             mul64( acc3, r0  ) +
+        d3 = mul64( acc0, r3 ) +
+             mul64( acc1, r2 ) +
+             mul64( acc2, r1 ) +
+             mul64( acc3, r0 ) +
              mul64( acc4, rs3 );
         acc4 *= r0;
 
@@ -176,23 +176,23 @@ static void poly1305_process( mbedtls_poly1305_context *ctx,
         d1 += ( d0 >> 32 );
         d2 += ( d1 >> 32 );
         d3 += ( d2 >> 32 );
-        acc0 = (uint32_t) d0;
-        acc1 = (uint32_t) d1;
-        acc2 = (uint32_t) d2;
-        acc3 = (uint32_t) d3;
-        acc4 = (uint32_t) ( d3 >> 32 ) + acc4;
+        acc0 = ( uint32_t ) d0;
+        acc1 = ( uint32_t ) d1;
+        acc2 = ( uint32_t ) d2;
+        acc3 = ( uint32_t ) d3;
+        acc4 = ( uint32_t )( d3 >> 32 ) + acc4;
 
-        d0 = (uint64_t) acc0 + ( acc4 >> 2 ) + ( acc4 & 0xFFFFFFFCU );
+        d0 = ( uint64_t ) acc0 + ( acc4 >> 2 ) + ( acc4 & 0xFFFFFFFCU );
         acc4 &= 3U;
-        acc0 = (uint32_t) d0;
-        d0 = (uint64_t) acc1 + ( d0 >> 32U );
-        acc1 = (uint32_t) d0;
-        d0 = (uint64_t) acc2 + ( d0 >> 32U );
-        acc2 = (uint32_t) d0;
-        d0 = (uint64_t) acc3 + ( d0 >> 32U );
-        acc3 = (uint32_t) d0;
-        d0 = (uint64_t) acc4 + ( d0 >> 32U );
-        acc4 = (uint32_t) d0;
+        acc0 = ( uint32_t ) d0;
+        d0 = ( uint64_t ) acc1 + ( d0 >> 32U );
+        acc1 = ( uint32_t ) d0;
+        d0 = ( uint64_t ) acc2 + ( d0 >> 32U );
+        acc2 = ( uint32_t ) d0;
+        d0 = ( uint64_t ) acc3 + ( d0 >> 32U );
+        acc3 = ( uint32_t ) d0;
+        d0 = ( uint64_t ) acc4 + ( d0 >> 32U );
+        acc4 = ( uint32_t ) d0;
 
         offset    += POLY1305_BLOCK_SIZE_BYTES;
     }
@@ -232,18 +232,18 @@ static void poly1305_compute_mac( const mbedtls_poly1305_context *ctx,
      */
 
     /* Calculate acc + -(2^130 - 5) */
-    d  = ( (uint64_t) acc0 + 5U );
-    g0 = (uint32_t) d;
-    d  = ( (uint64_t) acc1 + ( d >> 32 ) );
-    g1 = (uint32_t) d;
-    d  = ( (uint64_t) acc2 + ( d >> 32 ) );
-    g2 = (uint32_t) d;
-    d  = ( (uint64_t) acc3 + ( d >> 32 ) );
-    g3 = (uint32_t) d;
-    g4 = acc4 + (uint32_t) ( d >> 32U );
+    d  = ( ( uint64_t ) acc0 + 5U );
+    g0 = ( uint32_t ) d;
+    d  = ( ( uint64_t ) acc1 + ( d >> 32 ) );
+    g1 = ( uint32_t ) d;
+    d  = ( ( uint64_t ) acc2 + ( d >> 32 ) );
+    g2 = ( uint32_t ) d;
+    d  = ( ( uint64_t ) acc3 + ( d >> 32 ) );
+    g3 = ( uint32_t ) d;
+    g4 = acc4 + ( uint32_t )( d >> 32U );
 
     /* mask == 0xFFFFFFFF if 131st bit is set, otherwise mask == 0 */
-    mask = (uint32_t) 0U - ( g4 >> 2U );
+    mask = ( uint32_t ) 0U - ( g4 >> 2U );
     mask_inv = ~mask;
 
     /* If 131st bit is set then acc=g, otherwise, acc is unmodified */
@@ -253,31 +253,31 @@ static void poly1305_compute_mac( const mbedtls_poly1305_context *ctx,
     acc3 = ( acc3 & mask_inv ) | ( g3 & mask );
 
     /* Add 's' */
-    d = (uint64_t) acc0 + ctx->s[0];
-    acc0 = (uint32_t) d;
-    d = (uint64_t) acc1 + ctx->s[1] + ( d >> 32U );
-    acc1 = (uint32_t) d;
-    d = (uint64_t) acc2 + ctx->s[2] + ( d >> 32U );
-    acc2 = (uint32_t) d;
-    acc3 += ctx->s[3] + (uint32_t) ( d >> 32U );
+    d = ( uint64_t ) acc0 + ctx->s[0];
+    acc0 = ( uint32_t ) d;
+    d = ( uint64_t ) acc1 + ctx->s[1] + ( d >> 32U );
+    acc1 = ( uint32_t ) d;
+    d = ( uint64_t ) acc2 + ctx->s[2] + ( d >> 32U );
+    acc2 = ( uint32_t ) d;
+    acc3 += ctx->s[3] + ( uint32_t )( d >> 32U );
 
     /* Compute MAC (128 least significant bits of the accumulator) */
-    mac[ 0] = (unsigned char)( acc0       );
-    mac[ 1] = (unsigned char)( acc0 >>  8 );
-    mac[ 2] = (unsigned char)( acc0 >> 16 );
-    mac[ 3] = (unsigned char)( acc0 >> 24 );
-    mac[ 4] = (unsigned char)( acc1       );
-    mac[ 5] = (unsigned char)( acc1 >>  8 );
-    mac[ 6] = (unsigned char)( acc1 >> 16 );
-    mac[ 7] = (unsigned char)( acc1 >> 24 );
-    mac[ 8] = (unsigned char)( acc2       );
-    mac[ 9] = (unsigned char)( acc2 >>  8 );
-    mac[10] = (unsigned char)( acc2 >> 16 );
-    mac[11] = (unsigned char)( acc2 >> 24 );
-    mac[12] = (unsigned char)( acc3       );
-    mac[13] = (unsigned char)( acc3 >>  8 );
-    mac[14] = (unsigned char)( acc3 >> 16 );
-    mac[15] = (unsigned char)( acc3 >> 24 );
+    mac[ 0] = ( unsigned char )( acc0 );
+    mac[ 1] = ( unsigned char )( acc0 >>  8 );
+    mac[ 2] = ( unsigned char )( acc0 >> 16 );
+    mac[ 3] = ( unsigned char )( acc0 >> 24 );
+    mac[ 4] = ( unsigned char )( acc1 );
+    mac[ 5] = ( unsigned char )( acc1 >>  8 );
+    mac[ 6] = ( unsigned char )( acc1 >> 16 );
+    mac[ 7] = ( unsigned char )( acc1 >> 24 );
+    mac[ 8] = ( unsigned char )( acc2 );
+    mac[ 9] = ( unsigned char )( acc2 >>  8 );
+    mac[10] = ( unsigned char )( acc2 >> 16 );
+    mac[11] = ( unsigned char )( acc2 >> 24 );
+    mac[12] = ( unsigned char )( acc3 );
+    mac[13] = ( unsigned char )( acc3 >>  8 );
+    mac[14] = ( unsigned char )( acc3 >> 16 );
+    mac[15] = ( unsigned char )( acc3 >> 24 );
 }
 
 void mbedtls_poly1305_init( mbedtls_poly1305_context *ctx )
@@ -290,7 +290,9 @@ void mbedtls_poly1305_init( mbedtls_poly1305_context *ctx )
 void mbedtls_poly1305_free( mbedtls_poly1305_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_poly1305_context ) );
 }
@@ -431,12 +433,18 @@ int mbedtls_poly1305_mac( const unsigned char key[32],
     mbedtls_poly1305_init( &ctx );
 
     ret = mbedtls_poly1305_starts( &ctx, key );
+
     if( ret != 0 )
+    {
         goto cleanup;
+    }
 
     ret = mbedtls_poly1305_update( &ctx, input, ilen );
+
     if( ret != 0 )
+    {
         goto cleanup;
+    }
 
     ret = mbedtls_poly1305_finish( &ctx, mac );
 
@@ -534,7 +542,9 @@ int mbedtls_poly1305_self_test( int verbose )
     for( i = 0U; i < 2U; i++ )
     {
         if( verbose != 0 )
+        {
             mbedtls_printf( "  Poly1305 test %u ", i );
+        }
 
         ret = mbedtls_poly1305_mac( test_keys[i],
                                     test_data[i],
@@ -545,11 +555,15 @@ int mbedtls_poly1305_self_test( int verbose )
         ASSERT( 0 == memcmp( mac, test_mac[i], 16U ), ( "failed (mac)\n" ) );
 
         if( verbose != 0 )
+        {
             mbedtls_printf( "passed\n" );
+        }
     }
 
     if( verbose != 0 )
+    {
         mbedtls_printf( "\n" );
+    }
 
     return( 0 );
 }

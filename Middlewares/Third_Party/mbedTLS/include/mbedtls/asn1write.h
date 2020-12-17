@@ -25,9 +25,9 @@
 #define MBEDTLS_ASN1_WRITE_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "asn1.h"
@@ -155,9 +155,9 @@ int mbedtls_asn1_write_oid( unsigned char **p, unsigned char *start,
  * \return          A negative \c MBEDTLS_ERR_ASN1_XXX error code on failure.
  */
 int mbedtls_asn1_write_algorithm_identifier( unsigned char **p,
-                                             unsigned char *start,
-                                             const char *oid, size_t oid_len,
-                                             size_t par_len );
+        unsigned char *start,
+        const char *oid, size_t oid_len,
+        size_t par_len );
 
 /**
  * \brief           Write a boolean tag (#MBEDTLS_ASN1_BOOLEAN) and value
@@ -227,8 +227,8 @@ int mbedtls_asn1_write_tagged_string( unsigned char **p, unsigned char *start,
  * \return          A negative error code on failure.
  */
 int mbedtls_asn1_write_printable_string( unsigned char **p,
-                                         unsigned char *start,
-                                         const char *text, size_t text_len );
+        unsigned char *start,
+        const char *text, size_t text_len );
 
 /**
  * \brief           Write a UTF8 string in ASN.1 format using the UTF8String
@@ -318,9 +318,9 @@ int mbedtls_asn1_write_octet_string( unsigned char **p, unsigned char *start,
  * \return          \c NULL if if there was a memory allocation error.
  */
 mbedtls_asn1_named_data *mbedtls_asn1_store_named_data( mbedtls_asn1_named_data **list,
-                                        const char *oid, size_t oid_len,
-                                        const unsigned char *val,
-                                        size_t val_len );
+        const char *oid, size_t oid_len,
+        const unsigned char *val,
+        size_t val_len );
 
 #ifdef __cplusplus
 }

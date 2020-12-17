@@ -15,8 +15,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -71,11 +71,11 @@ extern "C"
 /** @defgroup FAT_FS_STORAGE_Exported_Functions
   * @{
   */
-uint32_t Storage_Init (void);
-uint32_t Storage_OpenReadFile(uint32_t Address, const char* BmpName);
-uint32_t Storage_GetDirectoryBitmapFiles (const char* DirName, char* Files[]);
-uint32_t Storage_CheckBitmapFile(const char* BmpName, uint32_t *FileLen);
-uint8_t Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+uint32_t Storage_Init( void );
+uint32_t Storage_OpenReadFile( uint32_t Address, const char *BmpName );
+uint32_t Storage_GetDirectoryBitmapFiles( const char *DirName, char *Files[] );
+uint32_t Storage_CheckBitmapFile( const char *BmpName, uint32_t *FileLen );
+uint8_t Buffercmp( uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength );
 
 #define MAX_BMP_FILES 10
 #define MAX_BMP_FILE_NAME 11

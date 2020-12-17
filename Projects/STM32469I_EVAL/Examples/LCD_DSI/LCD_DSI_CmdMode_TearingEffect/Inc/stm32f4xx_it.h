@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    LCD_DSI/LCD_DSI_CmdMode_TearingEffect_ExtPin/Inc/stm32f4xx_it.h 
+  * @file    LCD_DSI/LCD_DSI_CmdMode_TearingEffect_ExtPin/Inc/stm32f4xx_it.h
   * @author  MCD Application Team
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
@@ -47,18 +47,18 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
-void LTDC_IRQHandler(void);
-void LTDC_ER_IRQHandler(void);
-void DSI_IRQHandler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void MemManage_Handler( void );
+void BusFault_Handler( void );
+void UsageFault_Handler( void );
+void SVC_Handler( void );
+void DebugMon_Handler( void );
+void PendSV_Handler( void );
+void SysTick_Handler( void );
+void LTDC_IRQHandler( void );
+void LTDC_ER_IRQHandler( void );
+void DSI_IRQHandler( void );
 
 #ifdef __cplusplus
 }

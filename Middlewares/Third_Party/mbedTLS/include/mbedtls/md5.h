@@ -29,9 +29,9 @@
 #define MBEDTLS_MD5_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -205,8 +205,8 @@ MBEDTLS_DEPRECATED void mbedtls_md5_starts( mbedtls_md5_context *ctx );
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_md5_update( mbedtls_md5_context *ctx,
-                                            const unsigned char *input,
-                                            size_t ilen );
+        const unsigned char *input,
+        size_t ilen );
 
 /**
  * \brief          MD5 final digest
@@ -222,7 +222,7 @@ MBEDTLS_DEPRECATED void mbedtls_md5_update( mbedtls_md5_context *ctx,
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_md5_finish( mbedtls_md5_context *ctx,
-                                            unsigned char output[16] );
+        unsigned char output[16] );
 
 /**
  * \brief          MD5 process data block (internal use only)
@@ -238,7 +238,7 @@ MBEDTLS_DEPRECATED void mbedtls_md5_finish( mbedtls_md5_context *ctx,
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_md5_process( mbedtls_md5_context *ctx,
-                                             const unsigned char data[64] );
+        const unsigned char data[64] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */

@@ -58,11 +58,11 @@
   * @param  None
   * @retval None
   */
-void Menu_Init(void)
+void Menu_Init( void )
 {
-  msc_demo.state = MSC_DEMO_IDLE;
-  hid_demo.state = HID_DEMO_IDLE;
-  audio_demo.state = AUDIO_DEMO_IDLE;
+    msc_demo.state = MSC_DEMO_IDLE;
+    hid_demo.state = HID_DEMO_IDLE;
+    audio_demo.state = AUDIO_DEMO_IDLE;
 }
 
 /**
@@ -70,36 +70,37 @@ void Menu_Init(void)
   * @param  None
   * @retval None
   */
-void DS_MenuProcess(void)
+void DS_MenuProcess( void )
 {
-  switch(Appli_state)
-  {
-  case APPLICATION_IDLE:
-    break;
+    switch( Appli_state )
+    {
+    case APPLICATION_IDLE:
+        break;
 
-  case APPLICATION_MSC:
-    MSC_MenuProcess();
-    break;
+    case APPLICATION_MSC:
+        MSC_MenuProcess();
+        break;
 
-  case APPLICATION_AUDIO:
-    AUDIO_MenuProcess();
-    break;
+    case APPLICATION_AUDIO:
+        AUDIO_MenuProcess();
+        break;
 
-  case APPLICATION_HID:
-    HID_MenuProcess();
-    break;
+    case APPLICATION_HID:
+        HID_MenuProcess();
+        break;
 
-  default:
-	break;
-  }
-  if(Appli_state == APPLICATION_DISCONNECT)
-  {
-    Appli_state = APPLICATION_IDLE;
-    LCD_ErrLog("USB device disconnected!\n");
-    Menu_Init();
+    default:
+        break;
+    }
 
-    LCD_UsrLog("Plug your device To Continue...\n");
-  }
+    if( Appli_state == APPLICATION_DISCONNECT )
+    {
+        Appli_state = APPLICATION_IDLE;
+        LCD_ErrLog( "USB device disconnected!\n" );
+        Menu_Init();
+
+        LCD_UsrLog( "Plug your device To Continue...\n" );
+    }
 }
 
 /**
@@ -107,78 +108,79 @@ void DS_MenuProcess(void)
   * @param  GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 {
-  static JOYState_TypeDef JoyState = JOY_NONE;
-  static uint32_t debounce_time = 0;
+    static JOYState_TypeDef JoyState = JOY_NONE;
+    static uint32_t debounce_time = 0;
 
-  if(GPIO_Pin == GPIO_PIN_2)
-  {
-    /* Get the Joystick State */
-    JoyState = BSP_JOY_GetState();
-
-    /* Clear joystick interrupt pending bits */
-    BSP_IO_ITClear(JOY_ALL_PINS);
-
-    if(Appli_state == APPLICATION_MSC)
+    if( GPIO_Pin == GPIO_PIN_2 )
     {
-      MSC_DEMO_ProbeKey(JoyState);
-    }
-    else if(Appli_state == APPLICATION_HID)
-    {
-      HID_DEMO_ProbeKey(JoyState);
-    }
-    else if(Appli_state == APPLICATION_AUDIO)
-    {
-      if(audio_select_mode == AUDIO_SELECT_MENU)
-      {
-        AUDIO_MenuProbeKey(JoyState);
-      }
-      else if(audio_select_mode == AUDIO_PLAYBACK_CONTROL)
-      {
-        AUDIO_PlaybackProbeKey(JoyState);
-      }
-    }
-    switch(JoyState)
-    {
-    case JOY_LEFT:
-      LCD_LOG_ScrollBack();
-      break;
+        /* Get the Joystick State */
+        JoyState = BSP_JOY_GetState();
 
-    case JOY_RIGHT:
-      LCD_LOG_ScrollForward();
-      break;
+        /* Clear joystick interrupt pending bits */
+        BSP_IO_ITClear( JOY_ALL_PINS );
 
-    default:
-      break;
+        if( Appli_state == APPLICATION_MSC )
+        {
+            MSC_DEMO_ProbeKey( JoyState );
+        }
+        else if( Appli_state == APPLICATION_HID )
+        {
+            HID_DEMO_ProbeKey( JoyState );
+        }
+        else if( Appli_state == APPLICATION_AUDIO )
+        {
+            if( audio_select_mode == AUDIO_SELECT_MENU )
+            {
+                AUDIO_MenuProbeKey( JoyState );
+            }
+            else if( audio_select_mode == AUDIO_PLAYBACK_CONTROL )
+            {
+                AUDIO_PlaybackProbeKey( JoyState );
+            }
+        }
+
+        switch( JoyState )
+        {
+        case JOY_LEFT:
+            LCD_LOG_ScrollBack();
+            break;
+
+        case JOY_RIGHT:
+            LCD_LOG_ScrollForward();
+            break;
+
+        default:
+            break;
+        }
     }
-  }
 
-  if(audio_demo.state == AUDIO_DEMO_PLAYBACK)
-  {
-    if(GPIO_Pin == KEY_BUTTON_PIN)
+    if( audio_demo.state == AUDIO_DEMO_PLAYBACK )
     {
-      /* Prevent debounce effect for user key */
-      if((HAL_GetTick() - debounce_time) > 50)
-      {
-        debounce_time = HAL_GetTick();
-      }
-      else
-      {
-        return;
-      }
+        if( GPIO_Pin == KEY_BUTTON_PIN )
+        {
+            /* Prevent debounce effect for user key */
+            if( ( HAL_GetTick() - debounce_time ) > 50 )
+            {
+                debounce_time = HAL_GetTick();
+            }
+            else
+            {
+                return;
+            }
 
-      /* Change the selection type */
-      if(audio_select_mode == AUDIO_SELECT_MENU)
-      {
-        Audio_ChangeSelectMode(AUDIO_PLAYBACK_CONTROL);
-      }
-      else if(audio_select_mode == AUDIO_PLAYBACK_CONTROL)
-      {
-        Audio_ChangeSelectMode(AUDIO_SELECT_MENU);
-      }
+            /* Change the selection type */
+            if( audio_select_mode == AUDIO_SELECT_MENU )
+            {
+                Audio_ChangeSelectMode( AUDIO_PLAYBACK_CONTROL );
+            }
+            else if( audio_select_mode == AUDIO_PLAYBACK_CONTROL )
+            {
+                Audio_ChangeSelectMode( AUDIO_SELECT_MENU );
+            }
+        }
     }
-  }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

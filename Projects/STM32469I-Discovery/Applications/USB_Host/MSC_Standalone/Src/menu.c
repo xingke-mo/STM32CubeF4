@@ -60,10 +60,10 @@ MSC_DEMO_StateMachine msc_demo;
   * @param  None
   * @retval None
   */
-void Menu_Init(void)
+void Menu_Init( void )
 {
-  USBH_UsrLog("Starting MSC Demo");
-  msc_demo.state = MSC_DEMO_START;
+    USBH_UsrLog( "Starting MSC Demo" );
+    msc_demo.state = MSC_DEMO_START;
 }
 
 /**
@@ -71,75 +71,82 @@ void Menu_Init(void)
   * @param  None
   * @retval None
   */
-void MSC_MenuProcess(void)
+void MSC_MenuProcess( void )
 {
-  switch(msc_demo.state)
-  {
-  case MSC_DEMO_START:
-    if(Appli_state == APPLICATION_READY)
+    switch( msc_demo.state )
     {
-      BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-      BSP_LCD_DisplayStringAtLine(19, (uint8_t *)"Press User button to start read and write operations");
+    case MSC_DEMO_START:
+        if( Appli_state == APPLICATION_READY )
+        {
+            BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
+            BSP_LCD_DisplayStringAtLine( 19, ( uint8_t * )"Press User button to start read and write operations" );
 
-      /* Wait for User Input */
-      while((BSP_PB_GetState(BUTTON_WAKEUP) != SET) && (Appli_state != APPLICATION_DISCONNECT))
-      {
-      }
-      msc_demo.state = MSC_DEMO_FILE_OPERATIONS;
+            /* Wait for User Input */
+            while( ( BSP_PB_GetState( BUTTON_WAKEUP ) != SET ) && ( Appli_state != APPLICATION_DISCONNECT ) )
+            {
+            }
 
-      /* Prevent debounce effect for user key */
-      HAL_Delay(400);
+            msc_demo.state = MSC_DEMO_FILE_OPERATIONS;
 
-      BSP_LCD_ClearStringLine(19);
+            /* Prevent debounce effect for user key */
+            HAL_Delay( 400 );
+
+            BSP_LCD_ClearStringLine( 19 );
+        }
+
+        break;
+
+    case MSC_DEMO_FILE_OPERATIONS:
+
+        /* Read and Write File Here */
+        if( Appli_state == APPLICATION_READY )
+        {
+            MSC_File_Operations();
+
+            BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
+            BSP_LCD_DisplayStringAtLine( 19, ( uint8_t * )"Press User button to display disk content" );
+
+            /* Wait for User Input */
+            while( ( BSP_PB_GetState( BUTTON_WAKEUP ) != SET ) && ( Appli_state != APPLICATION_DISCONNECT ) )
+            {
+            }
+
+            msc_demo.state = MSC_DEMO_EXPLORER;
+
+            /* Prevent debounce effect for user key */
+            HAL_Delay( 400 );
+
+            BSP_LCD_ClearStringLine( 19 );
+        }
+
+        break;
+
+    case MSC_DEMO_EXPLORER:
+
+        /* Display disk content */
+        if( Appli_state == APPLICATION_READY )
+        {
+            Explore_Disk( "0:/", 1 );
+            msc_demo.state = MSC_DEMO_START;
+
+            /* Prevent debounce effect for user key */
+            HAL_Delay( 400 );
+        }
+
+        break;
+
+    default:
+        break;
     }
-    break;
 
-  case MSC_DEMO_FILE_OPERATIONS:
-    /* Read and Write File Here */
-    if(Appli_state == APPLICATION_READY)
+    if( Appli_state == APPLICATION_DISCONNECT )
     {
-      MSC_File_Operations();
-
-      BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-      BSP_LCD_DisplayStringAtLine(19, (uint8_t *)"Press User button to display disk content");
-
-      /* Wait for User Input */
-      while((BSP_PB_GetState(BUTTON_WAKEUP) != SET) && (Appli_state != APPLICATION_DISCONNECT))
-      {
-      }
-      msc_demo.state = MSC_DEMO_EXPLORER;
-
-      /* Prevent debounce effect for user key */
-      HAL_Delay(400);
-
-      BSP_LCD_ClearStringLine(19);
+        Appli_state = APPLICATION_IDLE;
+        LCD_LOG_ClearTextZone();
+        LCD_ErrLog( "MSC device disconnected!\n" );
+        msc_demo.state = MSC_DEMO_START;
+        msc_demo.select = 0;
     }
-    break;
-
-  case MSC_DEMO_EXPLORER:
-    /* Display disk content */
-    if(Appli_state == APPLICATION_READY)
-    {
-      Explore_Disk("0:/", 1);
-      msc_demo.state = MSC_DEMO_START;
-
-      /* Prevent debounce effect for user key */
-      HAL_Delay(400);
-    }
-    break;
-
-  default:
-    break;
-  }
-
-  if(Appli_state == APPLICATION_DISCONNECT)
-  {
-    Appli_state = APPLICATION_IDLE;
-    LCD_LOG_ClearTextZone();
-    LCD_ErrLog("MSC device disconnected!\n");
-    msc_demo.state = MSC_DEMO_START;
-    msc_demo.select = 0;
-  }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

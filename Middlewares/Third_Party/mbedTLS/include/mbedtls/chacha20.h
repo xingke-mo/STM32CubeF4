@@ -34,9 +34,9 @@
 #define MBEDTLS_CHACHA20_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stdint.h>
@@ -136,7 +136,7 @@ int mbedtls_chacha20_setkey( mbedtls_chacha20_context *ctx,
  * \return          #MBEDTLS_ERR_CHACHA20_BAD_INPUT_DATA if ctx or nonce is
  *                  NULL.
  */
-int mbedtls_chacha20_starts( mbedtls_chacha20_context* ctx,
+int mbedtls_chacha20_starts( mbedtls_chacha20_context *ctx,
                              const unsigned char nonce[12],
                              uint32_t counter );
 
@@ -206,8 +206,8 @@ int mbedtls_chacha20_crypt( const unsigned char key[32],
                             const unsigned char nonce[12],
                             uint32_t counter,
                             size_t size,
-                            const unsigned char* input,
-                            unsigned char* output );
+                            const unsigned char *input,
+                            unsigned char *output );
 
 #if defined(MBEDTLS_SELF_TEST)
 /**

@@ -1,11 +1,11 @@
- /******************************************************************************
-  * @file    timing_alt_template.c
-  * @author  MCD Application Team
-  * @brief   mbedtls alternate timing data structure and API prototypes
-  *          this file is included by the timing_alt.c, thus need to be renamed
-  *          to timing_alt.h then copied under the project tree.
-  *
- ******************************************************************************/
+/******************************************************************************
+ * @file    timing_alt_template.c
+ * @author  MCD Application Team
+ * @brief   mbedtls alternate timing data structure and API prototypes
+ *          this file is included by the timing_alt.c, thus need to be renamed
+ *          to timing_alt.h then copied under the project tree.
+ *
+******************************************************************************/
 
 /*  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
  *  SPDX-License-Identifier: Apache-2.0

@@ -25,29 +25,29 @@
 #define MBEDTLS_ENTROPY_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
 
 #if defined(MBEDTLS_SHA512_C) && !defined(MBEDTLS_ENTROPY_FORCE_SHA256)
-#include "sha512.h"
-#define MBEDTLS_ENTROPY_SHA512_ACCUMULATOR
+    #include "sha512.h"
+    #define MBEDTLS_ENTROPY_SHA512_ACCUMULATOR
 #else
-#if defined(MBEDTLS_SHA256_C)
-#define MBEDTLS_ENTROPY_SHA256_ACCUMULATOR
-#include "sha256.h"
-#endif
+    #if defined(MBEDTLS_SHA256_C)
+        #define MBEDTLS_ENTROPY_SHA256_ACCUMULATOR
+        #include "sha256.h"
+    #endif
 #endif
 
 #if defined(MBEDTLS_THREADING_C)
-#include "threading.h"
+    #include "threading.h"
 #endif
 
 #if defined(MBEDTLS_HAVEGE_C)
-#include "havege.h"
+    #include "havege.h"
 #endif
 
 #define MBEDTLS_ERR_ENTROPY_SOURCE_FAILED                 -0x003C  /**< Critical entropy source failure. */
@@ -65,19 +65,19 @@
  */
 
 #if !defined(MBEDTLS_ENTROPY_MAX_SOURCES)
-#define MBEDTLS_ENTROPY_MAX_SOURCES     20      /**< Maximum number of sources supported */
+    #define MBEDTLS_ENTROPY_MAX_SOURCES     20      /**< Maximum number of sources supported */
 #endif
 
 #if !defined(MBEDTLS_ENTROPY_MAX_GATHER)
-#define MBEDTLS_ENTROPY_MAX_GATHER      128     /**< Maximum amount requested from entropy sources */
+    #define MBEDTLS_ENTROPY_MAX_GATHER      128     /**< Maximum amount requested from entropy sources */
 #endif
 
 /* \} name SECTION: Module settings */
 
 #if defined(MBEDTLS_ENTROPY_SHA512_ACCUMULATOR)
-#define MBEDTLS_ENTROPY_BLOCK_SIZE      64      /**< Block size of entropy accumulator (SHA-512) */
+    #define MBEDTLS_ENTROPY_BLOCK_SIZE      64      /**< Block size of entropy accumulator (SHA-512) */
 #else
-#define MBEDTLS_ENTROPY_BLOCK_SIZE      32      /**< Block size of entropy accumulator (SHA-256) */
+    #define MBEDTLS_ENTROPY_BLOCK_SIZE      32      /**< Block size of entropy accumulator (SHA-256) */
 #endif
 
 #define MBEDTLS_ENTROPY_MAX_SEED_SIZE   1024    /**< Maximum size of seed we read from seed file */
@@ -101,8 +101,8 @@ extern "C" {
  * \return          0 if no critical failures occurred,
  *                  MBEDTLS_ERR_ENTROPY_SOURCE_FAILED otherwise
  */
-typedef int (*mbedtls_entropy_f_source_ptr)(void *data, unsigned char *output, size_t len,
-                            size_t *olen);
+typedef int ( *mbedtls_entropy_f_source_ptr )( void *data, unsigned char *output, size_t len,
+        size_t *olen );
 
 /**
  * \brief           Entropy source state
@@ -110,7 +110,7 @@ typedef int (*mbedtls_entropy_f_source_ptr)(void *data, unsigned char *output, s
 typedef struct mbedtls_entropy_source_state
 {
     mbedtls_entropy_f_source_ptr    f_source;   /**< The entropy source callback */
-    void *          p_source;   /**< The callback data pointer */
+    void           *p_source;   /**< The callback data pointer */
     size_t          size;       /**< Amount received in bytes */
     size_t          threshold;  /**< Minimum bytes required before release */
     int             strong;     /**< Is the source strong? */
@@ -174,8 +174,8 @@ void mbedtls_entropy_free( mbedtls_entropy_context *ctx );
  * \return          0 if successful or MBEDTLS_ERR_ENTROPY_MAX_SOURCES
  */
 int mbedtls_entropy_add_source( mbedtls_entropy_context *ctx,
-                        mbedtls_entropy_f_source_ptr f_source, void *p_source,
-                        size_t threshold, int strong );
+                                mbedtls_entropy_f_source_ptr f_source, void *p_source,
+                                size_t threshold, int strong );
 
 /**
  * \brief           Trigger an extra gather poll for the accumulator
@@ -211,7 +211,7 @@ int mbedtls_entropy_func( void *data, unsigned char *output, size_t len );
  * \return          0 if successful
  */
 int mbedtls_entropy_update_manual( mbedtls_entropy_context *ctx,
-                           const unsigned char *data, size_t len );
+                                   const unsigned char *data, size_t len );
 
 #if defined(MBEDTLS_ENTROPY_NV_SEED)
 /**

@@ -35,9 +35,9 @@
 #define MBEDTLS_ECDH_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "ecp.h"
@@ -171,8 +171,8 @@ mbedtls_ecdh_context;
  *                  \c MBEDTLS_MPI_XXX error code on failure.
  */
 int mbedtls_ecdh_gen_public( mbedtls_ecp_group *grp, mbedtls_mpi *d, mbedtls_ecp_point *Q,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief           This function computes the shared secret.
@@ -209,9 +209,9 @@ int mbedtls_ecdh_gen_public( mbedtls_ecp_group *grp, mbedtls_mpi *d, mbedtls_ecp
  *                  \c MBEDTLS_MPI_XXX error code on failure.
  */
 int mbedtls_ecdh_compute_shared( mbedtls_ecp_group *grp, mbedtls_mpi *z,
-                         const mbedtls_ecp_point *Q, const mbedtls_mpi *d,
-                         int (*f_rng)(void *, unsigned char *, size_t),
-                         void *p_rng );
+                                 const mbedtls_ecp_point *Q, const mbedtls_mpi *d,
+                                 int ( *f_rng )( void *, unsigned char *, size_t ),
+                                 void *p_rng );
 
 /**
  * \brief           This function initializes an ECDH context.
@@ -274,9 +274,9 @@ void mbedtls_ecdh_free( mbedtls_ecdh_context *ctx );
  * \return          Another \c MBEDTLS_ERR_ECP_XXX error code on failure.
  */
 int mbedtls_ecdh_make_params( mbedtls_ecdh_context *ctx, size_t *olen,
-                      unsigned char *buf, size_t blen,
-                      int (*f_rng)(void *, unsigned char *, size_t),
-                      void *p_rng );
+                              unsigned char *buf, size_t blen,
+                              int ( *f_rng )( void *, unsigned char *, size_t ),
+                              void *p_rng );
 
 /**
  * \brief           This function parses the ECDHE parameters in a
@@ -356,9 +356,9 @@ int mbedtls_ecdh_get_params( mbedtls_ecdh_context *ctx,
  * \return          Another \c MBEDTLS_ERR_ECP_XXX error code on failure.
  */
 int mbedtls_ecdh_make_public( mbedtls_ecdh_context *ctx, size_t *olen,
-                      unsigned char *buf, size_t blen,
-                      int (*f_rng)(void *, unsigned char *, size_t),
-                      void *p_rng );
+                              unsigned char *buf, size_t blen,
+                              int ( *f_rng )( void *, unsigned char *, size_t ),
+                              void *p_rng );
 
 /**
  * \brief       This function parses and processes the ECDHE payload of a
@@ -413,9 +413,9 @@ int mbedtls_ecdh_read_public( mbedtls_ecdh_context *ctx,
  * \return          Another \c MBEDTLS_ERR_ECP_XXX error code on failure.
  */
 int mbedtls_ecdh_calc_secret( mbedtls_ecdh_context *ctx, size_t *olen,
-                      unsigned char *buf, size_t blen,
-                      int (*f_rng)(void *, unsigned char *, size_t),
-                      void *p_rng );
+                              unsigned char *buf, size_t blen,
+                              int ( *f_rng )( void *, unsigned char *, size_t ),
+                              void *p_rng );
 
 #if defined(MBEDTLS_ECP_RESTARTABLE)
 /**

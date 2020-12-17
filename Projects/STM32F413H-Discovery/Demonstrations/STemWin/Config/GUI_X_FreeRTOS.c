@@ -42,8 +42,8 @@ Purpose     : This file provides emWin Interface with FreeRTOS
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -54,10 +54,10 @@ Purpose     : This file provides emWin Interface with FreeRTOS
 /* Includes ------------------------------------------------------------------*/
 
 #include "GUI.h"
-    
-    /* FreeRTOS include files */
+
+/* FreeRTOS include files */
 #include "cmsis_os.h"
-    
+
 /*********************************************************************
 *
 * Global data
@@ -75,14 +75,14 @@ and delay function. Default time unit (tick), normally is
 1 ms.
 */
 
-int GUI_X_GetTime(void)
+int GUI_X_GetTime( void )
 {
-  return ((int) xTaskGetTickCount());
+    return ( ( int ) xTaskGetTickCount() );
 }
 
-void GUI_X_Delay(int ms)
+void GUI_X_Delay( int ms )
 {
-  vTaskDelay( ms );
+    vTaskDelay( ms );
 }
 
 /*********************************************************************
@@ -95,7 +95,8 @@ void GUI_X_Delay(int ms)
 * If not required, leave this routine blank.
 */
 
-void GUI_X_Init(void) {
+void GUI_X_Init( void )
+{
 }
 
 
@@ -107,7 +108,7 @@ void GUI_X_Init(void) {
 * Called if WM is in idle state
 */
 
-void GUI_X_ExecIdle(void) {}
+void GUI_X_ExecIdle( void ) {}
 
 /*********************************************************************
 *
@@ -128,47 +129,47 @@ void GUI_X_ExecIdle(void) {}
 */
 
 /* Init OS */
-void GUI_X_InitOS(void)
-{ 
-  /* Create Mutex lock */
-  osMutexDef(MUTEX);
-  
-  /* Create the Mutex used by the two threads */
-  osMutex = osMutexCreate(osMutex(MUTEX));
-  
-  /* Create Semaphore lock */
-  osSemaphoreDef(SEM);
-  
-  /* Create the Semaphore used by the two threads */
-  osSemaphore= osSemaphoreCreate(osSemaphore(SEM), 1);  
-}
-
-void GUI_X_Unlock(void)
-{ 
-  osMutexRelease(osMutex);
-}
-
-void GUI_X_Lock(void)
+void GUI_X_InitOS( void )
 {
-  osMutexWait(osMutex , osWaitForever) ;
+    /* Create Mutex lock */
+    osMutexDef( MUTEX );
+
+    /* Create the Mutex used by the two threads */
+    osMutex = osMutexCreate( osMutex( MUTEX ) );
+
+    /* Create Semaphore lock */
+    osSemaphoreDef( SEM );
+
+    /* Create the Semaphore used by the two threads */
+    osSemaphore = osSemaphoreCreate( osSemaphore( SEM ), 1 );
+}
+
+void GUI_X_Unlock( void )
+{
+    osMutexRelease( osMutex );
+}
+
+void GUI_X_Lock( void )
+{
+    osMutexWait( osMutex, osWaitForever ) ;
 }
 
 /* Get Task handle */
-U32 GUI_X_GetTaskId(void) 
-{ 
-  return ((U32) osThreadGetId());
+U32 GUI_X_GetTaskId( void )
+{
+    return ( ( U32 ) osThreadGetId() );
 }
 
 
-void GUI_X_WaitEvent (void) 
+void GUI_X_WaitEvent( void )
 {
-  osSemaphoreWait(osSemaphore , osWaitForever) ;
+    osSemaphoreWait( osSemaphore, osWaitForever ) ;
 }
 
 
-void GUI_X_SignalEvent (void) 
+void GUI_X_SignalEvent( void )
 {
-  osMutexRelease(osSemaphore);
+    osMutexRelease( osSemaphore );
 }
 
 /*********************************************************************
@@ -185,9 +186,9 @@ functions automatically)
 
 */
 
-void GUI_X_Log (const char *s) { }
-void GUI_X_Warn (const char *s) { }
-void GUI_X_ErrorOut(const char *s) { }
+void GUI_X_Log( const char *s ) { }
+void GUI_X_Warn( const char *s ) { }
+void GUI_X_ErrorOut( const char *s ) { }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

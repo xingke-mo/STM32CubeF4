@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    BSP/Src/stm32f4xx_it.c 
+  * @file    BSP/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -46,7 +46,7 @@
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -70,7 +70,7 @@ extern SRAM_HandleTypeDef psramHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -79,12 +79,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -92,12 +92,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -105,12 +105,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -118,12 +118,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -131,7 +131,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -140,7 +140,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -149,7 +149,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -158,9 +158,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -174,9 +174,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(WAKEUP_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( WAKEUP_BUTTON_PIN );
 }
 
 /**
@@ -184,9 +184,9 @@ void EXTI0_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI1_IRQHandler(void)
+void EXTI1_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(TS_INT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( TS_INT_PIN );
 }
 
 /**
@@ -194,9 +194,9 @@ void EXTI1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI15_10_IRQHandler(void)
+void EXTI15_10_IRQHandler( void )
 {
-   HAL_GPIO_EXTI_IRQHandler(SD_DETECT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( SD_DETECT_PIN );
 }
 
 /**
@@ -204,9 +204,9 @@ void EXTI15_10_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void BSP_PSRAM_DMA_IRQHandler(void)
+void BSP_PSRAM_DMA_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(psramHandle.hdma);
+    HAL_DMA_IRQHandler( psramHandle.hdma );
 }
 
 
@@ -215,27 +215,27 @@ void BSP_PSRAM_DMA_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void QuadSPI_IRQHandler(void)
+void QuadSPI_IRQHandler( void )
 {
-  HAL_QSPI_IRQHandler(&QSPIHandle);
+    HAL_QSPI_IRQHandler( &QSPIHandle );
 }
 
 /**
   * @brief  Handles SD card interrupt request.
   * @retval None
   */
-void BSP_SD_IRQHandler(void)
+void BSP_SD_IRQHandler( void )
 {
-  HAL_SD_IRQHandler(&uSdHandle);
+    HAL_SD_IRQHandler( &uSdHandle );
 }
 
 /**
   * @brief  Handles SD DMA Rx transfer interrupt request.
   * @retval None
   */
-void BSP_SD_DMA_Rx_IRQHandler(void)
+void BSP_SD_DMA_Rx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(uSdHandle.hdmarx);
+    HAL_DMA_IRQHandler( uSdHandle.hdmarx );
 }
 
 /**
@@ -243,16 +243,16 @@ void BSP_SD_DMA_Rx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void AUDIO_DFSDM_DMAx_MIC1_IRQHandler(void)
+void AUDIO_DFSDM_DMAx_MIC1_IRQHandler( void )
 {
-  if(SdmmcTest == 1)
-  {
-    HAL_DMA_IRQHandler(uSdHandle.hdmatx); 
-  }
-  else
-  {
-    HAL_DMA_IRQHandler(hAudioInDfsdmFilter[POS_VAL(INPUT_DEVICE_DIGITAL_MIC1)].hdmaReg);
-  }
+    if( SdmmcTest == 1 )
+    {
+        HAL_DMA_IRQHandler( uSdHandle.hdmatx );
+    }
+    else
+    {
+        HAL_DMA_IRQHandler( hAudioInDfsdmFilter[POS_VAL( INPUT_DEVICE_DIGITAL_MIC1 )].hdmaReg );
+    }
 }
 
 /**
@@ -260,9 +260,9 @@ void AUDIO_DFSDM_DMAx_MIC1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void AUDIO_DFSDM_DMAx_MIC2_IRQHandler(void)
+void AUDIO_DFSDM_DMAx_MIC2_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(hAudioInDfsdmFilter[POS_VAL(INPUT_DEVICE_DIGITAL_MIC2)].hdmaReg);
+    HAL_DMA_IRQHandler( hAudioInDfsdmFilter[POS_VAL( INPUT_DEVICE_DIGITAL_MIC2 )].hdmaReg );
 }
 
 /**
@@ -270,9 +270,9 @@ void AUDIO_DFSDM_DMAx_MIC2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void AUDIO_OUT_I2Sx_DMAx_IRQHandler(void)
+void AUDIO_OUT_I2Sx_DMAx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_i2s.hdmatx);
+    HAL_DMA_IRQHandler( haudio_i2s.hdmatx );
 }
 
 /**
@@ -286,7 +286,7 @@ void AUDIO_OUT_I2Sx_DMAx_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}

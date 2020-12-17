@@ -40,37 +40,37 @@ Purpose     : Display controller configuration (single layer)
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright © 2017 STMicroelectronics International N.V. 
+  * <h2><center>&copy; Copyright © 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without 
+  * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice, 
+  * 1. Redistribution of source code must retain the above copyright notice,
   *    this list of conditions and the following disclaimer.
   * 2. Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
   *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other 
-  *    contributors to this software may be used to endorse or promote products 
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
   *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this 
+  * 4. This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
   *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under 
-  *    this license is void and will automatically terminate your rights under 
-  *    this license. 
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
-  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
-  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
@@ -104,22 +104,22 @@ Purpose     : Display controller configuration (single layer)
 **********************************************************************
 */
 #ifndef   VXSIZE_PHYS
-  #define VXSIZE_PHYS XSIZE_PHYS
+    #define VXSIZE_PHYS XSIZE_PHYS
 #endif
 #ifndef   VYSIZE_PHYS
-  #define VYSIZE_PHYS YSIZE_PHYS
+    #define VYSIZE_PHYS YSIZE_PHYS
 #endif
 #ifndef   XSIZE_PHYS
-  #error Physical X size of display is not defined!
+    #error Physical X size of display is not defined!
 #endif
 #ifndef   YSIZE_PHYS
-  #error Physical Y size of display is not defined!
+    #error Physical Y size of display is not defined!
 #endif
 #ifndef   GUICC_M565
-  #error Color conversion not defined!
+    #error Color conversion not defined!
 #endif
 #ifndef   GUIDRV_FLEXCOLOR
-  #error No display driver defined!
+    #error No display driver defined!
 #endif
 
 /*********************************************************************
@@ -134,10 +134,10 @@ Purpose     : Display controller configuration (single layer)
 
 typedef struct
 {
-  __IO uint16_t REG;
-  __IO uint16_t RAM;
+    __IO uint16_t REG;
+    __IO uint16_t RAM;
 
-}LCD_CONTROLLER_TypeDef;
+} LCD_CONTROLLER_TypeDef;
 
 #define FMC_BANK1_BASE  ((uint32_t)(0x60000000 | 0x00000000))
 #define FMC_BANK1       ((LCD_CONTROLLER_TypeDef *) FMC_BANK1_BASE)
@@ -149,11 +149,11 @@ typedef struct
 **********************************************************************
 */
 
-static void     STM_FMC_BANK1_WriteData(uint16_t Data);
-static void     STM_FMC_BANK1_WriteReg(uint8_t Reg);
-static uint16_t STM_FMC_BANK1_ReadData(void);
-static void     LCD_LL_IO_Init(void);
-void            BSP_LCD_MspInit(void);
+static void     STM_FMC_BANK1_WriteData( uint16_t Data );
+static void     STM_FMC_BANK1_WriteReg( uint8_t Reg );
+static uint16_t STM_FMC_BANK1_ReadData( void );
+static void     LCD_LL_IO_Init( void );
+void            BSP_LCD_MspInit( void );
 
 /********************************************************************
 *
@@ -162,9 +162,9 @@ void            BSP_LCD_MspInit(void);
 * Function description:
 *   Sets display register
 */
-static void LcdWriteReg(U16 Data) 
+static void LcdWriteReg( U16 Data )
 {
-  STM_FMC_BANK1_WriteReg(Data);
+    STM_FMC_BANK1_WriteReg( Data );
 }
 
 /********************************************************************
@@ -174,9 +174,9 @@ static void LcdWriteReg(U16 Data)
 * Function description:
 *   Writes a value to a display register
 */
-static void LcdWriteData(U16 Data) 
+static void LcdWriteData( U16 Data )
 {
-  STM_FMC_BANK1_WriteData(Data);
+    STM_FMC_BANK1_WriteData( Data );
 }
 
 /********************************************************************
@@ -186,12 +186,12 @@ static void LcdWriteData(U16 Data)
 * Function description:
 *   Writes multiple values to a display register.
 */
-static void LcdWriteDataMultiple(U16 * pData, int NumItems) 
+static void LcdWriteDataMultiple( U16 *pData, int NumItems )
 {
-  while (NumItems--) 
-  {
-    STM_FMC_BANK1_WriteData(*pData++);
-  }
+    while( NumItems-- )
+    {
+        STM_FMC_BANK1_WriteData( *pData++ );
+    }
 }
 
 /********************************************************************
@@ -201,12 +201,12 @@ static void LcdWriteDataMultiple(U16 * pData, int NumItems)
 * Function description:
 *   Reads multiple values from a display register.
 */
-static void LcdReadDataMultiple(U16 * pData, int NumItems) 
+static void LcdReadDataMultiple( U16 *pData, int NumItems )
 {
-  while (NumItems--) 
-  {
-    *pData++ = STM_FMC_BANK1_ReadData();
-  }
+    while( NumItems-- )
+    {
+        *pData++ = STM_FMC_BANK1_ReadData();
+    }
 }
 
 /*********************************************************************
@@ -221,10 +221,10 @@ static void LcdReadDataMultiple(U16 * pData, int NumItems)
   * @param  None
   * @retval LCD state
   */
-void LCD_LL_Init(void)
-{  
-  /* LCD Init */
-  LCD_LL_IO_Init();
+void LCD_LL_Init( void )
+{
+    /* LCD Init */
+    LCD_LL_IO_Init();
 }
 
 /*********************************************************************
@@ -236,37 +236,37 @@ void LCD_LL_Init(void)
 *   display driver configuration.
 *
 */
-void LCD_X_Config(void) 
+void LCD_X_Config( void )
 {
-  GUI_DEVICE * pDevice;
-  CONFIG_FLEXCOLOR Config = {0};
-  GUI_PORT_API PortAPI = {0};
-  //
-  // Set display driver and color conversion
-  //
-  pDevice = GUI_DEVICE_CreateAndLink(GUIDRV_FLEXCOLOR, GUICC_M565, 0, 0);
-  //
-  // Display driver configuration, required for Lin-driver
-  //
-  LCD_SetSizeEx (0, XSIZE_PHYS , YSIZE_PHYS);
-  LCD_SetVSizeEx(0, VXSIZE_PHYS, VYSIZE_PHYS);
-  //
-  // Orientation
-  //
-  
-  #if (NUM_BUFFERS > 1)
-      GUI_MULTIBUF_ConfigEx(0, NUM_BUFFERS);
-  #endif
-    
-  GUIDRV_FlexColor_Config(pDevice, &Config);
-  //
-  // Set controller and operation mode
-  //
-  PortAPI.pfWrite16_A0  = LcdWriteReg;
-  PortAPI.pfWrite16_A1  = LcdWriteData;
-  PortAPI.pfWriteM16_A1 = LcdWriteDataMultiple;
-  PortAPI.pfReadM16_A1  = LcdReadDataMultiple;
-  GUIDRV_FlexColor_SetFunc(pDevice, &PortAPI, GUIDRV_FLEXCOLOR_F66709, GUIDRV_FLEXCOLOR_M16C0B16);
+    GUI_DEVICE *pDevice;
+    CONFIG_FLEXCOLOR Config = {0};
+    GUI_PORT_API PortAPI = {0};
+    //
+    // Set display driver and color conversion
+    //
+    pDevice = GUI_DEVICE_CreateAndLink( GUIDRV_FLEXCOLOR, GUICC_M565, 0, 0 );
+    //
+    // Display driver configuration, required for Lin-driver
+    //
+    LCD_SetSizeEx( 0, XSIZE_PHYS, YSIZE_PHYS );
+    LCD_SetVSizeEx( 0, VXSIZE_PHYS, VYSIZE_PHYS );
+    //
+    // Orientation
+    //
+
+#if (NUM_BUFFERS > 1)
+    GUI_MULTIBUF_ConfigEx( 0, NUM_BUFFERS );
+#endif
+
+    GUIDRV_FlexColor_Config( pDevice, &Config );
+    //
+    // Set controller and operation mode
+    //
+    PortAPI.pfWrite16_A0  = LcdWriteReg;
+    PortAPI.pfWrite16_A1  = LcdWriteData;
+    PortAPI.pfWriteM16_A1 = LcdWriteDataMultiple;
+    PortAPI.pfReadM16_A1  = LcdReadDataMultiple;
+    GUIDRV_FlexColor_SetFunc( pDevice, &PortAPI, GUIDRV_FLEXCOLOR_F66709, GUIDRV_FLEXCOLOR_M16C0B16 );
 }
 
 /*********************************************************************
@@ -290,22 +290,27 @@ void LCD_X_Config(void)
 *     -1 - Command not handled
 *      0 - Ok
 */
-int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
-  int r;
-  (void) LayerIndex;
-  (void) pData;
-  
-  switch (Cmd) {
-  case LCD_X_INITCONTROLLER: {
-    
-    LCD_LL_Init();
-    
-    return 0;
-  }
-  default:
-    r = -1;
-  }
-  return r;
+int LCD_X_DisplayDriver( unsigned LayerIndex, unsigned Cmd, void *pData )
+{
+    int r;
+    ( void ) LayerIndex;
+    ( void ) pData;
+
+    switch( Cmd )
+    {
+    case LCD_X_INITCONTROLLER:
+        {
+
+            LCD_LL_Init();
+
+            return 0;
+        }
+
+    default:
+        r = -1;
+    }
+
+    return r;
 }
 
 /**
@@ -313,32 +318,32 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
   * @param  None
   * @retval None
   */
-static void LCD_LL_IO_Init(void)
-{ 
-  /* Initialize LCD special pins GPIOs */
-  BSP_LCD_MspInit();
-  
-  /* Backlight control signal assertion */
-  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_SET);
-  
-  /* Apply hardware reset according to procedure indicated in FRD154A24IPS documentation */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_RESET);
-  HAL_Delay(5);   /* Reset signal asserted during 5ms  */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_SET);
-  HAL_Delay(10);  /* Reset signal released during 10ms */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_RESET);
-  HAL_Delay(20);  /* Reset signal asserted during 20ms */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_SET);
-  HAL_Delay(10);  /* Reset signal released during 10ms */
-  
-  if(ST7789H2_drv.ReadID() == ST7789H2_ID)
-  {    
-    ST7789H2_Init();   
-  }
-  else if(ls016b8uy_drv.ReadID() == LS016B8UY_ID)
-  {
-    ls016b8uy_Init();
-  }
+static void LCD_LL_IO_Init( void )
+{
+    /* Initialize LCD special pins GPIOs */
+    BSP_LCD_MspInit();
+
+    /* Backlight control signal assertion */
+    HAL_GPIO_WritePin( GPIOF, GPIO_PIN_5, GPIO_PIN_SET );
+
+    /* Apply hardware reset according to procedure indicated in FRD154A24IPS documentation */
+    HAL_GPIO_WritePin( GPIOD, GPIO_PIN_11, GPIO_PIN_RESET );
+    HAL_Delay( 5 ); /* Reset signal asserted during 5ms  */
+    HAL_GPIO_WritePin( GPIOD, GPIO_PIN_11, GPIO_PIN_SET );
+    HAL_Delay( 10 ); /* Reset signal released during 10ms */
+    HAL_GPIO_WritePin( GPIOD, GPIO_PIN_11, GPIO_PIN_RESET );
+    HAL_Delay( 20 ); /* Reset signal asserted during 20ms */
+    HAL_GPIO_WritePin( GPIOD, GPIO_PIN_11, GPIO_PIN_SET );
+    HAL_Delay( 10 ); /* Reset signal released during 10ms */
+
+    if( ST7789H2_drv.ReadID() == ST7789H2_ID )
+    {
+        ST7789H2_Init();
+    }
+    else if( ls016b8uy_drv.ReadID() == LS016B8UY_ID )
+    {
+        ls016b8uy_Init();
+    }
 }
 
 /**
@@ -346,53 +351,53 @@ static void LCD_LL_IO_Init(void)
   * @param  None
   * @retval None
   */
-void BSP_LCD_MspInit(void)
+void BSP_LCD_MspInit( void )
 {
-  GPIO_InitTypeDef gpio_init_structure;
+    GPIO_InitTypeDef gpio_init_structure;
 
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
 
-  /* LCD_RESET GPIO configuration */
-  gpio_init_structure.Pin       = GPIO_PIN_11;     /* LCD_RESET pin has to be manually controlled */
-  gpio_init_structure.Pull      = GPIO_NOPULL;
-  gpio_init_structure.Speed     = GPIO_SPEED_FAST;
-  gpio_init_structure.Mode      = GPIO_MODE_OUTPUT_PP;
-  HAL_GPIO_Init(GPIOD, &gpio_init_structure);
+    /* LCD_RESET GPIO configuration */
+    gpio_init_structure.Pin       = GPIO_PIN_11;     /* LCD_RESET pin has to be manually controlled */
+    gpio_init_structure.Pull      = GPIO_NOPULL;
+    gpio_init_structure.Speed     = GPIO_SPEED_FAST;
+    gpio_init_structure.Mode      = GPIO_MODE_OUTPUT_PP;
+    HAL_GPIO_Init( GPIOD, &gpio_init_structure );
 
-  /* LCD_TE GPIO configuration */
-  gpio_init_structure.Pin       = GPIO_PIN_3;        /* LCD_TE pin has to be manually managed */
-  gpio_init_structure.Mode      = GPIO_MODE_INPUT;
-  HAL_GPIO_Init(GPIOG, &gpio_init_structure);
+    /* LCD_TE GPIO configuration */
+    gpio_init_structure.Pin       = GPIO_PIN_3;        /* LCD_TE pin has to be manually managed */
+    gpio_init_structure.Mode      = GPIO_MODE_INPUT;
+    HAL_GPIO_Init( GPIOG, &gpio_init_structure );
 
-  /* LCD_BL_CTRL GPIO configuration */
-  gpio_init_structure.Pin       = GPIO_PIN_5;   /* LCD_BL_CTRL pin has to be manually controlled */
-  gpio_init_structure.Mode      = GPIO_MODE_OUTPUT_PP;
-  HAL_GPIO_Init(GPIOF, &gpio_init_structure);
+    /* LCD_BL_CTRL GPIO configuration */
+    gpio_init_structure.Pin       = GPIO_PIN_5;   /* LCD_BL_CTRL pin has to be manually controlled */
+    gpio_init_structure.Mode      = GPIO_MODE_OUTPUT_PP;
+    HAL_GPIO_Init( GPIOF, &gpio_init_structure );
 }
 
 /**
   * @brief  Writes register value.
-  * @param  Data: 
+  * @param  Data:
   * @retval None
   */
-static void STM_FMC_BANK1_WriteData(uint16_t Data) 
+static void STM_FMC_BANK1_WriteData( uint16_t Data )
 {
-  /* Write 16-bit Reg */
-  FMC_BANK1->RAM = Data;
+    /* Write 16-bit Reg */
+    FMC_BANK1->RAM = Data;
 }
 
 /**
   * @brief  Writes register address.
-  * @param  Reg: 
+  * @param  Reg:
   * @retval None
   */
-static void STM_FMC_BANK1_WriteReg(uint8_t Reg) 
+static void STM_FMC_BANK1_WriteReg( uint8_t Reg )
 {
-  /* Write 16-bit Index, then write register */
-  FMC_BANK1->REG = Reg;
+    /* Write 16-bit Index, then write register */
+    FMC_BANK1->REG = Reg;
 }
 
 /**
@@ -400,9 +405,9 @@ static void STM_FMC_BANK1_WriteReg(uint8_t Reg)
   * @param  None
   * @retval Read value
   */
-static uint16_t STM_FMC_BANK1_ReadData(void) 
+static uint16_t STM_FMC_BANK1_ReadData( void )
 {
-  return FMC_BANK1->RAM;
+    return FMC_BANK1->RAM;
 }
 /*************************** End of file ****************************/
 

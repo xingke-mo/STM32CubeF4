@@ -21,20 +21,20 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif
 
 /*
@@ -48,7 +48,7 @@
  * goal of minimizing use of the libc functions on full-blown OSes.
  */
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(__APPLE__)
-#define UNIX
+    #define UNIX
 #endif
 
 #if !defined(MBEDTLS_CTR_DRBG_C) || !defined(MBEDTLS_ENTROPY_C) || \
@@ -58,8 +58,8 @@
 int main( void )
 {
     mbedtls_printf( "MBEDTLS_CTR_DRBG_C and/or MBEDTLS_ENTROPY_C and/or "
-            "MBEDTLS_NET_C and/or MBEDTLS_SSL_CLI_C and/or UNIX "
-            "not defined.\n");
+                    "MBEDTLS_NET_C and/or MBEDTLS_SSL_CLI_C and/or UNIX "
+                    "not defined.\n" );
     return( 0 );
 }
 #else
@@ -89,7 +89,8 @@ int main( void )
 const char *pers = "mini_client";
 
 #if defined(MBEDTLS_KEY_EXCHANGE__SOME__PSK_ENABLED)
-const unsigned char psk[] = {
+const unsigned char psk[] =
+{
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
     0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
 };
@@ -98,7 +99,8 @@ const char psk_id[] = "Client_identity";
 
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
 /* This is tests/data_files/test-ca2.crt, a CA using EC secp384r1 */
-const unsigned char ca_cert[] = {
+const unsigned char ca_cert[] =
+{
     0x30, 0x82, 0x02, 0x52, 0x30, 0x82, 0x01, 0xd7, 0xa0, 0x03, 0x02, 0x01,
     0x02, 0x02, 0x09, 0x00, 0xc1, 0x43, 0xe2, 0x7e, 0x62, 0x43, 0xcc, 0xe8,
     0x30, 0x0a, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x04, 0x03, 0x02,
@@ -204,17 +206,18 @@ int main( void )
 #endif
 
     mbedtls_entropy_init( &entropy );
+
     if( mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                       (const unsigned char *) pers, strlen( pers ) ) != 0 )
+                               ( const unsigned char * ) pers, strlen( pers ) ) != 0 )
     {
         ret = ctr_drbg_seed_failed;
         goto exit;
     }
 
     if( mbedtls_ssl_config_defaults( &conf,
-                MBEDTLS_SSL_IS_CLIENT,
-                MBEDTLS_SSL_TRANSPORT_STREAM,
-                MBEDTLS_SSL_PRESET_DEFAULT ) != 0 )
+                                     MBEDTLS_SSL_IS_CLIENT,
+                                     MBEDTLS_SSL_TRANSPORT_STREAM,
+                                     MBEDTLS_SSL_PRESET_DEFAULT ) != 0 )
     {
         ret = ssl_config_defaults_failed;
         goto exit;
@@ -224,10 +227,11 @@ int main( void )
 
 #if defined(MBEDTLS_KEY_EXCHANGE__SOME__PSK_ENABLED)
     mbedtls_ssl_conf_psk( &conf, psk, sizeof( psk ),
-                (const unsigned char *) psk_id, sizeof( psk_id ) - 1 );
+                          ( const unsigned char * ) psk_id, sizeof( psk_id ) - 1 );
 #endif
 
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
+
     if( mbedtls_x509_crt_parse_der( &ca, ca_cert, sizeof( ca_cert ) ) != 0 )
     {
         ret = x509_crt_parse_failed;
@@ -245,11 +249,13 @@ int main( void )
     }
 
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
+
     if( mbedtls_ssl_set_hostname( &ssl, HOSTNAME ) != 0 )
     {
         ret = hostname_failed;
         goto exit;
     }
+
 #endif
 
     /*
@@ -259,8 +265,8 @@ int main( void )
     addr.sin_family = AF_INET;
 
     ret = 1; /* for endianness detection */
-    addr.sin_port = *((char *) &ret) == ret ? PORT_LE : PORT_BE;
-    addr.sin_addr.s_addr = *((char *) &ret) == ret ? ADDR_LE : ADDR_BE;
+    addr.sin_port = *( ( char * ) &ret ) == ret ? PORT_LE : PORT_BE;
+    addr.sin_addr.s_addr = *( ( char * ) &ret ) == ret ? ADDR_LE : ADDR_BE;
     ret = 0;
 
     if( ( server_fd.fd = socket( AF_INET, SOCK_STREAM, 0 ) ) < 0 )
@@ -270,7 +276,7 @@ int main( void )
     }
 
     if( connect( server_fd.fd,
-                (const struct sockaddr *) &addr, sizeof( addr ) ) < 0 )
+                 ( const struct sockaddr * ) &addr, sizeof( addr ) ) < 0 )
     {
         ret = connect_failed;
         goto exit;
@@ -287,8 +293,8 @@ int main( void )
     /*
      * 2. Write the GET request and close the connection
      */
-    if( mbedtls_ssl_write( &ssl, (const unsigned char *) GET_REQUEST,
-                         sizeof( GET_REQUEST ) - 1 ) <= 0 )
+    if( mbedtls_ssl_write( &ssl, ( const unsigned char * ) GET_REQUEST,
+                           sizeof( GET_REQUEST ) - 1 ) <= 0 )
     {
         ret = ssl_write_failed;
         goto exit;

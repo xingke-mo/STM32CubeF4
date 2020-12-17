@@ -105,8 +105,8 @@
  * To disable assertions define LWIP_NOASSERT in arch/cc.h.
  */
 #ifdef __DOXYGEN__
-#define LWIP_NOASSERT
-#undef LWIP_NOASSERT
+    #define LWIP_NOASSERT
+    #undef LWIP_NOASSERT
 #endif
 /**
  * @}
@@ -121,11 +121,11 @@
 
 #ifndef LWIP_ERROR
 #ifndef LWIP_NOASSERT
-#define LWIP_PLATFORM_ERROR(message) LWIP_PLATFORM_ASSERT(message)
+    #define LWIP_PLATFORM_ERROR(message) LWIP_PLATFORM_ASSERT(message)
 #elif defined LWIP_DEBUG
-#define LWIP_PLATFORM_ERROR(message) LWIP_PLATFORM_DIAG((message))
+    #define LWIP_PLATFORM_ERROR(message) LWIP_PLATFORM_DIAG((message))
 #else
-#define LWIP_PLATFORM_ERROR(message)
+    #define LWIP_PLATFORM_ERROR(message)
 #endif
 
 /* if "expression" isn't true, then print "message" and execute "handler" expression */
@@ -137,8 +137,8 @@
  *  AND is of correct type AND is at least LWIP_DBG_LEVEL.
  */
 #ifdef __DOXYGEN__
-#define LWIP_DEBUG
-#undef LWIP_DEBUG
+    #define LWIP_DEBUG
+    #undef LWIP_DEBUG
 #endif
 
 #ifdef LWIP_DEBUG

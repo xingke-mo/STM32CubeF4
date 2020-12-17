@@ -49,13 +49,13 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 #if defined(__ICCARM__)
-#pragma section =".qspi"
+    #pragma section =".qspi"
 #endif
 
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
-static void GpioToggle(void);
+static void GpioToggle( void );
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -63,30 +63,30 @@ static void GpioToggle(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Systick timer is configured by default as source of time base, but user 
-         can eventually implement his proper time base source (a general purpose 
-         timer for example or other time source), keeping in mind that Time base 
-         duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
-         handled in milliseconds basis.
-       - Set NVIC Group Priority to 4
-       - Low Level Initialization: global MSP (MCU Support Package) initialization */
-  
-  HAL_Init();
+    /* STM32F4xx HAL library initialization:
+         - Configure the Flash prefetch, instruction and Data caches
+         - Systick timer is configured by default as source of time base, but user
+           can eventually implement his proper time base source (a general purpose
+           timer for example or other time source), keeping in mind that Time base
+           duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and
+           handled in milliseconds basis.
+         - Set NVIC Group Priority to 4
+         - Low Level Initialization: global MSP (MCU Support Package) initialization */
 
-  BSP_LED_Init(LED1);
-  BSP_LED_Init(LED2);
-  BSP_LED_Init(LED3);
-  BSP_LED_Init(LED4);
+    HAL_Init();
 
-  while(1)
-  {
-    /* Execute the code from QSPI memory ------------------------------------ */
-    GpioToggle();
-  }
+    BSP_LED_Init( LED1 );
+    BSP_LED_Init( LED2 );
+    BSP_LED_Init( LED3 );
+    BSP_LED_Init( LED4 );
+
+    while( 1 )
+    {
+        /* Execute the code from QSPI memory ------------------------------------ */
+        GpioToggle();
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -97,15 +97,15 @@ int main(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 
@@ -116,27 +116,27 @@ void assert_failed(uint8_t *file, uint32_t line)
   */
 
 #if defined(__CC_ARM)
-#pragma arm section code = ".qspi"
-#pragma no_inline
-static void GpioToggle(void)
+    #pragma arm section code = ".qspi"
+    #pragma no_inline
+    static void GpioToggle( void )
 #elif defined(__ICCARM__)
-static void GpioToggle(void) @ ".qspi"
+    static void GpioToggle( void ) @ ".qspi"
 #elif defined(__GNUC__)
-static void __attribute__((section(".qspi"), noinline)) GpioToggle(void)
+    static void __attribute__( ( section( ".qspi" ), noinline ) ) GpioToggle( void )
 #endif
 {
-  BSP_LED_Toggle(LED1);
-  /* Insert delay 100 ms */
-  HAL_Delay(100);
-  BSP_LED_Toggle(LED2);
-  /* Insert delay 100 ms */
-  HAL_Delay(100);
-  BSP_LED_Toggle(LED3);
-  /* Insert delay 100 ms */
-  HAL_Delay(100);
-  BSP_LED_Toggle(LED4);
-  /* Insert delay 100 ms */
-  HAL_Delay(100);
+    BSP_LED_Toggle( LED1 );
+    /* Insert delay 100 ms */
+    HAL_Delay( 100 );
+    BSP_LED_Toggle( LED2 );
+    /* Insert delay 100 ms */
+    HAL_Delay( 100 );
+    BSP_LED_Toggle( LED3 );
+    /* Insert delay 100 ms */
+    HAL_Delay( 100 );
+    BSP_LED_Toggle( LED4 );
+    /* Insert delay 100 ms */
+    HAL_Delay( 100 );
 }
 
 /**

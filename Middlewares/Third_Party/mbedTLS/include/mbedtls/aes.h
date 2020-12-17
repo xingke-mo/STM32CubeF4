@@ -42,9 +42,9 @@
 #define MBEDTLS_AES_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -69,7 +69,7 @@
 
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
-#define inline __inline
+    #define inline __inline
 #endif
 
 #ifdef __cplusplus
@@ -171,7 +171,7 @@ void mbedtls_aes_xts_free( mbedtls_aes_xts_context *ctx );
  * \return         #MBEDTLS_ERR_AES_INVALID_KEY_LENGTH on failure.
  */
 int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
-                    unsigned int keybits );
+                            unsigned int keybits );
 
 /**
  * \brief          This function sets the decryption key.
@@ -189,7 +189,7 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
  * \return         #MBEDTLS_ERR_AES_INVALID_KEY_LENGTH on failure.
  */
 int mbedtls_aes_setkey_dec( mbedtls_aes_context *ctx, const unsigned char *key,
-                    unsigned int keybits );
+                            unsigned int keybits );
 
 #if defined(MBEDTLS_CIPHER_MODE_XTS)
 /**
@@ -257,9 +257,9 @@ int mbedtls_aes_xts_setkey_dec( mbedtls_aes_xts_context *ctx,
  * \return         \c 0 on success.
  */
 int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
-                    int mode,
-                    const unsigned char input[16],
-                    unsigned char output[16] );
+                           int mode,
+                           const unsigned char input[16],
+                           unsigned char output[16] );
 
 #if defined(MBEDTLS_CIPHER_MODE_CBC)
 /**
@@ -304,11 +304,11 @@ int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
  *                 on failure.
  */
 int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
-                    int mode,
-                    size_t length,
-                    unsigned char iv[16],
-                    const unsigned char *input,
-                    unsigned char *output );
+                           int mode,
+                           size_t length,
+                           unsigned char iv[16],
+                           const unsigned char *input,
+                           unsigned char *output );
 #endif /* MBEDTLS_CIPHER_MODE_CBC */
 
 #if defined(MBEDTLS_CIPHER_MODE_XTS)
@@ -396,12 +396,12 @@ int mbedtls_aes_crypt_xts( mbedtls_aes_xts_context *ctx,
  * \return         \c 0 on success.
  */
 int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
-                       int mode,
-                       size_t length,
-                       size_t *iv_off,
-                       unsigned char iv[16],
-                       const unsigned char *input,
-                       unsigned char *output );
+                              int mode,
+                              size_t length,
+                              size_t *iv_off,
+                              unsigned char iv[16],
+                              const unsigned char *input,
+                              unsigned char *output );
 
 /**
  * \brief This function performs an AES-CFB8 encryption or decryption
@@ -440,11 +440,11 @@ int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
  * \return         \c 0 on success.
  */
 int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
-                    int mode,
-                    size_t length,
-                    unsigned char iv[16],
-                    const unsigned char *input,
-                    unsigned char *output );
+                            int mode,
+                            size_t length,
+                            unsigned char iv[16],
+                            const unsigned char *input,
+                            unsigned char *output );
 #endif /*MBEDTLS_CIPHER_MODE_CFB */
 
 #if defined(MBEDTLS_CIPHER_MODE_OFB)
@@ -494,11 +494,11 @@ int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
  * \return         \c 0 on success.
  */
 int mbedtls_aes_crypt_ofb( mbedtls_aes_context *ctx,
-                       size_t length,
-                       size_t *iv_off,
-                       unsigned char iv[16],
-                       const unsigned char *input,
-                       unsigned char *output );
+                           size_t length,
+                           size_t *iv_off,
+                           unsigned char iv[16],
+                           const unsigned char *input,
+                           unsigned char *output );
 
 #endif /* MBEDTLS_CIPHER_MODE_OFB */
 
@@ -580,12 +580,12 @@ int mbedtls_aes_crypt_ofb( mbedtls_aes_context *ctx,
  * \return                 \c 0 on success.
  */
 int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
-                       size_t length,
-                       size_t *nc_off,
-                       unsigned char nonce_counter[16],
-                       unsigned char stream_block[16],
-                       const unsigned char *input,
-                       unsigned char *output );
+                           size_t length,
+                           size_t *nc_off,
+                           unsigned char nonce_counter[16],
+                           unsigned char stream_block[16],
+                           const unsigned char *input,
+                           unsigned char *output );
 #endif /* MBEDTLS_CIPHER_MODE_CTR */
 
 /**
@@ -635,8 +635,8 @@ int mbedtls_internal_aes_decrypt( mbedtls_aes_context *ctx,
  * \param output    Output (ciphertext) block.
  */
 MBEDTLS_DEPRECATED void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
-                                             const unsigned char input[16],
-                                             unsigned char output[16] );
+        const unsigned char input[16],
+        unsigned char output[16] );
 
 /**
  * \brief           Deprecated internal AES block decryption function
@@ -649,8 +649,8 @@ MBEDTLS_DEPRECATED void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
  * \param output    Output (plaintext) block.
  */
 MBEDTLS_DEPRECATED void mbedtls_aes_decrypt( mbedtls_aes_context *ctx,
-                                             const unsigned char input[16],
-                                             unsigned char output[16] );
+        const unsigned char input[16],
+        unsigned char output[16] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */

@@ -20,21 +20,21 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_snprintf        snprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_snprintf        snprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if !defined(MBEDTLS_MD_C) || !defined(MBEDTLS_ENTROPY_C) ||  \
@@ -43,10 +43,10 @@
     !defined(MBEDTLS_CTR_DRBG_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_MD_C and/or MBEDTLS_ENTROPY_C and/or "
-           "MBEDTLS_RSA_C and/or MBEDTLS_SHA256_C and/or "
-           "MBEDTLS_PK_PARSE_C and/or MBEDTLS_FS_IO and/or "
-           "MBEDTLS_CTR_DRBG_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_MD_C and/or MBEDTLS_ENTROPY_C and/or "
+                    "MBEDTLS_RSA_C and/or MBEDTLS_SHA256_C and/or "
+                    "MBEDTLS_PK_PARSE_C and/or MBEDTLS_FS_IO and/or "
+                    "MBEDTLS_CTR_DRBG_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -146,7 +146,7 @@ int main( int argc, char *argv[] )
     }
 
     if( ( ret = mbedtls_pk_verify( &pk, MBEDTLS_MD_SHA256, hash, 0,
-                           buf, i ) ) != 0 )
+                                   buf, i ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_pk_verify returned %d\n\n", ret );
         goto exit;

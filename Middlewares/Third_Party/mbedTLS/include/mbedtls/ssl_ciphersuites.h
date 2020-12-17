@@ -25,9 +25,9 @@
 #define MBEDTLS_SSL_CIPHERSUITES_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "pk.h"
@@ -289,7 +289,8 @@ extern "C" {
 /* Reminder: update mbedtls_ssl_premaster_secret when adding a new key exchange.
  * Reminder: update MBEDTLS_KEY_EXCHANGE__xxx below
  */
-typedef enum {
+typedef enum
+{
     MBEDTLS_KEY_EXCHANGE_NONE = 0,
     MBEDTLS_KEY_EXCHANGE_RSA,
     MBEDTLS_KEY_EXCHANGE_DHE_RSA,
@@ -390,7 +391,7 @@ typedef struct mbedtls_ssl_ciphersuite_t mbedtls_ssl_ciphersuite_t;
 struct mbedtls_ssl_ciphersuite_t
 {
     int id;
-    const char * name;
+    const char *name;
 
     mbedtls_cipher_type_t cipher;
     mbedtls_md_type_t mac;
@@ -422,16 +423,16 @@ static inline int mbedtls_ssl_ciphersuite_has_pfs( const mbedtls_ssl_ciphersuite
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_DHE_PSK:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_PSK:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
-        case MBEDTLS_KEY_EXCHANGE_ECJPAKE:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_DHE_PSK:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_PSK:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
+    case MBEDTLS_KEY_EXCHANGE_ECJPAKE:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__SOME_PFS__ENABLED */
@@ -441,15 +442,15 @@ static inline int mbedtls_ssl_ciphersuite_no_pfs( const mbedtls_ssl_ciphersuite_
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
-        case MBEDTLS_KEY_EXCHANGE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_PSK:
-        case MBEDTLS_KEY_EXCHANGE_RSA_PSK:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
+    case MBEDTLS_KEY_EXCHANGE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_PSK:
+    case MBEDTLS_KEY_EXCHANGE_RSA_PSK:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__SOME_NON_PFS__ENABLED */
@@ -459,12 +460,12 @@ static inline int mbedtls_ssl_ciphersuite_uses_ecdh( const mbedtls_ssl_ciphersui
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__SOME__ECDH_ENABLED */
@@ -473,16 +474,16 @@ static inline int mbedtls_ssl_ciphersuite_cert_req_allowed( const mbedtls_ssl_ci
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDH_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 
@@ -491,12 +492,12 @@ static inline int mbedtls_ssl_ciphersuite_uses_dhe( const mbedtls_ssl_ciphersuit
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_DHE_PSK:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_DHE_PSK:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__SOME__DHE_ENABLED) */
@@ -506,13 +507,13 @@ static inline int mbedtls_ssl_ciphersuite_uses_ecdhe( const mbedtls_ssl_ciphersu
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_PSK:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_PSK:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__SOME__ECDHE_ENABLED) */
@@ -522,13 +523,13 @@ static inline int mbedtls_ssl_ciphersuite_uses_server_signature( const mbedtls_s
 {
     switch( info->key_exchange )
     {
-        case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
-        case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
-            return( 1 );
+    case MBEDTLS_KEY_EXCHANGE_DHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_RSA:
+    case MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA:
+        return( 1 );
 
-        default:
-            return( 0 );
+    default:
+        return( 0 );
     }
 }
 #endif /* MBEDTLS_KEY_EXCHANGE__WITH_SERVER_SIGNATURE__ENABLED */

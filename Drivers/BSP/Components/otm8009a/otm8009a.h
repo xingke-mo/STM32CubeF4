@@ -42,7 +42,7 @@
 #define __OTM8009A_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -68,7 +68,7 @@
 #define __weak __attribute__((weak))
 #endif /* __weak */
 #endif /* __GNUC__ */
-      
+
 /**
  *  @brief LCD_OrientationTypeDef
  *  Possible values of Display Orientation
@@ -182,25 +182,25 @@
 /**
   * @}
   */
-   
+
 /* Exported macro ------------------------------------------------------------*/
-   
+
 /** @defgroup OTM8009A_Exported_Macros OTM8009A Exported Macros
   * @{
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /* Exported functions --------------------------------------------------------*/
-  
+
 /** @addtogroup OTM8009A_Exported_Functions
   * @{
   */
-void DSI_IO_WriteCmd(uint32_t NbrParams, uint8_t *pParams);
-uint8_t OTM8009A_Init(uint32_t ColorCoding, uint32_t orientation);
-void OTM8009A_IO_Delay(uint32_t Delay);
+void DSI_IO_WriteCmd( uint32_t NbrParams, uint8_t *pParams );
+uint8_t OTM8009A_Init( uint32_t ColorCoding, uint32_t orientation );
+void OTM8009A_IO_Delay( uint32_t Delay );
 /**
   * @}
   */

@@ -50,12 +50,12 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-void     SystemClock_Config(void);
-void     Configure_PWR(void);
-void     LED_Init(void);
-void     LED_Off(void);
-void     LED_Blinking_5s(void);
-void     EnterSTOP_MAINREGUMode(void);
+void     SystemClock_Config( void );
+void     Configure_PWR( void );
+void     LED_Init( void );
+void     LED_Off( void );
+void     LED_Blinking_5s( void );
+void     EnterSTOP_MAINREGUMode( void );
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -63,32 +63,32 @@ void     EnterSTOP_MAINREGUMode(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* Configure the system clock to 100 MHz */
-  SystemClock_Config();
+    /* Configure the system clock to 100 MHz */
+    SystemClock_Config();
 
-  /* Initialize LED2 */
-  LED_Init();
+    /* Initialize LED2 */
+    LED_Init();
 
-  /* Configure Power IP */
-  Configure_PWR();
+    /* Configure Power IP */
+    Configure_PWR();
 
-  /* Led blinking during 5s in RUN mode */
-  LED_Blinking_5s();
+    /* Led blinking during 5s in RUN mode */
+    LED_Blinking_5s();
 
-  /* Switch OFF LED2 */
-  LED_Off();
+    /* Switch OFF LED2 */
+    LED_Off();
 
-  /* Enter STOP_MAINREGU mode */
-  EnterSTOP_MAINREGUMode();
+    /* Enter STOP_MAINREGU mode */
+    EnterSTOP_MAINREGUMode();
 
-  /* Here Device is in STOP_MAINREGU mode */
+    /* Here Device is in STOP_MAINREGU mode */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -96,19 +96,19 @@ int main(void)
   * @param  None
   * @retval None
   */
-void LED_Init(void)
+void LED_Init( void )
 {
-  /* Enable the LED2 Clock */
-  LED2_GPIO_CLK_ENABLE();
+    /* Enable the LED2 Clock */
+    LED2_GPIO_CLK_ENABLE();
 
-  /* Configure IO in output push-pull mode to drive external LED2 */
-  LL_GPIO_SetPinMode(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_MODE_OUTPUT);
-  /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
-  //LL_GPIO_SetPinOutputType(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
-  //LL_GPIO_SetPinSpeed(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_SPEED_FREQ_LOW);
-  /* Reset value is LL_GPIO_PULL_NO */
-  //LL_GPIO_SetPinPull(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_PULL_NO);
+    /* Configure IO in output push-pull mode to drive external LED2 */
+    LL_GPIO_SetPinMode( LED2_GPIO_PORT, LED2_PIN, LL_GPIO_MODE_OUTPUT );
+    /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
+    //LL_GPIO_SetPinOutputType(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+    /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
+    //LL_GPIO_SetPinSpeed(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_SPEED_FREQ_LOW);
+    /* Reset value is LL_GPIO_PULL_NO */
+    //LL_GPIO_SetPinPull(LED2_GPIO_PORT, LED2_PIN, LL_GPIO_PULL_NO);
 }
 
 /**
@@ -116,10 +116,10 @@ void LED_Init(void)
   * @param  None
   * @retval None
   */
-void LED_Off(void)
+void LED_Off( void )
 {
-  /* Turn LED2 off */
-  LL_GPIO_ResetOutputPin(LED2_GPIO_PORT, LED2_PIN);
+    /* Turn LED2 off */
+    LL_GPIO_ResetOutputPin( LED2_GPIO_PORT, LED2_PIN );
 }
 
 /**
@@ -128,16 +128,16 @@ void LED_Off(void)
 
   * @retval None
   */
-void LED_Blinking_5s(void)
+void LED_Blinking_5s( void )
 {
-  uint32_t i = 0;
+    uint32_t i = 0;
 
-  /* Toggle IO in during 5s (25*200ms) */
-  for(i = 0; i < 25; i++)
-  {
-    LL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);  
-    LL_mDelay(200);
-  }
+    /* Toggle IO in during 5s (25*200ms) */
+    for( i = 0; i < 25; i++ )
+    {
+        LL_GPIO_TogglePin( LED2_GPIO_PORT, LED2_PIN );
+        LL_mDelay( 200 );
+    }
 }
 
 /**
@@ -145,10 +145,10 @@ void LED_Blinking_5s(void)
   * @param  None
   * @retval None
   */
-void Configure_PWR(void)
+void Configure_PWR( void )
 {
-  /* Enable Power Clock */
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    /* Enable Power Clock */
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
 }
 
@@ -157,50 +157,51 @@ void Configure_PWR(void)
   * @param  None
   * @retval None
   */
-void EnterSTOP_MAINREGUMode(void)
+void EnterSTOP_MAINREGUMode( void )
 {
-  LL_GPIO_InitTypeDef gpio_initstruct = {LL_GPIO_PIN_ALL, LL_GPIO_MODE_ANALOG, 
-                                         LL_GPIO_SPEED_FREQ_HIGH, LL_GPIO_OUTPUT_PUSHPULL, 
-                                         LL_GPIO_PULL_NO, LL_GPIO_AF_0};
+    LL_GPIO_InitTypeDef gpio_initstruct = {LL_GPIO_PIN_ALL, LL_GPIO_MODE_ANALOG,
+                                           LL_GPIO_SPEED_FREQ_HIGH, LL_GPIO_OUTPUT_PUSHPULL,
+                                           LL_GPIO_PULL_NO, LL_GPIO_AF_0
+                                          };
 
-  /* Set all GPIO in analog state to reduce power consumption,                */
-  /* Note: Debug using ST-Link is not possible during the execution of this   */
-  /*       example because communication between ST-link and the device       */
-  /*       under test is done through UART. All GPIO pins are disabled (set   */
-  /*       to analog input mode) including  UART I/O pins.                    */
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA |
-                           LL_AHB1_GRP1_PERIPH_GPIOB |
-                           LL_AHB1_GRP1_PERIPH_GPIOC |
-                           LL_AHB1_GRP1_PERIPH_GPIOD |
-                           LL_AHB1_GRP1_PERIPH_GPIOE |
-                           LL_AHB1_GRP1_PERIPH_GPIOH);
+    /* Set all GPIO in analog state to reduce power consumption,                */
+    /* Note: Debug using ST-Link is not possible during the execution of this   */
+    /*       example because communication between ST-link and the device       */
+    /*       under test is done through UART. All GPIO pins are disabled (set   */
+    /*       to analog input mode) including  UART I/O pins.                    */
+    LL_AHB1_GRP1_EnableClock( LL_AHB1_GRP1_PERIPH_GPIOA |
+                              LL_AHB1_GRP1_PERIPH_GPIOB |
+                              LL_AHB1_GRP1_PERIPH_GPIOC |
+                              LL_AHB1_GRP1_PERIPH_GPIOD |
+                              LL_AHB1_GRP1_PERIPH_GPIOE |
+                              LL_AHB1_GRP1_PERIPH_GPIOH );
 
-  LL_GPIO_Init(GPIOA, &gpio_initstruct);
-  LL_GPIO_Init(GPIOB, &gpio_initstruct);
-  LL_GPIO_Init(GPIOC, &gpio_initstruct);
-  LL_GPIO_Init(GPIOD, &gpio_initstruct);
-  LL_GPIO_Init(GPIOE, &gpio_initstruct);
-  LL_GPIO_Init(GPIOH, &gpio_initstruct);
+    LL_GPIO_Init( GPIOA, &gpio_initstruct );
+    LL_GPIO_Init( GPIOB, &gpio_initstruct );
+    LL_GPIO_Init( GPIOC, &gpio_initstruct );
+    LL_GPIO_Init( GPIOD, &gpio_initstruct );
+    LL_GPIO_Init( GPIOE, &gpio_initstruct );
+    LL_GPIO_Init( GPIOH, &gpio_initstruct );
 
-  LL_AHB1_GRP1_DisableClock(LL_AHB1_GRP1_PERIPH_GPIOA |
-                           LL_AHB1_GRP1_PERIPH_GPIOB |
-                           LL_AHB1_GRP1_PERIPH_GPIOC |
-                           LL_AHB1_GRP1_PERIPH_GPIOD |
-                           LL_AHB1_GRP1_PERIPH_GPIOE |
-                           LL_AHB1_GRP1_PERIPH_GPIOH);
+    LL_AHB1_GRP1_DisableClock( LL_AHB1_GRP1_PERIPH_GPIOA |
+                               LL_AHB1_GRP1_PERIPH_GPIOB |
+                               LL_AHB1_GRP1_PERIPH_GPIOC |
+                               LL_AHB1_GRP1_PERIPH_GPIOD |
+                               LL_AHB1_GRP1_PERIPH_GPIOE |
+                               LL_AHB1_GRP1_PERIPH_GPIOH );
 
-  /** Request to enter STOP_MAINREGU mode
-    * Following procedure describe in STM32F4xx Reference Manual
-    * See PWR part, section Low-power modes, STOP_MAINREGU mode
-    */
-  /* Set STOP_MAINREGU mode when CPU enters deepsleep */
-  LL_PWR_SetPowerMode(LL_PWR_MODE_STOP_MAINREGU);
+    /** Request to enter STOP_MAINREGU mode
+      * Following procedure describe in STM32F4xx Reference Manual
+      * See PWR part, section Low-power modes, STOP_MAINREGU mode
+      */
+    /* Set STOP_MAINREGU mode when CPU enters deepsleep */
+    LL_PWR_SetPowerMode( LL_PWR_MODE_STOP_MAINREGU );
 
-  /* Set SLEEPDEEP bit of Cortex System Control Register */
-  LL_LPM_EnableDeepSleep();  
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    LL_LPM_EnableDeepSleep();
 
-  /* Request Wait For Interrupt */
-  __WFI();
+    /* Request Wait For Interrupt */
+    __WFI();
 }
 
 /**
@@ -222,41 +223,47 @@ void EnterSTOP_MAINREGUMode(void)
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  /* Enable HSE oscillator */
-  LL_RCC_HSE_EnableBypass();
-  LL_RCC_HSE_Enable();
-  while(LL_RCC_HSE_IsReady() != 1)
-  {
-  };
+    /* Enable HSE oscillator */
+    LL_RCC_HSE_EnableBypass();
+    LL_RCC_HSE_Enable();
 
-  /* Set FLASH latency */
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_3);
+    while( LL_RCC_HSE_IsReady() != 1 )
+    {
+    };
 
-  /* Main PLL configuration and activation */
-  LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_8, 400, LL_RCC_PLLP_DIV_4);
-  LL_RCC_PLL_Enable();
-  while(LL_RCC_PLL_IsReady() != 1)
-  {
-  };
+    /* Set FLASH latency */
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_3 );
 
-  /* Sysclk activation on the main PLL */
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
-  {
-  };
+    /* Main PLL configuration and activation */
+    LL_RCC_PLL_ConfigDomain_SYS( LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_8, 400, LL_RCC_PLLP_DIV_4 );
 
-  /* Set APB1 & APB2 prescaler */
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
-  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+    LL_RCC_PLL_Enable();
 
-  /* Set systick to 1ms */
-  SysTick_Config(100000000 / 1000);
+    while( LL_RCC_PLL_IsReady() != 1 )
+    {
+    };
 
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  SystemCoreClock = 100000000;
+    /* Sysclk activation on the main PLL */
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
+
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_PLL );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL )
+    {
+    };
+
+    /* Set APB1 & APB2 prescaler */
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_2 );
+
+    LL_RCC_SetAPB2Prescaler( LL_RCC_APB2_DIV_1 );
+
+    /* Set systick to 1ms */
+    SysTick_Config( 100000000 / 1000 );
+
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    SystemCoreClock = 100000000;
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -268,15 +275,15 @@ void SystemClock_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 /**

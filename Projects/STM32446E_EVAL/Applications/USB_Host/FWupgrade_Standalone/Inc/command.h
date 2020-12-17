@@ -28,7 +28,7 @@
 #define __COMMAND_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -39,9 +39,9 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void COMMAND_Upload(void);
-void COMMAND_Download(void);
-void COMMAND_Jump(void);
+void COMMAND_Upload( void );
+void COMMAND_Download( void );
+void COMMAND_Jump( void );
 
 #ifdef __cplusplus
 }

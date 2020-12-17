@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    main.h 
+  * @file    main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -31,8 +31,8 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
-  
+  */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -50,10 +50,10 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void   (*DemoFunc)(void);
-  uint8_t DemoName[30]; 
-  uint32_t DemoIndex;
-}BSP_DemoTypedef;
+    void ( *DemoFunc )( void );
+    uint8_t DemoName[30];
+    uint32_t DemoIndex;
+} BSP_DemoTypedef;
 
 extern const unsigned char stlogo[];
 
@@ -82,15 +82,15 @@ extern const unsigned char stlogo[];
 #endif /* USE_FULL_ASSERT */
 
 /* Exported functions ------------------------------------------------------- */
-void Error_Handler(void);
-uint8_t CheckForUserInput(void);
+void Error_Handler( void );
+uint8_t CheckForUserInput( void );
 
-void Joystick_demo (void);
-void LCD_demo (void);
-void SD_demo (void);
+void Joystick_demo( void );
+void LCD_demo( void );
+void SD_demo( void );
 
 
 #endif /* __MAIN_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/ 
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

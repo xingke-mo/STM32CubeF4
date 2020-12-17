@@ -30,9 +30,9 @@
 #define MBEDTLS_MD2_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -204,8 +204,8 @@ MBEDTLS_DEPRECATED void mbedtls_md2_starts( mbedtls_md2_context *ctx );
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_md2_update( mbedtls_md2_context *ctx,
-                                            const unsigned char *input,
-                                            size_t ilen );
+        const unsigned char *input,
+        size_t ilen );
 
 /**
  * \brief          MD2 final digest
@@ -221,7 +221,7 @@ MBEDTLS_DEPRECATED void mbedtls_md2_update( mbedtls_md2_context *ctx,
  *
  */
 MBEDTLS_DEPRECATED void mbedtls_md2_finish( mbedtls_md2_context *ctx,
-                                            unsigned char output[16] );
+        unsigned char output[16] );
 
 /**
  * \brief          MD2 process data block (internal use only)

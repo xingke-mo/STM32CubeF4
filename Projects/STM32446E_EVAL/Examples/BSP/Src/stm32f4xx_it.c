@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    BSP/Src/stm32f4xx_it.c 
+  * @file    BSP/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -46,7 +46,7 @@
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -61,7 +61,7 @@ extern uint32_t uwDMA_Transfer_Complete;
 extern SAI_HandleTypeDef haudio_out_sai;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-extern void BSP_SDRAM_DMA_IRQHandler(void);
+extern void BSP_SDRAM_DMA_IRQHandler( void );
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */
@@ -72,7 +72,7 @@ extern void BSP_SDRAM_DMA_IRQHandler(void);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -81,12 +81,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -94,12 +94,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -107,12 +107,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -120,12 +120,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -133,7 +133,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -142,7 +142,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -151,7 +151,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -160,14 +160,14 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
-  Toggle_Leds();
-  /* Check periodically the buffer state and fill played buffer with new data 
-     following the state that has been updated by the BSP_AUDIO_OUT_TransferComplete_CallBack()
-     and BSP_AUDIO_OUT_HalfTransfer_CallBack() */
-  AUDIO_Process();  
+    HAL_IncTick();
+    Toggle_Leds();
+    /* Check periodically the buffer state and fill played buffer with new data
+       following the state that has been updated by the BSP_AUDIO_OUT_TransferComplete_CallBack()
+       and BSP_AUDIO_OUT_HalfTransfer_CallBack() */
+    AUDIO_Process();
 }
 
 /******************************************************************************/
@@ -182,10 +182,10 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream0_IRQHandler(void)
+void DMA2_Stream0_IRQHandler( void )
 {
-  /* Check the interrupt and clear flag */
-  BSP_SDRAM_DMA_IRQHandler();
+    /* Check the interrupt and clear flag */
+    BSP_SDRAM_DMA_IRQHandler();
 }
 
 /**
@@ -193,9 +193,9 @@ void DMA2_Stream0_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(MFX_IRQOUT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( MFX_IRQOUT_PIN );
 }
 
 /**
@@ -203,9 +203,9 @@ void EXTI0_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI2_IRQHandler(void)
+void EXTI2_IRQHandler( void )
 {
-   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+    HAL_GPIO_EXTI_IRQHandler( GPIO_PIN_2 );
 }
 
 /**
@@ -213,9 +213,9 @@ void EXTI2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI15_10_IRQHandler(void)
+void EXTI15_10_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(TAMPER_BUTTON_PIN | KEY_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( TAMPER_BUTTON_PIN | KEY_BUTTON_PIN );
 }
 
 /**
@@ -223,9 +223,9 @@ void EXTI15_10_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void BSP_SD_DMA_Tx_IRQHandler(void)
+void BSP_SD_DMA_Tx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(uSdHandle.hdmatx);
+    HAL_DMA_IRQHandler( uSdHandle.hdmatx );
 }
 
 
@@ -234,9 +234,9 @@ void BSP_SD_DMA_Tx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream1_IRQHandler(void)
+void DMA2_Stream1_IRQHandler( void )
 {
-  BSP_CAMERA_DMA_IRQHandler();
+    BSP_CAMERA_DMA_IRQHandler();
 }
 
 /**
@@ -244,9 +244,9 @@ void DMA2_Stream1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DCMI_IRQHandler(void)
+void DCMI_IRQHandler( void )
 {
-  BSP_CAMERA_IRQHandler();
+    BSP_CAMERA_IRQHandler();
 }
 
 /**
@@ -254,9 +254,9 @@ void DCMI_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void QUADSPI_IRQHandler(void)
+void QUADSPI_IRQHandler( void )
 {
-  HAL_QSPI_IRQHandler(&QSPIHandle);
+    HAL_QSPI_IRQHandler( &QSPIHandle );
 }
 
 /**
@@ -270,7 +270,7 @@ void QUADSPI_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}

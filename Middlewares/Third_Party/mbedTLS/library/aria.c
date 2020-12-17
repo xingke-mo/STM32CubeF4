@@ -26,9 +26,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_ARIA_C)
@@ -38,12 +38,12 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_ARIA_ALT)
@@ -52,7 +52,7 @@
 
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
-#define inline __inline
+    #define inline __inline
 #endif
 
 /* Parameter validation macros */
@@ -101,7 +101,7 @@
 static inline uint32_t aria_p1( uint32_t x )
 {
     uint32_t r;
-    __asm( "rev16 %0, %1" : "=l" (r) : "l" (x) );
+    __asm( "rev16 %0, %1" : "=l"( r ) : "l"( x ) );
     return( r );
 }
 #define ARIA_P1 aria_p1
@@ -118,12 +118,12 @@ static inline uint32_t aria_p1( uint32_t x )
 #endif /* arm */
 #if defined(__GNUC__) && \
     defined(__i386__) || defined(__amd64__) || defined( __x86_64__)
-/* I couldn't find an Intel equivalent of rev16, so two instructions */
-#define ARIA_P1(x) ARIA_P2( ARIA_P3( x ) )
+    /* I couldn't find an Intel equivalent of rev16, so two instructions */
+    #define ARIA_P1(x) ARIA_P2( ARIA_P3( x ) )
 #endif /* x86 gnuc */
 #endif /* MBEDTLS_HAVE_ASM && GNUC */
 #if !defined(ARIA_P1)
-#define ARIA_P1(x) ((((x) >> 8) & 0x00FF00FF) ^ (((x) & 0x00FF00FF) << 8))
+    #define ARIA_P1(x) ((((x) >> 8) & 0x00FF00FF) ^ (((x) & 0x00FF00FF) << 8))
 #endif
 
 /*
@@ -152,7 +152,7 @@ static inline uint32_t aria_p1( uint32_t x )
 static inline uint32_t aria_p3( uint32_t x )
 {
     uint32_t r;
-    __asm( "rev %0, %1" : "=l" (r) : "l" (x) );
+    __asm( "rev %0, %1" : "=l"( r ) : "l"( x ) );
     return( r );
 }
 #define ARIA_P3 aria_p3
@@ -171,14 +171,14 @@ static inline uint32_t aria_p3( uint32_t x )
     defined(__i386__) || defined(__amd64__) || defined( __x86_64__)
 static inline uint32_t aria_p3( uint32_t x )
 {
-    __asm( "bswap %0" : "=r" (x) : "0" (x) );
+    __asm( "bswap %0" : "=r"( x ) : "0"( x ) );
     return( x );
 }
 #define ARIA_P3 aria_p3
 #endif /* x86 gnuc */
 #endif /* MBEDTLS_HAVE_ASM && GNUC */
 #if !defined(ARIA_P3)
-#define ARIA_P3(x) ARIA_P2( ARIA_P1 ( x ) )
+    #define ARIA_P3(x) ARIA_P2( ARIA_P1 ( x ) )
 #endif
 
 /*
@@ -241,22 +241,22 @@ static inline void aria_sl( uint32_t *a, uint32_t *b,
                             const uint8_t sa[256], const uint8_t sb[256],
                             const uint8_t sc[256], const uint8_t sd[256] )
 {
-    *a = ( (uint32_t) sa[ *a        & 0xFF]       ) ^
-         (((uint32_t) sb[(*a >>  8) & 0xFF]) <<  8) ^
-         (((uint32_t) sc[(*a >> 16) & 0xFF]) << 16) ^
-         (((uint32_t) sd[ *a >> 24        ]) << 24);
-    *b = ( (uint32_t) sa[ *b        & 0xFF]       ) ^
-         (((uint32_t) sb[(*b >>  8) & 0xFF]) <<  8) ^
-         (((uint32_t) sc[(*b >> 16) & 0xFF]) << 16) ^
-         (((uint32_t) sd[ *b >> 24        ]) << 24);
-    *c = ( (uint32_t) sa[ *c        & 0xFF]       ) ^
-         (((uint32_t) sb[(*c >>  8) & 0xFF]) <<  8) ^
-         (((uint32_t) sc[(*c >> 16) & 0xFF]) << 16) ^
-         (((uint32_t) sd[ *c >> 24        ]) << 24);
-    *d = ( (uint32_t) sa[ *d        & 0xFF]       ) ^
-         (((uint32_t) sb[(*d >>  8) & 0xFF]) <<  8) ^
-         (((uint32_t) sc[(*d >> 16) & 0xFF]) << 16) ^
-         (((uint32_t) sd[ *d >> 24        ]) << 24);
+    *a = ( ( uint32_t ) sa[ *a        & 0xFF] ) ^
+         ( ( ( uint32_t ) sb[( *a >>  8 ) & 0xFF] ) <<  8 ) ^
+         ( ( ( uint32_t ) sc[( *a >> 16 ) & 0xFF] ) << 16 ) ^
+         ( ( ( uint32_t ) sd[ *a >> 24        ] ) << 24 );
+    *b = ( ( uint32_t ) sa[ *b        & 0xFF] ) ^
+         ( ( ( uint32_t ) sb[( *b >>  8 ) & 0xFF] ) <<  8 ) ^
+         ( ( ( uint32_t ) sc[( *b >> 16 ) & 0xFF] ) << 16 ) ^
+         ( ( ( uint32_t ) sd[ *b >> 24        ] ) << 24 );
+    *c = ( ( uint32_t ) sa[ *c        & 0xFF] ) ^
+         ( ( ( uint32_t ) sb[( *c >>  8 ) & 0xFF] ) <<  8 ) ^
+         ( ( ( uint32_t ) sc[( *c >> 16 ) & 0xFF] ) << 16 ) ^
+         ( ( ( uint32_t ) sd[ *c >> 24        ] ) << 24 );
+    *d = ( ( uint32_t ) sa[ *d        & 0xFF] ) ^
+         ( ( ( uint32_t ) sb[( *d >>  8 ) & 0xFF] ) <<  8 ) ^
+         ( ( ( uint32_t ) sc[( *d >> 16 ) & 0xFF] ) << 16 ) ^
+         ( ( ( uint32_t ) sd[ *d >> 24        ] ) << 24 );
 }
 
 /*
@@ -427,6 +427,7 @@ static void aria_rot128( uint32_t r[4], const uint32_t a[4],
 
     j = ( n / 32 ) % 4;                     // initial word offset
     t = ARIA_P3( b[j] );                    // big endian
+
     for( i = 0; i < 4; i++ )
     {
         j = ( j + 1 ) % 4;                  // get next word, big endian
@@ -459,7 +460,9 @@ int mbedtls_aria_setkey_enc( mbedtls_aria_context *ctx,
     ARIA_VALIDATE_RET( key != NULL );
 
     if( keybits != 128 && keybits != 192 && keybits != 256 )
+    {
         return( MBEDTLS_ERR_ARIA_BAD_INPUT_DATA );
+    }
 
     /* Copy key to W0 (and potential remainder to W1) */
     GET_UINT32_LE( w[0][0], key,  0 );
@@ -468,11 +471,13 @@ int mbedtls_aria_setkey_enc( mbedtls_aria_context *ctx,
     GET_UINT32_LE( w[0][3], key, 12 );
 
     memset( w[1], 0, 16 );
+
     if( keybits >= 192 )
     {
         GET_UINT32_LE( w[1][0], key, 16 );  // 192 bit key
         GET_UINT32_LE( w[1][1], key, 20 );
     }
+
     if( keybits == 256 )
     {
         GET_UINT32_LE( w[1][2], key, 24 );  // 256 bit key
@@ -490,12 +495,13 @@ int mbedtls_aria_setkey_enc( mbedtls_aria_context *ctx,
 
     for( i = 0; i < 4; i++ )                // create round keys
     {
-        w2 = w[(i + 1) & 3];
+        w2 = w[( i + 1 ) & 3];
         aria_rot128( ctx->rk[i     ], w[i], w2, 128 - 19 );
         aria_rot128( ctx->rk[i +  4], w[i], w2, 128 - 31 );
         aria_rot128( ctx->rk[i +  8], w[i], w2,       61 );
         aria_rot128( ctx->rk[i + 12], w[i], w2,       31 );
     }
+
     aria_rot128( ctx->rk[16], w[0], w[1], 19 );
 
     /* w holds enough info to reconstruct the round keys */
@@ -515,8 +521,11 @@ int mbedtls_aria_setkey_dec( mbedtls_aria_context *ctx,
     ARIA_VALIDATE_RET( key != NULL );
 
     ret = mbedtls_aria_setkey_enc( ctx, key, keybits );
+
     if( ret != 0 )
+    {
         return( ret );
+    }
 
     /* flip the order of round keys */
     for( i = 0, j = ctx->nr; i < j; i++, j-- )
@@ -559,6 +568,7 @@ int mbedtls_aria_crypt_ecb( mbedtls_aria_context *ctx,
     GET_UINT32_LE( d, input, 12 );
 
     i = 0;
+
     while( 1 )
     {
         a ^= ctx->rk[i][0];
@@ -577,8 +587,12 @@ int mbedtls_aria_crypt_ecb( mbedtls_aria_context *ctx,
         i++;
 
         aria_sl( &a, &b, &c, &d, aria_is1, aria_is2, aria_sb1, aria_sb2 );
+
         if( i >= ctx->nr )
+        {
             break;
+        }
+
         aria_a( &a, &b, &c, &d );
     }
 
@@ -607,7 +621,9 @@ void mbedtls_aria_init( mbedtls_aria_context *ctx )
 void mbedtls_aria_free( mbedtls_aria_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_aria_context ) );
 }
@@ -634,7 +650,9 @@ int mbedtls_aria_crypt_cbc( mbedtls_aria_context *ctx,
     ARIA_VALIDATE_RET( iv != NULL );
 
     if( length % MBEDTLS_ARIA_BLOCKSIZE )
+    {
         return( MBEDTLS_ERR_ARIA_INVALID_INPUT_LENGTH );
+    }
 
     if( mode == MBEDTLS_ARIA_DECRYPT )
     {
@@ -644,7 +662,9 @@ int mbedtls_aria_crypt_cbc( mbedtls_aria_context *ctx,
             mbedtls_aria_crypt_ecb( ctx, input, output );
 
             for( i = 0; i < MBEDTLS_ARIA_BLOCKSIZE; i++ )
-                output[i] = (unsigned char)( output[i] ^ iv[i] );
+            {
+                output[i] = ( unsigned char )( output[i] ^ iv[i] );
+            }
 
             memcpy( iv, temp, MBEDTLS_ARIA_BLOCKSIZE );
 
@@ -658,7 +678,9 @@ int mbedtls_aria_crypt_cbc( mbedtls_aria_context *ctx,
         while( length > 0 )
         {
             for( i = 0; i < MBEDTLS_ARIA_BLOCKSIZE; i++ )
-                output[i] = (unsigned char)( input[i] ^ iv[i] );
+            {
+                output[i] = ( unsigned char )( input[i] ^ iv[i] );
+            }
 
             mbedtls_aria_crypt_ecb( ctx, output, output );
             memcpy( iv, output, MBEDTLS_ARIA_BLOCKSIZE );
@@ -702,14 +724,18 @@ int mbedtls_aria_crypt_cfb128( mbedtls_aria_context *ctx,
      * buffer overflow. Therefore, guard against this
      * outside of parameter validation. */
     if( n >= MBEDTLS_ARIA_BLOCKSIZE )
+    {
         return( MBEDTLS_ERR_ARIA_BAD_INPUT_DATA );
+    }
 
     if( mode == MBEDTLS_ARIA_DECRYPT )
     {
         while( length-- )
         {
             if( n == 0 )
+            {
                 mbedtls_aria_crypt_ecb( ctx, iv, iv );
+            }
 
             c = *input++;
             *output++ = c ^ iv[n];
@@ -723,9 +749,11 @@ int mbedtls_aria_crypt_cfb128( mbedtls_aria_context *ctx,
         while( length-- )
         {
             if( n == 0 )
+            {
                 mbedtls_aria_crypt_ecb( ctx, iv, iv );
+            }
 
-            iv[n] = *output++ = (unsigned char)( iv[n] ^ *input++ );
+            iv[n] = *output++ = ( unsigned char )( iv[n] ^ *input++ );
 
             n = ( n + 1 ) & 0x0F;
         }
@@ -760,24 +788,31 @@ int mbedtls_aria_crypt_ctr( mbedtls_aria_context *ctx,
     ARIA_VALIDATE_RET( nc_off != NULL );
 
     n = *nc_off;
+
     /* An overly large value of n can lead to an unlimited
      * buffer overflow. Therefore, guard against this
      * outside of parameter validation. */
     if( n >= MBEDTLS_ARIA_BLOCKSIZE )
+    {
         return( MBEDTLS_ERR_ARIA_BAD_INPUT_DATA );
+    }
 
     while( length-- )
     {
-        if( n == 0 ) {
+        if( n == 0 )
+        {
             mbedtls_aria_crypt_ecb( ctx, nonce_counter,
-                                stream_block );
+                                    stream_block );
 
             for( i = MBEDTLS_ARIA_BLOCKSIZE; i > 0; i-- )
                 if( ++nonce_counter[i - 1] != 0 )
+                {
                     break;
+                }
         }
+
         c = *input++;
-        *output++ = (unsigned char)( c ^ stream_block[n] );
+        *output++ = ( unsigned char )( c ^ stream_block[n] );
 
         n = ( n + 1 ) & 0x0F;
     }
@@ -810,12 +845,18 @@ static const uint8_t aria_test1_ecb_pt[MBEDTLS_ARIA_BLOCKSIZE] =            // p
 
 static const uint8_t aria_test1_ecb_ct[3][MBEDTLS_ARIA_BLOCKSIZE] =         // ciphertext
 {
-    { 0xD7, 0x18, 0xFB, 0xD6, 0xAB, 0x64, 0x4C, 0x73,   // 128 bit
-      0x9D, 0xA9, 0x5F, 0x3B, 0xE6, 0x45, 0x17, 0x78 },
-    { 0x26, 0x44, 0x9C, 0x18, 0x05, 0xDB, 0xE7, 0xAA,   // 192 bit
-      0x25, 0xA4, 0x68, 0xCE, 0x26, 0x3A, 0x9E, 0x79 },
-    { 0xF9, 0x2B, 0xD7, 0xC7, 0x9F, 0xB7, 0x2E, 0x2F,   // 256 bit
-      0x2B, 0x8F, 0x80, 0xC1, 0x97, 0x2D, 0x24, 0xFC }
+    {
+        0xD7, 0x18, 0xFB, 0xD6, 0xAB, 0x64, 0x4C, 0x73,   // 128 bit
+        0x9D, 0xA9, 0x5F, 0x3B, 0xE6, 0x45, 0x17, 0x78
+    },
+    {
+        0x26, 0x44, 0x9C, 0x18, 0x05, 0xDB, 0xE7, 0xAA,   // 192 bit
+        0x25, 0xA4, 0x68, 0xCE, 0x26, 0x3A, 0x9E, 0x79
+    },
+    {
+        0xF9, 0x2B, 0xD7, 0xC7, 0x9F, 0xB7, 0x2E, 0x2F,   // 256 bit
+        0x2B, 0x8F, 0x80, 0xC1, 0x97, 0x2D, 0x24, 0xFC
+    }
 };
 
 /*
@@ -854,72 +895,90 @@ static const uint8_t aria_test2_iv[MBEDTLS_ARIA_BLOCKSIZE] =
 #if defined(MBEDTLS_CIPHER_MODE_CBC)
 static const uint8_t aria_test2_cbc_ct[3][48] =         // CBC ciphertext
 {
-    { 0x49, 0xd6, 0x18, 0x60, 0xb1, 0x49, 0x09, 0x10,   // 128-bit key
-      0x9c, 0xef, 0x0d, 0x22, 0xa9, 0x26, 0x81, 0x34,
-      0xfa, 0xdf, 0x9f, 0xb2, 0x31, 0x51, 0xe9, 0x64,
-      0x5f, 0xba, 0x75, 0x01, 0x8b, 0xdb, 0x15, 0x38,
-      0xb5, 0x33, 0x34, 0x63, 0x4b, 0xbf, 0x7d, 0x4c,
-      0xd4, 0xb5, 0x37, 0x70, 0x33, 0x06, 0x0c, 0x15 },
-    { 0xaf, 0xe6, 0xcf, 0x23, 0x97, 0x4b, 0x53, 0x3c,   // 192-bit key
-      0x67, 0x2a, 0x82, 0x62, 0x64, 0xea, 0x78, 0x5f,
-      0x4e, 0x4f, 0x7f, 0x78, 0x0d, 0xc7, 0xf3, 0xf1,
-      0xe0, 0x96, 0x2b, 0x80, 0x90, 0x23, 0x86, 0xd5,
-      0x14, 0xe9, 0xc3, 0xe7, 0x72, 0x59, 0xde, 0x92,
-      0xdd, 0x11, 0x02, 0xff, 0xab, 0x08, 0x6c, 0x1e },
-    { 0x52, 0x3a, 0x8a, 0x80, 0x6a, 0xe6, 0x21, 0xf1,   // 256-bit key
-      0x55, 0xfd, 0xd2, 0x8d, 0xbc, 0x34, 0xe1, 0xab,
-      0x7b, 0x9b, 0x42, 0x43, 0x2a, 0xd8, 0xb2, 0xef,
-      0xb9, 0x6e, 0x23, 0xb1, 0x3f, 0x0a, 0x6e, 0x52,
-      0xf3, 0x61, 0x85, 0xd5, 0x0a, 0xd0, 0x02, 0xc5,
-      0xf6, 0x01, 0xbe, 0xe5, 0x49, 0x3f, 0x11, 0x8b }
+    {
+        0x49, 0xd6, 0x18, 0x60, 0xb1, 0x49, 0x09, 0x10,   // 128-bit key
+        0x9c, 0xef, 0x0d, 0x22, 0xa9, 0x26, 0x81, 0x34,
+        0xfa, 0xdf, 0x9f, 0xb2, 0x31, 0x51, 0xe9, 0x64,
+        0x5f, 0xba, 0x75, 0x01, 0x8b, 0xdb, 0x15, 0x38,
+        0xb5, 0x33, 0x34, 0x63, 0x4b, 0xbf, 0x7d, 0x4c,
+        0xd4, 0xb5, 0x37, 0x70, 0x33, 0x06, 0x0c, 0x15
+    },
+    {
+        0xaf, 0xe6, 0xcf, 0x23, 0x97, 0x4b, 0x53, 0x3c,   // 192-bit key
+        0x67, 0x2a, 0x82, 0x62, 0x64, 0xea, 0x78, 0x5f,
+        0x4e, 0x4f, 0x7f, 0x78, 0x0d, 0xc7, 0xf3, 0xf1,
+        0xe0, 0x96, 0x2b, 0x80, 0x90, 0x23, 0x86, 0xd5,
+        0x14, 0xe9, 0xc3, 0xe7, 0x72, 0x59, 0xde, 0x92,
+        0xdd, 0x11, 0x02, 0xff, 0xab, 0x08, 0x6c, 0x1e
+    },
+    {
+        0x52, 0x3a, 0x8a, 0x80, 0x6a, 0xe6, 0x21, 0xf1,   // 256-bit key
+        0x55, 0xfd, 0xd2, 0x8d, 0xbc, 0x34, 0xe1, 0xab,
+        0x7b, 0x9b, 0x42, 0x43, 0x2a, 0xd8, 0xb2, 0xef,
+        0xb9, 0x6e, 0x23, 0xb1, 0x3f, 0x0a, 0x6e, 0x52,
+        0xf3, 0x61, 0x85, 0xd5, 0x0a, 0xd0, 0x02, 0xc5,
+        0xf6, 0x01, 0xbe, 0xe5, 0x49, 0x3f, 0x11, 0x8b
+    }
 };
 #endif /* MBEDTLS_CIPHER_MODE_CBC */
 
 #if defined(MBEDTLS_CIPHER_MODE_CFB)
 static const uint8_t aria_test2_cfb_ct[3][48] =         // CFB ciphertext
 {
-    { 0x37, 0x20, 0xe5, 0x3b, 0xa7, 0xd6, 0x15, 0x38,   // 128-bit key
-      0x34, 0x06, 0xb0, 0x9f, 0x0a, 0x05, 0xa2, 0x00,
-      0xc0, 0x7c, 0x21, 0xe6, 0x37, 0x0f, 0x41, 0x3a,
-      0x5d, 0x13, 0x25, 0x00, 0xa6, 0x82, 0x85, 0x01,
-      0x7c, 0x61, 0xb4, 0x34, 0xc7, 0xb7, 0xca, 0x96,
-      0x85, 0xa5, 0x10, 0x71, 0x86, 0x1e, 0x4d, 0x4b },
-    { 0x41, 0x71, 0xf7, 0x19, 0x2b, 0xf4, 0x49, 0x54,   // 192-bit key
-      0x94, 0xd2, 0x73, 0x61, 0x29, 0x64, 0x0f, 0x5c,
-      0x4d, 0x87, 0xa9, 0xa2, 0x13, 0x66, 0x4c, 0x94,
-      0x48, 0x47, 0x7c, 0x6e, 0xcc, 0x20, 0x13, 0x59,
-      0x8d, 0x97, 0x66, 0x95, 0x2d, 0xd8, 0xc3, 0x86,
-      0x8f, 0x17, 0xe3, 0x6e, 0xf6, 0x6f, 0xd8, 0x4b },
-    { 0x26, 0x83, 0x47, 0x05, 0xb0, 0xf2, 0xc0, 0xe2,   // 256-bit key
-      0x58, 0x8d, 0x4a, 0x7f, 0x09, 0x00, 0x96, 0x35,
-      0xf2, 0x8b, 0xb9, 0x3d, 0x8c, 0x31, 0xf8, 0x70,
-      0xec, 0x1e, 0x0b, 0xdb, 0x08, 0x2b, 0x66, 0xfa,
-      0x40, 0x2d, 0xd9, 0xc2, 0x02, 0xbe, 0x30, 0x0c,
-      0x45, 0x17, 0xd1, 0x96, 0xb1, 0x4d, 0x4c, 0xe1 }
+    {
+        0x37, 0x20, 0xe5, 0x3b, 0xa7, 0xd6, 0x15, 0x38,   // 128-bit key
+        0x34, 0x06, 0xb0, 0x9f, 0x0a, 0x05, 0xa2, 0x00,
+        0xc0, 0x7c, 0x21, 0xe6, 0x37, 0x0f, 0x41, 0x3a,
+        0x5d, 0x13, 0x25, 0x00, 0xa6, 0x82, 0x85, 0x01,
+        0x7c, 0x61, 0xb4, 0x34, 0xc7, 0xb7, 0xca, 0x96,
+        0x85, 0xa5, 0x10, 0x71, 0x86, 0x1e, 0x4d, 0x4b
+    },
+    {
+        0x41, 0x71, 0xf7, 0x19, 0x2b, 0xf4, 0x49, 0x54,   // 192-bit key
+        0x94, 0xd2, 0x73, 0x61, 0x29, 0x64, 0x0f, 0x5c,
+        0x4d, 0x87, 0xa9, 0xa2, 0x13, 0x66, 0x4c, 0x94,
+        0x48, 0x47, 0x7c, 0x6e, 0xcc, 0x20, 0x13, 0x59,
+        0x8d, 0x97, 0x66, 0x95, 0x2d, 0xd8, 0xc3, 0x86,
+        0x8f, 0x17, 0xe3, 0x6e, 0xf6, 0x6f, 0xd8, 0x4b
+    },
+    {
+        0x26, 0x83, 0x47, 0x05, 0xb0, 0xf2, 0xc0, 0xe2,   // 256-bit key
+        0x58, 0x8d, 0x4a, 0x7f, 0x09, 0x00, 0x96, 0x35,
+        0xf2, 0x8b, 0xb9, 0x3d, 0x8c, 0x31, 0xf8, 0x70,
+        0xec, 0x1e, 0x0b, 0xdb, 0x08, 0x2b, 0x66, 0xfa,
+        0x40, 0x2d, 0xd9, 0xc2, 0x02, 0xbe, 0x30, 0x0c,
+        0x45, 0x17, 0xd1, 0x96, 0xb1, 0x4d, 0x4c, 0xe1
+    }
 };
 #endif /* MBEDTLS_CIPHER_MODE_CFB */
 
 #if defined(MBEDTLS_CIPHER_MODE_CTR)
 static const uint8_t aria_test2_ctr_ct[3][48] =         // CTR ciphertext
 {
-    { 0xac, 0x5d, 0x7d, 0xe8, 0x05, 0xa0, 0xbf, 0x1c,   // 128-bit key
-      0x57, 0xc8, 0x54, 0x50, 0x1a, 0xf6, 0x0f, 0xa1,
-      0x14, 0x97, 0xe2, 0xa3, 0x45, 0x19, 0xde, 0xa1,
-      0x56, 0x9e, 0x91, 0xe5, 0xb5, 0xcc, 0xae, 0x2f,
-      0xf3, 0xbf, 0xa1, 0xbf, 0x97, 0x5f, 0x45, 0x71,
-      0xf4, 0x8b, 0xe1, 0x91, 0x61, 0x35, 0x46, 0xc3 },
-    { 0x08, 0x62, 0x5c, 0xa8, 0xfe, 0x56, 0x9c, 0x19,   // 192-bit key
-      0xba, 0x7a, 0xf3, 0x76, 0x0a, 0x6e, 0xd1, 0xce,
-      0xf4, 0xd1, 0x99, 0x26, 0x3e, 0x99, 0x9d, 0xde,
-      0x14, 0x08, 0x2d, 0xbb, 0xa7, 0x56, 0x0b, 0x79,
-      0xa4, 0xc6, 0xb4, 0x56, 0xb8, 0x70, 0x7d, 0xce,
-      0x75, 0x1f, 0x98, 0x54, 0xf1, 0x88, 0x93, 0xdf },
-    { 0x30, 0x02, 0x6c, 0x32, 0x96, 0x66, 0x14, 0x17,   // 256-bit key
-      0x21, 0x17, 0x8b, 0x99, 0xc0, 0xa1, 0xf1, 0xb2,
-      0xf0, 0x69, 0x40, 0x25, 0x3f, 0x7b, 0x30, 0x89,
-      0xe2, 0xa3, 0x0e, 0xa8, 0x6a, 0xa3, 0xc8, 0x8f,
-      0x59, 0x40, 0xf0, 0x5a, 0xd7, 0xee, 0x41, 0xd7,
-      0x13, 0x47, 0xbb, 0x72, 0x61, 0xe3, 0x48, 0xf1 }
+    {
+        0xac, 0x5d, 0x7d, 0xe8, 0x05, 0xa0, 0xbf, 0x1c,   // 128-bit key
+        0x57, 0xc8, 0x54, 0x50, 0x1a, 0xf6, 0x0f, 0xa1,
+        0x14, 0x97, 0xe2, 0xa3, 0x45, 0x19, 0xde, 0xa1,
+        0x56, 0x9e, 0x91, 0xe5, 0xb5, 0xcc, 0xae, 0x2f,
+        0xf3, 0xbf, 0xa1, 0xbf, 0x97, 0x5f, 0x45, 0x71,
+        0xf4, 0x8b, 0xe1, 0x91, 0x61, 0x35, 0x46, 0xc3
+    },
+    {
+        0x08, 0x62, 0x5c, 0xa8, 0xfe, 0x56, 0x9c, 0x19,   // 192-bit key
+        0xba, 0x7a, 0xf3, 0x76, 0x0a, 0x6e, 0xd1, 0xce,
+        0xf4, 0xd1, 0x99, 0x26, 0x3e, 0x99, 0x9d, 0xde,
+        0x14, 0x08, 0x2d, 0xbb, 0xa7, 0x56, 0x0b, 0x79,
+        0xa4, 0xc6, 0xb4, 0x56, 0xb8, 0x70, 0x7d, 0xce,
+        0x75, 0x1f, 0x98, 0x54, 0xf1, 0x88, 0x93, 0xdf
+    },
+    {
+        0x30, 0x02, 0x6c, 0x32, 0x96, 0x66, 0x14, 0x17,   // 256-bit key
+        0x21, 0x17, 0x8b, 0x99, 0xc0, 0xa1, 0xf1, 0xb2,
+        0xf0, 0x69, 0x40, 0x25, 0x3f, 0x7b, 0x30, 0x89,
+        0xe2, 0xa3, 0x0e, 0xa8, 0x6a, 0xa3, 0xc8, 0x8f,
+        0x59, 0x40, 0xf0, 0x5a, 0xd7, 0xee, 0x41, 0xd7,
+        0x13, 0x47, 0xbb, 0x72, 0x61, 0xe3, 0x48, 0xf1
+    }
 };
 #endif /* MBEDTLS_CIPHER_MODE_CFB */
 
@@ -959,116 +1018,181 @@ int mbedtls_aria_self_test( int verbose )
     {
         /* test ECB encryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-ECB-%d (enc): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test1_ecb_key, 128 + 64 * i );
         mbedtls_aria_crypt_ecb( &ctx, aria_test1_ecb_pt, blk );
+
         if( memcmp( blk, aria_test1_ecb_ct[i], MBEDTLS_ARIA_BLOCKSIZE ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
 
         /* test ECB decryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-ECB-%d (dec): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_dec( &ctx, aria_test1_ecb_key, 128 + 64 * i );
         mbedtls_aria_crypt_ecb( &ctx, aria_test1_ecb_ct[i], blk );
+
         if( memcmp( blk, aria_test1_ecb_pt, MBEDTLS_ARIA_BLOCKSIZE ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
     }
+
     if( verbose )
+    {
         mbedtls_printf( "\n" );
+    }
 
     /*
      * Test set 2
      */
 #if defined(MBEDTLS_CIPHER_MODE_CBC)
+
     for( i = 0; i < 3; i++ )
     {
         /* Test CBC encryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CBC-%d (enc): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test2_key, 128 + 64 * i );
         memcpy( iv, aria_test2_iv, MBEDTLS_ARIA_BLOCKSIZE );
         memset( buf, 0x55, sizeof( buf ) );
         mbedtls_aria_crypt_cbc( &ctx, MBEDTLS_ARIA_ENCRYPT, 48, iv,
-            aria_test2_pt, buf );
+                                aria_test2_pt, buf );
+
         if( memcmp( buf, aria_test2_cbc_ct[i], 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
 
         /* Test CBC decryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CBC-%d (dec): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_dec( &ctx, aria_test2_key, 128 + 64 * i );
         memcpy( iv, aria_test2_iv, MBEDTLS_ARIA_BLOCKSIZE );
         memset( buf, 0xAA, sizeof( buf ) );
         mbedtls_aria_crypt_cbc( &ctx, MBEDTLS_ARIA_DECRYPT, 48, iv,
-            aria_test2_cbc_ct[i], buf );
+                                aria_test2_cbc_ct[i], buf );
+
         if( memcmp( buf, aria_test2_pt, 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
     }
+
     if( verbose )
+    {
         mbedtls_printf( "\n" );
+    }
 
 #endif /* MBEDTLS_CIPHER_MODE_CBC */
 
 #if defined(MBEDTLS_CIPHER_MODE_CFB)
+
     for( i = 0; i < 3; i++ )
     {
         /* Test CFB encryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CFB-%d (enc): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test2_key, 128 + 64 * i );
         memcpy( iv, aria_test2_iv, MBEDTLS_ARIA_BLOCKSIZE );
         memset( buf, 0x55, sizeof( buf ) );
         j = 0;
         mbedtls_aria_crypt_cfb128( &ctx, MBEDTLS_ARIA_ENCRYPT, 48, &j, iv,
-            aria_test2_pt, buf );
+                                   aria_test2_pt, buf );
+
         if( memcmp( buf, aria_test2_cfb_ct[i], 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
 
         /* Test CFB decryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CFB-%d (dec): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test2_key, 128 + 64 * i );
         memcpy( iv, aria_test2_iv, MBEDTLS_ARIA_BLOCKSIZE );
         memset( buf, 0xAA, sizeof( buf ) );
         j = 0;
         mbedtls_aria_crypt_cfb128( &ctx, MBEDTLS_ARIA_DECRYPT, 48, &j,
-            iv, aria_test2_cfb_ct[i], buf );
+                                   iv, aria_test2_cfb_ct[i], buf );
+
         if( memcmp( buf, aria_test2_pt, 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
     }
+
     if( verbose )
+    {
         mbedtls_printf( "\n" );
+    }
+
 #endif /* MBEDTLS_CIPHER_MODE_CFB */
 
 #if defined(MBEDTLS_CIPHER_MODE_CTR)
+
     for( i = 0; i < 3; i++ )
     {
         /* Test CTR encryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CTR-%d (enc): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test2_key, 128 + 64 * i );
         memset( iv, 0, MBEDTLS_ARIA_BLOCKSIZE );                    // IV = 0
         memset( buf, 0x55, sizeof( buf ) );
         j = 0;
         mbedtls_aria_crypt_ctr( &ctx, 48, &j, iv, blk,
-            aria_test2_pt, buf );
+                                aria_test2_pt, buf );
+
         if( memcmp( buf, aria_test2_ctr_ct[i], 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
 
         /* Test CTR decryption */
         if( verbose )
+        {
             mbedtls_printf( "  ARIA-CTR-%d (dec): ", 128 + 64 * i );
+        }
+
         mbedtls_aria_setkey_enc( &ctx, aria_test2_key, 128 + 64 * i );
         memset( iv, 0, MBEDTLS_ARIA_BLOCKSIZE );                    // IV = 0
         memset( buf, 0xAA, sizeof( buf ) );
         j = 0;
         mbedtls_aria_crypt_ctr( &ctx, 48, &j, iv, blk,
-            aria_test2_ctr_ct[i], buf );
+                                aria_test2_ctr_ct[i], buf );
+
         if( memcmp( buf, aria_test2_pt, 48 ) != 0 )
+        {
             ARIA_SELF_TEST_IF_FAIL;
+        }
     }
+
     if( verbose )
+    {
         mbedtls_printf( "\n" );
+    }
+
 #endif /* MBEDTLS_CIPHER_MODE_CTR */
 
     return( 0 );

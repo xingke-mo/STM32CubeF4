@@ -52,13 +52,13 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  uint32_t* address;     // Object address
-  uint8_t  bpp;         // Object bpp (coded as per DMA2D)
-  uint16_t size_x;      // X position
-  uint16_t size_y;      // Y position
-  uint32_t clut_address;// CLUT address
-  uint32_t clut_size;   // CLUT size
-  uint8_t  animation;   // Animation pointer incremented at each call
+    uint32_t *address;     // Object address
+    uint8_t  bpp;         // Object bpp (coded as per DMA2D)
+    uint16_t size_x;      // X position
+    uint16_t size_y;      // Y position
+    uint32_t clut_address;// CLUT address
+    uint32_t clut_size;   // CLUT size
+    uint8_t  animation;   // Animation pointer incremented at each call
 
 } anime_object_t;
 

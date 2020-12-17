@@ -39,7 +39,7 @@
 #define __STM32469I_EVAL_IO_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -66,16 +66,16 @@
 
 typedef enum
 {
-  BSP_IO_PIN_RESET = 0,
-  BSP_IO_PIN_SET   = 1
-}BSP_IO_PinStateTypeDef;
+    BSP_IO_PIN_RESET = 0,
+    BSP_IO_PIN_SET   = 1
+} BSP_IO_PinStateTypeDef;
 
 typedef enum
 {
-  IO_OK       = 0,
-  IO_ERROR    = 1,
-  IO_TIMEOUT  = 2
-}IO_StatusTypeDef;
+    IO_OK       = 0,
+    IO_ERROR    = 1,
+    IO_TIMEOUT  = 2
+} IO_StatusTypeDef;
 /**
   * @}
   */
@@ -122,15 +122,15 @@ typedef enum
 /** @defgroup STM32469I-EVAL_IO_Exported_Functions STM32469I EVAL IO Exported Functions
   * @{
   */
-uint8_t  BSP_IO_Init(void);
-uint8_t  BSP_IO_DeInit(void);
-uint32_t BSP_IO_ITGetStatus(uint32_t IO_Pin);
-void     BSP_IO_ITClear(void);
-void     BSP_IO_ITClearPin(uint32_t IO_Pins_To_Clear);
-uint8_t  BSP_IO_ConfigPin(uint32_t IO_Pin, IO_ModeTypedef IO_Mode);
-void     BSP_IO_WritePin(uint32_t IO_Pin, BSP_IO_PinStateTypeDef PinState);
-uint32_t BSP_IO_ReadPin(uint32_t IO_Pin);
-void     BSP_IO_TogglePin(uint32_t IO_Pin);
+uint8_t  BSP_IO_Init( void );
+uint8_t  BSP_IO_DeInit( void );
+uint32_t BSP_IO_ITGetStatus( uint32_t IO_Pin );
+void     BSP_IO_ITClear( void );
+void     BSP_IO_ITClearPin( uint32_t IO_Pins_To_Clear );
+uint8_t  BSP_IO_ConfigPin( uint32_t IO_Pin, IO_ModeTypedef IO_Mode );
+void     BSP_IO_WritePin( uint32_t IO_Pin, BSP_IO_PinStateTypeDef PinState );
+uint32_t BSP_IO_ReadPin( uint32_t IO_Pin );
+void     BSP_IO_TogglePin( uint32_t IO_Pin );
 
 /**
   * @}

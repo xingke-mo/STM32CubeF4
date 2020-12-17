@@ -42,8 +42,8 @@ Purpose     : Display controller initialization
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -63,20 +63,20 @@ Purpose     : Display controller initialization
 // Define the available number of bytes available for the GUI
 //
 #ifdef USE_MB1063
-#define GUI_NUMBYTES  (1024) * 3800
+    #define GUI_NUMBYTES  (1024) * 3800
 #else
-#define GUI_NUMBYTES  (1024) * 2300
+    #define GUI_NUMBYTES  (1024) * 2300
 #endif
 
 #if defined ( __ICCARM__ ) // !< IAR Compiler
-#pragma location=0xC0300000
-static __no_init U32 aMemory[GUI_NUMBYTES / 4];
+    #pragma location=0xC0300000
+    static __no_init U32 aMemory[GUI_NUMBYTES / 4];
 
 #elif defined ( __CC_ARM ) //!< Keil Compiler
-U32 aMemory[GUI_NUMBYTES / 4] __attribute__((at(0xC0300000)));
+    U32 aMemory[GUI_NUMBYTES / 4] __attribute__( ( at( 0xC0300000 ) ) );
 
 #elif defined ( __GNUC__ ) // !< GNU Compiler
-U32 aMemory[GUI_NUMBYTES / 4] __attribute__((__section__(".GUI_NUMBYTES_section")));
+    U32 aMemory[GUI_NUMBYTES / 4] __attribute__( ( __section__( ".GUI_NUMBYTES_section" ) ) );
 #endif
 
 
@@ -94,12 +94,12 @@ U32 aMemory[GUI_NUMBYTES / 4] __attribute__((__section__(".GUI_NUMBYTES_section"
 *   Called during the initialization process in order to set up the
 *   available memory for the GUI.
 */
-void GUI_X_Config(void) 
+void GUI_X_Config( void )
 {
-  //
-  // Assign memory to STemWin
-  //
-  GUI_ALLOC_AssignMemory(aMemory, GUI_NUMBYTES);
+    //
+    // Assign memory to STemWin
+    //
+    GUI_ALLOC_AssignMemory( aMemory, GUI_NUMBYTES );
 }
 
 /*************************** End of file ****************************/

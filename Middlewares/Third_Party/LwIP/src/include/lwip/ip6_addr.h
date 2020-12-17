@@ -56,10 +56,11 @@ extern "C" {
 
 /** This is the aligned version of ip6_addr_t,
     used as local variable, on the stack, etc. */
-struct ip6_addr {
-  u32_t addr[4];
+struct ip6_addr
+{
+    u32_t addr[4];
 #if LWIP_IPV6_SCOPES
-  u8_t zone;
+    u8_t zone;
 #endif /* LWIP_IPV6_SCOPES */
 };
 
@@ -336,10 +337,10 @@ typedef struct ip6_addr ip6_addr_t;
 
 #define IP6ADDR_STRLEN_MAX    46
 
-int ip6addr_aton(const char *cp, ip6_addr_t *addr);
+int ip6addr_aton( const char *cp, ip6_addr_t *addr );
 /** returns ptr to static buffer; not reentrant! */
-char *ip6addr_ntoa(const ip6_addr_t *addr);
-char *ip6addr_ntoa_r(const ip6_addr_t *addr, char *buf, int buflen);
+char *ip6addr_ntoa( const ip6_addr_t *addr );
+char *ip6addr_ntoa_r( const ip6_addr_t *addr, char *buf, int buflen );
 
 
 

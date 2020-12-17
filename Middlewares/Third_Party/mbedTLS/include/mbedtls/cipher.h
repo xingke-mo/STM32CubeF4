@@ -30,30 +30,30 @@
 #define MBEDTLS_CIPHER_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
 #include "platform_util.h"
 
 #if defined(MBEDTLS_GCM_C) || defined(MBEDTLS_CCM_C) || defined(MBEDTLS_CHACHAPOLY_C)
-#define MBEDTLS_CIPHER_MODE_AEAD
+    #define MBEDTLS_CIPHER_MODE_AEAD
 #endif
 
 #if defined(MBEDTLS_CIPHER_MODE_CBC)
-#define MBEDTLS_CIPHER_MODE_WITH_PADDING
+    #define MBEDTLS_CIPHER_MODE_WITH_PADDING
 #endif
 
 #if defined(MBEDTLS_ARC4_C) || defined(MBEDTLS_CIPHER_NULL_CIPHER) || \
     defined(MBEDTLS_CHACHA20_C)
-#define MBEDTLS_CIPHER_MODE_STREAM
+    #define MBEDTLS_CIPHER_MODE_STREAM
 #endif
 
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
-#define inline __inline
+    #define inline __inline
 #endif
 
 #define MBEDTLS_ERR_CIPHER_FEATURE_UNAVAILABLE  -0x6080  /**< The selected feature is not available. */
@@ -81,7 +81,8 @@ extern "C" {
  *            constitutes a security risk. Arm recommends considering stronger
  *            ciphers instead.
  */
-typedef enum {
+typedef enum
+{
     MBEDTLS_CIPHER_ID_NONE = 0,  /**< Placeholder to mark the end of cipher ID lists. */
     MBEDTLS_CIPHER_ID_NULL,      /**< The identity cipher, treated as a stream cipher. */
     MBEDTLS_CIPHER_ID_AES,       /**< The AES cipher. */
@@ -101,7 +102,8 @@ typedef enum {
  *            constitutes a security risk. Arm recommends considering stronger
  *            ciphers instead.
  */
-typedef enum {
+typedef enum
+{
     MBEDTLS_CIPHER_NONE = 0,             /**< Placeholder to mark the end of cipher-pair lists. */
     MBEDTLS_CIPHER_NULL,                 /**< The identity stream cipher. */
     MBEDTLS_CIPHER_AES_128_ECB,          /**< AES cipher with 128-bit ECB mode. */
@@ -179,7 +181,8 @@ typedef enum {
 } mbedtls_cipher_type_t;
 
 /** Supported cipher modes. */
-typedef enum {
+typedef enum
+{
     MBEDTLS_MODE_NONE = 0,               /**< None. */
     MBEDTLS_MODE_ECB,                    /**< The ECB cipher mode. */
     MBEDTLS_MODE_CBC,                    /**< The CBC cipher mode. */
@@ -194,7 +197,8 @@ typedef enum {
 } mbedtls_cipher_mode_t;
 
 /** Supported cipher padding types. */
-typedef enum {
+typedef enum
+{
     MBEDTLS_PADDING_PKCS7 = 0,     /**< PKCS7 padding (default).        */
     MBEDTLS_PADDING_ONE_AND_ZEROS, /**< ISO/IEC 7816-4 padding.         */
     MBEDTLS_PADDING_ZEROS_AND_LEN, /**< ANSI X.923 padding.             */
@@ -203,13 +207,15 @@ typedef enum {
 } mbedtls_cipher_padding_t;
 
 /** Type of operation. */
-typedef enum {
+typedef enum
+{
     MBEDTLS_OPERATION_NONE = -1,
     MBEDTLS_DECRYPT = 0,
     MBEDTLS_ENCRYPT,
 } mbedtls_operation_t;
 
-enum {
+enum
+{
     /** Undefined key length. */
     MBEDTLS_KEY_LENGTH_NONE = 0,
     /** Key length, in bits (including parity), for DES keys. */
@@ -256,7 +262,7 @@ typedef struct mbedtls_cipher_info_t
     unsigned int key_bitlen;
 
     /** Name of the cipher. */
-    const char * name;
+    const char *name;
 
     /** IV or nonce size, in Bytes.
      * For ciphers that accept variable IV sizes,
@@ -298,8 +304,8 @@ typedef struct mbedtls_cipher_context_t
     /** Padding functions to use, if relevant for
      * the specific cipher mode.
      */
-    void (*add_padding)( unsigned char *output, size_t olen, size_t data_len );
-    int (*get_padding)( unsigned char *input, size_t ilen, size_t *data_len );
+    void ( *add_padding )( unsigned char *output, size_t olen, size_t data_len );
+    int ( *get_padding )( unsigned char *input, size_t ilen, size_t *data_len );
 #endif
 
     /** Buffer for input that has not been processed yet. */
@@ -373,8 +379,8 @@ const mbedtls_cipher_info_t *mbedtls_cipher_info_from_type( const mbedtls_cipher
  * \return              \c NULL if the associated cipher information is not found.
  */
 const mbedtls_cipher_info_t *mbedtls_cipher_info_from_values( const mbedtls_cipher_id_t cipher_id,
-                                              int key_bitlen,
-                                              const mbedtls_cipher_mode_t mode );
+        int key_bitlen,
+        const mbedtls_cipher_mode_t mode );
 
 /**
  * \brief               This function initializes a \p cipher_context as NONE.
@@ -428,8 +434,11 @@ static inline unsigned int mbedtls_cipher_get_block_size(
     const mbedtls_cipher_context_t *ctx )
 {
     MBEDTLS_INTERNAL_VALIDATE_RET( ctx != NULL, 0 );
+
     if( ctx->cipher_info == NULL )
+    {
         return 0;
+    }
 
     return ctx->cipher_info->block_size;
 }
@@ -447,8 +456,11 @@ static inline mbedtls_cipher_mode_t mbedtls_cipher_get_cipher_mode(
     const mbedtls_cipher_context_t *ctx )
 {
     MBEDTLS_INTERNAL_VALIDATE_RET( ctx != NULL, MBEDTLS_MODE_NONE );
+
     if( ctx->cipher_info == NULL )
+    {
         return MBEDTLS_MODE_NONE;
+    }
 
     return ctx->cipher_info->mode;
 }
@@ -467,13 +479,18 @@ static inline int mbedtls_cipher_get_iv_size(
     const mbedtls_cipher_context_t *ctx )
 {
     MBEDTLS_INTERNAL_VALIDATE_RET( ctx != NULL, 0 );
+
     if( ctx->cipher_info == NULL )
+    {
         return 0;
+    }
 
     if( ctx->iv_size != 0 )
-        return (int) ctx->iv_size;
+    {
+        return ( int ) ctx->iv_size;
+    }
 
-    return (int) ctx->cipher_info->iv_size;
+    return ( int ) ctx->cipher_info->iv_size;
 }
 
 /**
@@ -489,8 +506,11 @@ static inline mbedtls_cipher_type_t mbedtls_cipher_get_type(
 {
     MBEDTLS_INTERNAL_VALIDATE_RET(
         ctx != NULL, MBEDTLS_CIPHER_NONE );
+
     if( ctx->cipher_info == NULL )
+    {
         return MBEDTLS_CIPHER_NONE;
+    }
 
     return ctx->cipher_info->type;
 }
@@ -508,8 +528,11 @@ static inline const char *mbedtls_cipher_get_name(
     const mbedtls_cipher_context_t *ctx )
 {
     MBEDTLS_INTERNAL_VALIDATE_RET( ctx != NULL, 0 );
+
     if( ctx->cipher_info == NULL )
+    {
         return 0;
+    }
 
     return ctx->cipher_info->name;
 }
@@ -528,10 +551,13 @@ static inline int mbedtls_cipher_get_key_bitlen(
 {
     MBEDTLS_INTERNAL_VALIDATE_RET(
         ctx != NULL, MBEDTLS_KEY_LENGTH_NONE );
-    if( ctx->cipher_info == NULL )
-        return MBEDTLS_KEY_LENGTH_NONE;
 
-    return (int) ctx->cipher_info->key_bitlen;
+    if( ctx->cipher_info == NULL )
+    {
+        return MBEDTLS_KEY_LENGTH_NONE;
+    }
+
+    return ( int ) ctx->cipher_info->key_bitlen;
 }
 
 /**
@@ -547,8 +573,11 @@ static inline mbedtls_operation_t mbedtls_cipher_get_operation(
 {
     MBEDTLS_INTERNAL_VALIDATE_RET(
         ctx != NULL, MBEDTLS_OPERATION_NONE );
+
     if( ctx->cipher_info == NULL )
+    {
         return MBEDTLS_OPERATION_NONE;
+    }
 
     return ctx->operation;
 }
@@ -644,7 +673,7 @@ int mbedtls_cipher_reset( mbedtls_cipher_context_t *ctx );
  * \return              A specific error code on failure.
  */
 int mbedtls_cipher_update_ad( mbedtls_cipher_context_t *ctx,
-                      const unsigned char *ad, size_t ad_len );
+                              const unsigned char *ad, size_t ad_len );
 #endif /* MBEDTLS_GCM_C || MBEDTLS_CHACHAPOLY_C */
 
 /**
@@ -682,7 +711,7 @@ int mbedtls_cipher_update_ad( mbedtls_cipher_context_t *ctx,
  * \return              A cipher-specific error code on failure.
  */
 int mbedtls_cipher_update( mbedtls_cipher_context_t *ctx, const unsigned char *input,
-                   size_t ilen, unsigned char *output, size_t *olen );
+                           size_t ilen, unsigned char *output, size_t *olen );
 
 /**
  * \brief               The generic cipher finalization function. If data still
@@ -707,7 +736,7 @@ int mbedtls_cipher_update( mbedtls_cipher_context_t *ctx, const unsigned char *i
  * \return              A cipher-specific error code on failure.
  */
 int mbedtls_cipher_finish( mbedtls_cipher_context_t *ctx,
-                   unsigned char *output, size_t *olen );
+                           unsigned char *output, size_t *olen );
 
 #if defined(MBEDTLS_GCM_C) || defined(MBEDTLS_CHACHAPOLY_C)
 /**
@@ -727,7 +756,7 @@ int mbedtls_cipher_finish( mbedtls_cipher_context_t *ctx,
  * \return              A specific error code on failure.
  */
 int mbedtls_cipher_write_tag( mbedtls_cipher_context_t *ctx,
-                      unsigned char *tag, size_t tag_len );
+                              unsigned char *tag, size_t tag_len );
 
 /**
  * \brief               This function checks the tag for AEAD ciphers.
@@ -743,7 +772,7 @@ int mbedtls_cipher_write_tag( mbedtls_cipher_context_t *ctx,
  * \return              A specific error code on failure.
  */
 int mbedtls_cipher_check_tag( mbedtls_cipher_context_t *ctx,
-                      const unsigned char *tag, size_t tag_len );
+                              const unsigned char *tag, size_t tag_len );
 #endif /* MBEDTLS_GCM_C || MBEDTLS_CHACHAPOLY_C */
 
 /**
@@ -780,9 +809,9 @@ int mbedtls_cipher_check_tag( mbedtls_cipher_context_t *ctx,
  * \return              A cipher-specific error code on failure.
  */
 int mbedtls_cipher_crypt( mbedtls_cipher_context_t *ctx,
-                  const unsigned char *iv, size_t iv_len,
-                  const unsigned char *input, size_t ilen,
-                  unsigned char *output, size_t *olen );
+                          const unsigned char *iv, size_t iv_len,
+                          const unsigned char *input, size_t ilen,
+                          unsigned char *output, size_t *olen );
 
 #if defined(MBEDTLS_CIPHER_MODE_AEAD)
 /**
@@ -816,11 +845,11 @@ int mbedtls_cipher_crypt( mbedtls_cipher_context_t *ctx,
  * \return              A cipher-specific error code on failure.
  */
 int mbedtls_cipher_auth_encrypt( mbedtls_cipher_context_t *ctx,
-                         const unsigned char *iv, size_t iv_len,
-                         const unsigned char *ad, size_t ad_len,
-                         const unsigned char *input, size_t ilen,
-                         unsigned char *output, size_t *olen,
-                         unsigned char *tag, size_t tag_len );
+                                 const unsigned char *iv, size_t iv_len,
+                                 const unsigned char *ad, size_t ad_len,
+                                 const unsigned char *input, size_t ilen,
+                                 unsigned char *output, size_t *olen,
+                                 unsigned char *tag, size_t tag_len );
 
 /**
  * \brief               The generic autenticated decryption (AEAD) function.
@@ -858,11 +887,11 @@ int mbedtls_cipher_auth_encrypt( mbedtls_cipher_context_t *ctx,
  * \return              A cipher-specific error code on failure.
  */
 int mbedtls_cipher_auth_decrypt( mbedtls_cipher_context_t *ctx,
-                         const unsigned char *iv, size_t iv_len,
-                         const unsigned char *ad, size_t ad_len,
-                         const unsigned char *input, size_t ilen,
-                         unsigned char *output, size_t *olen,
-                         const unsigned char *tag, size_t tag_len );
+                                 const unsigned char *iv, size_t iv_len,
+                                 const unsigned char *ad, size_t ad_len,
+                                 const unsigned char *input, size_t ilen,
+                                 unsigned char *output, size_t *olen,
+                                 const unsigned char *tag, size_t tag_len );
 #endif /* MBEDTLS_CIPHER_MODE_AEAD */
 
 #ifdef __cplusplus

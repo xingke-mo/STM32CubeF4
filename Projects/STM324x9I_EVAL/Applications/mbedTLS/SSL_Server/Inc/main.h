@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    main.h
   * @author  MCD Application Team
-  * @brief   main application header file. 
+  * @brief   main application header file.
   ******************************************************************************
   * @attention
   *
@@ -31,7 +31,7 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -44,9 +44,9 @@
 #include "cmsis_os.h"
 
 #ifdef USE_LCD
-#include "stm324x9i_eval_lcd.h"
-#include "stm324x9i_eval_sdram.h"
-#include "lcd_log.h"
+    #include "stm324x9i_eval_lcd.h"
+    #include "stm324x9i_eval_sdram.h"
+    #include "lcd_log.h"
 #endif
 
 #define GW_ADDRESS      "157.168.9.254"
@@ -63,49 +63,49 @@
 
 #ifdef USE_DHCP
 
-#define IP_ADDR0  0
-#define IP_ADDR1  0
-#define IP_ADDR2  0
-#define IP_ADDR3  0
+    #define IP_ADDR0  0
+    #define IP_ADDR1  0
+    #define IP_ADDR2  0
+    #define IP_ADDR3  0
 
-#define GW_ADDR0  0
-#define GW_ADDR1  0
-#define GW_ADDR2  0
-#define GW_ADDR3  0
+    #define GW_ADDR0  0
+    #define GW_ADDR1  0
+    #define GW_ADDR2  0
+    #define GW_ADDR3  0
 
-#define MASK_ADDR0  0
-#define MASK_ADDR1  0
-#define MASK_ADDR2  0
-#define MASK_ADDR3  0
+    #define MASK_ADDR0  0
+    #define MASK_ADDR1  0
+    #define MASK_ADDR2  0
+    #define MASK_ADDR3  0
 
 #else
 
-#define IP_ADDR0  10
-#define IP_ADDR1  157
-#define IP_ADDR2  9
-#define IP_ADDR3  133
+    #define IP_ADDR0  10
+    #define IP_ADDR1  157
+    #define IP_ADDR2  9
+    #define IP_ADDR3  133
 
-#define GW_ADDR0  10
-#define GW_ADDR1  157
-#define GW_ADDR2  9
-#define GW_ADDR3  254
+    #define GW_ADDR0  10
+    #define GW_ADDR1  157
+    #define GW_ADDR2  9
+    #define GW_ADDR3  254
 
-#define MASK_ADDR0  255
-#define MASK_ADDR1  255
-#define MASK_ADDR2  254
-#define MASK_ADDR3  0
+    #define MASK_ADDR0  255
+    #define MASK_ADDR1  255
+    #define MASK_ADDR2  254
+    #define MASK_ADDR3  0
 
 #endif /* USE_DHCP */
 #ifdef MBEDTLS_MEMORY_BUFFER_ALLOC_C
-#define MAX_MEM_SIZE 35 * 1024
+    #define MAX_MEM_SIZE 35 * 1024
 #endif
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-void SSL_Server(void const *argument);
-void Error_Handler(void);
-void Success_Handler(void);
+void SSL_Server( void const *argument );
+void Error_Handler( void );
+void Success_Handler( void );
 
 
 #endif /*__MAIN_H */

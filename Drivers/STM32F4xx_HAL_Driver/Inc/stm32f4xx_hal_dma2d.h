@@ -22,7 +22,7 @@
 #define STM32F4xx_HAL_DMA2D_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -50,12 +50,12 @@
   */
 typedef struct
 {
-  uint32_t *pCLUT;                  /*!< Configures the DMA2D CLUT memory address.*/
+    uint32_t *pCLUT;                  /*!< Configures the DMA2D CLUT memory address.*/
 
-  uint32_t CLUTColorMode;           /*!< Configures the DMA2D CLUT color mode.
+    uint32_t CLUTColorMode;           /*!< Configures the DMA2D CLUT color mode.
                                          This parameter can be one value of @ref DMA2D_CLUT_CM. */
 
-  uint32_t Size;                    /*!< Configures the DMA2D CLUT size.
+    uint32_t Size;                    /*!< Configures the DMA2D CLUT size.
                                          This parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFF.*/
 } DMA2D_CLUTCfgTypeDef;
 
@@ -64,13 +64,13 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t             Mode;               /*!< Configures the DMA2D transfer mode.
+    uint32_t             Mode;               /*!< Configures the DMA2D transfer mode.
                                                 This parameter can be one value of @ref DMA2D_Mode. */
 
-  uint32_t             ColorMode;          /*!< Configures the color format of the output image.
+    uint32_t             ColorMode;          /*!< Configures the color format of the output image.
                                                 This parameter can be one value of @ref DMA2D_Output_Color_Mode. */
 
-  uint32_t             OutputOffset;       /*!< Specifies the Offset value.
+    uint32_t             OutputOffset;       /*!< Specifies the Offset value.
                                                 This parameter must be a number between Min_Data = 0x0000 and Max_Data = 0x3FFF. */
 
 
@@ -84,16 +84,16 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t             InputOffset;       /*!< Configures the DMA2D foreground or background offset.
+    uint32_t             InputOffset;       /*!< Configures the DMA2D foreground or background offset.
                                                This parameter must be a number between Min_Data = 0x0000 and Max_Data = 0x3FFF. */
 
-  uint32_t             InputColorMode;    /*!< Configures the DMA2D foreground or background color mode.
+    uint32_t             InputColorMode;    /*!< Configures the DMA2D foreground or background color mode.
                                                This parameter can be one value of @ref DMA2D_Input_Color_Mode. */
 
-  uint32_t             AlphaMode;         /*!< Configures the DMA2D foreground or background alpha mode.
+    uint32_t             AlphaMode;         /*!< Configures the DMA2D foreground or background alpha mode.
                                                This parameter can be one value of @ref DMA2D_Alpha_Mode. */
 
-  uint32_t             InputAlpha;        /*!< Specifies the DMA2D foreground or background alpha value and color value in case of A8 or A4 color mode.
+    uint32_t             InputAlpha;        /*!< Specifies the DMA2D foreground or background alpha value and color value in case of A8 or A4 color mode.
                                                This parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFF except for the color modes detailed below.
                                                @note In case of A8 or A4 color mode (ARGB), this parameter must be a number between
                                                Min_Data = 0x00000000 and Max_Data = 0xFFFFFFFF where
@@ -110,52 +110,52 @@ typedef struct
   */
 typedef enum
 {
-  HAL_DMA2D_STATE_RESET             = 0x00U,    /*!< DMA2D not yet initialized or disabled       */
-  HAL_DMA2D_STATE_READY             = 0x01U,    /*!< Peripheral Initialized and ready for use    */
-  HAL_DMA2D_STATE_BUSY              = 0x02U,    /*!< An internal process is ongoing              */
-  HAL_DMA2D_STATE_TIMEOUT           = 0x03U,    /*!< Timeout state                               */
-  HAL_DMA2D_STATE_ERROR             = 0x04U,    /*!< DMA2D state error                           */
-  HAL_DMA2D_STATE_SUSPEND           = 0x05U     /*!< DMA2D process is suspended                  */
-}HAL_DMA2D_StateTypeDef;
+    HAL_DMA2D_STATE_RESET             = 0x00U,    /*!< DMA2D not yet initialized or disabled       */
+    HAL_DMA2D_STATE_READY             = 0x01U,    /*!< Peripheral Initialized and ready for use    */
+    HAL_DMA2D_STATE_BUSY              = 0x02U,    /*!< An internal process is ongoing              */
+    HAL_DMA2D_STATE_TIMEOUT           = 0x03U,    /*!< Timeout state                               */
+    HAL_DMA2D_STATE_ERROR             = 0x04U,    /*!< DMA2D state error                           */
+    HAL_DMA2D_STATE_SUSPEND           = 0x05U     /*!< DMA2D process is suspended                  */
+} HAL_DMA2D_StateTypeDef;
 
 /**
   * @brief  DMA2D handle Structure definition
   */
 typedef struct __DMA2D_HandleTypeDef
 {
-  DMA2D_TypeDef               *Instance;                                                    /*!< DMA2D register base address.               */
+    DMA2D_TypeDef               *Instance;                                                    /*!< DMA2D register base address.               */
 
-  DMA2D_InitTypeDef           Init;                                                         /*!< DMA2D communication parameters.            */
+    DMA2D_InitTypeDef           Init;                                                         /*!< DMA2D communication parameters.            */
 
-  void                        (* XferCpltCallback)(struct __DMA2D_HandleTypeDef * hdma2d);  /*!< DMA2D transfer complete callback.          */
+    void ( * XferCpltCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                      /*!< DMA2D transfer complete callback.          */
 
-  void                        (* XferErrorCallback)(struct __DMA2D_HandleTypeDef * hdma2d); /*!< DMA2D transfer error callback.             */
+    void ( * XferErrorCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                     /*!< DMA2D transfer error callback.             */
 
 #if (USE_HAL_DMA2D_REGISTER_CALLBACKS == 1)
-  void                        (* LineEventCallback)( struct __DMA2D_HandleTypeDef * hdma2d);   /*!< DMA2D line event callback.      */
+    void ( * LineEventCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                        /*!< DMA2D line event callback.      */
 
-  void                        (* CLUTLoadingCpltCallback)( struct __DMA2D_HandleTypeDef * hdma2d); /*!< DMA2D CLUT loading completion callback. */
+    void ( * CLUTLoadingCpltCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                      /*!< DMA2D CLUT loading completion callback. */
 
-  void                        (* MspInitCallback)( struct __DMA2D_HandleTypeDef * hdma2d);   /*!< DMA2D Msp Init callback.          */
+    void ( * MspInitCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                        /*!< DMA2D Msp Init callback.          */
 
-  void                        (* MspDeInitCallback)( struct __DMA2D_HandleTypeDef * hdma2d); /*!< DMA2D Msp DeInit callback.        */
+    void ( * MspDeInitCallback )( struct __DMA2D_HandleTypeDef *hdma2d );                      /*!< DMA2D Msp DeInit callback.        */
 
 #endif /* (USE_HAL_DMA2D_REGISTER_CALLBACKS) */
 
-  DMA2D_LayerCfgTypeDef       LayerCfg[MAX_DMA2D_LAYER];                                    /*!< DMA2D Layers parameters           */
+    DMA2D_LayerCfgTypeDef       LayerCfg[MAX_DMA2D_LAYER];                                    /*!< DMA2D Layers parameters           */
 
-  HAL_LockTypeDef             Lock;                                                         /*!< DMA2D lock.                                */
+    HAL_LockTypeDef             Lock;                                                         /*!< DMA2D lock.                                */
 
-  __IO HAL_DMA2D_StateTypeDef State;                                                        /*!< DMA2D transfer state.                      */
+    __IO HAL_DMA2D_StateTypeDef State;                                                        /*!< DMA2D transfer state.                      */
 
-  __IO uint32_t               ErrorCode;                                                    /*!< DMA2D error code.                          */
+    __IO uint32_t               ErrorCode;                                                    /*!< DMA2D error code.                          */
 } DMA2D_HandleTypeDef;
 
 #if (USE_HAL_DMA2D_REGISTER_CALLBACKS == 1)
 /**
   * @brief  HAL DMA2D Callback pointer definition
   */
-typedef  void (*pDMA2D_CallbackTypeDef)(DMA2D_HandleTypeDef * hdma2d); /*!< Pointer to a DMA2D common callback function */
+typedef  void ( *pDMA2D_CallbackTypeDef )( DMA2D_HandleTypeDef *hdma2d ); /*!< Pointer to a DMA2D common callback function */
 #endif /* USE_HAL_DMA2D_REGISTER_CALLBACKS */
 /**
   * @}
@@ -288,13 +288,13 @@ typedef  void (*pDMA2D_CallbackTypeDef)(DMA2D_HandleTypeDef * hdma2d); /*!< Poin
   */
 typedef enum
 {
-  HAL_DMA2D_MSPINIT_CB_ID           = 0x00U,    /*!< DMA2D MspInit callback ID                 */
-  HAL_DMA2D_MSPDEINIT_CB_ID         = 0x01U,    /*!< DMA2D MspDeInit callback ID               */
-  HAL_DMA2D_TRANSFERCOMPLETE_CB_ID  = 0x02U,    /*!< DMA2D transfer complete callback ID       */
-  HAL_DMA2D_TRANSFERERROR_CB_ID     = 0x03U,    /*!< DMA2D transfer error callback ID          */
-  HAL_DMA2D_LINEEVENT_CB_ID         = 0x04U,    /*!< DMA2D line event callback ID              */
-  HAL_DMA2D_CLUTLOADINGCPLT_CB_ID   = 0x05U,    /*!< DMA2D CLUT loading completion callback ID */
-}HAL_DMA2D_CallbackIDTypeDef;
+    HAL_DMA2D_MSPINIT_CB_ID           = 0x00U,    /*!< DMA2D MspInit callback ID                 */
+    HAL_DMA2D_MSPDEINIT_CB_ID         = 0x01U,    /*!< DMA2D MspDeInit callback ID               */
+    HAL_DMA2D_TRANSFERCOMPLETE_CB_ID  = 0x02U,    /*!< DMA2D transfer complete callback ID       */
+    HAL_DMA2D_TRANSFERERROR_CB_ID     = 0x03U,    /*!< DMA2D transfer error callback ID          */
+    HAL_DMA2D_LINEEVENT_CB_ID         = 0x04U,    /*!< DMA2D line event callback ID              */
+    HAL_DMA2D_CLUTLOADINGCPLT_CB_ID   = 0x05U,    /*!< DMA2D CLUT loading completion callback ID */
+} HAL_DMA2D_CallbackIDTypeDef;
 #endif /* USE_HAL_DMA2D_REGISTER_CALLBACKS */
 
 
@@ -419,14 +419,14 @@ typedef enum
   */
 
 /* Initialization and de-initialization functions *******************************/
-HAL_StatusTypeDef HAL_DMA2D_Init(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_DeInit (DMA2D_HandleTypeDef *hdma2d);
-void              HAL_DMA2D_MspInit(DMA2D_HandleTypeDef* hdma2d);
-void              HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* hdma2d);
+HAL_StatusTypeDef HAL_DMA2D_Init( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_DeInit( DMA2D_HandleTypeDef *hdma2d );
+void              HAL_DMA2D_MspInit( DMA2D_HandleTypeDef *hdma2d );
+void              HAL_DMA2D_MspDeInit( DMA2D_HandleTypeDef *hdma2d );
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_DMA2D_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_DMA2D_RegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_DMA2D_CallbackIDTypeDef CallbackID, pDMA2D_CallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_DMA2D_UnRegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_DMA2D_CallbackIDTypeDef CallbackID);
+HAL_StatusTypeDef HAL_DMA2D_RegisterCallback( DMA2D_HandleTypeDef *hdma2d, HAL_DMA2D_CallbackIDTypeDef CallbackID, pDMA2D_CallbackTypeDef pCallback );
+HAL_StatusTypeDef HAL_DMA2D_UnRegisterCallback( DMA2D_HandleTypeDef *hdma2d, HAL_DMA2D_CallbackIDTypeDef CallbackID );
 #endif /* USE_HAL_DMA2D_REGISTER_CALLBACKS */
 
 /**
@@ -439,25 +439,25 @@ HAL_StatusTypeDef HAL_DMA2D_UnRegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_
   */
 
 /* IO operation functions *******************************************************/
-HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height);
-HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height);
-HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height);
-HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t SrcAddress2, uint32_t DstAddress, uint32_t Width, uint32_t Height);
-HAL_StatusTypeDef HAL_DMA2D_Suspend(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_Resume(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_Abort(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Abort(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Suspend(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Resume(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_PollForTransfer(DMA2D_HandleTypeDef *hdma2d, uint32_t Timeout);
-void              HAL_DMA2D_IRQHandler(DMA2D_HandleTypeDef *hdma2d);
-void              HAL_DMA2D_LineEventCallback(DMA2D_HandleTypeDef *hdma2d);
-void              HAL_DMA2D_CLUTLoadingCpltCallback(DMA2D_HandleTypeDef *hdma2d);
+HAL_StatusTypeDef HAL_DMA2D_Start( DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height );
+HAL_StatusTypeDef HAL_DMA2D_BlendingStart( DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height );
+HAL_StatusTypeDef HAL_DMA2D_Start_IT( DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height );
+HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT( DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t SrcAddress2, uint32_t DstAddress, uint32_t Width, uint32_t Height );
+HAL_StatusTypeDef HAL_DMA2D_Suspend( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_Resume( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_Abort( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_EnableCLUT( DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad( DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT( DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTLoad( DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTLoad_IT( DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Abort( DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Suspend( DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Resume( DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_PollForTransfer( DMA2D_HandleTypeDef *hdma2d, uint32_t Timeout );
+void              HAL_DMA2D_IRQHandler( DMA2D_HandleTypeDef *hdma2d );
+void              HAL_DMA2D_LineEventCallback( DMA2D_HandleTypeDef *hdma2d );
+void              HAL_DMA2D_CLUTLoadingCpltCallback( DMA2D_HandleTypeDef *hdma2d );
 
 /**
   * @}
@@ -468,12 +468,12 @@ void              HAL_DMA2D_CLUTLoadingCpltCallback(DMA2D_HandleTypeDef *hdma2d)
   */
 
 /* Peripheral Control functions *************************************************/
-HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx);
-HAL_StatusTypeDef HAL_DMA2D_ProgramLineEvent(DMA2D_HandleTypeDef *hdma2d, uint32_t Line);
-HAL_StatusTypeDef HAL_DMA2D_EnableDeadTime(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_DisableDeadTime(DMA2D_HandleTypeDef *hdma2d);
-HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t DeadTime);
+HAL_StatusTypeDef HAL_DMA2D_ConfigLayer( DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT( DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx );
+HAL_StatusTypeDef HAL_DMA2D_ProgramLineEvent( DMA2D_HandleTypeDef *hdma2d, uint32_t Line );
+HAL_StatusTypeDef HAL_DMA2D_EnableDeadTime( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_DisableDeadTime( DMA2D_HandleTypeDef *hdma2d );
+HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime( DMA2D_HandleTypeDef *hdma2d, uint8_t DeadTime );
 
 /**
   * @}
@@ -484,8 +484,8 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t 
   */
 
 /* Peripheral State functions ***************************************************/
-HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d);
-uint32_t               HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d);
+HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState( DMA2D_HandleTypeDef *hdma2d );
+uint32_t               HAL_DMA2D_GetError( DMA2D_HandleTypeDef *hdma2d );
 
 /**
   * @}

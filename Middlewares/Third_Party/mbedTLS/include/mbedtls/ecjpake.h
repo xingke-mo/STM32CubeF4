@@ -41,9 +41,9 @@
  * also be use outside TLS.
  */
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "ecp.h"
@@ -56,7 +56,8 @@ extern "C" {
 /**
  * Roles in the EC J-PAKE exchange
  */
-typedef enum {
+typedef enum
+{
     MBEDTLS_ECJPAKE_CLIENT = 0,         /**< Client                         */
     MBEDTLS_ECJPAKE_SERVER,             /**< Server                         */
 } mbedtls_ecjpake_role;
@@ -163,9 +164,9 @@ int mbedtls_ecjpake_check( const mbedtls_ecjpake_context *ctx );
  * \return          A negative error code on failure.
  */
 int mbedtls_ecjpake_write_round_one( mbedtls_ecjpake_context *ctx,
-                            unsigned char *buf, size_t len, size_t *olen,
-                            int (*f_rng)(void *, unsigned char *, size_t),
-                            void *p_rng );
+                                     unsigned char *buf, size_t len, size_t *olen,
+                                     int ( *f_rng )( void *, unsigned char *, size_t ),
+                                     void *p_rng );
 
 /**
  * \brief           Read and process the first round message
@@ -204,9 +205,9 @@ int mbedtls_ecjpake_read_round_one( mbedtls_ecjpake_context *ctx,
  * \return          A negative error code on failure.
  */
 int mbedtls_ecjpake_write_round_two( mbedtls_ecjpake_context *ctx,
-                            unsigned char *buf, size_t len, size_t *olen,
-                            int (*f_rng)(void *, unsigned char *, size_t),
-                            void *p_rng );
+                                     unsigned char *buf, size_t len, size_t *olen,
+                                     int ( *f_rng )( void *, unsigned char *, size_t ),
+                                     void *p_rng );
 
 /**
  * \brief           Read and process the second round message
@@ -244,9 +245,9 @@ int mbedtls_ecjpake_read_round_two( mbedtls_ecjpake_context *ctx,
  * \return          A negative error code on failure.
  */
 int mbedtls_ecjpake_derive_secret( mbedtls_ecjpake_context *ctx,
-                            unsigned char *buf, size_t len, size_t *olen,
-                            int (*f_rng)(void *, unsigned char *, size_t),
-                            void *p_rng );
+                                   unsigned char *buf, size_t len, size_t *olen,
+                                   int ( *f_rng )( void *, unsigned char *, size_t ),
+                                   void *p_rng );
 
 /**
  * \brief           This clears an ECJPAKE context and frees any

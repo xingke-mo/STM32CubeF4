@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    Cortex/CORTEXM_MPU/Inc/stm32_mpu.h 
+  * @file    Cortex/CORTEXM_MPU/Inc/stm32_mpu.h
   * @author  MCD Application Team
   * @brief   Header for stm32_mpu.c module
   ******************************************************************************
@@ -59,8 +59,8 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void MPU_Config(void);
-void MPU_AccessPermConfig(void);
+void MPU_Config( void );
+void MPU_AccessPermConfig( void );
 
 #endif /* __STM32_MPU_H */
 

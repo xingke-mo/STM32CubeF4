@@ -42,8 +42,8 @@
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
- #include <stdint.h>
- extern uint32_t SystemCoreClock;
+    #include <stdint.h>
+    extern uint32_t SystemCoreClock;
 #endif
 
 /*  CMSIS-RTOSv2 defines 56 levels of priorities. To be able to use them
@@ -67,10 +67,10 @@
 #define configQUEUE_REGISTRY_SIZE         8
 #define configCHECK_FOR_STACK_OVERFLOW    1
 #define configUSE_RECURSIVE_MUTEXES       1
-#define configUSE_MALLOC_FAILED_HOOK	  1
-#define configUSE_APPLICATION_TASK_TAG	  1
-#define configUSE_COUNTING_SEMAPHORES	  1
-#define configGENERATE_RUN_TIME_STATS	  0
+#define configUSE_MALLOC_FAILED_HOOK      1
+#define configUSE_APPLICATION_TASK_TAG    1
+#define configUSE_COUNTING_SEMAPHORES     1
+#define configGENERATE_RUN_TIME_STATS     0
 #define configAPPLICATION_ALLOCATED_HEAP  0
 
 /* Co-routine definitions. */
@@ -120,10 +120,10 @@ to exclude the API function. */
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
- /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
- #define configPRIO_BITS         __NVIC_PRIO_BITS
+    /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
+    #define configPRIO_BITS         __NVIC_PRIO_BITS
 #else
- #define configPRIO_BITS         4        /* 15 priority levels */
+    #define configPRIO_BITS         4        /* 15 priority levels */
 #endif
 
 /* The lowest interrupt priority that can be used in a call to a "set priority"

@@ -20,31 +20,31 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_free            free
-#define mbedtls_calloc          calloc
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_free            free
+    #define mbedtls_calloc          calloc
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if defined(MBEDTLS_BASE64_C) && defined(MBEDTLS_FS_IO)
-#include "mbedtls/error.h"
-#include "mbedtls/base64.h"
+    #include "mbedtls/error.h"
+    #include "mbedtls/base64.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
 #endif
 
 #define DFL_FILENAME            "file.pem"
@@ -60,7 +60,7 @@
 #if !defined(MBEDTLS_BASE64_C) || !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BASE64_C and/or MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BASE64_C and/or MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -93,34 +93,61 @@ int convert_pem_to_der( const unsigned char *input, size_t ilen,
     const unsigned char *s1, *s2, *end = input + ilen;
     size_t len = 0;
 
-    s1 = (unsigned char *) strstr( (const char *) input, "-----BEGIN" );
-    if( s1 == NULL )
-        return( -1 );
+    s1 = ( unsigned char * ) strstr( ( const char * ) input, "-----BEGIN" );
 
-    s2 = (unsigned char *) strstr( (const char *) input, "-----END" );
-    if( s2 == NULL )
+    if( s1 == NULL )
+    {
         return( -1 );
+    }
+
+    s2 = ( unsigned char * ) strstr( ( const char * ) input, "-----END" );
+
+    if( s2 == NULL )
+    {
+        return( -1 );
+    }
 
     s1 += 10;
+
     while( s1 < end && *s1 != '-' )
+    {
         s1++;
+    }
+
     while( s1 < end && *s1 == '-' )
+    {
         s1++;
-    if( *s1 == '\r' ) s1++;
-    if( *s1 == '\n' ) s1++;
+    }
+
+    if( *s1 == '\r' )
+    {
+        s1++;
+    }
+
+    if( *s1 == '\n' )
+    {
+        s1++;
+    }
 
     if( s2 <= s1 || s2 > end )
+    {
         return( -1 );
+    }
 
-    ret = mbedtls_base64_decode( NULL, 0, &len, (const unsigned char *) s1, s2 - s1 );
+    ret = mbedtls_base64_decode( NULL, 0, &len, ( const unsigned char * ) s1, s2 - s1 );
+
     if( ret == MBEDTLS_ERR_BASE64_INVALID_CHARACTER )
+    {
         return( ret );
+    }
 
     if( len > *olen )
+    {
         return( -1 );
+    }
 
-    if( ( ret = mbedtls_base64_decode( output, len, &len, (const unsigned char *) s1,
-                               s2 - s1 ) ) != 0 )
+    if( ( ret = mbedtls_base64_decode( output, len, &len, ( const unsigned char * ) s1,
+                                       s2 - s1 ) ) != 0 )
     {
         return( ret );
     }
@@ -139,20 +166,24 @@ static int load_file( const char *path, unsigned char **buf, size_t *n )
     long size;
 
     if( ( f = fopen( path, "rb" ) ) == NULL )
+    {
         return( -1 );
+    }
 
     fseek( f, 0, SEEK_END );
+
     if( ( size = ftell( f ) ) == -1 )
     {
         fclose( f );
         return( -1 );
     }
+
     fseek( f, 0, SEEK_SET );
 
-    *n = (size_t) size;
+    *n = ( size_t ) size;
 
     if( *n + 1 == 0 ||
-        ( *buf = mbedtls_calloc( 1, *n + 1 ) ) == NULL )
+            ( *buf = mbedtls_calloc( 1, *n + 1 ) ) == NULL )
     {
         fclose( f );
         return( -1 );
@@ -168,7 +199,7 @@ static int load_file( const char *path, unsigned char **buf, size_t *n )
 
     fclose( f );
 
-    (*buf)[*n] = '\0';
+    ( *buf )[*n] = '\0';
 
     return( 0 );
 }
@@ -181,7 +212,9 @@ static int write_file( const char *path, unsigned char *buf, size_t n )
     FILE *f;
 
     if( ( f = fopen( path, "wb" ) ) == NULL )
+    {
         return( -1 );
+    }
 
     if( fwrite( buf, 1, n, f ) != n )
     {
@@ -200,19 +233,19 @@ int main( int argc, char *argv[] )
     unsigned char *pem_buffer = NULL;
     unsigned char der_buffer[4096];
     char buf[1024];
-    size_t pem_size, der_size = sizeof(der_buffer);
+    size_t pem_size, der_size = sizeof( der_buffer );
     int i;
     char *p, *q;
 
     /*
      * Set to sane values
      */
-    memset( buf, 0, sizeof(buf) );
-    memset( der_buffer, 0, sizeof(der_buffer) );
+    memset( buf, 0, sizeof( buf ) );
+    memset( der_buffer, 0, sizeof( der_buffer ) );
 
     if( argc == 0 )
     {
-    usage:
+usage:
         mbedtls_printf( USAGE );
         goto exit;
     }
@@ -224,16 +257,26 @@ int main( int argc, char *argv[] )
     {
 
         p = argv[i];
+
         if( ( q = strchr( p, '=' ) ) == NULL )
+        {
             goto usage;
+        }
+
         *q++ = '\0';
 
         if( strcmp( p, "filename" ) == 0 )
+        {
             opt.filename = q;
+        }
         else if( strcmp( p, "output_file" ) == 0 )
+        {
             opt.output_file = q;
+        }
         else
+        {
             goto usage;
+        }
     }
 
     /*

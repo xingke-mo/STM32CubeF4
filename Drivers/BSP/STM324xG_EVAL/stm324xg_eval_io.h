@@ -32,45 +32,45 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM324xG_EVAL_IO_H
 #define __STM324xG_EVAL_IO_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif   
-   
+extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm324xg_eval.h"
 /* Include IO component driver */
 #include "../Components/stmpe811/stmpe811.h"
-   
+
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup STM324xG_EVAL
   * @{
   */
-    
+
 /** @defgroup STM324xG_EVAL_IO STM324xG EVAL IO
   * @{
-  */    
+  */
 
 /** @defgroup STM324xG_EVAL_IO_Exported_Types STM324xG EVAL IO Exported Types
   * @{
   */
-typedef enum 
+typedef enum
 {
-  IO_OK       = 0x00,
-  IO_ERROR    = 0x01,
-  IO_TIMEOUT  = 0x02
-}IO_StatusTypeDef;
+    IO_OK       = 0x00,
+    IO_ERROR    = 0x01,
+    IO_TIMEOUT  = 0x02
+} IO_StatusTypeDef;
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM324xG_EVAL_IO_Exported_Constants STM324xG EVAL IO Exported Constants
   * @{
@@ -86,22 +86,18 @@ typedef enum
 #define IO_PIN_ALL                   0xFF
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM324xG_EVAL_IO_Exported_Functions STM324xG EVAL IO Exported Functions
   * @{
   */
-uint8_t  BSP_IO_Init(void);
-void     BSP_IO_ITClear(uint16_t IO_Pin);
-uint8_t  BSP_IO_ITGetStatus(uint16_t IO_Pin);
-uint8_t  BSP_IO_ConfigPin(uint16_t IO_Pin, IO_ModeTypedef IO_Mode);
-void     BSP_IO_WritePin(uint16_t IO_Pin, uint8_t PinState);
-uint16_t BSP_IO_ReadPin(uint16_t IO_Pin);
-void     BSP_IO_TogglePin(uint16_t IO_Pin);
-
-/**
-  * @}
-  */ 
+uint8_t  BSP_IO_Init( void );
+void     BSP_IO_ITClear( uint16_t IO_Pin );
+uint8_t  BSP_IO_ITGetStatus( uint16_t IO_Pin );
+uint8_t  BSP_IO_ConfigPin( uint16_t IO_Pin, IO_ModeTypedef IO_Mode );
+void     BSP_IO_WritePin( uint16_t IO_Pin, uint8_t PinState );
+uint16_t BSP_IO_ReadPin( uint16_t IO_Pin );
+void     BSP_IO_TogglePin( uint16_t IO_Pin );
 
 /**
   * @}
@@ -109,7 +105,11 @@ void     BSP_IO_TogglePin(uint16_t IO_Pin);
 
 /**
   * @}
-  */ 
+  */
+
+/**
+  * @}
+  */
 
 /**
   * @}

@@ -20,28 +20,28 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_RSA_C) ||  \
     !defined(MBEDTLS_X509_CRL_PARSE_C) || !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
-           "MBEDTLS_X509_CRL_PARSE_C and/or MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
+                    "MBEDTLS_X509_CRL_PARSE_C and/or MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -97,7 +97,7 @@ int main( int argc, char *argv[] )
 
     if( argc == 0 )
     {
-    usage:
+usage:
         mbedtls_printf( USAGE );
         goto exit;
     }
@@ -107,14 +107,22 @@ int main( int argc, char *argv[] )
     for( i = 1; i < argc; i++ )
     {
         p = argv[i];
+
         if( ( q = strchr( p, '=' ) ) == NULL )
+        {
             goto usage;
+        }
+
         *q++ = '\0';
 
         if( strcmp( p, "filename" ) == 0 )
+        {
             opt.filename = q;
+        }
         else
+        {
             goto usage;
+        }
     }
 
     /*
@@ -138,7 +146,8 @@ int main( int argc, char *argv[] )
      * 1.2 Print the CRL
      */
     mbedtls_printf( "  . CRL information    ...\n" );
-    ret = mbedtls_x509_crl_info( (char *) buf, sizeof( buf ) - 1, "      ", &crl );
+    ret = mbedtls_x509_crl_info( ( char * ) buf, sizeof( buf ) - 1, "      ", &crl );
+
     if( ret == -1 )
     {
         mbedtls_printf( " failed\n  !  mbedtls_x509_crl_info returned %d\n\n", ret );

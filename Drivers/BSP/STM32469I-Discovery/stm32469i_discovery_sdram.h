@@ -39,7 +39,7 @@
 #define __STM32469I_DISCOVERY_SDRAM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -76,8 +76,8 @@
   */
 #define SDRAM_DEVICE_ADDR  ((uint32_t)0xC0000000)
 
- /* SDRAM device size in Bytes */
- #define SDRAM_DEVICE_SIZE  ((uint32_t)0x1000000)
+/* SDRAM device size in Bytes */
+#define SDRAM_DEVICE_SIZE  ((uint32_t)0x1000000)
 
 #define SDRAM_MEMORY_WIDTH FMC_SDRAM_MEM_BUS_WIDTH_32
 #define SDCLOCK_PERIOD     FMC_SDRAM_CLOCK_PERIOD_2
@@ -120,28 +120,28 @@
   * @}
   */
 
-/** @addtogroup STM32469I_Discovery_SDRAM_Exported_Functions 
+/** @addtogroup STM32469I_Discovery_SDRAM_Exported_Functions
   * @{
   */
-uint8_t BSP_SDRAM_Init(void);
-uint8_t BSP_SDRAM_DeInit(void);
-void    BSP_SDRAM_Initialization_sequence(uint32_t RefreshCount);
-uint8_t BSP_SDRAM_ReadData(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SDRAM_ReadData_DMA(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SDRAM_WriteData(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SDRAM_WriteData_DMA(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SDRAM_Sendcmd(FMC_SDRAM_CommandTypeDef *SdramCmd);
-void    BSP_SDRAM_DMA_IRQHandler(void);
+uint8_t BSP_SDRAM_Init( void );
+uint8_t BSP_SDRAM_DeInit( void );
+void    BSP_SDRAM_Initialization_sequence( uint32_t RefreshCount );
+uint8_t BSP_SDRAM_ReadData( uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SDRAM_ReadData_DMA( uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SDRAM_WriteData( uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SDRAM_WriteData_DMA( uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SDRAM_Sendcmd( FMC_SDRAM_CommandTypeDef *SdramCmd );
+void    BSP_SDRAM_DMA_IRQHandler( void );
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void    BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
-void    BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
+void    BSP_SDRAM_MspInit( SDRAM_HandleTypeDef  *hsdram, void *Params );
+void    BSP_SDRAM_MspDeInit( SDRAM_HandleTypeDef  *hsdram, void *Params );
 
 /**
   * @}
   */
-  
+
 /**
   * @}
   */

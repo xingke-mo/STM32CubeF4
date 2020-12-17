@@ -66,9 +66,9 @@
 #define MBEDTLS_DHM_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 #include "bignum.h"
 
@@ -185,9 +185,9 @@ int mbedtls_dhm_read_params( mbedtls_dhm_context *ctx,
  * \return         An \c MBEDTLS_ERR_DHM_XXX error code on failure.
  */
 int mbedtls_dhm_make_params( mbedtls_dhm_context *ctx, int x_size,
-                     unsigned char *output, size_t *olen,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             unsigned char *output, size_t *olen,
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief          This function sets the prime modulus and generator.
@@ -225,7 +225,7 @@ int mbedtls_dhm_set_group( mbedtls_dhm_context *ctx,
  * \return         An \c MBEDTLS_ERR_DHM_XXX error code on failure.
  */
 int mbedtls_dhm_read_public( mbedtls_dhm_context *ctx,
-                     const unsigned char *input, size_t ilen );
+                             const unsigned char *input, size_t ilen );
 
 /**
  * \brief          This function creates a DHM key pair and exports
@@ -252,9 +252,9 @@ int mbedtls_dhm_read_public( mbedtls_dhm_context *ctx,
  * \return         An \c MBEDTLS_ERR_DHM_XXX error code on failure.
  */
 int mbedtls_dhm_make_public( mbedtls_dhm_context *ctx, int x_size,
-                     unsigned char *output, size_t olen,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             unsigned char *output, size_t olen,
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief          This function derives and exports the shared secret
@@ -283,9 +283,9 @@ int mbedtls_dhm_make_public( mbedtls_dhm_context *ctx, int x_size,
  * \return              An \c MBEDTLS_ERR_DHM_XXX error code on failure.
  */
 int mbedtls_dhm_calc_secret( mbedtls_dhm_context *ctx,
-                     unsigned char *output, size_t output_size, size_t *olen,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             unsigned char *output, size_t output_size, size_t *olen,
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief          This function frees and clears the components

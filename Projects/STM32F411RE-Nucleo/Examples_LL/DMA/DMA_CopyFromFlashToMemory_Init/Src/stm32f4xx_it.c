@@ -63,7 +63,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -72,12 +72,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -85,12 +85,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -98,12 +98,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -111,12 +111,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -124,7 +124,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -133,7 +133,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -142,7 +142,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -151,7 +151,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -167,18 +167,18 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream0_IRQHandler(void)
+void DMA2_Stream0_IRQHandler( void )
 {
-  if(LL_DMA_IsActiveFlag_TC0(DMA2) == 1)
-  {
-    LL_DMA_ClearFlag_TC0(DMA2);
-    TransferComplete();
-  }
-  else if(LL_DMA_IsActiveFlag_TE0(DMA2) == 1)
-  {
-    LL_DMA_ClearFlag_TE0(DMA2);
-    TransferError();
-  }
+    if( LL_DMA_IsActiveFlag_TC0( DMA2 ) == 1 )
+    {
+        LL_DMA_ClearFlag_TC0( DMA2 );
+        TransferComplete();
+    }
+    else if( LL_DMA_IsActiveFlag_TE0( DMA2 ) == 1 )
+    {
+        LL_DMA_ClearFlag_TE0( DMA2 );
+        TransferError();
+    }
 }
 
 /**

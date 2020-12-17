@@ -63,10 +63,10 @@
   * @param  hhash: HASH handle pointer
   * @retval None
   */
-void HAL_HASH_MspInit(HASH_HandleTypeDef *hhash)
+void HAL_HASH_MspInit( HASH_HandleTypeDef *hhash )
 {
-  /* Enable HASH clock */
-  __HAL_RCC_HASH_CLK_ENABLE();
+    /* Enable HASH clock */
+    __HAL_RCC_HASH_CLK_ENABLE();
 }
 
 /**

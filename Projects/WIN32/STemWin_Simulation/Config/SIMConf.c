@@ -30,15 +30,15 @@ Purpose     : Windows Simulator configuration
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
   */
-  
+
 #ifdef WIN32
 
 #include "LCD_SIM.h"
@@ -57,14 +57,15 @@ Purpose     : Windows Simulator configuration
 *   Called during the initialization process in order to configure
 *   the simulator.
 */
-void SIM_X_Config() {
-  SIM_GUI_SetTransColor(0xff0000);     // Define the transparent color
+void SIM_X_Config()
+{
+    SIM_GUI_SetTransColor( 0xff0000 );   // Define the transparent color
 }
 
 #else
 
-void SIMConf_C(void); // Avoid empty object files
-void SIMConf_C(void) {}
+void SIMConf_C( void ); // Avoid empty object files
+void SIMConf_C( void ) {}
 
 #endif
 

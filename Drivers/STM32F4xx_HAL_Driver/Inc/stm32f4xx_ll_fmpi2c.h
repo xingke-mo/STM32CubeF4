@@ -67,38 +67,38 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t PeripheralMode;      /*!< Specifies the peripheral mode.
+    uint32_t PeripheralMode;      /*!< Specifies the peripheral mode.
                                      This parameter can be a value of @ref FMPI2C_LL_EC_PERIPHERAL_MODE.
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_SetMode(). */
 
-  uint32_t Timing;              /*!< Specifies the SDA setup, hold time and the SCL high, low period values.
+    uint32_t Timing;              /*!< Specifies the SDA setup, hold time and the SCL high, low period values.
                                      This parameter must be set by referring to the STM32CubeMX Tool and
                                      the helper macro @ref __LL_FMPI2C_CONVERT_TIMINGS().
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_SetTiming(). */
 
-  uint32_t AnalogFilter;        /*!< Enables or disables analog noise filter.
+    uint32_t AnalogFilter;        /*!< Enables or disables analog noise filter.
                                      This parameter can be a value of @ref FMPI2C_LL_EC_ANALOGFILTER_SELECTION.
 
                                      This feature can be modified afterwards using unitary functions @ref LL_FMPI2C_EnableAnalogFilter() or LL_FMPI2C_DisableAnalogFilter(). */
 
-  uint32_t DigitalFilter;       /*!< Configures the digital noise filter.
+    uint32_t DigitalFilter;       /*!< Configures the digital noise filter.
                                      This parameter can be a number between Min_Data = 0x00 and Max_Data = 0x0F.
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_SetDigitalFilter(). */
 
-  uint32_t OwnAddress1;         /*!< Specifies the device own address 1.
+    uint32_t OwnAddress1;         /*!< Specifies the device own address 1.
                                      This parameter must be a value between Min_Data = 0x00 and Max_Data = 0x3FF.
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_SetOwnAddress1(). */
 
-  uint32_t TypeAcknowledge;     /*!< Specifies the ACKnowledge or Non ACKnowledge condition after the address receive match code or next received byte.
+    uint32_t TypeAcknowledge;     /*!< Specifies the ACKnowledge or Non ACKnowledge condition after the address receive match code or next received byte.
                                      This parameter can be a value of @ref FMPI2C_LL_EC_I2C_ACKNOWLEDGE.
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_AcknowledgeNextData(). */
 
-  uint32_t OwnAddrSize;         /*!< Specifies the device own address 1 size (7-bit or 10-bit).
+    uint32_t OwnAddrSize;         /*!< Specifies the device own address 1 size (7-bit or 10-bit).
                                      This parameter can be a value of @ref FMPI2C_LL_EC_OWNADDRESS1.
 
                                      This feature can be modified afterwards using unitary function @ref LL_FMPI2C_SetOwnAddress1(). */
@@ -389,9 +389,9 @@ typedef struct
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_Enable(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_Enable( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PE );
 }
 
 /**
@@ -403,9 +403,9 @@ __STATIC_INLINE void LL_FMPI2C_Enable(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_Disable(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_Disable( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PE );
 }
 
 /**
@@ -414,9 +414,9 @@ __STATIC_INLINE void LL_FMPI2C_Disable(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabled(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabled( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PE) == (FMPI2C_CR1_PE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PE ) == ( FMPI2C_CR1_PE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -434,9 +434,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabled(FMPI2C_TypeDef *FMPI2Cx)
   *         The digital filter will filter spikes with a length of up to DNF[3:0]*tfmpi2cclk.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ConfigFilters(FMPI2C_TypeDef *FMPI2Cx, uint32_t AnalogFilter, uint32_t DigitalFilter)
+__STATIC_INLINE void LL_FMPI2C_ConfigFilters( FMPI2C_TypeDef *FMPI2Cx, uint32_t AnalogFilter, uint32_t DigitalFilter )
 {
-  MODIFY_REG(FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF | FMPI2C_CR1_DNF, AnalogFilter | (DigitalFilter << FMPI2C_CR1_DNF_Pos));
+    MODIFY_REG( FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF | FMPI2C_CR1_DNF, AnalogFilter | ( DigitalFilter << FMPI2C_CR1_DNF_Pos ) );
 }
 
 /**
@@ -450,9 +450,9 @@ __STATIC_INLINE void LL_FMPI2C_ConfigFilters(FMPI2C_TypeDef *FMPI2Cx, uint32_t A
   *         The digital filter will filter spikes with a length of up to DNF[3:0]*tfmpi2cclk.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetDigitalFilter(FMPI2C_TypeDef *FMPI2Cx, uint32_t DigitalFilter)
+__STATIC_INLINE void LL_FMPI2C_SetDigitalFilter( FMPI2C_TypeDef *FMPI2Cx, uint32_t DigitalFilter )
 {
-  MODIFY_REG(FMPI2Cx->CR1, FMPI2C_CR1_DNF, DigitalFilter << FMPI2C_CR1_DNF_Pos);
+    MODIFY_REG( FMPI2Cx->CR1, FMPI2C_CR1_DNF, DigitalFilter << FMPI2C_CR1_DNF_Pos );
 }
 
 /**
@@ -461,9 +461,9 @@ __STATIC_INLINE void LL_FMPI2C_SetDigitalFilter(FMPI2C_TypeDef *FMPI2Cx, uint32_
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0xF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetDigitalFilter(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetDigitalFilter( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_DNF) >> FMPI2C_CR1_DNF_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_DNF ) >> FMPI2C_CR1_DNF_Pos );
 }
 
 /**
@@ -473,9 +473,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetDigitalFilter(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableAnalogFilter(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableAnalogFilter( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF );
 }
 
 /**
@@ -485,9 +485,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableAnalogFilter(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableAnalogFilter(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableAnalogFilter( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF );
 }
 
 /**
@@ -496,9 +496,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableAnalogFilter(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAnalogFilter(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAnalogFilter( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF) != (FMPI2C_CR1_ANFOFF)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ANFOFF ) != ( FMPI2C_CR1_ANFOFF ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -507,9 +507,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAnalogFilter(FMPI2C_TypeDef *FMPI2Cx
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableDMAReq_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN );
 }
 
 /**
@@ -518,9 +518,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableDMAReq_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN );
 }
 
 /**
@@ -529,9 +529,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN) == (FMPI2C_CR1_TXDMAEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXDMAEN ) == ( FMPI2C_CR1_TXDMAEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -540,9 +540,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableDMAReq_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN );
 }
 
 /**
@@ -551,9 +551,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableDMAReq_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN );
 }
 
 /**
@@ -562,9 +562,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN) == (FMPI2C_CR1_RXDMAEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXDMAEN ) == ( FMPI2C_CR1_RXDMAEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -577,22 +577,22 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledDMAReq_RX(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_DMA_REG_DATA_RECEIVE
   * @retval Address of data register
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_DMA_GetRegAddr(FMPI2C_TypeDef *FMPI2Cx, uint32_t Direction)
+__STATIC_INLINE uint32_t LL_FMPI2C_DMA_GetRegAddr( FMPI2C_TypeDef *FMPI2Cx, uint32_t Direction )
 {
-  uint32_t data_reg_addr;
+    uint32_t data_reg_addr;
 
-  if (Direction == LL_FMPI2C_DMA_REG_DATA_TRANSMIT)
-  {
-    /* return address of TXDR register */
-    data_reg_addr = (uint32_t) & (FMPI2Cx->TXDR);
-  }
-  else
-  {
-    /* return address of RXDR register */
-    data_reg_addr = (uint32_t) & (FMPI2Cx->RXDR);
-  }
+    if( Direction == LL_FMPI2C_DMA_REG_DATA_TRANSMIT )
+    {
+        /* return address of TXDR register */
+        data_reg_addr = ( uint32_t ) & ( FMPI2Cx->TXDR );
+    }
+    else
+    {
+        /* return address of RXDR register */
+        data_reg_addr = ( uint32_t ) & ( FMPI2Cx->RXDR );
+    }
 
-  return data_reg_addr;
+    return data_reg_addr;
 }
 
 /**
@@ -602,9 +602,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_DMA_GetRegAddr(FMPI2C_TypeDef *FMPI2Cx, uint3
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableClockStretching(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableClockStretching( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH );
 }
 
 /**
@@ -614,9 +614,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableClockStretching(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableClockStretching(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableClockStretching( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH );
 }
 
 /**
@@ -625,9 +625,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableClockStretching(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledClockStretching(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledClockStretching( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH) != (FMPI2C_CR1_NOSTRETCH)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NOSTRETCH ) != ( FMPI2C_CR1_NOSTRETCH ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -636,9 +636,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledClockStretching(FMPI2C_TypeDef *FMPI
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableSlaveByteControl(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableSlaveByteControl( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_SBC);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_SBC );
 }
 
 /**
@@ -647,9 +647,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableSlaveByteControl(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableSlaveByteControl(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableSlaveByteControl( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_SBC);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_SBC );
 }
 
 /**
@@ -658,9 +658,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableSlaveByteControl(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSlaveByteControl(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSlaveByteControl( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_SBC) == (FMPI2C_CR1_SBC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_SBC ) == ( FMPI2C_CR1_SBC ) ) ? 1UL : 0UL );
 }
 
 
@@ -671,9 +671,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSlaveByteControl(FMPI2C_TypeDef *FMP
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableGeneralCall( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_GCEN);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_GCEN );
 }
 
 /**
@@ -683,9 +683,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableGeneralCall( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_GCEN);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_GCEN );
 }
 
 /**
@@ -694,9 +694,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledGeneralCall( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_GCEN) == (FMPI2C_CR1_GCEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_GCEN ) == ( FMPI2C_CR1_GCEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -709,9 +709,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledGeneralCall(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_ADDRESSING_MODE_10BIT
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetMasterAddressingMode(FMPI2C_TypeDef *FMPI2Cx, uint32_t AddressingMode)
+__STATIC_INLINE void LL_FMPI2C_SetMasterAddressingMode( FMPI2C_TypeDef *FMPI2Cx, uint32_t AddressingMode )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_ADD10, AddressingMode);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_ADD10, AddressingMode );
 }
 
 /**
@@ -722,9 +722,9 @@ __STATIC_INLINE void LL_FMPI2C_SetMasterAddressingMode(FMPI2C_TypeDef *FMPI2Cx, 
   *         @arg @ref LL_FMPI2C_ADDRESSING_MODE_7BIT
   *         @arg @ref LL_FMPI2C_ADDRESSING_MODE_10BIT
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetMasterAddressingMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetMasterAddressingMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_ADD10));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_ADD10 ) );
 }
 
 /**
@@ -738,9 +738,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetMasterAddressingMode(FMPI2C_TypeDef *FMPI2
   *         @arg @ref LL_FMPI2C_OWNADDRESS1_10BIT
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetOwnAddress1(FMPI2C_TypeDef *FMPI2Cx, uint32_t OwnAddress1, uint32_t OwnAddrSize)
+__STATIC_INLINE void LL_FMPI2C_SetOwnAddress1( FMPI2C_TypeDef *FMPI2Cx, uint32_t OwnAddress1, uint32_t OwnAddrSize )
 {
-  MODIFY_REG(FMPI2Cx->OAR1, FMPI2C_OAR1_OA1 | FMPI2C_OAR1_OA1MODE, OwnAddress1 | OwnAddrSize);
+    MODIFY_REG( FMPI2Cx->OAR1, FMPI2C_OAR1_OA1 | FMPI2C_OAR1_OA1MODE, OwnAddress1 | OwnAddrSize );
 }
 
 /**
@@ -749,9 +749,9 @@ __STATIC_INLINE void LL_FMPI2C_SetOwnAddress1(FMPI2C_TypeDef *FMPI2Cx, uint32_t 
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableOwnAddress1( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN);
+    SET_BIT( FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN );
 }
 
 /**
@@ -760,9 +760,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableOwnAddress1( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN);
+    CLEAR_BIT( FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN );
 }
 
 /**
@@ -771,9 +771,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress1( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN) == (FMPI2C_OAR1_OA1EN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->OAR1, FMPI2C_OAR1_OA1EN ) == ( FMPI2C_OAR1_OA1EN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -794,9 +794,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress1(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_OWNADDRESS2_MASK07
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetOwnAddress2(FMPI2C_TypeDef *FMPI2Cx, uint32_t OwnAddress2, uint32_t OwnAddrMask)
+__STATIC_INLINE void LL_FMPI2C_SetOwnAddress2( FMPI2C_TypeDef *FMPI2Cx, uint32_t OwnAddress2, uint32_t OwnAddrMask )
 {
-  MODIFY_REG(FMPI2Cx->OAR2, FMPI2C_OAR2_OA2 | FMPI2C_OAR2_OA2MSK, OwnAddress2 | OwnAddrMask);
+    MODIFY_REG( FMPI2Cx->OAR2, FMPI2C_OAR2_OA2 | FMPI2C_OAR2_OA2MSK, OwnAddress2 | OwnAddrMask );
 }
 
 /**
@@ -805,9 +805,9 @@ __STATIC_INLINE void LL_FMPI2C_SetOwnAddress2(FMPI2C_TypeDef *FMPI2Cx, uint32_t 
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableOwnAddress2( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN);
+    SET_BIT( FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN );
 }
 
 /**
@@ -816,9 +816,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableOwnAddress2( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN);
+    CLEAR_BIT( FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN );
 }
 
 /**
@@ -827,9 +827,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress2( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN) == (FMPI2C_OAR2_OA2EN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->OAR2, FMPI2C_OAR2_OA2EN ) == ( FMPI2C_OAR2_OA2EN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -841,9 +841,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledOwnAddress2(FMPI2C_TypeDef *FMPI2Cx)
   * @note   This parameter is computed with the STM32CubeMX Tool.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetTiming(FMPI2C_TypeDef *FMPI2Cx, uint32_t Timing)
+__STATIC_INLINE void LL_FMPI2C_SetTiming( FMPI2C_TypeDef *FMPI2Cx, uint32_t Timing )
 {
-  WRITE_REG(FMPI2Cx->TIMINGR, Timing);
+    WRITE_REG( FMPI2Cx->TIMINGR, Timing );
 }
 
 /**
@@ -852,9 +852,9 @@ __STATIC_INLINE void LL_FMPI2C_SetTiming(FMPI2C_TypeDef *FMPI2Cx, uint32_t Timin
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0xF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetTimingPrescaler(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetTimingPrescaler( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_PRESC) >> FMPI2C_TIMINGR_PRESC_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_PRESC ) >> FMPI2C_TIMINGR_PRESC_Pos );
 }
 
 /**
@@ -863,9 +863,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetTimingPrescaler(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetClockLowPeriod(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetClockLowPeriod( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLL) >> FMPI2C_TIMINGR_SCLL_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLL ) >> FMPI2C_TIMINGR_SCLL_Pos );
 }
 
 /**
@@ -874,9 +874,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetClockLowPeriod(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetClockHighPeriod(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetClockHighPeriod( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLH) >> FMPI2C_TIMINGR_SCLH_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLH ) >> FMPI2C_TIMINGR_SCLH_Pos );
 }
 
 /**
@@ -885,9 +885,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetClockHighPeriod(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0xF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetDataHoldTime(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetDataHoldTime( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SDADEL) >> FMPI2C_TIMINGR_SDADEL_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SDADEL ) >> FMPI2C_TIMINGR_SDADEL_Pos );
 }
 
 /**
@@ -896,9 +896,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetDataHoldTime(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0xF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetDataSetupTime(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetDataSetupTime( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLDEL) >> FMPI2C_TIMINGR_SCLDEL_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMINGR, FMPI2C_TIMINGR_SCLDEL ) >> FMPI2C_TIMINGR_SCLDEL_Pos );
 }
 
 /**
@@ -915,9 +915,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetDataSetupTime(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_MODE_SMBUS_DEVICE_ARP
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetMode(FMPI2C_TypeDef *FMPI2Cx, uint32_t PeripheralMode)
+__STATIC_INLINE void LL_FMPI2C_SetMode( FMPI2C_TypeDef *FMPI2Cx, uint32_t PeripheralMode )
 {
-  MODIFY_REG(FMPI2Cx->CR1, FMPI2C_CR1_SMBHEN | FMPI2C_CR1_SMBDEN, PeripheralMode);
+    MODIFY_REG( FMPI2Cx->CR1, FMPI2C_CR1_SMBHEN | FMPI2C_CR1_SMBDEN, PeripheralMode );
 }
 
 /**
@@ -933,9 +933,9 @@ __STATIC_INLINE void LL_FMPI2C_SetMode(FMPI2C_TypeDef *FMPI2Cx, uint32_t Periphe
   *         @arg @ref LL_FMPI2C_MODE_SMBUS_DEVICE
   *         @arg @ref LL_FMPI2C_MODE_SMBUS_DEVICE_ARP
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_SMBHEN | FMPI2C_CR1_SMBDEN));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_SMBHEN | FMPI2C_CR1_SMBDEN ) );
 }
 
 /**
@@ -951,9 +951,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableSMBusAlert( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN );
 }
 
 /**
@@ -969,9 +969,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableSMBusAlert( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN );
 }
 
 /**
@@ -982,9 +982,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusAlert( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN) == (FMPI2C_CR1_ALERTEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ALERTEN ) == ( FMPI2C_CR1_ALERTEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -995,9 +995,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusAlert(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableSMBusPEC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PECEN);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PECEN );
 }
 
 /**
@@ -1008,9 +1008,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableSMBusPEC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PECEN);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PECEN );
 }
 
 /**
@@ -1021,9 +1021,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPEC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_PECEN) == (FMPI2C_CR1_PECEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_PECEN ) == ( FMPI2C_CR1_PECEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1042,11 +1042,11 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  TimeoutB
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ConfigSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutA, uint32_t TimeoutAMode,
-                                               uint32_t TimeoutB)
+__STATIC_INLINE void LL_FMPI2C_ConfigSMBusTimeout( FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutA, uint32_t TimeoutAMode,
+        uint32_t TimeoutB )
 {
-  MODIFY_REG(FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTA | FMPI2C_TIMEOUTR_TIDLE | FMPI2C_TIMEOUTR_TIMEOUTB,
-             TimeoutA | TimeoutAMode | (TimeoutB << FMPI2C_TIMEOUTR_TIMEOUTB_Pos));
+    MODIFY_REG( FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTA | FMPI2C_TIMEOUTR_TIDLE | FMPI2C_TIMEOUTR_TIMEOUTB,
+                TimeoutA | TimeoutAMode | ( TimeoutB << FMPI2C_TIMEOUTR_TIMEOUTB_Pos ) );
 }
 
 /**
@@ -1059,9 +1059,9 @@ __STATIC_INLINE void LL_FMPI2C_ConfigSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint3
   * @param  TimeoutA This parameter must be a value between  Min_Data=0 and Max_Data=0xFFF.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutA(FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutA)
+__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutA( FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutA )
 {
-  WRITE_REG(FMPI2Cx->TIMEOUTR, TimeoutA);
+    WRITE_REG( FMPI2Cx->TIMEOUTR, TimeoutA );
 }
 
 /**
@@ -1072,9 +1072,9 @@ __STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutA(FMPI2C_TypeDef *FMPI2Cx, uint32_
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutA(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutA( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTA));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTA ) );
 }
 
 /**
@@ -1089,9 +1089,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutA(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_SMBUS_TIMEOUTA_MODE_SDA_SCL_HIGH
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutAMode(FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutAMode)
+__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutAMode( FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutAMode )
 {
-  WRITE_REG(FMPI2Cx->TIMEOUTR, TimeoutAMode);
+    WRITE_REG( FMPI2Cx->TIMEOUTR, TimeoutAMode );
 }
 
 /**
@@ -1104,9 +1104,9 @@ __STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutAMode(FMPI2C_TypeDef *FMPI2Cx, uin
   *         @arg @ref LL_FMPI2C_SMBUS_TIMEOUTA_MODE_SCL_LOW
   *         @arg @ref LL_FMPI2C_SMBUS_TIMEOUTA_MODE_SDA_SCL_HIGH
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutAMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutAMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIDLE));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIDLE ) );
 }
 
 /**
@@ -1119,9 +1119,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutAMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  TimeoutB This parameter must be a value between  Min_Data=0 and Max_Data=0xFFF.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutB(FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutB)
+__STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutB( FMPI2C_TypeDef *FMPI2Cx, uint32_t TimeoutB )
 {
-  WRITE_REG(FMPI2Cx->TIMEOUTR, TimeoutB << FMPI2C_TIMEOUTR_TIMEOUTB_Pos);
+    WRITE_REG( FMPI2Cx->TIMEOUTR, TimeoutB << FMPI2C_TIMEOUTR_TIMEOUTB_Pos );
 }
 
 /**
@@ -1132,9 +1132,9 @@ __STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutB(FMPI2C_TypeDef *FMPI2Cx, uint32_
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutB(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutB( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTB) >> FMPI2C_TIMEOUTR_TIMEOUTB_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->TIMEOUTR, FMPI2C_TIMEOUTR_TIMEOUTB ) >> FMPI2C_TIMEOUTR_TIMEOUTB_Pos );
 }
 
 /**
@@ -1150,9 +1150,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusTimeoutB(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_SMBUS_ALL_TIMEOUT
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout)
+__STATIC_INLINE void LL_FMPI2C_EnableSMBusTimeout( FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout )
 {
-  SET_BIT(FMPI2Cx->TIMEOUTR, ClockTimeout);
+    SET_BIT( FMPI2Cx->TIMEOUTR, ClockTimeout );
 }
 
 /**
@@ -1168,9 +1168,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint3
   *         @arg @ref LL_FMPI2C_SMBUS_ALL_TIMEOUT
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout)
+__STATIC_INLINE void LL_FMPI2C_DisableSMBusTimeout( FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout )
 {
-  CLEAR_BIT(FMPI2Cx->TIMEOUTR, ClockTimeout);
+    CLEAR_BIT( FMPI2Cx->TIMEOUTR, ClockTimeout );
 }
 
 /**
@@ -1186,9 +1186,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint
   *         @arg @ref LL_FMPI2C_SMBUS_ALL_TIMEOUT
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusTimeout( FMPI2C_TypeDef *FMPI2Cx, uint32_t ClockTimeout )
 {
-  return ((READ_BIT(FMPI2Cx->TIMEOUTR, (FMPI2C_TIMEOUTR_TIMOUTEN | FMPI2C_TIMEOUTR_TEXTEN)) == (ClockTimeout)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->TIMEOUTR, ( FMPI2C_TIMEOUTR_TIMOUTEN | FMPI2C_TIMEOUTR_TEXTEN ) ) == ( ClockTimeout ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1205,9 +1205,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusTimeout(FMPI2C_TypeDef *FMPI2Cx
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXIE );
 }
 
 /**
@@ -1216,9 +1216,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXIE );
 }
 
 /**
@@ -1227,9 +1227,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TXIE) == (FMPI2C_CR1_TXIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TXIE ) == ( FMPI2C_CR1_TXIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1238,9 +1238,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXIE );
 }
 
 /**
@@ -1249,9 +1249,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_RX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXIE );
 }
 
 /**
@@ -1260,9 +1260,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_RX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_RX(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_RX( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_RXIE) == (FMPI2C_CR1_RXIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_RXIE ) == ( FMPI2C_CR1_RXIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1271,9 +1271,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_RX(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_ADDR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE );
 }
 
 /**
@@ -1282,9 +1282,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_ADDR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE );
 }
 
 /**
@@ -1293,9 +1293,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ADDR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE) == (FMPI2C_CR1_ADDRIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ADDRIE ) == ( FMPI2C_CR1_ADDRIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1304,9 +1304,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ADDR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_NACK( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NACKIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NACKIE );
 }
 
 /**
@@ -1315,9 +1315,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_NACK( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NACKIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NACKIE );
 }
 
 /**
@@ -1326,9 +1326,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_NACK( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_NACKIE) == (FMPI2C_CR1_NACKIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_NACKIE ) == ( FMPI2C_CR1_NACKIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1337,9 +1337,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_NACK(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_STOP( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_STOPIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_STOPIE );
 }
 
 /**
@@ -1348,9 +1348,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_STOP( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_STOPIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_STOPIE );
 }
 
 /**
@@ -1359,9 +1359,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_STOP( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_STOPIE) == (FMPI2C_CR1_STOPIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_STOPIE ) == ( FMPI2C_CR1_STOPIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1373,9 +1373,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_STOP(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_TC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_TC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TCIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TCIE );
 }
 
 /**
@@ -1387,9 +1387,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_TC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_TC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_TC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TCIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TCIE );
 }
 
 /**
@@ -1398,9 +1398,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_TC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_TCIE) == (FMPI2C_CR1_TCIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_TCIE ) == ( FMPI2C_CR1_TCIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1418,9 +1418,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_TC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableIT_ERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ERRIE);
+    SET_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ERRIE );
 }
 
 /**
@@ -1438,9 +1438,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableIT_ERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ERRIE);
+    CLEAR_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ERRIE );
 }
 
 /**
@@ -1449,9 +1449,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR1, FMPI2C_CR1_ERRIE) == (FMPI2C_CR1_ERRIE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR1, FMPI2C_CR1_ERRIE ) == ( FMPI2C_CR1_ERRIE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1470,9 +1470,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledIT_ERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXE(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXE( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_TXE) == (FMPI2C_ISR_TXE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_TXE ) == ( FMPI2C_ISR_TXE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1483,9 +1483,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXE(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXIS(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXIS( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_TXIS) == (FMPI2C_ISR_TXIS)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_TXIS ) == ( FMPI2C_ISR_TXIS ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1496,9 +1496,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TXIS(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_RXNE(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_RXNE( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_RXNE) == (FMPI2C_ISR_RXNE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_RXNE ) == ( FMPI2C_ISR_RXNE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1509,9 +1509,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_RXNE(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ADDR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ADDR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_ADDR) == (FMPI2C_ISR_ADDR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_ADDR ) == ( FMPI2C_ISR_ADDR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1522,9 +1522,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ADDR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_NACK(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_NACK( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_NACKF) == (FMPI2C_ISR_NACKF)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_NACKF ) == ( FMPI2C_ISR_NACKF ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1535,9 +1535,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_NACK(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_STOP(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_STOP( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_STOPF) == (FMPI2C_ISR_STOPF)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_STOPF ) == ( FMPI2C_ISR_STOPF ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1548,9 +1548,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_STOP(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_TC) == (FMPI2C_ISR_TC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_TC ) == ( FMPI2C_ISR_TC ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1561,9 +1561,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TCR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TCR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_TCR) == (FMPI2C_ISR_TCR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_TCR ) == ( FMPI2C_ISR_TCR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1574,9 +1574,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_TCR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_BERR) == (FMPI2C_ISR_BERR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_BERR ) == ( FMPI2C_ISR_BERR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1587,9 +1587,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ARLO(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ARLO( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_ARLO) == (FMPI2C_ISR_ARLO)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_ARLO ) == ( FMPI2C_ISR_ARLO ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1600,9 +1600,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_ARLO(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_OVR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_OVR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_OVR) == (FMPI2C_ISR_OVR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_OVR ) == ( FMPI2C_ISR_OVR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1615,9 +1615,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_OVR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_PECERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_PECERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_PECERR) == (FMPI2C_ISR_PECERR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_PECERR ) == ( FMPI2C_ISR_PECERR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1630,9 +1630,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_PECERR(FMPI2C_TypeDef *FMPI
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_TIMEOUT(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_TIMEOUT( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_TIMEOUT) == (FMPI2C_ISR_TIMEOUT)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_TIMEOUT ) == ( FMPI2C_ISR_TIMEOUT ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1646,9 +1646,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_TIMEOUT(FMPI2C_TypeDef *FMP
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_ALERT(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_ALERT( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_ALERT) == (FMPI2C_ISR_ALERT)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_ALERT ) == ( FMPI2C_ISR_ALERT ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1659,9 +1659,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveSMBusFlag_ALERT(FMPI2C_TypeDef *FMPI2
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BUSY(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BUSY( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_BUSY) == (FMPI2C_ISR_BUSY)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_BUSY ) == ( FMPI2C_ISR_BUSY ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1670,9 +1670,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsActiveFlag_BUSY(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_ADDR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_ADDR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_ADDRCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_ADDRCF );
 }
 
 /**
@@ -1681,9 +1681,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_ADDR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_NACK(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_NACK( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_NACKCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_NACKCF );
 }
 
 /**
@@ -1692,9 +1692,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_NACK(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_STOP(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_STOP( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_STOPCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_STOPCF );
 }
 
 /**
@@ -1704,9 +1704,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_STOP(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_TXE(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_TXE( FMPI2C_TypeDef *FMPI2Cx )
 {
-  WRITE_REG(FMPI2Cx->ISR, FMPI2C_ISR_TXE);
+    WRITE_REG( FMPI2Cx->ISR, FMPI2C_ISR_TXE );
 }
 
 /**
@@ -1715,9 +1715,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_TXE(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_BERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_BERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_BERRCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_BERRCF );
 }
 
 /**
@@ -1726,9 +1726,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_BERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_ARLO(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_ARLO( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_ARLOCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_ARLOCF );
 }
 
 /**
@@ -1737,9 +1737,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_ARLO(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearFlag_OVR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearFlag_OVR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_OVRCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_OVRCF );
 }
 
 /**
@@ -1750,9 +1750,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearFlag_OVR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_PECERR(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_PECERR( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_PECCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_PECCF );
 }
 
 /**
@@ -1763,9 +1763,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_PECERR(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_TIMEOUT(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_TIMEOUT( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_TIMOUTCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_TIMOUTCF );
 }
 
 /**
@@ -1776,9 +1776,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_TIMEOUT(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_ALERT(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_ALERT( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->ICR, FMPI2C_ICR_ALERTCF);
+    SET_BIT( FMPI2Cx->ICR, FMPI2C_ICR_ALERTCF );
 }
 
 /**
@@ -1797,9 +1797,9 @@ __STATIC_INLINE void LL_FMPI2C_ClearSMBusFlag_ALERT(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableAutoEndMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND );
 }
 
 /**
@@ -1809,9 +1809,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableAutoEndMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND);
+    CLEAR_BIT( FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND );
 }
 
 /**
@@ -1820,9 +1820,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAutoEndMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND) == (FMPI2C_CR2_AUTOEND)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_AUTOEND ) == ( FMPI2C_CR2_AUTOEND ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1832,9 +1832,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAutoEndMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableReloadMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableReloadMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_RELOAD);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_RELOAD );
 }
 
 /**
@@ -1844,9 +1844,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableReloadMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableReloadMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableReloadMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR2, FMPI2C_CR2_RELOAD);
+    CLEAR_BIT( FMPI2Cx->CR2, FMPI2C_CR2_RELOAD );
 }
 
 /**
@@ -1855,9 +1855,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableReloadMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledReloadMode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledReloadMode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_RELOAD) == (FMPI2C_CR2_RELOAD)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_RELOAD ) == ( FMPI2C_CR2_RELOAD ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1868,9 +1868,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledReloadMode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  TransferSize This parameter must be a value between Min_Data=0x00 and Max_Data=0xFF.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetTransferSize(FMPI2C_TypeDef *FMPI2Cx, uint32_t TransferSize)
+__STATIC_INLINE void LL_FMPI2C_SetTransferSize( FMPI2C_TypeDef *FMPI2Cx, uint32_t TransferSize )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_NBYTES, TransferSize << FMPI2C_CR2_NBYTES_Pos);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_NBYTES, TransferSize << FMPI2C_CR2_NBYTES_Pos );
 }
 
 /**
@@ -1879,9 +1879,9 @@ __STATIC_INLINE void LL_FMPI2C_SetTransferSize(FMPI2C_TypeDef *FMPI2Cx, uint32_t
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0xFF
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferSize(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferSize( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_NBYTES) >> FMPI2C_CR2_NBYTES_Pos);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_NBYTES ) >> FMPI2C_CR2_NBYTES_Pos );
 }
 
 /**
@@ -1894,9 +1894,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetTransferSize(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_NACK
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_AcknowledgeNextData(FMPI2C_TypeDef *FMPI2Cx, uint32_t TypeAcknowledge)
+__STATIC_INLINE void LL_FMPI2C_AcknowledgeNextData( FMPI2C_TypeDef *FMPI2Cx, uint32_t TypeAcknowledge )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_NACK, TypeAcknowledge);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_NACK, TypeAcknowledge );
 }
 
 /**
@@ -1907,9 +1907,9 @@ __STATIC_INLINE void LL_FMPI2C_AcknowledgeNextData(FMPI2C_TypeDef *FMPI2Cx, uint
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_GenerateStartCondition(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_GenerateStartCondition( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_START);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_START );
 }
 
 /**
@@ -1918,9 +1918,9 @@ __STATIC_INLINE void LL_FMPI2C_GenerateStartCondition(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_GenerateStopCondition(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_GenerateStopCondition( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_STOP);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_STOP );
 }
 
 /**
@@ -1931,9 +1931,9 @@ __STATIC_INLINE void LL_FMPI2C_GenerateStopCondition(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableAuto10BitRead(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableAuto10BitRead( FMPI2C_TypeDef *FMPI2Cx )
 {
-  CLEAR_BIT(FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R);
+    CLEAR_BIT( FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R );
 }
 
 /**
@@ -1943,9 +1943,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableAuto10BitRead(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_DisableAuto10BitRead(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_DisableAuto10BitRead( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R );
 }
 
 /**
@@ -1954,9 +1954,9 @@ __STATIC_INLINE void LL_FMPI2C_DisableAuto10BitRead(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAuto10BitRead(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAuto10BitRead( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R) != (FMPI2C_CR2_HEAD10R)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_HEAD10R ) != ( FMPI2C_CR2_HEAD10R ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1969,9 +1969,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledAuto10BitRead(FMPI2C_TypeDef *FMPI2C
   *         @arg @ref LL_FMPI2C_REQUEST_READ
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetTransferRequest(FMPI2C_TypeDef *FMPI2Cx, uint32_t TransferRequest)
+__STATIC_INLINE void LL_FMPI2C_SetTransferRequest( FMPI2C_TypeDef *FMPI2Cx, uint32_t TransferRequest )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_RD_WRN, TransferRequest);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_RD_WRN, TransferRequest );
 }
 
 /**
@@ -1982,9 +1982,9 @@ __STATIC_INLINE void LL_FMPI2C_SetTransferRequest(FMPI2C_TypeDef *FMPI2Cx, uint3
   *         @arg @ref LL_FMPI2C_REQUEST_WRITE
   *         @arg @ref LL_FMPI2C_REQUEST_READ
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferRequest(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferRequest( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_RD_WRN));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_RD_WRN ) );
 }
 
 /**
@@ -1995,9 +1995,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetTransferRequest(FMPI2C_TypeDef *FMPI2Cx)
   * @param  SlaveAddr This parameter must be a value between Min_Data=0x00 and Max_Data=0x3F.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_SetSlaveAddr(FMPI2C_TypeDef *FMPI2Cx, uint32_t SlaveAddr)
+__STATIC_INLINE void LL_FMPI2C_SetSlaveAddr( FMPI2C_TypeDef *FMPI2Cx, uint32_t SlaveAddr )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_SADD, SlaveAddr);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_SADD, SlaveAddr );
 }
 
 /**
@@ -2006,9 +2006,9 @@ __STATIC_INLINE void LL_FMPI2C_SetSlaveAddr(FMPI2C_TypeDef *FMPI2Cx, uint32_t Sl
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x0 and Max_Data=0x3F
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetSlaveAddr(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetSlaveAddr( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_SADD));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_SADD ) );
 }
 
 /**
@@ -2049,12 +2049,12 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSlaveAddr(FMPI2C_TypeDef *FMPI2Cx)
   *         @arg @ref LL_FMPI2C_GENERATE_RESTART_10BIT_WRITE
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_HandleTransfer(FMPI2C_TypeDef *FMPI2Cx, uint32_t SlaveAddr, uint32_t SlaveAddrSize,
-                                           uint32_t TransferSize, uint32_t EndMode, uint32_t Request)
+__STATIC_INLINE void LL_FMPI2C_HandleTransfer( FMPI2C_TypeDef *FMPI2Cx, uint32_t SlaveAddr, uint32_t SlaveAddrSize,
+        uint32_t TransferSize, uint32_t EndMode, uint32_t Request )
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_SADD | FMPI2C_CR2_ADD10 | (FMPI2C_CR2_RD_WRN & (uint32_t)(Request >> (31U - FMPI2C_CR2_RD_WRN_Pos))) | FMPI2C_CR2_START | FMPI2C_CR2_STOP | FMPI2C_CR2_RELOAD |
-             FMPI2C_CR2_NBYTES | FMPI2C_CR2_AUTOEND | FMPI2C_CR2_HEAD10R,
-             SlaveAddr | SlaveAddrSize | (TransferSize << FMPI2C_CR2_NBYTES_Pos) | EndMode | Request);
+    MODIFY_REG( FMPI2Cx->CR2, FMPI2C_CR2_SADD | FMPI2C_CR2_ADD10 | ( FMPI2C_CR2_RD_WRN & ( uint32_t )( Request >> ( 31U - FMPI2C_CR2_RD_WRN_Pos ) ) ) | FMPI2C_CR2_START | FMPI2C_CR2_STOP | FMPI2C_CR2_RELOAD |
+                FMPI2C_CR2_NBYTES | FMPI2C_CR2_AUTOEND | FMPI2C_CR2_HEAD10R,
+                SlaveAddr | SlaveAddrSize | ( TransferSize << FMPI2C_CR2_NBYTES_Pos ) | EndMode | Request );
 }
 
 /**
@@ -2067,9 +2067,9 @@ __STATIC_INLINE void LL_FMPI2C_HandleTransfer(FMPI2C_TypeDef *FMPI2Cx, uint32_t 
   *         @arg @ref LL_FMPI2C_DIRECTION_WRITE
   *         @arg @ref LL_FMPI2C_DIRECTION_READ
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferDirection(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetTransferDirection( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_DIR));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_DIR ) );
 }
 
 /**
@@ -2078,9 +2078,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetTransferDirection(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0x3F
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetAddressMatchCode(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetAddressMatchCode( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->ISR, FMPI2C_ISR_ADDCODE) >> FMPI2C_ISR_ADDCODE_Pos << 1);
+    return ( uint32_t )( READ_BIT( FMPI2Cx->ISR, FMPI2C_ISR_ADDCODE ) >> FMPI2C_ISR_ADDCODE_Pos << 1 );
 }
 
 /**
@@ -2094,9 +2094,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetAddressMatchCode(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_EnableSMBusPECCompare(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE void LL_FMPI2C_EnableSMBusPECCompare( FMPI2C_TypeDef *FMPI2Cx )
 {
-  SET_BIT(FMPI2Cx->CR2, FMPI2C_CR2_PECBYTE);
+    SET_BIT( FMPI2Cx->CR2, FMPI2C_CR2_PECBYTE );
 }
 
 /**
@@ -2107,9 +2107,9 @@ __STATIC_INLINE void LL_FMPI2C_EnableSMBusPECCompare(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPECCompare(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPECCompare( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return ((READ_BIT(FMPI2Cx->CR2, FMPI2C_CR2_PECBYTE) == (FMPI2C_CR2_PECBYTE)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FMPI2Cx->CR2, FMPI2C_CR2_PECBYTE ) == ( FMPI2C_CR2_PECBYTE ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -2120,9 +2120,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPECCompare(FMPI2C_TypeDef *FMPI
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
 */
-__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusPEC( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint32_t)(READ_BIT(FMPI2Cx->PECR, FMPI2C_PECR_PEC));
+    return ( uint32_t )( READ_BIT( FMPI2Cx->PECR, FMPI2C_PECR_PEC ) );
 }
 
 /**
@@ -2131,9 +2131,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint8_t LL_FMPI2C_ReceiveData8(FMPI2C_TypeDef *FMPI2Cx)
+__STATIC_INLINE uint8_t LL_FMPI2C_ReceiveData8( FMPI2C_TypeDef *FMPI2Cx )
 {
-  return (uint8_t)(READ_BIT(FMPI2Cx->RXDR, FMPI2C_RXDR_RXDATA));
+    return ( uint8_t )( READ_BIT( FMPI2Cx->RXDR, FMPI2C_RXDR_RXDATA ) );
 }
 
 /**
@@ -2143,9 +2143,9 @@ __STATIC_INLINE uint8_t LL_FMPI2C_ReceiveData8(FMPI2C_TypeDef *FMPI2Cx)
   * @param  Data Value between Min_Data=0x00 and Max_Data=0xFF
   * @retval None
   */
-__STATIC_INLINE void LL_FMPI2C_TransmitData8(FMPI2C_TypeDef *FMPI2Cx, uint8_t Data)
+__STATIC_INLINE void LL_FMPI2C_TransmitData8( FMPI2C_TypeDef *FMPI2Cx, uint8_t Data )
 {
-  WRITE_REG(FMPI2Cx->TXDR, Data);
+    WRITE_REG( FMPI2Cx->TXDR, Data );
 }
 
 /**
@@ -2157,9 +2157,9 @@ __STATIC_INLINE void LL_FMPI2C_TransmitData8(FMPI2C_TypeDef *FMPI2Cx, uint8_t Da
   * @{
   */
 
-ErrorStatus LL_FMPI2C_Init(FMPI2C_TypeDef *FMPI2Cx, LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct);
-ErrorStatus LL_FMPI2C_DeInit(FMPI2C_TypeDef *FMPI2Cx);
-void LL_FMPI2C_StructInit(LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct);
+ErrorStatus LL_FMPI2C_Init( FMPI2C_TypeDef *FMPI2Cx, LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct );
+ErrorStatus LL_FMPI2C_DeInit( FMPI2C_TypeDef *FMPI2Cx );
+void LL_FMPI2C_StructInit( LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct );
 
 
 /**

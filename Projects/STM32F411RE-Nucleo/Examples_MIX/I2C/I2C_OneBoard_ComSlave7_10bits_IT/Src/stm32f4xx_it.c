@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    Examples_MIX/I2C/I2C_OneBoard_ComSlave7_10bits_IT/Src/stm32f4xx_it.c 
+  * @file    Examples_MIX/I2C/I2C_OneBoard_ComSlave7_10bits_IT/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -67,7 +67,7 @@ extern I2C_HandleTypeDef I2cSlaveHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -76,12 +76,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -89,12 +89,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -102,12 +102,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -115,12 +115,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -128,7 +128,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -137,7 +137,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -146,7 +146,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -155,9 +155,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -172,9 +172,9 @@ void SysTick_Handler(void)
   * @retval None
   * @Note   This function is redefined in "main.h" and related to I2C data transmission
   */
-void I2Cx_MASTER_EV_IRQHandler(void)
+void I2Cx_MASTER_EV_IRQHandler( void )
 {
-  HAL_I2C_EV_IRQHandler(&I2cMasterHandle);
+    HAL_I2C_EV_IRQHandler( &I2cMasterHandle );
 }
 
 /**
@@ -183,9 +183,9 @@ void I2Cx_MASTER_EV_IRQHandler(void)
   * @retval None
   * @Note   This function is redefined in "main.h" and related to I2C error
   */
-void I2Cx_MASTER_ER_IRQHandler(void)
+void I2Cx_MASTER_ER_IRQHandler( void )
 {
-  HAL_I2C_ER_IRQHandler(&I2cMasterHandle);
+    HAL_I2C_ER_IRQHandler( &I2cMasterHandle );
 }
 
 /**
@@ -194,9 +194,9 @@ void I2Cx_MASTER_ER_IRQHandler(void)
   * @retval None
   * @Note   This function is redefined in "main.h" and related to I2C data transmission
   */
-void I2Cx_SLAVE_EV_IRQHandler(void)
+void I2Cx_SLAVE_EV_IRQHandler( void )
 {
-  HAL_I2C_EV_IRQHandler(&I2cSlaveHandle);
+    HAL_I2C_EV_IRQHandler( &I2cSlaveHandle );
 }
 
 /**
@@ -205,9 +205,9 @@ void I2Cx_SLAVE_EV_IRQHandler(void)
   * @retval None
   * @Note   This function is redefined in "main.h" and related to I2C error
   */
-void I2Cx_SLAVE_ER_IRQHandler(void)
+void I2Cx_SLAVE_ER_IRQHandler( void )
 {
-  HAL_I2C_ER_IRQHandler(&I2cSlaveHandle);
+    HAL_I2C_ER_IRQHandler( &I2cSlaveHandle );
 }
 /**
   * @}

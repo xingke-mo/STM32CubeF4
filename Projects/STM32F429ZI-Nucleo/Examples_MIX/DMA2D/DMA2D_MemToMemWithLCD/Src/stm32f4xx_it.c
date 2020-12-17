@@ -64,7 +64,7 @@ extern __IO uint32_t   blended_image_ready;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -73,12 +73,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -86,12 +86,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -99,12 +99,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -112,12 +112,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -125,7 +125,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -134,7 +134,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -143,7 +143,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -152,7 +152,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -168,23 +168,23 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void DMA2D_IRQHandler(void)
-{  
-  if (   (LL_DMA2D_IsActiveFlag_TE(DMA2D))
-      || (LL_DMA2D_IsActiveFlag_CE(DMA2D))  )
-  {
-    /* Call Error function */
-    OnError_Handler(1);
-  }
-  
-   if (LL_DMA2D_IsActiveFlag_TC(DMA2D) )
-   {
-    /* Turn LED1 On */
-     BSP_LED_On(LED1);
-     /* The Blended image is now ready for display */
-     blended_image_ready = 1;
-     LL_DMA2D_ClearFlag_TC(DMA2D);
-   }
+void DMA2D_IRQHandler( void )
+{
+    if( ( LL_DMA2D_IsActiveFlag_TE( DMA2D ) )
+            || ( LL_DMA2D_IsActiveFlag_CE( DMA2D ) ) )
+    {
+        /* Call Error function */
+        OnError_Handler( 1 );
+    }
+
+    if( LL_DMA2D_IsActiveFlag_TC( DMA2D ) )
+    {
+        /* Turn LED1 On */
+        BSP_LED_On( LED1 );
+        /* The Blended image is now ready for display */
+        blended_image_ready = 1;
+        LL_DMA2D_ClearFlag_TC( DMA2D );
+    }
 }
 
 

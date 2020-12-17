@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    BSP/Src/stm32f4xx_it.c 
+  * @file    BSP/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -37,7 +37,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32f4xx_it.h"   
+#include "stm32f4xx_it.h"
 
 
 /** @addtogroup STM32F4xx_HAL_Examples
@@ -53,7 +53,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 #ifdef EE_M24LR64
-extern I2C_HandleTypeDef I2cHandle;
+    extern I2C_HandleTypeDef I2cHandle;
 #endif /* EE_M24LR64 */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,7 +68,7 @@ extern I2C_HandleTypeDef I2cHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -77,12 +77,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -90,12 +90,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -103,12 +103,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -116,12 +116,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -129,7 +129,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -138,7 +138,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -147,7 +147,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -156,10 +156,10 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
-  Toggle_Leds();
+    HAL_IncTick();
+    Toggle_Leds();
 }
 
 /******************************************************************************/
@@ -174,9 +174,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(KEY_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( KEY_BUTTON_PIN );
 }
 
 #ifdef EE_M24LR64
@@ -185,9 +185,9 @@ void EXTI0_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void I2C3_EV_IRQHandler(void)
+void I2C3_EV_IRQHandler( void )
 {
-  HAL_I2C_EV_IRQHandler(&I2cHandle);
+    HAL_I2C_EV_IRQHandler( &I2cHandle );
 }
 
 /**
@@ -195,9 +195,9 @@ void I2C3_EV_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void I2C3_ER_IRQHandler(void)
+void I2C3_ER_IRQHandler( void )
 {
-  HAL_I2C_ER_IRQHandler(&I2cHandle);
+    HAL_I2C_ER_IRQHandler( &I2cHandle );
 }
 
 /**
@@ -205,9 +205,9 @@ void I2C3_ER_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EEPROM_I2C_DMA_TX_IRQHandler(void)
-{ 
-  HAL_DMA_IRQHandler(I2cHandle.hdmatx);
+void EEPROM_I2C_DMA_TX_IRQHandler( void )
+{
+    HAL_DMA_IRQHandler( I2cHandle.hdmatx );
 }
 
 /**
@@ -215,15 +215,15 @@ void EEPROM_I2C_DMA_TX_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EEPROM_I2C_DMA_RX_IRQHandler(void)
-{ 
-  HAL_DMA_IRQHandler(I2cHandle.hdmarx);
+void EEPROM_I2C_DMA_RX_IRQHandler( void )
+{
+    HAL_DMA_IRQHandler( I2cHandle.hdmarx );
 }
 #endif /* EE_M24LR64 */
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}

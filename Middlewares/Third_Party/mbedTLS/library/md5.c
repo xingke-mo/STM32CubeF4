@@ -25,9 +25,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_MD5_C)
@@ -38,12 +38,12 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_MD5_ALT)
@@ -79,7 +79,9 @@ void mbedtls_md5_init( mbedtls_md5_context *ctx )
 void mbedtls_md5_free( mbedtls_md5_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_md5_context ) );
 }
@@ -264,22 +266,29 @@ int mbedtls_md5_update_ret( mbedtls_md5_context *ctx,
     uint32_t left;
 
     if( ilen == 0 )
+    {
         return( 0 );
+    }
 
     left = ctx->total[0] & 0x3F;
     fill = 64 - left;
 
-    ctx->total[0] += (uint32_t) ilen;
+    ctx->total[0] += ( uint32_t ) ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if( ctx->total[0] < (uint32_t) ilen )
+    if( ctx->total[0] < ( uint32_t ) ilen )
+    {
         ctx->total[1]++;
+    }
 
     if( left && ilen >= fill )
     {
-        memcpy( (void *) (ctx->buffer + left), input, fill );
+        memcpy( ( void * )( ctx->buffer + left ), input, fill );
+
         if( ( ret = mbedtls_internal_md5_process( ctx, ctx->buffer ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += fill;
         ilen  -= fill;
@@ -289,7 +298,9 @@ int mbedtls_md5_update_ret( mbedtls_md5_context *ctx,
     while( ilen >= 64 )
     {
         if( ( ret = mbedtls_internal_md5_process( ctx, input ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += 64;
         ilen  -= 64;
@@ -297,7 +308,7 @@ int mbedtls_md5_update_ret( mbedtls_md5_context *ctx,
 
     if( ilen > 0 )
     {
-        memcpy( (void *) (ctx->buffer + left), input, ilen );
+        memcpy( ( void * )( ctx->buffer + left ), input, ilen );
     }
 
     return( 0 );
@@ -340,7 +351,9 @@ int mbedtls_md5_finish_ret( mbedtls_md5_context *ctx,
         memset( ctx->buffer + used, 0, 64 - used );
 
         if( ( ret = mbedtls_internal_md5_process( ctx, ctx->buffer ) ) != 0 )
+        {
             return( ret );
+        }
 
         memset( ctx->buffer, 0, 56 );
     }
@@ -349,14 +362,16 @@ int mbedtls_md5_finish_ret( mbedtls_md5_context *ctx,
      * Add message length
      */
     high = ( ctx->total[0] >> 29 )
-         | ( ctx->total[1] <<  3 );
+           | ( ctx->total[1] <<  3 );
     low  = ( ctx->total[0] <<  3 );
 
     PUT_UINT32_LE( low,  ctx->buffer, 56 );
     PUT_UINT32_LE( high, ctx->buffer, 60 );
 
     if( ( ret = mbedtls_internal_md5_process( ctx, ctx->buffer ) ) != 0 )
+    {
         return( ret );
+    }
 
     /*
      * Output final state
@@ -392,13 +407,19 @@ int mbedtls_md5_ret( const unsigned char *input,
     mbedtls_md5_init( &ctx );
 
     if( ( ret = mbedtls_md5_starts_ret( &ctx ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_md5_update_ret( &ctx, input, ilen ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_md5_finish_ret( &ctx, output ) ) != 0 )
+    {
         goto exit;
+    }
 
 exit:
     mbedtls_md5_free( &ctx );
@@ -427,8 +448,10 @@ static const unsigned char md5_test_buf[7][81] =
     { "message digest" },
     { "abcdefghijklmnopqrstuvwxyz" },
     { "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" },
-    { "12345678901234567890123456789012345678901234567890123456789012"
-      "345678901234567890" }
+    {
+        "12345678901234567890123456789012345678901234567890123456789012"
+        "345678901234567890"
+    }
 };
 
 static const size_t md5_test_buflen[7] =
@@ -438,20 +461,34 @@ static const size_t md5_test_buflen[7] =
 
 static const unsigned char md5_test_sum[7][16] =
 {
-    { 0xD4, 0x1D, 0x8C, 0xD9, 0x8F, 0x00, 0xB2, 0x04,
-      0xE9, 0x80, 0x09, 0x98, 0xEC, 0xF8, 0x42, 0x7E },
-    { 0x0C, 0xC1, 0x75, 0xB9, 0xC0, 0xF1, 0xB6, 0xA8,
-      0x31, 0xC3, 0x99, 0xE2, 0x69, 0x77, 0x26, 0x61 },
-    { 0x90, 0x01, 0x50, 0x98, 0x3C, 0xD2, 0x4F, 0xB0,
-      0xD6, 0x96, 0x3F, 0x7D, 0x28, 0xE1, 0x7F, 0x72 },
-    { 0xF9, 0x6B, 0x69, 0x7D, 0x7C, 0xB7, 0x93, 0x8D,
-      0x52, 0x5A, 0x2F, 0x31, 0xAA, 0xF1, 0x61, 0xD0 },
-    { 0xC3, 0xFC, 0xD3, 0xD7, 0x61, 0x92, 0xE4, 0x00,
-      0x7D, 0xFB, 0x49, 0x6C, 0xCA, 0x67, 0xE1, 0x3B },
-    { 0xD1, 0x74, 0xAB, 0x98, 0xD2, 0x77, 0xD9, 0xF5,
-      0xA5, 0x61, 0x1C, 0x2C, 0x9F, 0x41, 0x9D, 0x9F },
-    { 0x57, 0xED, 0xF4, 0xA2, 0x2B, 0xE3, 0xC9, 0x55,
-      0xAC, 0x49, 0xDA, 0x2E, 0x21, 0x07, 0xB6, 0x7A }
+    {
+        0xD4, 0x1D, 0x8C, 0xD9, 0x8F, 0x00, 0xB2, 0x04,
+        0xE9, 0x80, 0x09, 0x98, 0xEC, 0xF8, 0x42, 0x7E
+    },
+    {
+        0x0C, 0xC1, 0x75, 0xB9, 0xC0, 0xF1, 0xB6, 0xA8,
+        0x31, 0xC3, 0x99, 0xE2, 0x69, 0x77, 0x26, 0x61
+    },
+    {
+        0x90, 0x01, 0x50, 0x98, 0x3C, 0xD2, 0x4F, 0xB0,
+        0xD6, 0x96, 0x3F, 0x7D, 0x28, 0xE1, 0x7F, 0x72
+    },
+    {
+        0xF9, 0x6B, 0x69, 0x7D, 0x7C, 0xB7, 0x93, 0x8D,
+        0x52, 0x5A, 0x2F, 0x31, 0xAA, 0xF1, 0x61, 0xD0
+    },
+    {
+        0xC3, 0xFC, 0xD3, 0xD7, 0x61, 0x92, 0xE4, 0x00,
+        0x7D, 0xFB, 0x49, 0x6C, 0xCA, 0x67, 0xE1, 0x3B
+    },
+    {
+        0xD1, 0x74, 0xAB, 0x98, 0xD2, 0x77, 0xD9, 0xF5,
+        0xA5, 0x61, 0x1C, 0x2C, 0x9F, 0x41, 0x9D, 0x9F
+    },
+    {
+        0x57, 0xED, 0xF4, 0xA2, 0x2B, 0xE3, 0xC9, 0x55,
+        0xAC, 0x49, 0xDA, 0x2E, 0x21, 0x07, 0xB6, 0x7A
+    }
 };
 
 /*
@@ -465,11 +502,16 @@ int mbedtls_md5_self_test( int verbose )
     for( i = 0; i < 7; i++ )
     {
         if( verbose != 0 )
+        {
             mbedtls_printf( "  MD5 test #%d: ", i + 1 );
+        }
 
         ret = mbedtls_md5_ret( md5_test_buf[i], md5_test_buflen[i], md5sum );
+
         if( ret != 0 )
+        {
             goto fail;
+        }
 
         if( memcmp( md5sum, md5_test_sum[i], 16 ) != 0 )
         {
@@ -478,17 +520,24 @@ int mbedtls_md5_self_test( int verbose )
         }
 
         if( verbose != 0 )
+        {
             mbedtls_printf( "passed\n" );
+        }
     }
 
     if( verbose != 0 )
+    {
         mbedtls_printf( "\n" );
+    }
 
     return( 0 );
 
 fail:
+
     if( verbose != 0 )
+    {
         mbedtls_printf( "failed\n" );
+    }
 
     return( ret );
 }

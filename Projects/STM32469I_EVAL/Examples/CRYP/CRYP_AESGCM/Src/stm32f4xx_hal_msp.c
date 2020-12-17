@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    CRYP/CRYP_AESModes/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @brief   HAL MSP module.    
+  * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
@@ -30,8 +30,8 @@
   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
-  ******************************************************************************  
-  */ 
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -58,15 +58,15 @@
 
 /**
   * @brief  Initializes the CRYP MSP.
-  *        This function configures the hardware resources used in this example: 
+  *        This function configures the hardware resources used in this example:
   *           - CRYP's clock enable
   * @param  hcryp: CRYP handle pointer
   * @retval None
   */
-void HAL_CRYP_MspInit(CRYP_HandleTypeDef *hcryp)
+void HAL_CRYP_MspInit( CRYP_HandleTypeDef *hcryp )
 {
-  /* Enable CRYP clock */
-  __HAL_RCC_CRYP_CLK_ENABLE();  
+    /* Enable CRYP clock */
+    __HAL_RCC_CRYP_CLK_ENABLE();
 }
 
 /**

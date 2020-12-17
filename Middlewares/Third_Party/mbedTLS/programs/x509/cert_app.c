@@ -20,23 +20,23 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_time            time
-#define mbedtls_time_t          time_t
-#define mbedtls_fprintf         fprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_time            time
+    #define mbedtls_time_t          time_t
+    #define mbedtls_fprintf         fprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_ENTROPY_C) ||  \
@@ -46,11 +46,11 @@
     !defined(MBEDTLS_CTR_DRBG_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_ENTROPY_C and/or "
-           "MBEDTLS_SSL_TLS_C and/or MBEDTLS_SSL_CLI_C and/or "
-           "MBEDTLS_NET_C and/or MBEDTLS_RSA_C and/or "
-           "MBEDTLS_X509_CRT_PARSE_C and/or MBEDTLS_FS_IO and/or "
-           "MBEDTLS_CTR_DRBG_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_ENTROPY_C and/or "
+                    "MBEDTLS_SSL_TLS_C and/or MBEDTLS_SSL_CLI_C and/or "
+                    "MBEDTLS_NET_C and/or MBEDTLS_RSA_C and/or "
+                    "MBEDTLS_X509_CRT_PARSE_C and/or MBEDTLS_FS_IO and/or "
+                    "MBEDTLS_CTR_DRBG_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -132,23 +132,25 @@ static void my_debug( void *ctx, int level,
                       const char *file, int line,
                       const char *str )
 {
-    ((void) level);
+    ( ( void ) level );
 
-    mbedtls_fprintf( (FILE *) ctx, "%s:%04d: %s", file, line, str );
-    fflush(  (FILE *) ctx  );
+    mbedtls_fprintf( ( FILE * ) ctx, "%s:%04d: %s", file, line, str );
+    fflush( ( FILE * ) ctx );
 }
 
 static int my_verify( void *data, mbedtls_x509_crt *crt, int depth, uint32_t *flags )
 {
     char buf[1024];
-    ((void) data);
+    ( ( void ) data );
 
     mbedtls_printf( "\nVerify requested for (Depth %d):\n", depth );
     mbedtls_x509_crt_info( buf, sizeof( buf ) - 1, "", crt );
     mbedtls_printf( "%s", buf );
 
-    if ( ( *flags ) == 0 )
+    if( ( *flags ) == 0 )
+    {
         mbedtls_printf( "  This certificate has no flags\n" );
+    }
     else
     {
         mbedtls_x509_crt_verify_info( buf, sizeof( buf ), "  ! ", *flags );
@@ -189,12 +191,12 @@ int main( int argc, char *argv[] )
 #else
     /* Zeroize structure as CRL parsing is not supported and we have to pass
        it to the verify function */
-    memset( &cacrl, 0, sizeof(mbedtls_x509_crl) );
+    memset( &cacrl, 0, sizeof( mbedtls_x509_crl ) );
 #endif
 
     if( argc == 0 )
     {
-    usage:
+usage:
         mbedtls_printf( USAGE );
         goto exit;
     }
@@ -212,51 +214,83 @@ int main( int argc, char *argv[] )
     for( i = 1; i < argc; i++ )
     {
         p = argv[i];
+
         if( ( q = strchr( p, '=' ) ) == NULL )
+        {
             goto usage;
+        }
+
         *q++ = '\0';
 
         for( j = 0; p + j < q; j++ )
         {
             if( argv[i][j] >= 'A' && argv[i][j] <= 'Z' )
+            {
                 argv[i][j] |= 0x20;
+            }
         }
 
         if( strcmp( p, "mode" ) == 0 )
         {
             if( strcmp( q, "file" ) == 0 )
+            {
                 opt.mode = MODE_FILE;
+            }
             else if( strcmp( q, "ssl" ) == 0 )
+            {
                 opt.mode = MODE_SSL;
+            }
             else
+            {
                 goto usage;
+            }
         }
         else if( strcmp( p, "filename" ) == 0 )
+        {
             opt.filename = q;
+        }
         else if( strcmp( p, "ca_file" ) == 0 )
+        {
             opt.ca_file = q;
+        }
         else if( strcmp( p, "crl_file" ) == 0 )
+        {
             opt.crl_file = q;
+        }
         else if( strcmp( p, "ca_path" ) == 0 )
+        {
             opt.ca_path = q;
+        }
         else if( strcmp( p, "server_name" ) == 0 )
+        {
             opt.server_name = q;
+        }
         else if( strcmp( p, "server_port" ) == 0 )
+        {
             opt.server_port = q;
+        }
         else if( strcmp( p, "debug_level" ) == 0 )
         {
             opt.debug_level = atoi( q );
+
             if( opt.debug_level < 0 || opt.debug_level > 65535 )
+            {
                 goto usage;
+            }
         }
         else if( strcmp( p, "permissive" ) == 0 )
         {
             opt.permissive = atoi( q );
+
             if( opt.permissive < 0 || opt.permissive > 1 )
+            {
                 goto usage;
+            }
         }
         else
+        {
             goto usage;
+        }
     }
 
     /*
@@ -289,6 +323,7 @@ int main( int argc, char *argv[] )
     mbedtls_printf( " ok (%d skipped)\n", ret );
 
 #if defined(MBEDTLS_X509_CRL_PARSE_C)
+
     if( strlen( opt.crl_file ) )
     {
         if( ( ret = mbedtls_x509_crl_parse_file( &cacrl, opt.crl_file ) ) != 0 )
@@ -299,6 +334,7 @@ int main( int argc, char *argv[] )
 
         verify = 1;
     }
+
 #endif
 
     if( opt.mode == MODE_FILE )
@@ -337,8 +373,9 @@ int main( int argc, char *argv[] )
         while( cur != NULL )
         {
             mbedtls_printf( "  . Peer certificate information    ...\n" );
-            ret = mbedtls_x509_crt_info( (char *) buf, sizeof( buf ) - 1, "      ",
-                                 cur );
+            ret = mbedtls_x509_crt_info( ( char * ) buf, sizeof( buf ) - 1, "      ",
+                                         cur );
+
             if( ret == -1 )
             {
                 mbedtls_printf( " failed\n  !  mbedtls_x509_crt_info returned %d\n\n", ret );
@@ -359,7 +396,7 @@ int main( int argc, char *argv[] )
             mbedtls_printf( "  . Verifying X.509 certificate..." );
 
             if( ( ret = mbedtls_x509_crt_verify( &crt, &cacert, &cacrl, NULL, &flags,
-                                         my_verify, NULL ) ) != 0 )
+                                                 my_verify, NULL ) ) != 0 )
             {
                 char vrfy_buf[512];
 
@@ -370,7 +407,9 @@ int main( int argc, char *argv[] )
                 mbedtls_printf( "%s\n", vrfy_buf );
             }
             else
+            {
                 mbedtls_printf( " ok\n" );
+            }
         }
 
         mbedtls_x509_crt_free( &crt );
@@ -384,9 +423,10 @@ int main( int argc, char *argv[] )
         fflush( stdout );
 
         mbedtls_entropy_init( &entropy );
+
         if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                                   (const unsigned char *) pers,
-                                   strlen( pers ) ) ) != 0 )
+                                           ( const unsigned char * ) pers,
+                                           strlen( pers ) ) ) != 0 )
         {
             mbedtls_printf( " failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret );
             goto ssl_exit;
@@ -402,11 +442,11 @@ int main( int argc, char *argv[] )
          * 2. Start the connection
          */
         mbedtls_printf( "  . SSL connection to tcp/%s/%s...", opt.server_name,
-                                                              opt.server_port );
+                        opt.server_port );
         fflush( stdout );
 
         if( ( ret = mbedtls_net_connect( &server_fd, opt.server_name,
-                                 opt.server_port, MBEDTLS_NET_PROTO_TCP ) ) != 0 )
+                                         opt.server_port, MBEDTLS_NET_PROTO_TCP ) ) != 0 )
         {
             mbedtls_printf( " failed\n  ! mbedtls_net_connect returned %d\n\n", ret );
             goto ssl_exit;
@@ -416,9 +456,9 @@ int main( int argc, char *argv[] )
          * 3. Setup stuff
          */
         if( ( ret = mbedtls_ssl_config_defaults( &conf,
-                        MBEDTLS_SSL_IS_CLIENT,
-                        MBEDTLS_SSL_TRANSPORT_STREAM,
-                        MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
+                    MBEDTLS_SSL_IS_CLIENT,
+                    MBEDTLS_SSL_TRANSPORT_STREAM,
+                    MBEDTLS_SSL_PRESET_DEFAULT ) ) != 0 )
         {
             mbedtls_printf( " failed\n  ! mbedtls_ssl_config_defaults returned %d\n\n", ret );
             goto exit;
@@ -431,7 +471,9 @@ int main( int argc, char *argv[] )
             mbedtls_ssl_conf_verify( &conf, my_verify, NULL );
         }
         else
+        {
             mbedtls_ssl_conf_authmode( &conf, MBEDTLS_SSL_VERIFY_NONE );
+        }
 
         mbedtls_ssl_conf_rng( &conf, mbedtls_ctr_drbg_random, &ctr_drbg );
         mbedtls_ssl_conf_dbg( &conf, my_debug, stdout );
@@ -468,8 +510,9 @@ int main( int argc, char *argv[] )
          * 5. Print the certificate
          */
         mbedtls_printf( "  . Peer certificate information    ...\n" );
-        ret = mbedtls_x509_crt_info( (char *) buf, sizeof( buf ) - 1, "      ",
-                             ssl.session->peer_cert );
+        ret = mbedtls_x509_crt_info( ( char * ) buf, sizeof( buf ) - 1, "      ",
+                                     ssl.session->peer_cert );
+
         if( ret == -1 )
         {
             mbedtls_printf( " failed\n  !  mbedtls_x509_crt_info returned %d\n\n", ret );
@@ -485,7 +528,9 @@ ssl_exit:
         mbedtls_ssl_config_free( &conf );
     }
     else
+    {
         goto usage;
+    }
 
     exit_code = MBEDTLS_EXIT_SUCCESS;
 

@@ -20,33 +20,33 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_fprintf         fprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_fprintf         fprintf
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if defined(MBEDTLS_BIGNUM_C) && defined(MBEDTLS_PK_PARSE_C) && \
     defined(MBEDTLS_ENTROPY_C) && defined(MBEDTLS_FS_IO) && \
     defined(MBEDTLS_CTR_DRBG_C)
-#include "mbedtls/error.h"
-#include "mbedtls/pk.h"
-#include "mbedtls/entropy.h"
-#include "mbedtls/ctr_drbg.h"
+    #include "mbedtls/error.h"
+    #include "mbedtls/pk.h"
+    #include "mbedtls/entropy.h"
+    #include "mbedtls/ctr_drbg.h"
 
-#include <stdio.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <string.h>
 #endif
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_PK_PARSE_C) ||  \
@@ -54,9 +54,9 @@
     !defined(MBEDTLS_CTR_DRBG_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_PK_PARSE_C and/or "
-           "MBEDTLS_ENTROPY_C and/or MBEDTLS_FS_IO and/or "
-           "MBEDTLS_CTR_DRBG_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_PK_PARSE_C and/or "
+                    "MBEDTLS_ENTROPY_C and/or MBEDTLS_FS_IO and/or "
+                    "MBEDTLS_CTR_DRBG_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -105,7 +105,7 @@ int main( int argc, char *argv[] )
     fflush( stdout );
 
     if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func,
-                                       &entropy, (const unsigned char *) pers,
+                                       &entropy, ( const unsigned char * ) pers,
                                        strlen( pers ) ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_ctr_drbg_seed returned -0x%04x\n",
@@ -137,8 +137,8 @@ int main( int argc, char *argv[] )
     fflush( stdout );
 
     if( ( ret = mbedtls_pk_encrypt( &pk, input, strlen( argv[2] ),
-                            buf, &olen, sizeof(buf),
-                            mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+                                    buf, &olen, sizeof( buf ),
+                                    mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
     {
         mbedtls_printf( " failed\n  ! mbedtls_pk_encrypt returned -0x%04x\n",
                         -ret );
@@ -159,7 +159,7 @@ int main( int argc, char *argv[] )
     for( i = 0; i < olen; i++ )
     {
         mbedtls_fprintf( f, "%02X%s", buf[i],
-                 ( i + 1 ) % 16 == 0 ? "\r\n" : " " );
+                         ( i + 1 ) % 16 == 0 ? "\r\n" : " " );
     }
 
     fclose( f );
@@ -175,11 +175,13 @@ exit:
     mbedtls_ctr_drbg_free( &ctr_drbg );
 
 #if defined(MBEDTLS_ERROR_C)
+
     if( exit_code != MBEDTLS_EXIT_SUCCESS )
     {
-        mbedtls_strerror( ret, (char *) buf, sizeof( buf ) );
+        mbedtls_strerror( ret, ( char * ) buf, sizeof( buf ) );
         mbedtls_printf( "  !  Last error was: %s\n", buf );
     }
+
 #endif
 
 #if defined(_WIN32)

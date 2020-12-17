@@ -67,8 +67,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* CMSIS OS macros */
 #if (USBH_USE_OS == 1)
-  #include "cmsis_os.h"
-  #define   USBH_PROCESS_PRIO    osPriorityNormal
+    #include "cmsis_os.h"
+    #define   USBH_PROCESS_PRIO    osPriorityNormal
 #endif
 
 /* Memory management macros */

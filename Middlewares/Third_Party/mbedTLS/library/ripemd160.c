@@ -26,9 +26,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_RIPEMD160_C)
@@ -39,12 +39,12 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_RIPEMD160_ALT)
@@ -80,13 +80,15 @@ void mbedtls_ripemd160_init( mbedtls_ripemd160_context *ctx )
 void mbedtls_ripemd160_free( mbedtls_ripemd160_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_ripemd160_context ) );
 }
 
 void mbedtls_ripemd160_clone( mbedtls_ripemd160_context *dst,
-                        const mbedtls_ripemd160_context *src )
+                              const mbedtls_ripemd160_context *src )
 {
     *dst = *src;
 }
@@ -327,23 +329,29 @@ int mbedtls_ripemd160_update_ret( mbedtls_ripemd160_context *ctx,
     uint32_t left;
 
     if( ilen == 0 )
+    {
         return( 0 );
+    }
 
     left = ctx->total[0] & 0x3F;
     fill = 64 - left;
 
-    ctx->total[0] += (uint32_t) ilen;
+    ctx->total[0] += ( uint32_t ) ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if( ctx->total[0] < (uint32_t) ilen )
+    if( ctx->total[0] < ( uint32_t ) ilen )
+    {
         ctx->total[1]++;
+    }
 
     if( left && ilen >= fill )
     {
-        memcpy( (void *) (ctx->buffer + left), input, fill );
+        memcpy( ( void * )( ctx->buffer + left ), input, fill );
 
         if( ( ret = mbedtls_internal_ripemd160_process( ctx, ctx->buffer ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += fill;
         ilen  -= fill;
@@ -353,7 +361,9 @@ int mbedtls_ripemd160_update_ret( mbedtls_ripemd160_context *ctx,
     while( ilen >= 64 )
     {
         if( ( ret = mbedtls_internal_ripemd160_process( ctx, input ) ) != 0 )
+        {
             return( ret );
+        }
 
         input += 64;
         ilen  -= 64;
@@ -361,7 +371,7 @@ int mbedtls_ripemd160_update_ret( mbedtls_ripemd160_context *ctx,
 
     if( ilen > 0 )
     {
-        memcpy( (void *) (ctx->buffer + left), input, ilen );
+        memcpy( ( void * )( ctx->buffer + left ), input, ilen );
     }
 
     return( 0 );
@@ -378,7 +388,7 @@ void mbedtls_ripemd160_update( mbedtls_ripemd160_context *ctx,
 
 static const unsigned char ripemd160_padding[64] =
 {
- 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -396,7 +406,7 @@ int mbedtls_ripemd160_finish_ret( mbedtls_ripemd160_context *ctx,
     unsigned char msglen[8];
 
     high = ( ctx->total[0] >> 29 )
-         | ( ctx->total[1] <<  3 );
+           | ( ctx->total[1] <<  3 );
     low  = ( ctx->total[0] <<  3 );
 
     PUT_UINT32_LE( low,  msglen, 0 );
@@ -406,12 +416,18 @@ int mbedtls_ripemd160_finish_ret( mbedtls_ripemd160_context *ctx,
     padn = ( last < 56 ) ? ( 56 - last ) : ( 120 - last );
 
     ret = mbedtls_ripemd160_update_ret( ctx, ripemd160_padding, padn );
+
     if( ret != 0 )
+    {
         return( ret );
+    }
 
     ret = mbedtls_ripemd160_update_ret( ctx, msglen, 8 );
+
     if( ret != 0 )
+    {
         return( ret );
+    }
 
     PUT_UINT32_LE( ctx->state[0], output,  0 );
     PUT_UINT32_LE( ctx->state[1], output,  4 );
@@ -445,13 +461,19 @@ int mbedtls_ripemd160_ret( const unsigned char *input,
     mbedtls_ripemd160_init( &ctx );
 
     if( ( ret = mbedtls_ripemd160_starts_ret( &ctx ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_ripemd160_update_ret( &ctx, input, ilen ) ) != 0 )
+    {
         goto exit;
+    }
 
     if( ( ret = mbedtls_ripemd160_finish_ret( &ctx, output ) ) != 0 )
+    {
         goto exit;
+    }
 
 exit:
     mbedtls_ripemd160_free( &ctx );
@@ -483,8 +505,10 @@ static const unsigned char ripemd160_test_str[TESTS][81] =
     { "abcdefghijklmnopqrstuvwxyz" },
     { "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq" },
     { "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" },
-    { "12345678901234567890123456789012345678901234567890123456789012"
-      "345678901234567890" },
+    {
+        "12345678901234567890123456789012345678901234567890123456789012"
+        "345678901234567890"
+    },
 };
 
 static const size_t ripemd160_test_strlen[TESTS] =
@@ -494,22 +518,38 @@ static const size_t ripemd160_test_strlen[TESTS] =
 
 static const unsigned char ripemd160_test_md[TESTS][20] =
 {
-    { 0x9c, 0x11, 0x85, 0xa5, 0xc5, 0xe9, 0xfc, 0x54, 0x61, 0x28,
-      0x08, 0x97, 0x7e, 0xe8, 0xf5, 0x48, 0xb2, 0x25, 0x8d, 0x31 },
-    { 0x0b, 0xdc, 0x9d, 0x2d, 0x25, 0x6b, 0x3e, 0xe9, 0xda, 0xae,
-      0x34, 0x7b, 0xe6, 0xf4, 0xdc, 0x83, 0x5a, 0x46, 0x7f, 0xfe },
-    { 0x8e, 0xb2, 0x08, 0xf7, 0xe0, 0x5d, 0x98, 0x7a, 0x9b, 0x04,
-      0x4a, 0x8e, 0x98, 0xc6, 0xb0, 0x87, 0xf1, 0x5a, 0x0b, 0xfc },
-    { 0x5d, 0x06, 0x89, 0xef, 0x49, 0xd2, 0xfa, 0xe5, 0x72, 0xb8,
-      0x81, 0xb1, 0x23, 0xa8, 0x5f, 0xfa, 0x21, 0x59, 0x5f, 0x36 },
-    { 0xf7, 0x1c, 0x27, 0x10, 0x9c, 0x69, 0x2c, 0x1b, 0x56, 0xbb,
-      0xdc, 0xeb, 0x5b, 0x9d, 0x28, 0x65, 0xb3, 0x70, 0x8d, 0xbc },
-    { 0x12, 0xa0, 0x53, 0x38, 0x4a, 0x9c, 0x0c, 0x88, 0xe4, 0x05,
-      0xa0, 0x6c, 0x27, 0xdc, 0xf4, 0x9a, 0xda, 0x62, 0xeb, 0x2b },
-    { 0xb0, 0xe2, 0x0b, 0x6e, 0x31, 0x16, 0x64, 0x02, 0x86, 0xed,
-      0x3a, 0x87, 0xa5, 0x71, 0x30, 0x79, 0xb2, 0x1f, 0x51, 0x89 },
-    { 0x9b, 0x75, 0x2e, 0x45, 0x57, 0x3d, 0x4b, 0x39, 0xf4, 0xdb,
-      0xd3, 0x32, 0x3c, 0xab, 0x82, 0xbf, 0x63, 0x32, 0x6b, 0xfb },
+    {
+        0x9c, 0x11, 0x85, 0xa5, 0xc5, 0xe9, 0xfc, 0x54, 0x61, 0x28,
+        0x08, 0x97, 0x7e, 0xe8, 0xf5, 0x48, 0xb2, 0x25, 0x8d, 0x31
+    },
+    {
+        0x0b, 0xdc, 0x9d, 0x2d, 0x25, 0x6b, 0x3e, 0xe9, 0xda, 0xae,
+        0x34, 0x7b, 0xe6, 0xf4, 0xdc, 0x83, 0x5a, 0x46, 0x7f, 0xfe
+    },
+    {
+        0x8e, 0xb2, 0x08, 0xf7, 0xe0, 0x5d, 0x98, 0x7a, 0x9b, 0x04,
+        0x4a, 0x8e, 0x98, 0xc6, 0xb0, 0x87, 0xf1, 0x5a, 0x0b, 0xfc
+    },
+    {
+        0x5d, 0x06, 0x89, 0xef, 0x49, 0xd2, 0xfa, 0xe5, 0x72, 0xb8,
+        0x81, 0xb1, 0x23, 0xa8, 0x5f, 0xfa, 0x21, 0x59, 0x5f, 0x36
+    },
+    {
+        0xf7, 0x1c, 0x27, 0x10, 0x9c, 0x69, 0x2c, 0x1b, 0x56, 0xbb,
+        0xdc, 0xeb, 0x5b, 0x9d, 0x28, 0x65, 0xb3, 0x70, 0x8d, 0xbc
+    },
+    {
+        0x12, 0xa0, 0x53, 0x38, 0x4a, 0x9c, 0x0c, 0x88, 0xe4, 0x05,
+        0xa0, 0x6c, 0x27, 0xdc, 0xf4, 0x9a, 0xda, 0x62, 0xeb, 0x2b
+    },
+    {
+        0xb0, 0xe2, 0x0b, 0x6e, 0x31, 0x16, 0x64, 0x02, 0x86, 0xed,
+        0x3a, 0x87, 0xa5, 0x71, 0x30, 0x79, 0xb2, 0x1f, 0x51, 0x89
+    },
+    {
+        0x9b, 0x75, 0x2e, 0x45, 0x57, 0x3d, 0x4b, 0x39, 0xf4, 0xdb,
+        0xd3, 0x32, 0x3c, 0xab, 0x82, 0xbf, 0x63, 0x32, 0x6b, 0xfb
+    },
 };
 
 /*
@@ -525,12 +565,17 @@ int mbedtls_ripemd160_self_test( int verbose )
     for( i = 0; i < TESTS; i++ )
     {
         if( verbose != 0 )
+        {
             mbedtls_printf( "  RIPEMD-160 test #%d: ", i + 1 );
+        }
 
         ret = mbedtls_ripemd160_ret( ripemd160_test_str[i],
                                      ripemd160_test_strlen[i], output );
+
         if( ret != 0 )
+        {
             goto fail;
+        }
 
         if( memcmp( output, ripemd160_test_md[i], 20 ) != 0 )
         {
@@ -539,17 +584,24 @@ int mbedtls_ripemd160_self_test( int verbose )
         }
 
         if( verbose != 0 )
+        {
             mbedtls_printf( "passed\n" );
+        }
     }
 
     if( verbose != 0 )
+    {
         mbedtls_printf( "\n" );
+    }
 
     return( 0 );
 
 fail:
+
     if( verbose != 0 )
+    {
         mbedtls_printf( "failed\n" );
+    }
 
     return( ret );
 }

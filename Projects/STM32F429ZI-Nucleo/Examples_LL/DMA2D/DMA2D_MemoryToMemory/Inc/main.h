@@ -46,14 +46,14 @@
 #include "stm32f4xx_ll_dma2d.h"
 #include "stm32f4xx_ll_pwr.h"
 #if defined(USE_FULL_ASSERT)
-#include "stm32_assert.h"
+    #include "stm32_assert.h"
 #endif /* USE_FULL_ASSERT */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
 /**
-  * @brief LED1 
+  * @brief LED1
   */
 
 #define LED1_PIN                           LL_GPIO_PIN_0
@@ -73,9 +73,9 @@
   * @brief Input buffer parameters
   */
 
-#define LAYER_SIZE_X				16
-#define LAYER_SIZE_Y				32
-#define LAYER_NB_BYTES_PER_PIXEL	2 /* because ARGB4444 format in input texture */
+#define LAYER_SIZE_X                16
+#define LAYER_SIZE_Y                32
+#define LAYER_NB_BYTES_PER_PIXEL    2 /* because ARGB4444 format in input texture */
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

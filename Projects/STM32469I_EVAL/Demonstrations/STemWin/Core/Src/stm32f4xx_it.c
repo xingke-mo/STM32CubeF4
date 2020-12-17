@@ -3,7 +3,7 @@
   * @file    stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -33,36 +33,36 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "ethernetif.h"
 
- /** @addtogroup CORE
+/** @addtogroup CORE
+ * @{
+ */
+
+/** @defgroup
+  * @brief
   * @{
   */
 
-/** @defgroup 
-  * @brief  
-  * @{
-  */
-  
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern HCD_HandleTypeDef             hhcd;
 extern PCD_HandleTypeDef             hpcd;
-extern LTDC_HandleTypeDef            hltdc_eval;  
+extern LTDC_HandleTypeDef            hltdc_eval;
 extern SAI_HandleTypeDef             haudio_out_sai;
 extern QSPI_HandleTypeDef            QSPIHandle;
 extern DSI_HandleTypeDef             hdsi_eval;
 extern I2S_HandleTypeDef             haudio_in_i2s;
 
 /* Private function prototypes -----------------------------------------------*/
-extern void xPortSysTickHandler(void);
-extern void LTDC_ISR_Handler(void);
+extern void xPortSysTickHandler( void );
+extern void LTDC_ISR_Handler( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -75,7 +75,7 @@ extern void LTDC_ISR_Handler(void);
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -84,12 +84,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -97,12 +97,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -110,12 +110,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -123,12 +123,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -136,7 +136,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -145,9 +145,9 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  osSystickHandler();
+    osSystickHandler();
 }
 
 /******************************************************************************/
@@ -162,9 +162,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void OTG_HS_IRQHandler(void)
+void OTG_HS_IRQHandler( void )
 {
-  HAL_HCD_IRQHandler(&hhcd);
+    HAL_HCD_IRQHandler( &hhcd );
 }
 
 /**
@@ -172,9 +172,9 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_IRQHandler(void)
+void LTDC_IRQHandler( void )
 {
-  HAL_LTDC_IRQHandler(&hltdc_eval);
+    HAL_LTDC_IRQHandler( &hltdc_eval );
 }
 
 /**
@@ -182,9 +182,9 @@ void LTDC_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI9_5_IRQHandler(void)
+void EXTI9_5_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(MFX_IRQOUT_PIN);
+    HAL_GPIO_EXTI_IRQHandler( MFX_IRQOUT_PIN );
 }
 
 /**
@@ -192,9 +192,9 @@ void EXTI9_5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void AUDIO_SAIx_DMAx_IRQHandler (void)
+void AUDIO_SAIx_DMAx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+    HAL_DMA_IRQHandler( haudio_out_sai.hdmatx );
 }
 
 /**
@@ -202,9 +202,9 @@ void AUDIO_SAIx_DMAx_IRQHandler (void)
   * @param None
   * @retval None
   */
-void AUDIO_I2Sx_DMAx_IRQHandler(void)
+void AUDIO_I2Sx_DMAx_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(haudio_in_i2s.hdmarx);
+    HAL_DMA_IRQHandler( haudio_in_i2s.hdmarx );
 }
 
 /**
@@ -212,9 +212,9 @@ void AUDIO_I2Sx_DMAx_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void QUADSPI_IRQHandler(void)
+void QUADSPI_IRQHandler( void )
 {
-  HAL_QSPI_IRQHandler(&QSPIHandle);
+    HAL_QSPI_IRQHandler( &QSPIHandle );
 }
 
 /**
@@ -222,9 +222,9 @@ void QUADSPI_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void ETH_IRQHandler(void)
+void ETH_IRQHandler( void )
 {
-  ETHERNET_IRQHandler();
+    ETHERNET_IRQHandler();
 }
 
 /**
@@ -234,5 +234,5 @@ void ETH_IRQHandler(void)
 /**
   * @}
   */
-    
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

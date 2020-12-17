@@ -45,62 +45,66 @@
 void cmsis_os_mutex_init( mbedtls_threading_mutex_t *mutex )
 {
 #if (osCMSIS < 0x20000U)
-  osMutexDef(thread_mutex);
-  mutex->mutex_id = osMutexCreate(osMutex(thread_mutex));
+    osMutexDef( thread_mutex );
+    mutex->mutex_id = osMutexCreate( osMutex( thread_mutex ) );
 #else
-  mutex->mutex_id = osMutexNew(NULL);
+    mutex->mutex_id = osMutexNew( NULL );
 #endif
-  if (mutex->mutex_id != NULL)
-  {
-    mutex->status = osOK;
-  }
-  else
-  {
-    mutex->status = osErrorOS;
-  }
+
+    if( mutex->mutex_id != NULL )
+    {
+        mutex->status = osOK;
+    }
+    else
+    {
+        mutex->status = osErrorOS;
+    }
 
 }
 
 void cmsis_os_mutex_free( mbedtls_threading_mutex_t *mutex )
 {
-  if (mutex->mutex_id != NULL)
-  {
-    osMutexDelete(mutex->mutex_id);
-  }
+    if( mutex->mutex_id != NULL )
+    {
+        osMutexDelete( mutex->mutex_id );
+    }
 }
 
 int cmsis_os_mutex_lock( mbedtls_threading_mutex_t *mutex )
 {
-  if ((mutex == NULL) || (mutex->mutex_id == NULL) || (mutex->status != osOK))
-  {
-    return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
-  }
-#if (osCMSIS < 0x20000U)
-  mutex->status = osMutexWait(mutex->mutex_id, osWaitForever);
-#else
-  mutex->status = osMutexAcquire(mutex->mutex_id, osWaitForever);
-#endif
-  if (mutex->status != osOK)
-  {
-    return MBEDTLS_ERR_THREADING_MUTEX_ERROR;
-  }
+    if( ( mutex == NULL ) || ( mutex->mutex_id == NULL ) || ( mutex->status != osOK ) )
+    {
+        return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
+    }
 
-  return 0;
+#if (osCMSIS < 0x20000U)
+    mutex->status = osMutexWait( mutex->mutex_id, osWaitForever );
+#else
+    mutex->status = osMutexAcquire( mutex->mutex_id, osWaitForever );
+#endif
+
+    if( mutex->status != osOK )
+    {
+        return MBEDTLS_ERR_THREADING_MUTEX_ERROR;
+    }
+
+    return 0;
 }
 
 int cmsis_os_mutex_unlock( mbedtls_threading_mutex_t *mutex )
 {
-   if((mutex == NULL) || (mutex->mutex_id == NULL) || (mutex->status != osOK))
-   {
-     return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
-   }
+    if( ( mutex == NULL ) || ( mutex->mutex_id == NULL ) || ( mutex->status != osOK ) )
+    {
+        return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
+    }
 
-   mutex->status = osMutexRelease(mutex->mutex_id);
-   if (mutex->status != osOK)
-   {
-     return MBEDTLS_ERR_THREADING_MUTEX_ERROR;
-   }
+    mutex->status = osMutexRelease( mutex->mutex_id );
 
-   return 0;
+    if( mutex->status != osOK )
+    {
+        return MBEDTLS_ERR_THREADING_MUTEX_ERROR;
+    }
+
+    return 0;
 }
 #endif

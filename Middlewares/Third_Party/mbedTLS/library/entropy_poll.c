@@ -20,14 +20,14 @@
  */
 
 #if defined(__linux__)
-/* Ensure that syscall() is available even when compiling with -std=c99 */
-#define _GNU_SOURCE
+    /* Ensure that syscall() is available even when compiling with -std=c99 */
+    #define _GNU_SOURCE
 #endif
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <string.h>
@@ -38,13 +38,13 @@
 #include "mbedtls/entropy_poll.h"
 
 #if defined(MBEDTLS_TIMING_C)
-#include "mbedtls/timing.h"
+    #include "mbedtls/timing.h"
 #endif
 #if defined(MBEDTLS_HAVEGE_C)
-#include "mbedtls/havege.h"
+    #include "mbedtls/havege.h"
 #endif
 #if defined(MBEDTLS_ENTROPY_NV_SEED)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #endif
 
 #if !defined(MBEDTLS_NO_PLATFORM_ENTROPY)
@@ -52,31 +52,31 @@
 #if !defined(unix) && !defined(__unix__) && !defined(__unix) && \
     !defined(__APPLE__) && !defined(_WIN32) && !defined(__QNXNTO__) && \
     !defined(__HAIKU__)
-#error "Platform entropy sources only work on Unix and Windows, see MBEDTLS_NO_PLATFORM_ENTROPY in config.h"
+    #error "Platform entropy sources only work on Unix and Windows, see MBEDTLS_NO_PLATFORM_ENTROPY in config.h"
 #endif
 
 #if defined(_WIN32) && !defined(EFIX64) && !defined(EFI32)
 
 #if !defined(_WIN32_WINNT)
-#define _WIN32_WINNT 0x0400
+    #define _WIN32_WINNT 0x0400
 #endif
 #include <windows.h>
 #include <wincrypt.h>
 
 int mbedtls_platform_entropy_poll( void *data, unsigned char *output, size_t len,
-                           size_t *olen )
+                                   size_t *olen )
 {
     HCRYPTPROV provider;
-    ((void) data);
+    ( ( void ) data );
     *olen = 0;
 
     if( CryptAcquireContext( &provider, NULL, NULL,
-                              PROV_RSA_FULL, CRYPT_VERIFYCONTEXT ) == FALSE )
+                             PROV_RSA_FULL, CRYPT_VERIFYCONTEXT ) == FALSE )
     {
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
     }
 
-    if( CryptGenRandom( provider, (DWORD) len, output ) == FALSE )
+    if( CryptGenRandom( provider, ( DWORD ) len, output ) == FALSE )
     {
         CryptReleaseContext( provider, 0 );
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
@@ -117,34 +117,42 @@ static int getrandom_wrapper( void *buf, size_t buflen, unsigned int flags )
 #include <stdio.h>
 
 int mbedtls_platform_entropy_poll( void *data,
-                           unsigned char *output, size_t len, size_t *olen )
+                                   unsigned char *output, size_t len, size_t *olen )
 {
     FILE *file;
     size_t read_len;
     int ret;
-    ((void) data);
+    ( ( void ) data );
 
 #if defined(HAVE_GETRANDOM)
     ret = getrandom_wrapper( output, len, 0 );
+
     if( ret >= 0 )
     {
         *olen = ret;
         return( 0 );
     }
     else if( errno != ENOSYS )
+    {
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
+    }
+
     /* Fall through if the system call isn't known. */
 #else
-    ((void) ret);
+    ( ( void ) ret );
 #endif /* HAVE_GETRANDOM */
 
     *olen = 0;
 
     file = fopen( "/dev/urandom", "rb" );
+
     if( file == NULL )
+    {
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
+    }
 
     read_len = fread( output, 1, len, file );
+
     if( read_len != len )
     {
         fclose( file );
@@ -161,16 +169,18 @@ int mbedtls_platform_entropy_poll( void *data,
 
 #if defined(MBEDTLS_TEST_NULL_ENTROPY)
 int mbedtls_null_entropy_poll( void *data,
-                    unsigned char *output, size_t len, size_t *olen )
+                               unsigned char *output, size_t len, size_t *olen )
 {
-    ((void) data);
-    ((void) output);
+    ( ( void ) data );
+    ( ( void ) output );
     *olen = 0;
 
-    if( len < sizeof(unsigned char) )
+    if( len < sizeof( unsigned char ) )
+    {
         return( 0 );
+    }
 
-    *olen = sizeof(unsigned char);
+    *olen = sizeof( unsigned char );
 
     return( 0 );
 }
@@ -178,17 +188,19 @@ int mbedtls_null_entropy_poll( void *data,
 
 #if defined(MBEDTLS_TIMING_C)
 int mbedtls_hardclock_poll( void *data,
-                    unsigned char *output, size_t len, size_t *olen )
+                            unsigned char *output, size_t len, size_t *olen )
 {
     unsigned long timer = mbedtls_timing_hardclock();
-    ((void) data);
+    ( ( void ) data );
     *olen = 0;
 
-    if( len < sizeof(unsigned long) )
+    if( len < sizeof( unsigned long ) )
+    {
         return( 0 );
+    }
 
-    memcpy( output, &timer, sizeof(unsigned long) );
-    *olen = sizeof(unsigned long);
+    memcpy( output, &timer, sizeof( unsigned long ) );
+    *olen = sizeof( unsigned long );
 
     return( 0 );
 }
@@ -196,13 +208,15 @@ int mbedtls_hardclock_poll( void *data,
 
 #if defined(MBEDTLS_HAVEGE_C)
 int mbedtls_havege_poll( void *data,
-                 unsigned char *output, size_t len, size_t *olen )
+                         unsigned char *output, size_t len, size_t *olen )
 {
-    mbedtls_havege_state *hs = (mbedtls_havege_state *) data;
+    mbedtls_havege_state *hs = ( mbedtls_havege_state * ) data;
     *olen = 0;
 
     if( mbedtls_havege_random( hs, output, len ) != 0 )
+    {
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
+    }
 
     *olen = len;
 
@@ -216,15 +230,19 @@ int mbedtls_nv_seed_poll( void *data,
 {
     unsigned char buf[MBEDTLS_ENTROPY_BLOCK_SIZE];
     size_t use_len = MBEDTLS_ENTROPY_BLOCK_SIZE;
-    ((void) data);
+    ( ( void ) data );
 
     memset( buf, 0, MBEDTLS_ENTROPY_BLOCK_SIZE );
 
     if( mbedtls_nv_seed_read( buf, MBEDTLS_ENTROPY_BLOCK_SIZE ) < 0 )
-      return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
+    {
+        return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
+    }
 
     if( len < use_len )
-      use_len = len;
+    {
+        use_len = len;
+    }
 
     memcpy( output, buf, use_len );
     *olen = use_len;

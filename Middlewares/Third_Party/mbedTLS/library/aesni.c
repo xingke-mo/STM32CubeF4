@@ -25,17 +25,17 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_AESNI_C)
 
 #if defined(__has_feature)
-#if __has_feature(memory_sanitizer)
-#warning "MBEDTLS_AESNI_C is known to cause spurious error reports with some memory sanitizers as they do not understand the assembly code."
-#endif
+    #if __has_feature(memory_sanitizer)
+        #warning "MBEDTLS_AESNI_C is known to cause spurious error reports with some memory sanitizers as they do not understand the assembly code."
+    #endif
 #endif
 
 #include "mbedtls/aesni.h"
@@ -43,7 +43,7 @@
 #include <string.h>
 
 #ifndef asm
-#define asm __asm
+    #define asm __asm
 #endif
 
 #if defined(MBEDTLS_HAVE_X86_64)
@@ -60,7 +60,7 @@ int mbedtls_aesni_has_support( unsigned int what )
     {
         asm( "movl  $1, %%eax   \n\t"
              "cpuid             \n\t"
-             : "=c" (c)
+             : "=c"( c )
              :
              : "eax", "ebx", "edx" );
         done = 1;
@@ -99,9 +99,9 @@ int mbedtls_aesni_has_support( unsigned int what )
  * AES-NI AES-ECB block en(de)cryption
  */
 int mbedtls_aesni_crypt_ecb( mbedtls_aes_context *ctx,
-                     int mode,
-                     const unsigned char input[16],
-                     unsigned char output[16] )
+                             int mode,
+                             const unsigned char input[16],
+                             unsigned char output[16] )
 {
     asm( "movdqu    (%3), %%xmm0    \n\t" // load input
          "movdqu    (%1), %%xmm1    \n\t" // load round key 0
@@ -133,7 +133,7 @@ int mbedtls_aesni_crypt_ecb( mbedtls_aes_context *ctx,
          "3:                        \n\t"
          "movdqu    %%xmm0, (%4)    \n\t" // export output
          :
-         : "r" (ctx->nr), "r" (ctx->rk), "r" (mode), "r" (input), "r" (output)
+         : "r"( ctx->nr ), "r"( ctx->rk ), "r"( mode ), "r"( input ), "r"( output )
          : "memory", "cc", "xmm0", "xmm1" );
 
 
@@ -145,8 +145,8 @@ int mbedtls_aesni_crypt_ecb( mbedtls_aes_context *ctx,
  * Based on [CLMUL-WP] algorithms 1 (with equation 27) and 5.
  */
 void mbedtls_aesni_gcm_mult( unsigned char c[16],
-                     const unsigned char a[16],
-                     const unsigned char b[16] )
+                             const unsigned char a[16],
+                             const unsigned char b[16] )
 {
     unsigned char aa[16], bb[16], cc[16];
     size_t i;
@@ -242,12 +242,14 @@ void mbedtls_aesni_gcm_mult( unsigned char c[16],
 
          "movdqu %%xmm0, (%2)               \n\t" // done
          :
-         : "r" (aa), "r" (bb), "r" (cc)
+         : "r"( aa ), "r"( bb ), "r"( cc )
          : "memory", "cc", "xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5" );
 
     /* Now byte-reverse the outputs */
     for( i = 0; i < 16; i++ )
+    {
         c[i] = cc[15 - i];
+    }
 
     return;
 }
@@ -256,7 +258,7 @@ void mbedtls_aesni_gcm_mult( unsigned char c[16],
  * Compute decryption round keys from encryption round keys
  */
 void mbedtls_aesni_inverse_key( unsigned char *invkey,
-                        const unsigned char *fwdkey, int nr )
+                                const unsigned char *fwdkey, int nr )
 {
     unsigned char *ik = invkey;
     const unsigned char *fk = fwdkey + 16 * nr;
@@ -268,7 +270,7 @@ void mbedtls_aesni_inverse_key( unsigned char *invkey,
              AESIMC  xmm0_xmm0         "\n\t"
              "movdqu %%xmm0, (%1)       \n\t"
              :
-             : "r" (fk), "r" (ik)
+             : "r"( fk ), "r"( ik )
              : "memory", "xmm0" );
 
     memcpy( ik, fk, 16 );
@@ -320,7 +322,7 @@ static void aesni_setkey_enc_128( unsigned char *rk,
          AESKEYGENA xmm0_xmm1 ",0x1B        \n\tcall 1b \n\t"
          AESKEYGENA xmm0_xmm1 ",0x36        \n\tcall 1b \n\t"
          :
-         : "r" (rk), "r" (key)
+         : "r"( rk ), "r"( key )
          : "memory", "cc", "0" );
 }
 
@@ -377,7 +379,7 @@ static void aesni_setkey_enc_192( unsigned char *rk,
          AESKEYGENA xmm1_xmm2 ",0x80    \n\tcall 1b \n\t"
 
          :
-         : "r" (rk), "r" (key)
+         : "r"( rk ), "r"( key )
          : "memory", "cc", "0" );
 }
 
@@ -443,7 +445,7 @@ static void aesni_setkey_enc_256( unsigned char *rk,
          AESKEYGENA xmm1_xmm2 ",0x20        \n\tcall 1b \n\t"
          AESKEYGENA xmm1_xmm2 ",0x40        \n\tcall 1b \n\t"
          :
-         : "r" (rk), "r" (key)
+         : "r"( rk ), "r"( key )
          : "memory", "cc", "0" );
 }
 
@@ -451,15 +453,18 @@ static void aesni_setkey_enc_256( unsigned char *rk,
  * Key expansion, wrapper
  */
 int mbedtls_aesni_setkey_enc( unsigned char *rk,
-                      const unsigned char *key,
-                      size_t bits )
+                              const unsigned char *key,
+                              size_t bits )
 {
     switch( bits )
     {
-        case 128: aesni_setkey_enc_128( rk, key ); break;
-        case 192: aesni_setkey_enc_192( rk, key ); break;
-        case 256: aesni_setkey_enc_256( rk, key ); break;
-        default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+    case 128: aesni_setkey_enc_128( rk, key ); break;
+
+    case 192: aesni_setkey_enc_192( rk, key ); break;
+
+    case 256: aesni_setkey_enc_256( rk, key ); break;
+
+    default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
     }
 
     return( 0 );

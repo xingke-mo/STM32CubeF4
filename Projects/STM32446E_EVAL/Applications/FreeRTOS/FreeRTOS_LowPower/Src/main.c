@@ -6,37 +6,37 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without 
+  * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice, 
+  * 1. Redistribution of source code must retain the above copyright notice,
   *    this list of conditions and the following disclaimer.
   * 2. Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
   *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other 
-  *    contributors to this software may be used to endorse or promote products 
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
   *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this 
+  * 4. This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
   *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under 
-  *    this license is void and will automatically terminate your rights under 
-  *    this license. 
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
-  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
-  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
@@ -69,11 +69,11 @@ much. */
 #define LED_TOGGLE_DELAY         (20)
 
 /* Private function prototypes -----------------------------------------------*/
-static void QueueReceiveThread (const void *argument);
-static void QueueSendThread (const void *argument);
-static void GPIO_ConfigAN(void);
-static void SystemClock_Config(void);
-static void Error_Handler(void);
+static void QueueReceiveThread( const void *argument );
+static void QueueSendThread( const void *argument );
+static void GPIO_ConfigAN( void );
+static void SystemClock_Config( void );
+static void Error_Handler( void );
 
 /* Private functions ---------------------------------------------------------*/
 /**
@@ -81,42 +81,42 @@ static void Error_Handler(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
-  HAL_Init();  
-  
-  /* Configure the system clock to 180 MHz */
-  SystemClock_Config();
-  
-  /* Configure GPIO's to AN to reduce power consumption */
-  GPIO_ConfigAN();
-  
-  /* Configure LED1 */
-  BSP_LED_Init(LED1);
-  
-  /* Create the queue used by the two threads */
-  osMessageQDef(osqueue, QUEUE_LENGTH, uint16_t);
-  osQueue = osMessageCreate (osMessageQ(osqueue), NULL);
-  
-  /* Note the Tx has a lower priority than the Rx when the threads are
-  spawned. */
-  osThreadDef(RxThread, QueueReceiveThread, osPriorityNormal, 0, configMINIMAL_STACK_SIZE);
-  osThreadCreate(osThread(RxThread), NULL);
-  
-  osThreadDef(TxThread, QueueSendThread, osPriorityBelowNormal, 0, configMINIMAL_STACK_SIZE);
-  osThreadCreate(osThread(TxThread), NULL);
-  
-  /* Start scheduler */
-  osKernelStart();
+    /* STM32F4xx HAL library initialization:
+         - Configure the Flash prefetch, instruction and Data caches
+         - Configure the Systick to generate an interrupt each 1 msec
+         - Set NVIC Group Priority to 4
+         - Global MSP (MCU Support Package) initialization
+       */
+    HAL_Init();
 
-  /* We should never get here as control is now taken by the scheduler */
-  for(;;);
+    /* Configure the system clock to 180 MHz */
+    SystemClock_Config();
+
+    /* Configure GPIO's to AN to reduce power consumption */
+    GPIO_ConfigAN();
+
+    /* Configure LED1 */
+    BSP_LED_Init( LED1 );
+
+    /* Create the queue used by the two threads */
+    osMessageQDef( osqueue, QUEUE_LENGTH, uint16_t );
+    osQueue = osMessageCreate( osMessageQ( osqueue ), NULL );
+
+    /* Note the Tx has a lower priority than the Rx when the threads are
+    spawned. */
+    osThreadDef( RxThread, QueueReceiveThread, osPriorityNormal, 0, configMINIMAL_STACK_SIZE );
+    osThreadCreate( osThread( RxThread ), NULL );
+
+    osThreadDef( TxThread, QueueSendThread, osPriorityBelowNormal, 0, configMINIMAL_STACK_SIZE );
+    osThreadCreate( osThread( TxThread ), NULL );
+
+    /* Start scheduler */
+    osKernelStart();
+
+    /* We should never get here as control is now taken by the scheduler */
+    for( ;; );
 }
 
 /**
@@ -124,20 +124,20 @@ int main(void)
   * @param  argument: Not used
   * @retval None
   */
-static void QueueSendThread (const void *argument)
+static void QueueSendThread( const void *argument )
 {
-  for(;;)
-  {		
-    /* Place this thread into the blocked state until it is time to run again.
-       The kernel will place the MCU into the Retention low power sleep state
-       when the idle thread next runs. */
-    osDelay(TX_DELAY);
+    for( ;; )
+    {
+        /* Place this thread into the blocked state until it is time to run again.
+           The kernel will place the MCU into the Retention low power sleep state
+           when the idle thread next runs. */
+        osDelay( TX_DELAY );
 
-    /* Send to the queue - causing the queue receive thread to flash its LED.
-       It should not be necessary to block on the queue send because the Rx
-       thread will already have removed the last queued item. */ 
-    osMessagePut (osQueue, (uint32_t)QUEUED_VALUE, 0);
-  }
+        /* Send to the queue - causing the queue receive thread to flash its LED.
+           It should not be necessary to block on the queue send because the Rx
+           thread will already have removed the last queued item. */
+        osMessagePut( osQueue, ( uint32_t )QUEUED_VALUE, 0 );
+    }
 }
 
 /**
@@ -145,27 +145,27 @@ static void QueueSendThread (const void *argument)
   * @param  argument: Not used
   * @retval None
   */
-static void QueueReceiveThread (const void *argument)
+static void QueueReceiveThread( const void *argument )
 {
-  osEvent event;
-  
-  for(;;)
-  {
-    /* Wait until something arrives in the queue. */
-    event = osMessageGet(osQueue, osWaitForever);
-    
-    /*  To get here something must have arrived, but is it the expected
-	value?  If it is, turn the LED on for a short while. */
-    if(event.status == osEventMessage)
+    osEvent event;
+
+    for( ;; )
     {
-      if(event.value.v == QUEUED_VALUE)
-      {  
-        BSP_LED_On(LED1);
-        osDelay(LED_TOGGLE_DELAY);
-        BSP_LED_Off(LED1);
-      }			
-    }		
-  }
+        /* Wait until something arrives in the queue. */
+        event = osMessageGet( osQueue, osWaitForever );
+
+        /*  To get here something must have arrived, but is it the expected
+        value?  If it is, turn the LED on for a short while. */
+        if( event.status == osEventMessage )
+        {
+            if( event.value.v == QUEUED_VALUE )
+            {
+                BSP_LED_On( LED1 );
+                osDelay( LED_TOGGLE_DELAY );
+                BSP_LED_Off( LED1 );
+            }
+        }
+    }
 }
 
 /**
@@ -173,21 +173,21 @@ static void QueueReceiveThread (const void *argument)
   * @param  ulExpectedIdleTime: Expected time in idle state
   * @retval None
   */
-void PreSleepProcessing(uint32_t* ulExpectedIdleTime)
+void PreSleepProcessing( uint32_t *ulExpectedIdleTime )
 {
-  /* Called by the kernel before it places the MCU into a sleep mode because
-  configPRE_SLEEP_PROCESSING() is #defined to PreSleepProcessing().
-  
-  NOTE:  Additional actions can be taken here to get the power consumption
-  even lower.  For example, peripherals can be turned off here, and then back
-  on again in the post sleep processing function.  For maximum power saving
-  ensure all unused pins are in their lowest power state. */
-  
-  /* Avoid compiler warnings about the unused parameter. */
-  (void) ulExpectedIdleTime;
-  
-  /* Disable the peripheral clock during Low Power (Sleep) mode.*/
-  __HAL_RCC_GPIOG_CLK_SLEEP_DISABLE();
+    /* Called by the kernel before it places the MCU into a sleep mode because
+    configPRE_SLEEP_PROCESSING() is #defined to PreSleepProcessing().
+
+    NOTE:  Additional actions can be taken here to get the power consumption
+    even lower.  For example, peripherals can be turned off here, and then back
+    on again in the post sleep processing function.  For maximum power saving
+    ensure all unused pins are in their lowest power state. */
+
+    /* Avoid compiler warnings about the unused parameter. */
+    ( void ) ulExpectedIdleTime;
+
+    /* Disable the peripheral clock during Low Power (Sleep) mode.*/
+    __HAL_RCC_GPIOG_CLK_SLEEP_DISABLE();
 }
 
 /**
@@ -195,13 +195,13 @@ void PreSleepProcessing(uint32_t* ulExpectedIdleTime)
   * @param  ulExpectedIdleTime : Not used
   * @retval None
   */
-void PostSleepProcessing(uint32_t* ulExpectedIdleTime)
+void PostSleepProcessing( uint32_t *ulExpectedIdleTime )
 {
-  /* Called by the kernel when the MCU exits a sleep mode because
-  configPOST_SLEEP_PROCESSING is #defined to PostSleepProcessing(). */
-  
-  /* Avoid compiler warnings about the unused parameter. */
-  (void) ulExpectedIdleTime;
+    /* Called by the kernel when the MCU exits a sleep mode because
+    configPOST_SLEEP_PROCESSING is #defined to PostSleepProcessing(). */
+
+    /* Avoid compiler warnings about the unused parameter. */
+    ( void ) ulExpectedIdleTime;
 }
 
 /**
@@ -209,48 +209,48 @@ void PostSleepProcessing(uint32_t* ulExpectedIdleTime)
   * @param  None
   * @retval None
   */
-static void GPIO_ConfigAN(void)
+static void GPIO_ConfigAN( void )
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
-  
-  /* Configure all GPIO as analog to reduce current consumption on non used IOs */
-  /* Enable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
+    GPIO_InitTypeDef GPIO_InitStruct;
 
-  
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Pin = GPIO_PIN_All;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); 
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  
-  /* Disable GPIOs clock */
-  __HAL_RCC_GPIOA_CLK_DISABLE();
-  __HAL_RCC_GPIOB_CLK_DISABLE();
-  __HAL_RCC_GPIOC_CLK_DISABLE();
-  __HAL_RCC_GPIOD_CLK_DISABLE();
-  __HAL_RCC_GPIOE_CLK_DISABLE();
-  __HAL_RCC_GPIOF_CLK_DISABLE();
-  __HAL_RCC_GPIOG_CLK_DISABLE();
-  __HAL_RCC_GPIOH_CLK_DISABLE();
+    /* Configure all GPIO as analog to reduce current consumption on non used IOs */
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+
+
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pin = GPIO_PIN_All;
+    HAL_GPIO_Init( GPIOC, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOD, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOE, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOF, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOG, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOH, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
+    HAL_GPIO_Init( GPIOB, &GPIO_InitStruct );
+
+    /* Disable GPIOs clock */
+    __HAL_RCC_GPIOA_CLK_DISABLE();
+    __HAL_RCC_GPIOB_CLK_DISABLE();
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+    __HAL_RCC_GPIOD_CLK_DISABLE();
+    __HAL_RCC_GPIOE_CLK_DISABLE();
+    __HAL_RCC_GPIOF_CLK_DISABLE();
+    __HAL_RCC_GPIOG_CLK_DISABLE();
+    __HAL_RCC_GPIOH_CLK_DISABLE();
 }
 
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
+  *         The system Clock is configured as follow :
   *            System Clock source            = PLL (HSE)
   *            SYSCLK(Hz)                     = 180000000
   *            HCLK(Hz)                       = 180000000
@@ -268,55 +268,58 @@ static void GPIO_ConfigAN(void)
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
+static void SystemClock_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  HAL_StatusTypeDef ret = HAL_OK;
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+    HAL_StatusTypeDef ret = HAL_OK;
 
-  /* Enable Power Control clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
+    /* Enable Power Control clock */
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* The voltage scaling allows optimizing the power consumption when the device is 
-     clocked below the maximum system frequency, to update the voltage scaling value 
-     regarding system frequency refer to product datasheet.  */
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /* The voltage scaling allows optimizing the power consumption when the device is
+       clocked below the maximum system frequency, to update the voltage scaling value
+       regarding system frequency refer to product datasheet.  */
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
-  /* Enable HSE Oscillator and activate PLL with HSE as source */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 360;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  RCC_OscInitStruct.PLL.PLLR = 2;
-  ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
-  
-  if(ret != HAL_OK)
-  {
-    Error_Handler();
- }
-  /* activate the OverDrive to reach the 180 Mhz Frequency */  
-  ret = HAL_PWREx_EnableOverDrive();
-  if(ret != HAL_OK)
-  {
-    Error_Handler();
-  }
-  
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
-     clocks dividers */
-  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  
-  ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
-  if(ret != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /* Enable HSE Oscillator and activate PLL with HSE as source */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 360;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    RCC_OscInitStruct.PLL.PLLR = 2;
+    ret = HAL_RCC_OscConfig( &RCC_OscInitStruct );
+
+    if( ret != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /* activate the OverDrive to reach the 180 Mhz Frequency */
+    ret = HAL_PWREx_EnableOverDrive();
+
+    if( ret != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+       clocks dividers */
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    ret = HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 );
+
+    if( ret != HAL_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /**
@@ -324,11 +327,12 @@ static void SystemClock_Config(void)
   * @param  None
   * @retval None
   */
-static void Error_Handler(void)
+static void Error_Handler( void )
 {
     /* Turn LED3 on */
-    BSP_LED_On(LED3);
-    while(1)
+    BSP_LED_On( LED3 );
+
+    while( 1 )
     {
     }
 }
@@ -341,15 +345,15 @@ static void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

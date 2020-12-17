@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    Examples_LL/RTC/RTC_Tamper/Src/stm32f4xx_it.c
   * @author  MCD Application Team
@@ -63,7 +63,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -72,12 +72,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -85,12 +85,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -98,12 +98,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -111,12 +111,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -124,7 +124,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -133,7 +133,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -142,7 +142,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -151,7 +151,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -167,23 +167,24 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void TAMP_STAMP_IRQHandler(void)
+void TAMP_STAMP_IRQHandler( void )
 {
-  /* Get the Tamper interrupt source enable status */
-  if(LL_RTC_IsEnabledIT_TAMP(RTC) != 0)
-  {
-    /* Get the pending status of the Tamper Interrupt */
-    if(LL_RTC_IsActiveFlag_TAMP1(RTC) != 0)
+    /* Get the Tamper interrupt source enable status */
+    if( LL_RTC_IsEnabledIT_TAMP( RTC ) != 0 )
     {
-      /* Tamper callback */ 
-      Tamper_Callback();
-      
-      /* Clear the Tamper interrupt pending bit */
-      LL_RTC_ClearFlag_TAMP1(RTC);
+        /* Get the pending status of the Tamper Interrupt */
+        if( LL_RTC_IsActiveFlag_TAMP1( RTC ) != 0 )
+        {
+            /* Tamper callback */
+            Tamper_Callback();
+
+            /* Clear the Tamper interrupt pending bit */
+            LL_RTC_ClearFlag_TAMP1( RTC );
+        }
     }
-  }
-  /* Clear the EXTI's Flag for RTC Tamper */
-  LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_21);
+
+    /* Clear the EXTI's Flag for RTC Tamper */
+    LL_EXTI_ClearFlag_0_31( LL_EXTI_LINE_21 );
 }
 
 /**

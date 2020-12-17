@@ -31,9 +31,9 @@
 #define MBEDTLS_ARIA_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -49,7 +49,7 @@
 #define MBEDTLS_ARIA_MAX_KEYSIZE 32 /**< Maximum size of an ARIA key in bytes. */
 
 #if !defined(MBEDTLS_DEPRECATED_REMOVED)
-#define MBEDTLS_ERR_ARIA_INVALID_KEY_LENGTH   MBEDTLS_DEPRECATED_NUMERIC_CONSTANT( -0x005C )
+    #define MBEDTLS_ERR_ARIA_INVALID_KEY_LENGTH   MBEDTLS_DEPRECATED_NUMERIC_CONSTANT( -0x005C )
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */
 #define MBEDTLS_ERR_ARIA_BAD_INPUT_DATA -0x005C /**< Bad input data. */
 
@@ -355,12 +355,12 @@ int mbedtls_aria_crypt_ctr( mbedtls_aria_context *ctx,
 #endif /* MBEDTLS_CIPHER_MODE_CTR */
 
 #if defined(MBEDTLS_SELF_TEST)
-/**
- * \brief          Checkup routine.
- *
- * \return         \c 0 on success, or \c 1 on failure.
- */
-int mbedtls_aria_self_test( int verbose );
+    /**
+    * \brief          Checkup routine.
+    *
+    * \return         \c 0 on success, or \c 1 on failure.
+    */
+    int mbedtls_aria_self_test( int verbose );
 #endif /* MBEDTLS_SELF_TEST */
 
 #ifdef __cplusplus

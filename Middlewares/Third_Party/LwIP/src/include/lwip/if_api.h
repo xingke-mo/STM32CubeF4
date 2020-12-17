@@ -51,8 +51,8 @@ extern "C" {
 
 #define IF_NAMESIZE NETIF_NAMESIZE
 
-char * lwip_if_indextoname(unsigned int ifindex, char *ifname);
-unsigned int lwip_if_nametoindex(const char *ifname);
+char *lwip_if_indextoname( unsigned int ifindex, char *ifname );
+unsigned int lwip_if_nametoindex( const char *ifname );
 
 #if LWIP_COMPAT_SOCKETS
 #define if_indextoname(ifindex, ifname)  lwip_if_indextoname(ifindex,ifname)

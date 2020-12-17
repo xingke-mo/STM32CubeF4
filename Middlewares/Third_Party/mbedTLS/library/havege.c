@@ -27,9 +27,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_HAVEGE_C)
@@ -170,7 +170,7 @@ static void havege_fill( mbedtls_havege_state *hs )
     PTX  = U1 = 0;
     PTY  = U2 = 0;
 
-    (void)PTX;
+    ( void )PTX;
 
     memset( RES, 0, sizeof( RES ) );
 
@@ -202,7 +202,9 @@ void mbedtls_havege_init( mbedtls_havege_state *hs )
 void mbedtls_havege_free( mbedtls_havege_state *hs )
 {
     if( hs == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( hs, sizeof( mbedtls_havege_state ) );
 }
@@ -214,17 +216,22 @@ int mbedtls_havege_random( void *p_rng, unsigned char *buf, size_t len )
 {
     int val;
     size_t use_len;
-    mbedtls_havege_state *hs = (mbedtls_havege_state *) p_rng;
+    mbedtls_havege_state *hs = ( mbedtls_havege_state * ) p_rng;
     unsigned char *p = buf;
 
     while( len > 0 )
     {
         use_len = len;
-        if( use_len > sizeof(int) )
-            use_len = sizeof(int);
+
+        if( use_len > sizeof( int ) )
+        {
+            use_len = sizeof( int );
+        }
 
         if( hs->offset[1] >= MBEDTLS_HAVEGE_COLLECT_SIZE )
+        {
             havege_fill( hs );
+        }
 
         val  = hs->pool[hs->offset[0]++];
         val ^= hs->pool[hs->offset[1]++];

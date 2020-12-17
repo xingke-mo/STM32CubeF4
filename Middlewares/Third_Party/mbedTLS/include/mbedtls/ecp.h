@@ -37,9 +37,9 @@
 #define MBEDTLS_ECP_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "bignum.h"
@@ -185,10 +185,10 @@ typedef struct mbedtls_ecp_group
                                      For Montgomery curves: the number of bits in the
                                      private keys. */
     unsigned int h;             /*!< \internal 1 if the constants are static. */
-    int (*modp)(mbedtls_mpi *); /*!< The function for fast pseudo-reduction
+    int ( *modp )( mbedtls_mpi * ); /*!< The function for fast pseudo-reduction
                                      mod \p P (see above).*/
-    int (*t_pre)(mbedtls_ecp_point *, void *);  /*!< Unused. */
-    int (*t_post)(mbedtls_ecp_point *, void *); /*!< Unused. */
+    int ( *t_pre )( mbedtls_ecp_point *, void * ); /*!< Unused. */
+    int ( *t_post )( mbedtls_ecp_point *, void * ); /*!< Unused. */
     void *t_data;               /*!< Unused. */
     mbedtls_ecp_point *T;       /*!< Pre-computed points for ecp_mul_comb(). */
     size_t T_size;              /*!< The number of pre-computed points. */
@@ -615,7 +615,7 @@ int mbedtls_ecp_point_cmp( const mbedtls_ecp_point *P,
  * \return          An \c MBEDTLS_ERR_MPI_XXX error code on failure.
  */
 int mbedtls_ecp_point_read_string( mbedtls_ecp_point *P, int radix,
-                           const char *x, const char *y );
+                                   const char *x, const char *y );
 
 /**
  * \brief           This function exports a point into unsigned binary data.
@@ -638,8 +638,8 @@ int mbedtls_ecp_point_read_string( mbedtls_ecp_point *P, int radix,
  * \return          Another negative error code on other kinds of failure.
  */
 int mbedtls_ecp_point_write_binary( const mbedtls_ecp_group *grp, const mbedtls_ecp_point *P,
-                            int format, size_t *olen,
-                            unsigned char *buf, size_t buflen );
+                                    int format, size_t *olen,
+                                    unsigned char *buf, size_t buflen );
 
 /**
  * \brief           This function imports a point from unsigned binary data.
@@ -832,8 +832,8 @@ int mbedtls_ecp_tls_write_group( const mbedtls_ecp_group *grp,
  * \return          Another negative error code on other kinds of failure.
  */
 int mbedtls_ecp_mul( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
-             const mbedtls_mpi *m, const mbedtls_ecp_point *P,
-             int (*f_rng)(void *, unsigned char *, size_t), void *p_rng );
+                     const mbedtls_mpi *m, const mbedtls_ecp_point *P,
+                     int ( *f_rng )( void *, unsigned char *, size_t ), void *p_rng );
 
 /**
  * \brief           This function performs multiplication of a point by
@@ -866,9 +866,9 @@ int mbedtls_ecp_mul( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
  * \return          Another negative error code on other kinds of failure.
  */
 int mbedtls_ecp_mul_restartable( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
-             const mbedtls_mpi *m, const mbedtls_ecp_point *P,
-             int (*f_rng)(void *, unsigned char *, size_t), void *p_rng,
-             mbedtls_ecp_restart_ctx *rs_ctx );
+                                 const mbedtls_mpi *m, const mbedtls_ecp_point *P,
+                                 int ( *f_rng )( void *, unsigned char *, size_t ), void *p_rng,
+                                 mbedtls_ecp_restart_ctx *rs_ctx );
 
 /**
  * \brief           This function performs multiplication and addition of two
@@ -900,8 +900,8 @@ int mbedtls_ecp_mul_restartable( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
  * \return          Another negative error code on other kinds of failure.
  */
 int mbedtls_ecp_muladd( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
-             const mbedtls_mpi *m, const mbedtls_ecp_point *P,
-             const mbedtls_mpi *n, const mbedtls_ecp_point *Q );
+                        const mbedtls_mpi *m, const mbedtls_ecp_point *P,
+                        const mbedtls_mpi *n, const mbedtls_ecp_point *Q );
 
 /**
  * \brief           This function performs multiplication and addition of two
@@ -938,10 +938,10 @@ int mbedtls_ecp_muladd( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
  * \return          Another negative error code on other kinds of failure.
  */
 int mbedtls_ecp_muladd_restartable(
-             mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
-             const mbedtls_mpi *m, const mbedtls_ecp_point *P,
-             const mbedtls_mpi *n, const mbedtls_ecp_point *Q,
-             mbedtls_ecp_restart_ctx *rs_ctx );
+    mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
+    const mbedtls_mpi *m, const mbedtls_ecp_point *P,
+    const mbedtls_mpi *n, const mbedtls_ecp_point *Q,
+    mbedtls_ecp_restart_ctx *rs_ctx );
 
 /**
  * \brief           This function checks that a point is a valid public key
@@ -1011,9 +1011,9 @@ int mbedtls_ecp_check_privkey( const mbedtls_ecp_group *grp,
  *                  on failure.
  */
 int mbedtls_ecp_gen_privkey( const mbedtls_ecp_group *grp,
-                     mbedtls_mpi *d,
-                     int (*f_rng)(void *, unsigned char *, size_t),
-                     void *p_rng );
+                             mbedtls_mpi *d,
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
+                             void *p_rng );
 
 /**
  * \brief           This function generates a keypair with a configurable base
@@ -1045,7 +1045,7 @@ int mbedtls_ecp_gen_privkey( const mbedtls_ecp_group *grp,
 int mbedtls_ecp_gen_keypair_base( mbedtls_ecp_group *grp,
                                   const mbedtls_ecp_point *G,
                                   mbedtls_mpi *d, mbedtls_ecp_point *Q,
-                                  int (*f_rng)(void *, unsigned char *, size_t),
+                                  int ( *f_rng )( void *, unsigned char *, size_t ),
                                   void *p_rng );
 
 /**
@@ -1073,7 +1073,7 @@ int mbedtls_ecp_gen_keypair_base( mbedtls_ecp_group *grp,
  */
 int mbedtls_ecp_gen_keypair( mbedtls_ecp_group *grp, mbedtls_mpi *d,
                              mbedtls_ecp_point *Q,
-                             int (*f_rng)(void *, unsigned char *, size_t),
+                             int ( *f_rng )( void *, unsigned char *, size_t ),
                              void *p_rng );
 
 /**
@@ -1090,7 +1090,7 @@ int mbedtls_ecp_gen_keypair( mbedtls_ecp_group *grp, mbedtls_mpi *d,
  *                  on failure.
  */
 int mbedtls_ecp_gen_key( mbedtls_ecp_group_id grp_id, mbedtls_ecp_keypair *key,
-                         int (*f_rng)(void *, unsigned char *, size_t),
+                         int ( *f_rng )( void *, unsigned char *, size_t ),
                          void *p_rng );
 
 /**

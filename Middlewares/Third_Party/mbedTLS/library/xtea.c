@@ -20,9 +20,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_XTEA_C)
@@ -33,12 +33,12 @@
 #include <string.h>
 
 #if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
+    #if defined(MBEDTLS_PLATFORM_C)
+        #include "mbedtls/platform.h"
+    #else
+        #include <stdio.h>
+        #define mbedtls_printf printf
+    #endif /* MBEDTLS_PLATFORM_C */
 #endif /* MBEDTLS_SELF_TEST */
 
 #if !defined(MBEDTLS_XTEA_ALT)
@@ -74,7 +74,9 @@ void mbedtls_xtea_init( mbedtls_xtea_context *ctx )
 void mbedtls_xtea_free( mbedtls_xtea_context *ctx )
 {
     if( ctx == NULL )
+    {
         return;
+    }
 
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_xtea_context ) );
 }
@@ -86,7 +88,7 @@ void mbedtls_xtea_setup( mbedtls_xtea_context *ctx, const unsigned char key[16] 
 {
     int i;
 
-    memset( ctx, 0, sizeof(mbedtls_xtea_context) );
+    memset( ctx, 0, sizeof( mbedtls_xtea_context ) );
 
     for( i = 0; i < 4; i++ )
     {
@@ -98,7 +100,7 @@ void mbedtls_xtea_setup( mbedtls_xtea_context *ctx, const unsigned char key[16] 
  * XTEA encrypt function
  */
 int mbedtls_xtea_crypt_ecb( mbedtls_xtea_context *ctx, int mode,
-                    const unsigned char input[8], unsigned char output[8])
+                            const unsigned char input[8], unsigned char output[8] )
 {
     uint32_t *k, v0, v1, i;
 
@@ -113,9 +115,9 @@ int mbedtls_xtea_crypt_ecb( mbedtls_xtea_context *ctx, int mode,
 
         for( i = 0; i < 32; i++ )
         {
-            v0 += (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + k[sum & 3]);
+            v0 += ( ( ( v1 << 4 ) ^ ( v1 >> 5 ) ) + v1 ) ^ ( sum + k[sum & 3] );
             sum += delta;
-            v1 += (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + k[(sum>>11) & 3]);
+            v1 += ( ( ( v0 << 4 ) ^ ( v0 >> 5 ) ) + v0 ) ^ ( sum + k[( sum >> 11 ) & 3] );
         }
     }
     else /* MBEDTLS_XTEA_DECRYPT */
@@ -124,9 +126,9 @@ int mbedtls_xtea_crypt_ecb( mbedtls_xtea_context *ctx, int mode,
 
         for( i = 0; i < 32; i++ )
         {
-            v1 -= (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + k[(sum>>11) & 3]);
+            v1 -= ( ( ( v0 << 4 ) ^ ( v0 >> 5 ) ) + v0 ) ^ ( sum + k[( sum >> 11 ) & 3] );
             sum -= delta;
-            v0 -= (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + k[sum & 3]);
+            v0 -= ( ( ( v1 << 4 ) ^ ( v1 >> 5 ) ) + v1 ) ^ ( sum + k[sum & 3] );
         }
     }
 
@@ -141,14 +143,16 @@ int mbedtls_xtea_crypt_ecb( mbedtls_xtea_context *ctx, int mode,
  * XTEA-CBC buffer encryption/decryption
  */
 int mbedtls_xtea_crypt_cbc( mbedtls_xtea_context *ctx, int mode, size_t length,
-                    unsigned char iv[8], const unsigned char *input,
-                    unsigned char *output)
+                            unsigned char iv[8], const unsigned char *input,
+                            unsigned char *output )
 {
     int i;
     unsigned char temp[8];
 
     if( length % 8 )
+    {
         return( MBEDTLS_ERR_XTEA_INVALID_INPUT_LENGTH );
+    }
 
     if( mode == MBEDTLS_XTEA_DECRYPT )
     {
@@ -158,7 +162,9 @@ int mbedtls_xtea_crypt_cbc( mbedtls_xtea_context *ctx, int mode, size_t length,
             mbedtls_xtea_crypt_ecb( ctx, mode, input, output );
 
             for( i = 0; i < 8; i++ )
-                output[i] = (unsigned char)( output[i] ^ iv[i] );
+            {
+                output[i] = ( unsigned char )( output[i] ^ iv[i] );
+            }
 
             memcpy( iv, temp, 8 );
 
@@ -172,7 +178,9 @@ int mbedtls_xtea_crypt_cbc( mbedtls_xtea_context *ctx, int mode, size_t length,
         while( length > 0 )
         {
             for( i = 0; i < 8; i++ )
-                output[i] = (unsigned char)( input[i] ^ iv[i] );
+            {
+                output[i] = ( unsigned char )( input[i] ^ iv[i] );
+            }
 
             mbedtls_xtea_crypt_ecb( ctx, mode, output, output );
             memcpy( iv, output, 8 );
@@ -196,18 +204,30 @@ int mbedtls_xtea_crypt_cbc( mbedtls_xtea_context *ctx, int mode, size_t length,
 
 static const unsigned char xtea_test_key[6][16] =
 {
-   { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-     0x0c, 0x0d, 0x0e, 0x0f },
-   { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-     0x0c, 0x0d, 0x0e, 0x0f },
-   { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-     0x0c, 0x0d, 0x0e, 0x0f },
-   { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-     0x00, 0x00, 0x00, 0x00 },
-   { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-     0x00, 0x00, 0x00, 0x00 },
-   { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-     0x00, 0x00, 0x00, 0x00 }
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
+        0x0c, 0x0d, 0x0e, 0x0f
+    },
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
+        0x0c, 0x0d, 0x0e, 0x0f
+    },
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
+        0x0c, 0x0d, 0x0e, 0x0f
+    },
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00
+    },
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00
+    },
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00
+    }
 };
 
 static const unsigned char xtea_test_pt[6][8] =
@@ -240,10 +260,13 @@ int mbedtls_xtea_self_test( int verbose )
     mbedtls_xtea_context ctx;
 
     mbedtls_xtea_init( &ctx );
+
     for( i = 0; i < 6; i++ )
     {
         if( verbose != 0 )
+        {
             mbedtls_printf( "  XTEA test #%d: ", i + 1 );
+        }
 
         memcpy( buf, xtea_test_pt[i], 8 );
 
@@ -253,18 +276,24 @@ int mbedtls_xtea_self_test( int verbose )
         if( memcmp( buf, xtea_test_ct[i], 8 ) != 0 )
         {
             if( verbose != 0 )
+            {
                 mbedtls_printf( "failed\n" );
+            }
 
             ret = 1;
             goto exit;
         }
 
         if( verbose != 0 )
+        {
             mbedtls_printf( "passed\n" );
+        }
     }
 
     if( verbose != 0 )
+    {
         mbedtls_printf( "\n" );
+    }
 
 exit:
     mbedtls_xtea_free( &ctx );

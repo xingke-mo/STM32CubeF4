@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/main.h 
+  * @file    BSP/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -49,10 +49,10 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void   (*DemoFunc)(void);
-  uint8_t DemoName[50]; 
-  uint32_t DemoIndex;
-}BSP_DemoTypedef;
+    void ( *DemoFunc )( void );
+    uint8_t DemoName[50];
+    uint32_t DemoIndex;
+} BSP_DemoTypedef;
 
 /* Exported constants --------------------------------------------------------*/
 #define COUNT_OF_EXAMPLE(x)     (sizeof(x)/sizeof(BSP_DemoTypedef))
@@ -66,8 +66,8 @@ typedef struct
 #define IDLE_STATUS      ((uint32_t)0x02) /* Audio Player in Idle Status */
 
 /* Exported functions ------------------------------------------------------- */
-void Toggle_Leds(void);
-void Error_Handler(void);
+void Toggle_Leds( void );
+void Error_Handler( void );
 
 #endif /* __MAIN_H */
 

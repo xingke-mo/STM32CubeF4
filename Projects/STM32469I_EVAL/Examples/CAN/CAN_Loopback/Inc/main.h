@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    CAN/CAN_LoopBack/Inc/main.h 
+  * @file    CAN/CAN_LoopBack/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -43,7 +43,7 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* User can use this section to tailor CANx instance used and associated 
+/* User can use this section to tailor CANx instance used and associated
    resources */
 /* Definition for CANx clock resources */
 #define CANx                           CAN1
@@ -63,7 +63,7 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void LED_Display(uint8_t Ledstatus);
+void LED_Display( uint8_t Ledstatus );
 
 #endif /* __MAIN_H */
 

@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    SAI/SAI_Audio/Src/audio_if.c 
+  * @file    SAI/SAI_Audio/Src/audio_if.c
   * @author  MCD Application Team
   * @brief   This file provides the Audio Out (playback) interface API
   ******************************************************************************
@@ -42,7 +42,7 @@
 
 /** @addtogroup SAI_Audio
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -53,7 +53,7 @@ static AUDIO_BufferTypeDef  buffer_ctl;
 static AUDIO_PLAYBACK_StateTypeDef  audio_state;
 
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t NbrOfData);
+static uint32_t GetData( void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t NbrOfData );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -62,99 +62,104 @@ static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t Nb
   * @param  None
   * @retval Audio error
   */
-AUDIO_ErrorTypeDef AUDIO_Init(void)
+AUDIO_ErrorTypeDef AUDIO_Init( void )
 {
-  audio_state = AUDIO_STATE_IDLE;
-  
-  if(BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_AUTO, AUDIO_DEFAULT_VOLUME, SAI_AUDIO_FREQUENCY_48K) == 0)
-  {
-    audio_state = AUDIO_STATE_INIT;
-    return AUDIO_ERROR_NONE;
-  }
-  return AUDIO_ERROR_IO;
+    audio_state = AUDIO_STATE_IDLE;
+
+    if( BSP_AUDIO_OUT_Init( OUTPUT_DEVICE_AUTO, AUDIO_DEFAULT_VOLUME, SAI_AUDIO_FREQUENCY_48K ) == 0 )
+    {
+        audio_state = AUDIO_STATE_INIT;
+        return AUDIO_ERROR_NONE;
+    }
+
+    return AUDIO_ERROR_IO;
 }
 
 /**
-  * @brief  Starts Audio streaming.    
-  * @param  None
-  * @retval Audio error
-  */ 
-AUDIO_ErrorTypeDef AUDIO_Start(void)
-{
-  uint32_t bytesread;
-  
-  buffer_ctl.state = BUFFER_OFFSET_NONE;
-  bytesread = GetData( (void *)AUDIO_FILE_ADDRESS,
-                      0,
-                      &buffer_ctl.buff[0],
-                      AUDIO_BUFFER_SIZE);
-  if(bytesread > 0)
-  {
-    BSP_AUDIO_OUT_Play((uint16_t*)&buffer_ctl.buff[0], AUDIO_BUFFER_SIZE);
-    audio_state = AUDIO_STATE_PLAYING;      
-    buffer_ctl.fptr = bytesread;
-    return AUDIO_ERROR_NONE;
-  }
-  return AUDIO_ERROR_IO;
-}
-
-/**
-  * @brief  Manages Audio process. 
+  * @brief  Starts Audio streaming.
   * @param  None
   * @retval Audio error
   */
-AUDIO_ErrorTypeDef AUDIO_Process(void)
+AUDIO_ErrorTypeDef AUDIO_Start( void )
 {
-  uint32_t bytesread;
-  AUDIO_ErrorTypeDef error_state = AUDIO_ERROR_NONE;  
-  
-  switch(audio_state)
-  {
-  case AUDIO_STATE_PLAYING:
-    
-    if(buffer_ctl.fptr >= AUDIO_FILE_SIZE)
+    uint32_t bytesread;
+
+    buffer_ctl.state = BUFFER_OFFSET_NONE;
+    bytesread = GetData( ( void * )AUDIO_FILE_ADDRESS,
+                         0,
+                         &buffer_ctl.buff[0],
+                         AUDIO_BUFFER_SIZE );
+
+    if( bytesread > 0 )
     {
-      /* Play audio sample again ... */
-      buffer_ctl.fptr = 0; 
-      error_state = AUDIO_ERROR_EOF;
+        BSP_AUDIO_OUT_Play( ( uint16_t * )&buffer_ctl.buff[0], AUDIO_BUFFER_SIZE );
+        audio_state = AUDIO_STATE_PLAYING;
+        buffer_ctl.fptr = bytesread;
+        return AUDIO_ERROR_NONE;
     }
 
-    /* 1st half buffer played; so fill it and continue playing from bottom*/
-    if(buffer_ctl.state == BUFFER_OFFSET_HALF)
+    return AUDIO_ERROR_IO;
+}
+
+/**
+  * @brief  Manages Audio process.
+  * @param  None
+  * @retval Audio error
+  */
+AUDIO_ErrorTypeDef AUDIO_Process( void )
+{
+    uint32_t bytesread;
+    AUDIO_ErrorTypeDef error_state = AUDIO_ERROR_NONE;
+
+    switch( audio_state )
     {
-      bytesread = GetData((void *)AUDIO_FILE_ADDRESS,
-                          buffer_ctl.fptr,
-                          &buffer_ctl.buff[0],
-                          AUDIO_BUFFER_SIZE /2);
-      
-      if( bytesread >0)
-      { 
-        buffer_ctl.state = BUFFER_OFFSET_NONE;
-        buffer_ctl.fptr += bytesread; 
-      }
+    case AUDIO_STATE_PLAYING:
+
+        if( buffer_ctl.fptr >= AUDIO_FILE_SIZE )
+        {
+            /* Play audio sample again ... */
+            buffer_ctl.fptr = 0;
+            error_state = AUDIO_ERROR_EOF;
+        }
+
+        /* 1st half buffer played; so fill it and continue playing from bottom*/
+        if( buffer_ctl.state == BUFFER_OFFSET_HALF )
+        {
+            bytesread = GetData( ( void * )AUDIO_FILE_ADDRESS,
+                                 buffer_ctl.fptr,
+                                 &buffer_ctl.buff[0],
+                                 AUDIO_BUFFER_SIZE / 2 );
+
+            if( bytesread > 0 )
+            {
+                buffer_ctl.state = BUFFER_OFFSET_NONE;
+                buffer_ctl.fptr += bytesread;
+            }
+        }
+
+        /* 2nd half buffer played; so fill it and continue playing from top */
+        if( buffer_ctl.state == BUFFER_OFFSET_FULL )
+        {
+            bytesread = GetData( ( void * )AUDIO_FILE_ADDRESS,
+                                 buffer_ctl.fptr,
+                                 &buffer_ctl.buff[AUDIO_BUFFER_SIZE / 2],
+                                 AUDIO_BUFFER_SIZE / 2 );
+
+            if( bytesread > 0 )
+            {
+                buffer_ctl.state = BUFFER_OFFSET_NONE;
+                buffer_ctl.fptr += bytesread;
+            }
+        }
+
+        break;
+
+    default:
+        error_state = AUDIO_ERROR_NOTREADY;
+        break;
     }
-    
-    /* 2nd half buffer played; so fill it and continue playing from top */    
-    if(buffer_ctl.state == BUFFER_OFFSET_FULL)
-    {
-      bytesread = GetData((void *)AUDIO_FILE_ADDRESS,
-                          buffer_ctl.fptr, 
-                          &buffer_ctl.buff[AUDIO_BUFFER_SIZE /2],
-                          AUDIO_BUFFER_SIZE /2);
-      if( bytesread > 0)
-      {
-        buffer_ctl.state = BUFFER_OFFSET_NONE;
-        buffer_ctl.fptr += bytesread;
-      }
-    }
-    break;
-    
-  default:
-    error_state = AUDIO_ERROR_NOTREADY;
-    break;
-  }
-  
-  return error_state;
+
+    return error_state;
 }
 
 /**
@@ -162,18 +167,20 @@ AUDIO_ErrorTypeDef AUDIO_Process(void)
   * @param  None
   * @retval None
   */
-static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t NbrOfData)
+static uint32_t GetData( void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t NbrOfData )
 {
-  uint8_t *lptr = pdata;
-  uint32_t ReadDataNbr;
-  
-  ReadDataNbr = 0;
-  while(((offset + ReadDataNbr) < AUDIO_FILE_SIZE) && (ReadDataNbr < NbrOfData))
-  {
-    pbuf[ReadDataNbr]= lptr [offset + ReadDataNbr];
-    ReadDataNbr++;
-  }
-  return ReadDataNbr;
+    uint8_t *lptr = pdata;
+    uint32_t ReadDataNbr;
+
+    ReadDataNbr = 0;
+
+    while( ( ( offset + ReadDataNbr ) < AUDIO_FILE_SIZE ) && ( ReadDataNbr < NbrOfData ) )
+    {
+        pbuf[ReadDataNbr] = lptr [offset + ReadDataNbr];
+        ReadDataNbr++;
+    }
+
+    return ReadDataNbr;
 }
 
 /*------------------------------------------------------------------------------
@@ -188,14 +195,14 @@ static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t Nb
   * @param  None
   * @retval None
   */
-void BSP_AUDIO_OUT_TransferComplete_CallBack(void)
+void BSP_AUDIO_OUT_TransferComplete_CallBack( void )
 {
-  if(audio_state == AUDIO_STATE_PLAYING)
-  {
-    /* BSP_AUDIO sets SAI DMA in circular mode => no need to invoke SAI_Transmit each time */
-    /* allows AUDIO_Process() to refill 2nd part of the buffer  */
-    buffer_ctl.state = BUFFER_OFFSET_FULL;
-  }
+    if( audio_state == AUDIO_STATE_PLAYING )
+    {
+        /* BSP_AUDIO sets SAI DMA in circular mode => no need to invoke SAI_Transmit each time */
+        /* allows AUDIO_Process() to refill 2nd part of the buffer  */
+        buffer_ctl.state = BUFFER_OFFSET_FULL;
+    }
 }
 
 /**
@@ -203,13 +210,13 @@ void BSP_AUDIO_OUT_TransferComplete_CallBack(void)
   * @param  None
   * @retval None
   */
-void BSP_AUDIO_OUT_HalfTransfer_CallBack(void)
-{ 
-  if(audio_state == AUDIO_STATE_PLAYING)
-  {
-    /* allows AUDIO_Process() to refill 1st part of the buffer  */
-    buffer_ctl.state = BUFFER_OFFSET_HALF;
-  }
+void BSP_AUDIO_OUT_HalfTransfer_CallBack( void )
+{
+    if( audio_state == AUDIO_STATE_PLAYING )
+    {
+        /* allows AUDIO_Process() to refill 1st part of the buffer  */
+        buffer_ctl.state = BUFFER_OFFSET_HALF;
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

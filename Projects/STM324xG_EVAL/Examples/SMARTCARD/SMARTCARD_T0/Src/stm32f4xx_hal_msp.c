@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    SMARTCARD/SMARTCARD_T0/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @brief   HAL MSP module.    
+  * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
@@ -30,8 +30,8 @@
   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
-  ******************************************************************************  
-  */ 
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -56,11 +56,11 @@
   */
 
 /**
-  * @brief SMARTCARD MSP Initialization 
-  *        This function configures the hardware resources used in this example: 
+  * @brief SMARTCARD MSP Initialization
+  *        This function configures the hardware resources used in this example:
   *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration  
-  *           - DMA configuration for transmission request by peripheral 
+  *           - Peripheral's GPIO Configuration
+  *           - DMA configuration for transmission request by peripheral
   *           - NVIC configuration for DMA interrupt request enable
   * @param hsmartcard: SmartCard handle pointer
   * @retval None
@@ -69,51 +69,51 @@
   * @param  None
   * @retval None
   */
-void HAL_SMARTCARD_MspInit(SMARTCARD_HandleTypeDef *hsc)
+void HAL_SMARTCARD_MspInit( SMARTCARD_HandleTypeDef *hsc )
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  
-  /* Enable Smartcard GPIO clocks */
-  SC_USART_TX_CLK_ENABLE();
-  SC_USART_CK_CLK_ENABLE();
-                         
-  /* Enable SmartCard clock */
-  SC_USART_CLK_ENABLE();
+    GPIO_InitTypeDef  GPIO_InitStruct;
 
-  /* Configure USART Clock pin as alternate function push-pull */
-  GPIO_InitStruct.Pin = SC_USART_CK_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Alternate = SC_USART_CK_AF;
-  HAL_GPIO_Init(SC_USART_CK_GPIO_PORT, &GPIO_InitStruct);
-  
-  /* Configure USART Tx pin as alternate function open-drain */
-  GPIO_InitStruct.Pin = SC_USART_TX_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-  HAL_GPIO_Init(SC_USART_TX_GPIO_PORT, &GPIO_InitStruct);
+    /* Enable Smartcard GPIO clocks */
+    SC_USART_TX_CLK_ENABLE();
+    SC_USART_CK_CLK_ENABLE();
 
-  /* Enable SC_USART IRQ */
-  HAL_NVIC_SetPriority(SC_USART_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(SC_USART_IRQn);
+    /* Enable SmartCard clock */
+    SC_USART_CLK_ENABLE();
+
+    /* Configure USART Clock pin as alternate function push-pull */
+    GPIO_InitStruct.Pin = SC_USART_CK_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Alternate = SC_USART_CK_AF;
+    HAL_GPIO_Init( SC_USART_CK_GPIO_PORT, &GPIO_InitStruct );
+
+    /* Configure USART Tx pin as alternate function open-drain */
+    GPIO_InitStruct.Pin = SC_USART_TX_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    HAL_GPIO_Init( SC_USART_TX_GPIO_PORT, &GPIO_InitStruct );
+
+    /* Enable SC_USART IRQ */
+    HAL_NVIC_SetPriority( SC_USART_IRQn, 0, 0 );
+    HAL_NVIC_EnableIRQ( SC_USART_IRQn );
 }
 
 /**
-  * @brief SMARTCARD MSP De-Initialization 
+  * @brief SMARTCARD MSP De-Initialization
   *        This function frees the hardware resources used in this example:
   *          - Disable the Peripheral's clock
   *          - Revert GPIO, DMA and NVIC configuration to their default state
   * @param huart: UART handle pointer
   * @retval None
   */
-void HAL_SMARTCARD_MspDeInit(SMARTCARD_HandleTypeDef *hsmartcard)
+void HAL_SMARTCARD_MspDeInit( SMARTCARD_HandleTypeDef *hsmartcard )
 {
-  /*##-1- Reset peripherals ##################################################*/
-  SC_USART_FORCE_RESET(); 
-  SC_USART_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    SC_USART_FORCE_RESET();
+    SC_USART_RELEASE_RESET();
 
-  /* Disable SmartCard clock */
-  SC_USART_CLK_DISABLE();
+    /* Disable SmartCard clock */
+    SC_USART_CLK_DISABLE();
 }
 
 /**

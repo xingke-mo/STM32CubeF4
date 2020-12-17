@@ -36,37 +36,37 @@ Purpose     : This file provides emWin Interface with FreeRTOS
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without 
+  * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice, 
+  * 1. Redistribution of source code must retain the above copyright notice,
   *    this list of conditions and the following disclaimer.
   * 2. Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
   *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other 
-  *    contributors to this software may be used to endorse or promote products 
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
   *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this 
+  * 4. This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
   *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under 
-  *    this license is void and will automatically terminate your rights under 
-  *    this license. 
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
-  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
-  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
@@ -75,10 +75,10 @@ Purpose     : This file provides emWin Interface with FreeRTOS
 /* Includes ------------------------------------------------------------------*/
 
 #include "GUI.h"
-    
-    /* FreeRTOS include files */
+
+/* FreeRTOS include files */
 #include "cmsis_os.h"
-    
+
 /*********************************************************************
 *
 * Global data
@@ -96,14 +96,14 @@ and delay function. Default time unit (tick), normally is
 1 ms.
 */
 
-int GUI_X_GetTime(void)
+int GUI_X_GetTime( void )
 {
-  return ((int) xTaskGetTickCount());
+    return ( ( int ) xTaskGetTickCount() );
 }
 
-void GUI_X_Delay(int ms)
+void GUI_X_Delay( int ms )
 {
-  vTaskDelay( ms );
+    vTaskDelay( ms );
 }
 
 /*********************************************************************
@@ -116,7 +116,8 @@ void GUI_X_Delay(int ms)
 * If not required, leave this routine blank.
 */
 
-void GUI_X_Init(void) {
+void GUI_X_Init( void )
+{
 }
 
 
@@ -128,7 +129,7 @@ void GUI_X_Init(void) {
 * Called if WM is in idle state
 */
 
-void GUI_X_ExecIdle(void) {}
+void GUI_X_ExecIdle( void ) {}
 
 /*********************************************************************
 *
@@ -149,47 +150,47 @@ void GUI_X_ExecIdle(void) {}
 */
 
 /* Init OS */
-void GUI_X_InitOS(void)
-{ 
-  /* Create Mutex lock */
-  osMutexDef(MUTEX);
-  
-  /* Create the Mutex used by the two threads */
-  osMutex = osMutexCreate(osMutex(MUTEX));
-  
-  /* Create Semaphore lock */
-  osSemaphoreDef(SEM);
-  
-  /* Create the Semaphore used by the two threads */
-  osSemaphore= osSemaphoreCreate(osSemaphore(SEM), 1);  
-}
-
-void GUI_X_Unlock(void)
-{ 
-  osMutexRelease(osMutex);
-}
-
-void GUI_X_Lock(void)
+void GUI_X_InitOS( void )
 {
-  osMutexWait(osMutex , osWaitForever) ;
+    /* Create Mutex lock */
+    osMutexDef( MUTEX );
+
+    /* Create the Mutex used by the two threads */
+    osMutex = osMutexCreate( osMutex( MUTEX ) );
+
+    /* Create Semaphore lock */
+    osSemaphoreDef( SEM );
+
+    /* Create the Semaphore used by the two threads */
+    osSemaphore = osSemaphoreCreate( osSemaphore( SEM ), 1 );
+}
+
+void GUI_X_Unlock( void )
+{
+    osMutexRelease( osMutex );
+}
+
+void GUI_X_Lock( void )
+{
+    osMutexWait( osMutex, osWaitForever ) ;
 }
 
 /* Get Task handle */
-U32 GUI_X_GetTaskId(void) 
-{ 
-  return ((U32) osThreadGetId());
+U32 GUI_X_GetTaskId( void )
+{
+    return ( ( U32 ) osThreadGetId() );
 }
 
 
-void GUI_X_WaitEvent (void) 
+void GUI_X_WaitEvent( void )
 {
-  osSemaphoreWait(osSemaphore , osWaitForever) ;
+    osSemaphoreWait( osSemaphore, osWaitForever ) ;
 }
 
 
-void GUI_X_SignalEvent (void) 
+void GUI_X_SignalEvent( void )
 {
-  osMutexRelease(osSemaphore);
+    osMutexRelease( osSemaphore );
 }
 
 /*********************************************************************
@@ -206,8 +207,8 @@ functions automatically)
 
 */
 
-void GUI_X_Log (const char *s) { }
-void GUI_X_Warn (const char *s) { }
-void GUI_X_ErrorOut(const char *s) { }
+void GUI_X_Log( const char *s ) { }
+void GUI_X_Warn( const char *s ) { }
+void GUI_X_ErrorOut( const char *s ) { }
 
 /*************************** End of file ****************************/

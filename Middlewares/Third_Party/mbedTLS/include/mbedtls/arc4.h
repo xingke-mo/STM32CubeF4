@@ -29,9 +29,9 @@
 #define MBEDTLS_ARC4_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -103,7 +103,7 @@ void mbedtls_arc4_free( mbedtls_arc4_context *ctx );
  *
  */
 void mbedtls_arc4_setup( mbedtls_arc4_context *ctx, const unsigned char *key,
-                 unsigned int keylen );
+                         unsigned int keylen );
 
 /**
  * \brief          ARC4 cipher function
@@ -121,7 +121,7 @@ void mbedtls_arc4_setup( mbedtls_arc4_context *ctx, const unsigned char *key,
  *
  */
 int mbedtls_arc4_crypt( mbedtls_arc4_context *ctx, size_t length, const unsigned char *input,
-                unsigned char *output );
+                        unsigned char *output );
 
 #if defined(MBEDTLS_SELF_TEST)
 

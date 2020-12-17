@@ -42,33 +42,33 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* User can use this section to tailor SPIx instance used and associated 
+/* User can use this section to tailor SPIx instance used and associated
    resources */
 /* Definition for SPIx clock resources */
 #if 0
-#define SPIx                             SPI1
-#define SPIx_CLK_ENABLE()                __HAL_RCC_SPI1_CLK_ENABLE()
-#define SPIx_SCK_GPIO_CLK_ENABLE()       __HAL_RCC_GPIOA_CLK_ENABLE()
-#define SPIx_MISO_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
-#define SPIx_MOSI_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
+    #define SPIx                             SPI1
+    #define SPIx_CLK_ENABLE()                __HAL_RCC_SPI1_CLK_ENABLE()
+    #define SPIx_SCK_GPIO_CLK_ENABLE()       __HAL_RCC_GPIOA_CLK_ENABLE()
+    #define SPIx_MISO_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
+    #define SPIx_MOSI_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
 
-#define SPIx_FORCE_RESET()               __HAL_RCC_SPI1_FORCE_RESET()
-#define SPIx_RELEASE_RESET()             __HAL_RCC_SPI1_RELEASE_RESET()
+    #define SPIx_FORCE_RESET()               __HAL_RCC_SPI1_FORCE_RESET()
+    #define SPIx_RELEASE_RESET()             __HAL_RCC_SPI1_RELEASE_RESET()
 
-/* Definition for SPIx Pins */
-#define SPIx_SCK_PIN                     GPIO_PIN_5
-#define SPIx_SCK_GPIO_PORT               GPIOA
-#define SPIx_SCK_AF                      GPIO_AF5_SPI1
-#define SPIx_MISO_PIN                    GPIO_PIN_4
-#define SPIx_MISO_GPIO_PORT              GPIOB
-#define SPIx_MISO_AF                     GPIO_AF5_SPI1
-#define SPIx_MOSI_PIN                    GPIO_PIN_5
-#define SPIx_MOSI_GPIO_PORT              GPIOB
-#define SPIx_MOSI_AF                     GPIO_AF5_SPI1
+    /* Definition for SPIx Pins */
+    #define SPIx_SCK_PIN                     GPIO_PIN_5
+    #define SPIx_SCK_GPIO_PORT               GPIOA
+    #define SPIx_SCK_AF                      GPIO_AF5_SPI1
+    #define SPIx_MISO_PIN                    GPIO_PIN_4
+    #define SPIx_MISO_GPIO_PORT              GPIOB
+    #define SPIx_MISO_AF                     GPIO_AF5_SPI1
+    #define SPIx_MOSI_PIN                    GPIO_PIN_5
+    #define SPIx_MOSI_GPIO_PORT              GPIOB
+    #define SPIx_MOSI_AF                     GPIO_AF5_SPI1
 
-/* Definition for SPIx's NVIC */
-#define SPIx_IRQn                        SPI1_IRQn
-#define SPIx_IRQHandler                  SPI1_IRQHandler
+    /* Definition for SPIx's NVIC */
+    #define SPIx_IRQn                        SPI1_IRQn
+    #define SPIx_IRQHandler                  SPI1_IRQHandler
 #endif
 
 #define SPIx                             SPI2

@@ -65,30 +65,30 @@
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspInit( ADC_HandleTypeDef *hadc )
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
-  
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable clock of GPIO associated to the peripheral channels */
-  ADCx_CHANNELa_GPIO_CLK_ENABLE();
-  
-  /* Enable clock of ADCx peripheral (core clock) */
-  ADCx_CLK_ENABLE();
-  
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* Configure GPIO pin of the selected ADC channel */
-  GPIO_InitStruct.Pin = ADCx_CHANNELa_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ADCx_CHANNELa_GPIO_PORT, &GPIO_InitStruct);
-  
-  /*##-4- Configure the NVIC #################################################*/
-  /* NVIC configuration for ADC interrupt */
-  /* Priority: high-priority */
-  HAL_NVIC_SetPriority(ADCx_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(ADCx_IRQn);
-  
+    GPIO_InitTypeDef          GPIO_InitStruct;
+
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* Enable clock of GPIO associated to the peripheral channels */
+    ADCx_CHANNELa_GPIO_CLK_ENABLE();
+
+    /* Enable clock of ADCx peripheral (core clock) */
+    ADCx_CLK_ENABLE();
+
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    /* Configure GPIO pin of the selected ADC channel */
+    GPIO_InitStruct.Pin = ADCx_CHANNELa_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init( ADCx_CHANNELa_GPIO_PORT, &GPIO_InitStruct );
+
+    /*##-4- Configure the NVIC #################################################*/
+    /* NVIC configuration for ADC interrupt */
+    /* Priority: high-priority */
+    HAL_NVIC_SetPriority( ADCx_IRQn, 0, 0 );
+    HAL_NVIC_EnableIRQ( ADCx_IRQn );
+
 }
 
 /**
@@ -101,27 +101,27 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspDeInit( ADC_HandleTypeDef *hadc )
 {
-  /*##-1- Reset peripherals ##################################################*/
-  ADCx_FORCE_RESET();
-  ADCx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    ADCx_FORCE_RESET();
+    ADCx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
-  /* De-initialize GPIO pin of the selected ADC channel */
-  HAL_GPIO_DeInit(ADCx_CHANNELa_GPIO_PORT, ADCx_CHANNELa_PIN);
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    /* De-initialize GPIO pin of the selected ADC channel */
+    HAL_GPIO_DeInit( ADCx_CHANNELa_GPIO_PORT, ADCx_CHANNELa_PIN );
 
-  /*##-3- Disable the DMA streams ############################################*/
-  /* De-Initialize the DMA associated to the peripheral */
-  if(hadc->DMA_Handle != NULL)
-  {
-    HAL_DMA_DeInit(hadc->DMA_Handle);
-  }
+    /*##-3- Disable the DMA streams ############################################*/
+    /* De-Initialize the DMA associated to the peripheral */
+    if( hadc->DMA_Handle != NULL )
+    {
+        HAL_DMA_DeInit( hadc->DMA_Handle );
+    }
 
-  /*##-4- Disable the NVIC ###################################################*/
-  /* Disable the NVIC configuration for ADC interrupt */
-  HAL_NVIC_DisableIRQ(ADCx_IRQn);
-  
+    /*##-4- Disable the NVIC ###################################################*/
+    /* Disable the NVIC configuration for ADC interrupt */
+    HAL_NVIC_DisableIRQ( ADCx_IRQn );
+
 }
 
 
@@ -135,28 +135,28 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
   * @param hdac: DAC handle pointer
   * @retval None
   */
-void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
+void HAL_DAC_MspInit( DAC_HandleTypeDef *hdac )
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
-  
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO clock */
-  DACx_CHANNEL_GPIO_CLK_ENABLE();
-  /* DAC peripheral clock enable */
-  DACx_CLK_ENABLE();
-  
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* Configure GPIO pin of the selected DAC channel */
-  GPIO_InitStruct.Pin = DACx_CHANNEL_TO_ADCx_CHANNELa_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(DACx_CHANNEL_TO_ADCx_CHANNELa_GPIO_PORT, &GPIO_InitStruct);
-  
-  /*##-3- Configure the NVIC #################################################*/
-  /* NVIC configuration for DAC interrupt */
-  /* Priority: mid-priority */
-  HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 3, 0);
-  HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
+    GPIO_InitTypeDef          GPIO_InitStruct;
+
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* Enable GPIO clock */
+    DACx_CHANNEL_GPIO_CLK_ENABLE();
+    /* DAC peripheral clock enable */
+    DACx_CLK_ENABLE();
+
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    /* Configure GPIO pin of the selected DAC channel */
+    GPIO_InitStruct.Pin = DACx_CHANNEL_TO_ADCx_CHANNELa_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init( DACx_CHANNEL_TO_ADCx_CHANNELa_GPIO_PORT, &GPIO_InitStruct );
+
+    /*##-3- Configure the NVIC #################################################*/
+    /* NVIC configuration for DAC interrupt */
+    /* Priority: mid-priority */
+    HAL_NVIC_SetPriority( TIM6_DAC_IRQn, 3, 0 );
+    HAL_NVIC_EnableIRQ( TIM6_DAC_IRQn );
 }
 
 /**
@@ -168,18 +168,18 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
   * @param hadc: DAC handle pointer
   * @retval None
   */
-void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
+void HAL_DAC_MspDeInit( DAC_HandleTypeDef *hdac )
 {
-  /*##-1- Reset peripherals ##################################################*/
-  DACx_FORCE_RESET();
-  DACx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    DACx_FORCE_RESET();
+    DACx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
-  /* De-initialize GPIO pin of the selected DAC channel */
-  HAL_GPIO_DeInit(DACx_CHANNEL_TO_ADCx_CHANNELa_GPIO_PORT, DACx_CHANNEL_TO_ADCx_CHANNELa_PIN);
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    /* De-initialize GPIO pin of the selected DAC channel */
+    HAL_GPIO_DeInit( DACx_CHANNEL_TO_ADCx_CHANNELa_GPIO_PORT, DACx_CHANNEL_TO_ADCx_CHANNELa_PIN );
 
-  /*##-3- Disable the NVIC for DAC ###########################################*/
-  HAL_NVIC_DisableIRQ(TIM6_DAC_IRQn);
+    /*##-3- Disable the NVIC for DAC ###########################################*/
+    HAL_NVIC_DisableIRQ( TIM6_DAC_IRQn );
 }
 #endif /* WAVEFORM_GENERATION */
 

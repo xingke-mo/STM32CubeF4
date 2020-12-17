@@ -25,13 +25,13 @@
  * config.h, which pulls in glibc's features.h. Harmless on other platforms.
  */
 #if !defined(_POSIX_C_SOURCE)
-#define _POSIX_C_SOURCE 200112L
+    #define _POSIX_C_SOURCE 200112L
 #endif
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "mbedtls/platform_util.h"
@@ -68,7 +68,7 @@
  * mbedtls_platform_zeroize() to use a suitable implementation for their
  * platform and needs.
  */
-static void * (* const volatile memset_func)( void *, int, size_t ) = memset;
+static void *( * const volatile memset_func )( void *, int, size_t ) = memset;
 
 void mbedtls_platform_zeroize( void *buf, size_t len )
 {
@@ -96,7 +96,7 @@ void mbedtls_platform_zeroize( void *buf, size_t len )
  * we keep it private by only defining it in this file
  */
 #if ! ( defined(_WIN32) && !defined(EFIX64) && !defined(EFI32) )
-#define PLATFORM_UTIL_USE_GMTIME
+    #define PLATFORM_UTIL_USE_GMTIME
 #endif /* ! ( defined(_WIN32) && !defined(EFIX64) && !defined(EFI32) ) */
 
 #endif /* !( ( defined(_POSIX_VERSION) && _POSIX_VERSION >= 200809L ) ||     \
@@ -114,8 +114,12 @@ struct tm *mbedtls_platform_gmtime_r( const mbedtls_time_t *tt,
     struct tm *lt;
 
 #if defined(MBEDTLS_THREADING_C)
+
     if( mbedtls_mutex_lock( &mbedtls_threading_gmtime_mutex ) != 0 )
+    {
         return( NULL );
+    }
+
 #endif /* MBEDTLS_THREADING_C */
 
     lt = gmtime( tt );
@@ -126,8 +130,12 @@ struct tm *mbedtls_platform_gmtime_r( const mbedtls_time_t *tt,
     }
 
 #if defined(MBEDTLS_THREADING_C)
+
     if( mbedtls_mutex_unlock( &mbedtls_threading_gmtime_mutex ) != 0 )
+    {
         return( NULL );
+    }
+
 #endif /* MBEDTLS_THREADING_C */
 
     return( ( lt == NULL ) ? NULL : tm_buf );

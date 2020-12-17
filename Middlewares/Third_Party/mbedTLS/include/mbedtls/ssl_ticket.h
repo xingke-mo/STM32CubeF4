@@ -25,9 +25,9 @@
 #define MBEDTLS_SSL_TICKET_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 /*
@@ -40,7 +40,7 @@
 #include "cipher.h"
 
 #if defined(MBEDTLS_THREADING_C)
-#include "threading.h"
+    #include "threading.h"
 #endif
 
 #ifdef __cplusplus
@@ -69,7 +69,7 @@ typedef struct mbedtls_ssl_ticket_context
     uint32_t ticket_lifetime;       /*!< lifetime of tickets in seconds     */
 
     /** Callback for getting (pseudo-)random numbers                        */
-    int  (*f_rng)(void *, unsigned char *, size_t);
+    int ( *f_rng )( void *, unsigned char *, size_t );
     void *p_rng;                    /*!< context for the RNG function       */
 
 #if defined(MBEDTLS_THREADING_C)
@@ -110,9 +110,9 @@ void mbedtls_ssl_ticket_init( mbedtls_ssl_ticket_context *ctx );
  *                  or a specific MBEDTLS_ERR_XXX error code
  */
 int mbedtls_ssl_ticket_setup( mbedtls_ssl_ticket_context *ctx,
-    int (*f_rng)(void *, unsigned char *, size_t), void *p_rng,
-    mbedtls_cipher_type_t cipher,
-    uint32_t lifetime );
+                              int ( *f_rng )( void *, unsigned char *, size_t ), void *p_rng,
+                              mbedtls_cipher_type_t cipher,
+                              uint32_t lifetime );
 
 /**
  * \brief           Implementation of the ticket write callback

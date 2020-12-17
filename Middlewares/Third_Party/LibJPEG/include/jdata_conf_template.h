@@ -4,12 +4,12 @@
   *
   * @author  MCD Application Team
   * @brief   jdata_conf file template header file using FatFs API
-  *          This file should be copied to the application "Inc" folder and modified 
+  *          This file should be copied to the application "Inc" folder and modified
   *          as follows:
   *            - Rename it to 'jdata_conf.h'.
-  *            - update the  read/write functions defines (example of implementation is 
+  *            - update the  read/write functions defines (example of implementation is
   *              provided based on FatFs)
-  *          
+  *
   ******************************************************************************
   *
   * Copyright (c) 2019 STMicroelectronics. All rights reserved.
@@ -33,8 +33,8 @@
 
 /*
   Example of implementation based on FatFS
-  
-  If JFREAD/JFWRITE prototypes are complient with the standard FatFS APIs (f_read/f_write) 
+
+  If JFREAD/JFWRITE prototypes are complient with the standard FatFS APIs (f_read/f_write)
   only APIs re-definition is needed and no need to wrapper APIs defined in "jdata_conf_template.c" file
 
    #define JFREAD  f_read
@@ -45,11 +45,11 @@
 
 #define JFILE            FIL
 
-#define JMALLOC   malloc    
-#define JFREE     free  
+#define JMALLOC   malloc
+#define JFREE     free
 
-size_t read_file (JFILE  *file, uint8_t *buf, uint32_t sizeofbuf);
-size_t write_file (JFILE  *file, uint8_t *buf, uint32_t sizeofbuf) ;
+size_t read_file( JFILE  *file, uint8_t *buf, uint32_t sizeofbuf );
+size_t write_file( JFILE  *file, uint8_t *buf, uint32_t sizeofbuf ) ;
 
 #define JFREAD(file,buf,sizeofbuf)  \
    read_file (file,buf,sizeofbuf)

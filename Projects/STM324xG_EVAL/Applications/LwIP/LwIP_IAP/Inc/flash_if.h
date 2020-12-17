@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    LwIP/LwIP_IAP/Inc/flash_if.h 
+  * @file    LwIP/LwIP_IAP/Inc/flash_if.h
   * @author  MCD Application Team
   * @brief   Header for flash_if.c module
   ******************************************************************************
@@ -30,9 +30,9 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint32_t FLASH_If_Write(__IO uint32_t* Address, uint32_t* Data, uint16_t DataLength);
-int8_t FLASH_If_Erase(uint32_t StartSector);
-void FLASH_If_Init(void);
+uint32_t FLASH_If_Write( __IO uint32_t *Address, uint32_t *Data, uint16_t DataLength );
+int8_t FLASH_If_Erase( uint32_t StartSector );
+void FLASH_If_Init( void );
 
 #endif /* __FLASH_IF_H */
 

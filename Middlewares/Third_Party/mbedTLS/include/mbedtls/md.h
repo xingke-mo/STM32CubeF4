@@ -1,10 +1,10 @@
- /**
- * \file md.h
- *
- * \brief This file contains the generic message-digest wrapper.
- *
- * \author Adriaan de Jong <dejong@fox-it.com>
- */
+/**
+* \file md.h
+*
+* \brief This file contains the generic message-digest wrapper.
+*
+* \author Adriaan de Jong <dejong@fox-it.com>
+*/
 /*
  *  Copyright (C) 2006-2018, Arm Limited (or its affiliates), All Rights Reserved
  *  SPDX-License-Identifier: Apache-2.0
@@ -30,9 +30,9 @@
 #include <stddef.h>
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #define MBEDTLS_ERR_MD_FEATURE_UNAVAILABLE                -0x5080  /**< The selected feature is not available. */
@@ -55,8 +55,9 @@ extern "C" {
  *            stronger message digests instead.
  *
  */
-typedef enum {
-    MBEDTLS_MD_NONE=0,    /**< None. */
+typedef enum
+{
+    MBEDTLS_MD_NONE = 0,  /**< None. */
     MBEDTLS_MD_MD2,       /**< The MD2 message digest. */
     MBEDTLS_MD_MD4,       /**< The MD4 message digest. */
     MBEDTLS_MD_MD5,       /**< The MD5 message digest. */
@@ -328,7 +329,7 @@ int mbedtls_md_finish( mbedtls_md_context_t *ctx, unsigned char *output );
  *                 failure.
  */
 int mbedtls_md( const mbedtls_md_info_t *md_info, const unsigned char *input, size_t ilen,
-        unsigned char *output );
+                unsigned char *output );
 
 #if defined(MBEDTLS_FS_IO)
 /**
@@ -371,7 +372,7 @@ int mbedtls_md_file( const mbedtls_md_info_t *md_info, const char *path,
  *                  failure.
  */
 int mbedtls_md_hmac_starts( mbedtls_md_context_t *ctx, const unsigned char *key,
-                    size_t keylen );
+                            size_t keylen );
 
 /**
  * \brief           This function feeds an input buffer into an ongoing HMAC
@@ -393,7 +394,7 @@ int mbedtls_md_hmac_starts( mbedtls_md_context_t *ctx, const unsigned char *key,
  *                  failure.
  */
 int mbedtls_md_hmac_update( mbedtls_md_context_t *ctx, const unsigned char *input,
-                    size_t ilen );
+                            size_t ilen );
 
 /**
  * \brief           This function finishes the HMAC operation, and writes
@@ -413,7 +414,7 @@ int mbedtls_md_hmac_update( mbedtls_md_context_t *ctx, const unsigned char *inpu
  * \return          #MBEDTLS_ERR_MD_BAD_INPUT_DATA on parameter-verification
  *                  failure.
  */
-int mbedtls_md_hmac_finish( mbedtls_md_context_t *ctx, unsigned char *output);
+int mbedtls_md_hmac_finish( mbedtls_md_context_t *ctx, unsigned char *output );
 
 /**
  * \brief           This function prepares to authenticate a new message with
@@ -455,8 +456,8 @@ int mbedtls_md_hmac_reset( mbedtls_md_context_t *ctx );
  *                 failure.
  */
 int mbedtls_md_hmac( const mbedtls_md_info_t *md_info, const unsigned char *key, size_t keylen,
-                const unsigned char *input, size_t ilen,
-                unsigned char *output );
+                     const unsigned char *input, size_t ilen,
+                     unsigned char *output );
 
 /* Internal use */
 int mbedtls_md_process( mbedtls_md_context_t *ctx, const unsigned char *data );

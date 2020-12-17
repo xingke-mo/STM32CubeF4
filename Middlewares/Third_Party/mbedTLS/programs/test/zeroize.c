@@ -30,20 +30,20 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stdio.h>
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdlib.h>
-#define mbedtls_printf     printf
-#define MBEDTLS_EXIT_SUCCESS EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE EXIT_FAILURE
+    #include <stdlib.h>
+    #define mbedtls_printf     printf
+    #define MBEDTLS_EXIT_SUCCESS EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE EXIT_FAILURE
 #endif
 
 #include "mbedtls/platform_util.h"
@@ -59,7 +59,7 @@ void usage( void )
     mbedtls_printf( "       zeroize <FILE>\n" );
 }
 
-int main( int argc, char** argv )
+int main( int argc, char **argv )
 {
     int exit_code = MBEDTLS_EXIT_FAILURE;
     FILE *fp;
@@ -76,6 +76,7 @@ int main( int argc, char** argv )
     }
 
     fp = fopen( argv[1], "r" );
+
     if( fp == NULL )
     {
         mbedtls_printf( "Could not open file '%s'\n", argv[1] );
@@ -83,7 +84,10 @@ int main( int argc, char** argv )
     }
 
     while( ( c = fgetc( fp ) ) != EOF && p < end - 1 )
-        *p++ = (char)c;
+    {
+        *p++ = ( char )c;
+    }
+
     *p = '\0';
 
     if( p - buf != 0 )
@@ -92,7 +96,9 @@ int main( int argc, char** argv )
         exit_code = MBEDTLS_EXIT_SUCCESS;
     }
     else
+    {
         mbedtls_printf( "The file is empty!\n" );
+    }
 
     fclose( fp );
     mbedtls_platform_zeroize( buf, sizeof( buf ) );

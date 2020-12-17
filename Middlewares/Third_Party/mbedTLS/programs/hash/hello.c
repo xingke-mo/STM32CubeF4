@@ -20,30 +20,30 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdlib.h>
-#include <stdio.h>
-#define mbedtls_printf       printf
-#define mbedtls_exit         exit
-#define MBEDTLS_EXIT_SUCCESS EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE EXIT_FAILURE
+    #include <stdlib.h>
+    #include <stdio.h>
+    #define mbedtls_printf       printf
+    #define mbedtls_exit         exit
+    #define MBEDTLS_EXIT_SUCCESS EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE EXIT_FAILURE
 #endif
 
 #if defined(MBEDTLS_MD5_C)
-#include "mbedtls/md5.h"
+    #include "mbedtls/md5.h"
 #endif
 
 #if !defined(MBEDTLS_MD5_C)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_MD5_C not defined.\n");
+    mbedtls_printf( "MBEDTLS_MD5_C not defined.\n" );
     return( 0 );
 }
 #else
@@ -68,11 +68,15 @@ int main( void )
 
     mbedtls_printf( "\n  MD5('%s') = ", str );
 
-    if( ( ret = mbedtls_md5_ret( (unsigned char *) str, 13, digest ) ) != 0 )
+    if( ( ret = mbedtls_md5_ret( ( unsigned char * ) str, 13, digest ) ) != 0 )
+    {
         return( MBEDTLS_EXIT_FAILURE );
+    }
 
     for( i = 0; i < 16; i++ )
+    {
         mbedtls_printf( "%02x", digest[i] );
+    }
 
     mbedtls_printf( "\n\n" );
 

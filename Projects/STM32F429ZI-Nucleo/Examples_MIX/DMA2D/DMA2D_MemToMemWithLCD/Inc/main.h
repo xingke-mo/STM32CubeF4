@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    Examples_MIX/DMA2D/DMA2D_MemToMemWithLCD/Inc/main.h 
+  * @file    Examples_MIX/DMA2D/DMA2D_MemToMemWithLCD/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -32,7 +32,7 @@
   *
   ******************************************************************************
   */
-  
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -44,15 +44,15 @@
 #include "stm32_adafruit_lcd.h"
 
 
-#define LAYER_SIZE_X 			128
-#define LAYER_SIZE_Y			160
-#define LAYER_BYTE_PER_PIXEL	2 /* RGB565 format */
+#define LAYER_SIZE_X            128
+#define LAYER_SIZE_Y            160
+#define LAYER_BYTE_PER_PIXEL    2 /* RGB565 format */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OnError_Handler(uint32_t condition);
+void OnError_Handler( uint32_t condition );
 
 #endif /* __MAIN_H */
 

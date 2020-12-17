@@ -62,9 +62,9 @@
 #define MBEDTLS_ECP_INTERNAL_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_ECP_INTERNAL_ALT)
@@ -124,8 +124,8 @@ void mbedtls_internal_ecp_free( const mbedtls_ecp_group *grp );
  * \return          0 if successful.
  */
 int mbedtls_internal_ecp_randomize_jac( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *pt, int (*f_rng)(void *, unsigned char *, size_t),
-        void *p_rng );
+                                        mbedtls_ecp_point *pt, int ( *f_rng )( void *, unsigned char *, size_t ),
+                                        void *p_rng );
 #endif
 
 #if defined(MBEDTLS_ECP_ADD_MIXED_ALT)
@@ -169,8 +169,8 @@ int mbedtls_internal_ecp_randomize_jac( const mbedtls_ecp_group *grp,
  * \return          0 if successful.
  */
 int mbedtls_internal_ecp_add_mixed( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *R, const mbedtls_ecp_point *P,
-        const mbedtls_ecp_point *Q );
+                                    mbedtls_ecp_point *R, const mbedtls_ecp_point *P,
+                                    const mbedtls_ecp_point *Q );
 #endif
 
 /**
@@ -194,7 +194,7 @@ int mbedtls_internal_ecp_add_mixed( const mbedtls_ecp_group *grp,
  */
 #if defined(MBEDTLS_ECP_DOUBLE_JAC_ALT)
 int mbedtls_internal_ecp_double_jac( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *R, const mbedtls_ecp_point *P );
+                                     mbedtls_ecp_point *R, const mbedtls_ecp_point *P );
 #endif
 
 /**
@@ -242,7 +242,7 @@ int mbedtls_internal_ecp_normalize_jac_many( const mbedtls_ecp_group *grp,
  */
 #if defined(MBEDTLS_ECP_NORMALIZE_JAC_ALT)
 int mbedtls_internal_ecp_normalize_jac( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *pt );
+                                        mbedtls_ecp_point *pt );
 #endif
 
 #endif /* ECP_SHORTWEIERSTRASS */
@@ -272,8 +272,8 @@ int mbedtls_internal_ecp_double_add_mxz( const mbedtls_ecp_group *grp,
  */
 #if defined(MBEDTLS_ECP_RANDOMIZE_MXZ_ALT)
 int mbedtls_internal_ecp_randomize_mxz( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *P, int (*f_rng)(void *, unsigned char *, size_t),
-        void *p_rng );
+                                        mbedtls_ecp_point *P, int ( *f_rng )( void *, unsigned char *, size_t ),
+                                        void *p_rng );
 #endif
 
 /**
@@ -288,7 +288,7 @@ int mbedtls_internal_ecp_randomize_mxz( const mbedtls_ecp_group *grp,
  */
 #if defined(MBEDTLS_ECP_NORMALIZE_MXZ_ALT)
 int mbedtls_internal_ecp_normalize_mxz( const mbedtls_ecp_group *grp,
-        mbedtls_ecp_point *P );
+                                        mbedtls_ecp_point *P );
 #endif
 
 #endif /* ECP_MONTGOMERY */

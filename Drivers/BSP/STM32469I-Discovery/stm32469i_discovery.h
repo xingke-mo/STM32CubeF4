@@ -39,11 +39,11 @@
 #define __STM32469I_DISCOVERY_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 
- /* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
 /** @addtogroup BSP
@@ -54,7 +54,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I_Discovery_LOW_LEVEL 
+/** @addtogroup STM32469I_Discovery_LOW_LEVEL
   * @{
   */
 
@@ -67,14 +67,14 @@
   */
 typedef enum
 {
- LED1 = 0,
- LED_GREEN = LED1,
- LED2 = 1,
- LED_ORANGE = LED2,
- LED3 = 2,
- LED_RED = LED3,
- LED4 = 3,
- LED_BLUE = LED4
+    LED1 = 0,
+    LED_GREEN = LED1,
+    LED2 = 1,
+    LED_ORANGE = LED2,
+    LED3 = 2,
+    LED_RED = LED3,
+    LED4 = 3,
+    LED_BLUE = LED4
 
 } Led_TypeDef;
 
@@ -83,7 +83,7 @@ typedef enum
   */
 typedef enum
 {
-  BUTTON_WAKEUP = 0
+    BUTTON_WAKEUP = 0
 } Button_TypeDef;
 
 #define BUTTON_USER BUTTON_WAKEUP
@@ -93,18 +93,18 @@ typedef enum
   */
 typedef enum
 {
- BUTTON_MODE_GPIO = 0,
- BUTTON_MODE_EXTI = 1
+    BUTTON_MODE_GPIO = 0,
+    BUTTON_MODE_EXTI = 1
 
 } ButtonMode_TypeDef;
 
 /** @addtogroup Exported_types
   * @{
-  */ 
-typedef enum 
+  */
+typedef enum
 {
-  PB_SET = 0, 
-  PB_RESET = !PB_SET
+    PB_SET = 0,
+    PB_RESET = !PB_SET
 } ButtonValue_TypeDef;
 
 
@@ -113,15 +113,15 @@ typedef enum
   */
 typedef enum
 {
- DISCO_OK    = 0,
- DISCO_ERROR = 1
+    DISCO_OK    = 0,
+    DISCO_ERROR = 1
 
 } DISCO_Status_TypeDef;
 
 /**
   * @}
   */
-  
+
 /**
   * @}
   */
@@ -334,15 +334,15 @@ typedef enum
 /** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Functions STM32469I Discovery LOW LEVEL Exported Functions
   * @{
   */
-uint32_t         BSP_GetVersion(void);
-void             BSP_LED_Init(Led_TypeDef Led);
-void             BSP_LED_DeInit(Led_TypeDef Led);
-void             BSP_LED_On(Led_TypeDef Led);
-void             BSP_LED_Off(Led_TypeDef Led);
-void             BSP_LED_Toggle(Led_TypeDef Led);
-void             BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
-void             BSP_PB_DeInit(Button_TypeDef Button);
-uint32_t         BSP_PB_GetState(Button_TypeDef Button);
+uint32_t         BSP_GetVersion( void );
+void             BSP_LED_Init( Led_TypeDef Led );
+void             BSP_LED_DeInit( Led_TypeDef Led );
+void             BSP_LED_On( Led_TypeDef Led );
+void             BSP_LED_Off( Led_TypeDef Led );
+void             BSP_LED_Toggle( Led_TypeDef Led );
+void             BSP_PB_Init( Button_TypeDef Button, ButtonMode_TypeDef Button_Mode );
+void             BSP_PB_DeInit( Button_TypeDef Button );
+uint32_t         BSP_PB_GetState( Button_TypeDef Button );
 
 /**
   * @}

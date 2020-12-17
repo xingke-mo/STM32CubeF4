@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/stm32f4xx_it.h 
+  * @file    BSP/Inc/stm32f4xx_it.h
   * @author  MCD Application Team
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
@@ -38,30 +38,30 @@
 #define __STM32F4xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h" 
+#include "main.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
-void EXTI0_IRQHandler(void);
-void EXTI2_IRQHandler(void);
-void EXTI15_10_IRQHandler(void);
-void EEPROM_I2C_DMA_TX_IRQHandler(void);
-void EEPROM_I2C_DMA_RX_IRQHandler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void MemManage_Handler( void );
+void BusFault_Handler( void );
+void UsageFault_Handler( void );
+void SVC_Handler( void );
+void DebugMon_Handler( void );
+void PendSV_Handler( void );
+void SysTick_Handler( void );
+void EXTI0_IRQHandler( void );
+void EXTI2_IRQHandler( void );
+void EXTI15_10_IRQHandler( void );
+void EEPROM_I2C_DMA_TX_IRQHandler( void );
+void EEPROM_I2C_DMA_RX_IRQHandler( void );
 #ifdef __cplusplus
 }
 #endif

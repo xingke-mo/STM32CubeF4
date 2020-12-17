@@ -47,7 +47,7 @@ extern "C" {
 #define DHCP6_SERVER_PORT  547
 
 
- /* DHCPv6 message item offsets and length */
+/* DHCPv6 message item offsets and length */
 #define DHCP6_TRANSACTION_ID_LEN   3
 
 #ifdef PACK_STRUCT_USE_INCLUDES
@@ -57,9 +57,9 @@ PACK_STRUCT_BEGIN
 /** minimum set of fields of any DHCPv6 message */
 struct dhcp6_msg
 {
-  PACK_STRUCT_FLD_8(u8_t msgtype);
-  PACK_STRUCT_FLD_8(u8_t transaction_id[DHCP6_TRANSACTION_ID_LEN]);
-  /* options follow */
+    PACK_STRUCT_FLD_8( u8_t msgtype );
+    PACK_STRUCT_FLD_8( u8_t transaction_id[DHCP6_TRANSACTION_ID_LEN] );
+    /* options follow */
 } PACK_STRUCT_STRUCT;
 PACK_STRUCT_END
 #ifdef PACK_STRUCT_USE_INCLUDES
@@ -68,10 +68,11 @@ PACK_STRUCT_END
 
 
 /* DHCP6 client states */
-typedef enum {
-  DHCP6_STATE_OFF               = 0,
-  DHCP6_STATE_STATELESS_IDLE    = 1,
-  DHCP6_STATE_REQUESTING_CONFIG = 2
+typedef enum
+{
+    DHCP6_STATE_OFF               = 0,
+    DHCP6_STATE_STATELESS_IDLE    = 1,
+    DHCP6_STATE_REQUESTING_CONFIG = 2
 } dhcp6_state_enum_t;
 
 /* DHCPv6 message types */

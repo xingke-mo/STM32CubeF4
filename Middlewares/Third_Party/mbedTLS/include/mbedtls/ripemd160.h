@@ -25,9 +25,9 @@
 #define MBEDTLS_RIPEMD160_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stddef.h>
@@ -81,7 +81,7 @@ void mbedtls_ripemd160_free( mbedtls_ripemd160_context *ctx );
  * \param src      The context to be cloned
  */
 void mbedtls_ripemd160_clone( mbedtls_ripemd160_context *dst,
-                        const mbedtls_ripemd160_context *src );
+                              const mbedtls_ripemd160_context *src );
 
 /**
  * \brief          RIPEMD-160 context setup
@@ -141,7 +141,7 @@ int mbedtls_internal_ripemd160_process( mbedtls_ripemd160_context *ctx,
  * \param ctx      context to be initialized
  */
 MBEDTLS_DEPRECATED void mbedtls_ripemd160_starts(
-                                            mbedtls_ripemd160_context *ctx );
+    mbedtls_ripemd160_context *ctx );
 
 /**
  * \brief          RIPEMD-160 process buffer
@@ -153,9 +153,9 @@ MBEDTLS_DEPRECATED void mbedtls_ripemd160_starts(
  * \param ilen     length of the input data
  */
 MBEDTLS_DEPRECATED void mbedtls_ripemd160_update(
-                                                mbedtls_ripemd160_context *ctx,
-                                                const unsigned char *input,
-                                                size_t ilen );
+    mbedtls_ripemd160_context *ctx,
+    const unsigned char *input,
+    size_t ilen );
 
 /**
  * \brief          RIPEMD-160 final digest
@@ -166,8 +166,8 @@ MBEDTLS_DEPRECATED void mbedtls_ripemd160_update(
  * \param output   RIPEMD-160 checksum result
  */
 MBEDTLS_DEPRECATED void mbedtls_ripemd160_finish(
-                                                mbedtls_ripemd160_context *ctx,
-                                                unsigned char output[20] );
+    mbedtls_ripemd160_context *ctx,
+    unsigned char output[20] );
 
 /**
  * \brief          RIPEMD-160 process data block (internal use only)
@@ -178,8 +178,8 @@ MBEDTLS_DEPRECATED void mbedtls_ripemd160_finish(
  * \param data     buffer holding one block of data
  */
 MBEDTLS_DEPRECATED void mbedtls_ripemd160_process(
-                                            mbedtls_ripemd160_context *ctx,
-                                            const unsigned char data[64] );
+    mbedtls_ripemd160_context *ctx,
+    const unsigned char data[64] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */
@@ -213,8 +213,8 @@ int mbedtls_ripemd160_ret( const unsigned char *input,
  * \param output   RIPEMD-160 checksum result
  */
 MBEDTLS_DEPRECATED void mbedtls_ripemd160( const unsigned char *input,
-                                           size_t ilen,
-                                           unsigned char output[20] );
+        size_t ilen,
+        unsigned char output[20] );
 
 #undef MBEDTLS_DEPRECATED
 #endif /* !MBEDTLS_DEPRECATED_REMOVED */

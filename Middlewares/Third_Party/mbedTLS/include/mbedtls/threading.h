@@ -25,9 +25,9 @@
 #define MBEDTLS_THREADING_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+    #include "config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include <stdlib.h>
@@ -74,10 +74,10 @@ typedef struct mbedtls_threading_mutex_t
  * \param mutex_lock    the lock function implementation
  * \param mutex_unlock  the unlock function implementation
  */
-void mbedtls_threading_set_alt( void (*mutex_init)( mbedtls_threading_mutex_t * ),
-                       void (*mutex_free)( mbedtls_threading_mutex_t * ),
-                       int (*mutex_lock)( mbedtls_threading_mutex_t * ),
-                       int (*mutex_unlock)( mbedtls_threading_mutex_t * ) );
+void mbedtls_threading_set_alt( void ( *mutex_init )( mbedtls_threading_mutex_t * ),
+                                void ( *mutex_free )( mbedtls_threading_mutex_t * ),
+                                int ( *mutex_lock )( mbedtls_threading_mutex_t * ),
+                                int ( *mutex_unlock )( mbedtls_threading_mutex_t * ) );
 
 /**
  * \brief               Free global mutexes.
@@ -91,10 +91,10 @@ void mbedtls_threading_free_alt( void );
  *
  * All these functions are expected to work or the result will be undefined.
  */
-extern void (*mbedtls_mutex_init)( mbedtls_threading_mutex_t *mutex );
-extern void (*mbedtls_mutex_free)( mbedtls_threading_mutex_t *mutex );
-extern int (*mbedtls_mutex_lock)( mbedtls_threading_mutex_t *mutex );
-extern int (*mbedtls_mutex_unlock)( mbedtls_threading_mutex_t *mutex );
+extern void ( *mbedtls_mutex_init )( mbedtls_threading_mutex_t *mutex );
+extern void ( *mbedtls_mutex_free )( mbedtls_threading_mutex_t *mutex );
+extern int ( *mbedtls_mutex_lock )( mbedtls_threading_mutex_t *mutex );
+extern int ( *mbedtls_mutex_unlock )( mbedtls_threading_mutex_t *mutex );
 
 /*
  * Global mutexes

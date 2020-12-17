@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 
@@ -40,7 +40,7 @@ static volatile int overrunCnt;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -49,12 +49,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -62,12 +62,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -75,12 +75,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -88,12 +88,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -101,7 +101,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -110,9 +110,9 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  osSystickHandler();
+    osSystickHandler();
 }
 
 /**
@@ -120,9 +120,9 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void DMA2D_IRQHandler(void)
+void DMA2D_IRQHandler( void )
 {
-  HAL_DMA2D_IRQHandler(&hdma2d);
+    HAL_DMA2D_IRQHandler( &hdma2d );
 }
 
 /**
@@ -130,9 +130,9 @@ void DMA2D_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_IRQHandler(void)
+void LTDC_IRQHandler( void )
 {
-  HAL_LTDC_IRQHandler(&hltdc);
+    HAL_LTDC_IRQHandler( &hltdc );
 }
 
 /**
@@ -140,11 +140,11 @@ void LTDC_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void LTDC_ER_IRQHandler(void)
+void LTDC_ER_IRQHandler( void )
 {
-  if (LTDC->ISR & 2)
-  {
-    LTDC->ICR = 2;
-    overrunCnt++;
-  }
+    if( LTDC->ISR & 2 )
+    {
+        LTDC->ICR = 2;
+        overrunCnt++;
+    }
 }

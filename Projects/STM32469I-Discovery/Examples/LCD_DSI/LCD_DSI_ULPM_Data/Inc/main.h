@@ -62,7 +62,7 @@ typedef enum
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void Toggle_Leds(void);
+void Toggle_Leds( void );
 
 #endif /* __MAIN_H */
 

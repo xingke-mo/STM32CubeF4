@@ -20,32 +20,32 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #else
-#include <stdio.h>
-#include <stdlib.h>
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define mbedtls_printf          printf
+    #define mbedtls_exit            exit
+    #define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+    #define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 #if defined(MBEDTLS_BIGNUM_C) && defined(MBEDTLS_FS_IO)
-#include "mbedtls/bignum.h"
+    #include "mbedtls/bignum.h"
 
-#include <stdio.h>
+    #include <stdio.h>
 #endif
 
 #if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_FS_IO)
 int main( void )
 {
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_FS_IO not defined.\n");
+    mbedtls_printf( "MBEDTLS_BIGNUM_C and/or MBEDTLS_FS_IO not defined.\n" );
     return( 0 );
 }
 #else
@@ -92,9 +92,9 @@ int main( void )
     MBEDTLS_MPI_CHK( mbedtls_mpi_inv_mod( &D, &E, &H ) );
 
     mbedtls_mpi_write_file( "  D = E^-1 mod (P-1)*(Q-1) = ",
-                    &D, 10, NULL );
+                            &D, 10, NULL );
 #else
-    mbedtls_printf("\nTest skipped (MBEDTLS_GENPRIME not defined).\n\n");
+    mbedtls_printf( "\nTest skipped (MBEDTLS_GENPRIME not defined).\n\n" );
 #endif
     MBEDTLS_MPI_CHK( mbedtls_mpi_read_string( &X, 10, "55555" ) );
     MBEDTLS_MPI_CHK( mbedtls_mpi_exp_mod( &Y, &X, &E, &N, NULL ) );

@@ -39,7 +39,7 @@
 #define __STM32469I_EVAL_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* USE_STM32469I_EVAL_REVA must USE USE_IOEXPANDER */
@@ -49,7 +49,7 @@
 #endif /* USE_IOEXPANDER */
 #endif /* USE_STM32469I_EVAL_REVA */
 
- /* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
 /** @addtogroup BSP
@@ -74,14 +74,14 @@
   */
 typedef enum
 {
- LED1 = 0,
- LED_GREEN = LED1,
- LED2 = 1,
- LED_ORANGE = LED2,
- LED3 = 2,
- LED_RED = LED3,
- LED4 = 3,
- LED_BLUE = LED4
+    LED1 = 0,
+    LED_GREEN = LED1,
+    LED2 = 1,
+    LED_ORANGE = LED2,
+    LED3 = 2,
+    LED_RED = LED3,
+    LED4 = 3,
+    LED_BLUE = LED4
 
 } Led_TypeDef;
 
@@ -90,9 +90,9 @@ typedef enum
   */
 typedef enum
 {
-  BUTTON_WAKEUP = 0,
-  BUTTON_TAMPER = 1,
-  BUTTON_KEY = 2
+    BUTTON_WAKEUP = 0,
+    BUTTON_TAMPER = 1,
+    BUTTON_KEY = 2
 
 } Button_TypeDef;
 
@@ -101,8 +101,8 @@ typedef enum
   */
 typedef enum
 {
- BUTTON_MODE_GPIO = 0,
- BUTTON_MODE_EXTI = 1
+    BUTTON_MODE_GPIO = 0,
+    BUTTON_MODE_EXTI = 1
 
 } ButtonMode_TypeDef;
 
@@ -112,8 +112,8 @@ typedef enum
   */
 typedef enum
 {
- JOY_MODE_GPIO = 0,
- JOY_MODE_EXTI = 1
+    JOY_MODE_GPIO = 0,
+    JOY_MODE_EXTI = 1
 
 } JOYMode_TypeDef;
 
@@ -122,12 +122,12 @@ typedef enum
   */
 typedef enum
 {
- JOY_NONE  = 0,
- JOY_SEL   = 1,
- JOY_DOWN  = 2,
- JOY_LEFT  = 3,
- JOY_RIGHT = 4,
- JOY_UP    = 5
+    JOY_NONE  = 0,
+    JOY_SEL   = 1,
+    JOY_DOWN  = 2,
+    JOY_LEFT  = 3,
+    JOY_RIGHT = 4,
+    JOY_UP    = 5
 
 } JOYState_TypeDef;
 #endif /* USE_IOEXPANDER */
@@ -137,8 +137,8 @@ typedef enum
   */
 typedef enum
 {
- COM1 = 0,
- COM2 = 1
+    COM1 = 0,
+    COM2 = 1
 
 } COM_TypeDef;
 
@@ -147,8 +147,8 @@ typedef enum
   */
 typedef enum
 {
- EVAL_OK    = 0,
- EVAL_ERROR = 1
+    EVAL_OK    = 0,
+    EVAL_ERROR = 1
 
 } EVAL_Status_TypeDef;
 
@@ -164,7 +164,7 @@ typedef enum
   * @brief  Define for STM32469I_EVAL board
   */
 #if !defined (USE_STM32469I_EVAL)
- #define USE_STM32469I_EVAL
+#define USE_STM32469I_EVAL
 #endif
 
 /** @defgroup STM32469I_EVAL_LOW_LEVEL_LED STM32469I EVAL LOW LEVEL LED
@@ -388,7 +388,7 @@ typedef enum
 /**
   * @}
   */
-  
+
 /** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Macros STM32469I EVAL LOW LEVEL Exported Macros
   * @{
   */
@@ -399,21 +399,21 @@ typedef enum
 /** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Functions STM32469I EVAL LOW LEVEL Exported Functions
   * @{
   */
-uint32_t         BSP_GetVersion(void);
-void             BSP_LED_Init(Led_TypeDef Led);
-void             BSP_LED_DeInit(Led_TypeDef Led);
-void             BSP_LED_On(Led_TypeDef Led);
-void             BSP_LED_Off(Led_TypeDef Led);
-void             BSP_LED_Toggle(Led_TypeDef Led);
-void             BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
-void             BSP_PB_DeInit(Button_TypeDef Button);
-uint32_t         BSP_PB_GetState(Button_TypeDef Button);
-void             BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *husart);
-void             BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart);
+uint32_t         BSP_GetVersion( void );
+void             BSP_LED_Init( Led_TypeDef Led );
+void             BSP_LED_DeInit( Led_TypeDef Led );
+void             BSP_LED_On( Led_TypeDef Led );
+void             BSP_LED_Off( Led_TypeDef Led );
+void             BSP_LED_Toggle( Led_TypeDef Led );
+void             BSP_PB_Init( Button_TypeDef Button, ButtonMode_TypeDef Button_Mode );
+void             BSP_PB_DeInit( Button_TypeDef Button );
+uint32_t         BSP_PB_GetState( Button_TypeDef Button );
+void             BSP_COM_Init( COM_TypeDef COM, UART_HandleTypeDef *husart );
+void             BSP_COM_DeInit( COM_TypeDef COM, UART_HandleTypeDef *huart );
 #if defined(USE_IOEXPANDER)
-uint8_t          BSP_JOY_Init(JOYMode_TypeDef Joy_Mode);
-void             BSP_JOY_DeInit(void);
-JOYState_TypeDef BSP_JOY_GetState(void);
+uint8_t          BSP_JOY_Init( JOYMode_TypeDef Joy_Mode );
+void             BSP_JOY_DeInit( void );
+JOYState_TypeDef BSP_JOY_GetState( void );
 #endif /* USE_IOEXPANDER */
 
 /**

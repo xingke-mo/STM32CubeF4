@@ -39,7 +39,7 @@
 #define __STM32F469I_DISCOVERY_EEPROM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -99,25 +99,25 @@ This timeout is based on systick set to 1ms*/
 /** @defgroup STM32469I-Discovery_EEPROM_Exported_Functions STM32469I Discovery EEPROM Exported Functions
   * @{
   */
-uint32_t BSP_EEPROM_Init(void);
-uint8_t  BSP_EEPROM_DeInit(void);
-uint32_t BSP_EEPROM_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToRead);
-uint32_t BSP_EEPROM_WritePage(uint8_t* pBuffer, uint16_t WriteAddr, uint8_t* NumByteToWrite);
-uint32_t BSP_EEPROM_WriteBuffer(uint8_t* pBuffer, uint16_t WriteAddr, uint16_t NumByteToWrite);
-uint32_t BSP_EEPROM_WaitEepromStandbyState(void);
+uint32_t BSP_EEPROM_Init( void );
+uint8_t  BSP_EEPROM_DeInit( void );
+uint32_t BSP_EEPROM_ReadBuffer( uint8_t *pBuffer, uint16_t ReadAddr, uint16_t *NumByteToRead );
+uint32_t BSP_EEPROM_WritePage( uint8_t *pBuffer, uint16_t WriteAddr, uint8_t *NumByteToWrite );
+uint32_t BSP_EEPROM_WriteBuffer( uint8_t *pBuffer, uint16_t WriteAddr, uint16_t NumByteToWrite );
+uint32_t BSP_EEPROM_WaitEepromStandbyState( void );
 
 /* USER Callbacks: This function is declared as __weak in EEPROM driver and
    should be implemented into user application.
    BSP_EEPROM_TIMEOUT_UserCallback() function is called whenever a timeout condition
    occure during communication (waiting on an event that doesn't occur, bus
    errors, busy devices ...). */
-void     BSP_EEPROM_TIMEOUT_UserCallback(void);
+void     BSP_EEPROM_TIMEOUT_UserCallback( void );
 
 /* Link function for I2C EEPROM peripheral */
-void              EEPROM_IO_Init(void);
-HAL_StatusTypeDef EEPROM_IO_WriteData(uint16_t DevAddress, uint16_t MemAddress, uint8_t *pBuffer, uint32_t BufferSize);
-HAL_StatusTypeDef EEPROM_IO_ReadData(uint16_t DevAddress, uint16_t MemAddress, uint8_t *pBuffer, uint32_t BufferSize);
-HAL_StatusTypeDef EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
+void              EEPROM_IO_Init( void );
+HAL_StatusTypeDef EEPROM_IO_WriteData( uint16_t DevAddress, uint16_t MemAddress, uint8_t *pBuffer, uint32_t BufferSize );
+HAL_StatusTypeDef EEPROM_IO_ReadData( uint16_t DevAddress, uint16_t MemAddress, uint8_t *pBuffer, uint32_t BufferSize );
+HAL_StatusTypeDef EEPROM_IO_IsDeviceReady( uint16_t DevAddress, uint32_t Trials );
 
 /**
   * @}

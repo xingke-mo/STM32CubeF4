@@ -1,11 +1,11 @@
 /**
   ******************************************************************************
-  * @file    jdata_conf_template.c 
+  * @file    jdata_conf_template.c
   * @brief   This file implements LibJPEG read/write functions.
-  *          This file should be copied to the application folder and modified 
+  *          This file should be copied to the application folder and modified
   *          as follows:
   *            - Rename it to 'jdata_conf.c'.
-  *            - Implement read/write functions (example of implementation is 
+  *            - Implement read/write functions (example of implementation is
   *              provided based on FatFs)
   ******************************************************************************
   * @attention
@@ -37,25 +37,25 @@
  * CAUTION: argument order is different from underlying functions!
  */
 
- 
-size_t read_file (JFILE  *file, uint8_t *buf, uint32_t sizeofbuf)
-{
-/*  Example of implementation based on FatFS
 
-    static size_t BytesReadfile ;  
-    f_read (file, buf , sizeofbuf, &BytesReadfile); 
-    return BytesReadfile;    
-*/
+size_t read_file( JFILE  *file, uint8_t *buf, uint32_t sizeofbuf )
+{
+    /*  Example of implementation based on FatFS
+
+        static size_t BytesReadfile ;
+        f_read (file, buf , sizeofbuf, &BytesReadfile);
+        return BytesReadfile;
+    */
 }
 
-size_t write_file (JFILE  *file, uint8_t *buf, uint32_t sizeofbuf)
+size_t write_file( JFILE  *file, uint8_t *buf, uint32_t sizeofbuf )
 {
-/*  Example of implementation based on FatFS
+    /*  Example of implementation based on FatFS
 
-   static size_t BytesWritefile ;  
-   f_write (file, buf , sizeofbuf, &BytesWritefile); 
-   return BytesWritefile; 
-*/   
+       static size_t BytesWritefile ;
+       f_write (file, buf , sizeofbuf, &BytesWritefile);
+       return BytesWritefile;
+    */
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

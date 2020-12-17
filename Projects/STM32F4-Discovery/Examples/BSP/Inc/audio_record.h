@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    BSP/Inc/audio_record.h 
+  * @file    BSP/Inc/audio_record.h
   * @author  MCD Application Team
   * @brief   Header for audio_record.c module
   ******************************************************************************
@@ -46,8 +46,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void AudioRecord_Test(void);
-void AudioRecorderProcessingAudioBuffer(void);
+void AudioRecord_Test( void );
+void AudioRecorderProcessingAudioBuffer( void );
 
 #endif /* __AUDIO_RECORD_H */
 

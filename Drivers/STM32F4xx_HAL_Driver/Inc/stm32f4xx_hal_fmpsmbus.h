@@ -48,40 +48,40 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t Timing;                 /*!< Specifies the FMPSMBUS_TIMINGR_register value.
+    uint32_t Timing;                 /*!< Specifies the FMPSMBUS_TIMINGR_register value.
                                      This parameter calculated by referring to FMPSMBUS initialization
                                             section in Reference manual */
-  uint32_t AnalogFilter;           /*!< Specifies if Analog Filter is enable or not.
+    uint32_t AnalogFilter;           /*!< Specifies if Analog Filter is enable or not.
                                      This parameter can be a value of @ref FMPSMBUS_Analog_Filter */
 
-  uint32_t OwnAddress1;            /*!< Specifies the first device own address.
+    uint32_t OwnAddress1;            /*!< Specifies the first device own address.
                                      This parameter can be a 7-bit or 10-bit address. */
 
-  uint32_t AddressingMode;         /*!< Specifies if 7-bit or 10-bit addressing mode for master is selected.
+    uint32_t AddressingMode;         /*!< Specifies if 7-bit or 10-bit addressing mode for master is selected.
                                      This parameter can be a value of @ref FMPSMBUS_addressing_mode */
 
-  uint32_t DualAddressMode;        /*!< Specifies if dual addressing mode is selected.
+    uint32_t DualAddressMode;        /*!< Specifies if dual addressing mode is selected.
                                      This parameter can be a value of @ref FMPSMBUS_dual_addressing_mode */
 
-  uint32_t OwnAddress2;            /*!< Specifies the second device own address if dual addressing mode is selected
+    uint32_t OwnAddress2;            /*!< Specifies the second device own address if dual addressing mode is selected
                                      This parameter can be a 7-bit address. */
 
-  uint32_t OwnAddress2Masks;       /*!< Specifies the acknoledge mask address second device own address if dual addressing mode is selected
+    uint32_t OwnAddress2Masks;       /*!< Specifies the acknoledge mask address second device own address if dual addressing mode is selected
                                      This parameter can be a value of @ref FMPSMBUS_own_address2_masks. */
 
-  uint32_t GeneralCallMode;        /*!< Specifies if general call mode is selected.
+    uint32_t GeneralCallMode;        /*!< Specifies if general call mode is selected.
                                      This parameter can be a value of @ref FMPSMBUS_general_call_addressing_mode. */
 
-  uint32_t NoStretchMode;          /*!< Specifies if nostretch mode is selected.
+    uint32_t NoStretchMode;          /*!< Specifies if nostretch mode is selected.
                                      This parameter can be a value of @ref FMPSMBUS_nostretch_mode */
 
-  uint32_t PacketErrorCheckMode;   /*!< Specifies if Packet Error Check mode is selected.
+    uint32_t PacketErrorCheckMode;   /*!< Specifies if Packet Error Check mode is selected.
                                      This parameter can be a value of @ref FMPSMBUS_packet_error_check_mode */
 
-  uint32_t PeripheralMode;         /*!< Specifies which mode of Periphal is selected.
+    uint32_t PeripheralMode;         /*!< Specifies which mode of Periphal is selected.
                                      This parameter can be a value of @ref FMPSMBUS_peripheral_mode */
 
-  uint32_t SMBusTimeout;           /*!< Specifies the content of the 32 Bits FMPSMBUS_TIMEOUT_register value.
+    uint32_t SMBusTimeout;           /*!< Specifies the content of the 32 Bits FMPSMBUS_TIMEOUT_register value.
                                       (Enable bits and different timeout values)
                                      This parameter calculated by referring to FMPSMBUS initialization
                                          section in Reference manual */
@@ -139,38 +139,38 @@ typedef struct __FMPSMBUS_HandleTypeDef
 typedef struct
 #endif  /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 {
-  FMPI2C_TypeDef                  *Instance;       /*!< FMPSMBUS registers base address       */
+    FMPI2C_TypeDef                  *Instance;       /*!< FMPSMBUS registers base address       */
 
-  FMPSMBUS_InitTypeDef            Init;            /*!< FMPSMBUS communication parameters     */
+    FMPSMBUS_InitTypeDef            Init;            /*!< FMPSMBUS communication parameters     */
 
-  uint8_t                      *pBuffPtr;       /*!< Pointer to FMPSMBUS transfer buffer   */
+    uint8_t                      *pBuffPtr;       /*!< Pointer to FMPSMBUS transfer buffer   */
 
-  uint16_t                     XferSize;        /*!< FMPSMBUS transfer size                */
+    uint16_t                     XferSize;        /*!< FMPSMBUS transfer size                */
 
-  __IO uint16_t                XferCount;       /*!< FMPSMBUS transfer counter             */
+    __IO uint16_t                XferCount;       /*!< FMPSMBUS transfer counter             */
 
-  __IO uint32_t                XferOptions;     /*!< FMPSMBUS transfer options             */
+    __IO uint32_t                XferOptions;     /*!< FMPSMBUS transfer options             */
 
-  __IO uint32_t                PreviousState;   /*!< FMPSMBUS communication Previous state */
+    __IO uint32_t                PreviousState;   /*!< FMPSMBUS communication Previous state */
 
-  HAL_LockTypeDef              Lock;            /*!< FMPSMBUS locking object               */
+    HAL_LockTypeDef              Lock;            /*!< FMPSMBUS locking object               */
 
-  __IO uint32_t                State;           /*!< FMPSMBUS communication state          */
+    __IO uint32_t                State;           /*!< FMPSMBUS communication state          */
 
-  __IO uint32_t                ErrorCode;       /*!< FMPSMBUS Error code                   */
+    __IO uint32_t                ErrorCode;       /*!< FMPSMBUS Error code                   */
 
 #if (USE_HAL_FMPSMBUS_REGISTER_CALLBACKS == 1)
-  void (* MasterTxCpltCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);           /*!< FMPSMBUS Master Tx Transfer completed callback */
-  void (* MasterRxCpltCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);           /*!< FMPSMBUS Master Rx Transfer completed callback */
-  void (* SlaveTxCpltCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);            /*!< FMPSMBUS Slave Tx Transfer completed callback  */
-  void (* SlaveRxCpltCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);            /*!< FMPSMBUS Slave Rx Transfer completed callback  */
-  void (* ListenCpltCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);             /*!< FMPSMBUS Listen Complete callback              */
-  void (* ErrorCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);                  /*!< FMPSMBUS Error callback                        */
+    void ( * MasterTxCpltCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );       /*!< FMPSMBUS Master Tx Transfer completed callback */
+    void ( * MasterRxCpltCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );       /*!< FMPSMBUS Master Rx Transfer completed callback */
+    void ( * SlaveTxCpltCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );        /*!< FMPSMBUS Slave Tx Transfer completed callback  */
+    void ( * SlaveRxCpltCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );        /*!< FMPSMBUS Slave Rx Transfer completed callback  */
+    void ( * ListenCpltCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );         /*!< FMPSMBUS Listen Complete callback              */
+    void ( * ErrorCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );              /*!< FMPSMBUS Error callback                        */
 
-  void (* AddrCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode);  /*!< FMPSMBUS Slave Address Match callback */
+    void ( * AddrCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode ); /*!< FMPSMBUS Slave Address Match callback */
 
-  void (* MspInitCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);                /*!< FMPSMBUS Msp Init callback                     */
-  void (* MspDeInitCallback)(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);              /*!< FMPSMBUS Msp DeInit callback                   */
+    void ( * MspInitCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );            /*!< FMPSMBUS Msp Init callback                     */
+    void ( * MspDeInitCallback )( struct __FMPSMBUS_HandleTypeDef *hfmpsmbus );          /*!< FMPSMBUS Msp DeInit callback                   */
 
 #endif  /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 } FMPSMBUS_HandleTypeDef;
@@ -181,23 +181,23 @@ typedef struct
   */
 typedef enum
 {
-  HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID      = 0x00U,    /*!< FMPSMBUS Master Tx Transfer completed callback ID  */
-  HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID      = 0x01U,    /*!< FMPSMBUS Master Rx Transfer completed callback ID  */
-  HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID       = 0x02U,    /*!< FMPSMBUS Slave Tx Transfer completed callback ID   */
-  HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID       = 0x03U,    /*!< FMPSMBUS Slave Rx Transfer completed callback ID   */
-  HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID         = 0x04U,    /*!< FMPSMBUS Listen Complete callback ID               */
-  HAL_FMPSMBUS_ERROR_CB_ID                   = 0x05U,    /*!< FMPSMBUS Error callback ID                         */
+    HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID      = 0x00U,    /*!< FMPSMBUS Master Tx Transfer completed callback ID  */
+    HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID      = 0x01U,    /*!< FMPSMBUS Master Rx Transfer completed callback ID  */
+    HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID       = 0x02U,    /*!< FMPSMBUS Slave Tx Transfer completed callback ID   */
+    HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID       = 0x03U,    /*!< FMPSMBUS Slave Rx Transfer completed callback ID   */
+    HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID         = 0x04U,    /*!< FMPSMBUS Listen Complete callback ID               */
+    HAL_FMPSMBUS_ERROR_CB_ID                   = 0x05U,    /*!< FMPSMBUS Error callback ID                         */
 
-  HAL_FMPSMBUS_MSPINIT_CB_ID                 = 0x06U,    /*!< FMPSMBUS Msp Init callback ID                      */
-  HAL_FMPSMBUS_MSPDEINIT_CB_ID               = 0x07U     /*!< FMPSMBUS Msp DeInit callback ID                    */
+    HAL_FMPSMBUS_MSPINIT_CB_ID                 = 0x06U,    /*!< FMPSMBUS Msp Init callback ID                      */
+    HAL_FMPSMBUS_MSPDEINIT_CB_ID               = 0x07U     /*!< FMPSMBUS Msp DeInit callback ID                    */
 
 } HAL_FMPSMBUS_CallbackIDTypeDef;
 
 /**
   * @brief  HAL FMPSMBUS Callback pointer definition
   */
-typedef  void (*pFMPSMBUS_CallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus); /*!< pointer to an FMPSMBUS callback function */
-typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode); /*!< pointer to an FMPSMBUS Address Match callback function */
+typedef  void ( *pFMPSMBUS_CallbackTypeDef )( FMPSMBUS_HandleTypeDef *hfmpsmbus ); /*!< pointer to an FMPSMBUS callback function */
+typedef  void ( *pFMPSMBUS_AddrCallbackTypeDef )( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode ); /*!< pointer to an FMPSMBUS Address Match callback function */
 
 #endif /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 /**
@@ -634,20 +634,20 @@ typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus
  */
 
 /* Initialization and de-initialization functions  ****************************/
-HAL_StatusTypeDef HAL_FMPSMBUS_Init(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-HAL_StatusTypeDef HAL_FMPSMBUS_DeInit(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_MspInit(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_MspDeInit(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-HAL_StatusTypeDef HAL_FMPSMBUS_ConfigAnalogFilter(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t AnalogFilter);
-HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t DigitalFilter);
+HAL_StatusTypeDef HAL_FMPSMBUS_Init( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+HAL_StatusTypeDef HAL_FMPSMBUS_DeInit( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_MspInit( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_MspDeInit( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+HAL_StatusTypeDef HAL_FMPSMBUS_ConfigAnalogFilter( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t AnalogFilter );
+HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t DigitalFilter );
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_FMPSMBUS_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, HAL_FMPSMBUS_CallbackIDTypeDef CallbackID, pFMPSMBUS_CallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, HAL_FMPSMBUS_CallbackIDTypeDef CallbackID);
+HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus, HAL_FMPSMBUS_CallbackIDTypeDef CallbackID, pFMPSMBUS_CallbackTypeDef pCallback );
+HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus, HAL_FMPSMBUS_CallbackIDTypeDef CallbackID );
 
-HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, pFMPSMBUS_AddrCallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
+HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus, pFMPSMBUS_AddrCallbackTypeDef pCallback );
+HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
 #endif /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 /**
   * @}
@@ -662,7 +662,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
  * @{
  */
 /******* Blocking mode: Polling */
-HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint32_t Trials, uint32_t Timeout);
+HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint32_t Trials, uint32_t Timeout );
 /**
   * @}
   */
@@ -671,16 +671,16 @@ HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
  * @{
  */
 /******* Non-Blocking mode: Interrupt */
-HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t XferOptions);
-HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t XferOptions);
-HAL_StatusTypeDef HAL_FMPSMBUS_Master_Abort_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress);
-HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size, uint32_t XferOptions);
-HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size, uint32_t XferOptions);
+HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t XferOptions );
+HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t XferOptions );
+HAL_StatusTypeDef HAL_FMPSMBUS_Master_Abort_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress );
+HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size, uint32_t XferOptions );
+HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size, uint32_t XferOptions );
 
-HAL_StatusTypeDef HAL_FMPSMBUS_EnableAlert_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-HAL_StatusTypeDef HAL_FMPSMBUS_DisableAlert_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-HAL_StatusTypeDef HAL_FMPSMBUS_EnableListen_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-HAL_StatusTypeDef HAL_FMPSMBUS_DisableListen_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus);
+HAL_StatusTypeDef HAL_FMPSMBUS_EnableAlert_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+HAL_StatusTypeDef HAL_FMPSMBUS_DisableAlert_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+HAL_StatusTypeDef HAL_FMPSMBUS_EnableListen_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+HAL_StatusTypeDef HAL_FMPSMBUS_DisableListen_IT( FMPSMBUS_HandleTypeDef *hfmpsmbus );
 /**
   * @}
   */
@@ -689,15 +689,15 @@ HAL_StatusTypeDef HAL_FMPSMBUS_DisableListen_IT(FMPSMBUS_HandleTypeDef *hfmpsmbu
  * @{
  */
 /******* FMPSMBUS IRQHandler and Callbacks used in non blocking modes (Interrupt) */
-void HAL_FMPSMBUS_EV_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_ER_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_MasterTxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_MasterRxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_SlaveTxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_SlaveRxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_AddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode);
-void HAL_FMPSMBUS_ListenCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-void HAL_FMPSMBUS_ErrorCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
+void HAL_FMPSMBUS_EV_IRQHandler( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_ER_IRQHandler( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_MasterTxCpltCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_MasterRxCpltCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_SlaveTxCpltCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_SlaveRxCpltCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_AddrCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection, uint16_t AddrMatchCode );
+void HAL_FMPSMBUS_ListenCpltCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+void HAL_FMPSMBUS_ErrorCallback( FMPSMBUS_HandleTypeDef *hfmpsmbus );
 
 /**
   * @}
@@ -708,8 +708,8 @@ void HAL_FMPSMBUS_ErrorCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
  */
 
 /* Peripheral State and Errors functions  **************************************************/
-uint32_t HAL_FMPSMBUS_GetState(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-uint32_t HAL_FMPSMBUS_GetError(FMPSMBUS_HandleTypeDef *hfmpsmbus);
+uint32_t HAL_FMPSMBUS_GetState( FMPSMBUS_HandleTypeDef *hfmpsmbus );
+uint32_t HAL_FMPSMBUS_GetError( FMPSMBUS_HandleTypeDef *hfmpsmbus );
 
 /**
   * @}

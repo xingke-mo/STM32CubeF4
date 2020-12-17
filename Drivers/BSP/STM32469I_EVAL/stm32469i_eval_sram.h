@@ -39,7 +39,7 @@
 #define __STM32469I_EVAL_SRAM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -73,7 +73,7 @@
 
 #define SRAM_DEVICE_ADDR       ((uint32_t)0x64000000)
 
- /* SRAM device size in Bytes */
+/* SRAM device size in Bytes */
 #define SRAM_DEVICE_SIZE       ((uint32_t)0x200000)
 
 #define SRAM_MEMORY_WIDTH       FMC_NORSRAM_MEM_BUS_WIDTH_16
@@ -102,18 +102,18 @@
 /** @addtogroup STM32469I-EVAL_SRAM_Exported_Functions
   * @{
   */
-uint8_t BSP_SRAM_Init(void);
-uint8_t BSP_SRAM_DeInit(void);
-uint8_t BSP_SRAM_ReadData(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SRAM_ReadData_DMA(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SRAM_WriteData(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
-uint8_t BSP_SRAM_WriteData_DMA(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
-void    BSP_SRAM_DMA_IRQHandler(void);
+uint8_t BSP_SRAM_Init( void );
+uint8_t BSP_SRAM_DeInit( void );
+uint8_t BSP_SRAM_ReadData( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SRAM_ReadData_DMA( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SRAM_WriteData( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize );
+uint8_t BSP_SRAM_WriteData_DMA( uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize );
+void    BSP_SRAM_DMA_IRQHandler( void );
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void    BSP_SRAM_MspInit(SRAM_HandleTypeDef *hsram, void *Params);
-void    BSP_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram, void *Params);
+void    BSP_SRAM_MspInit( SRAM_HandleTypeDef *hsram, void *Params );
+void    BSP_SRAM_MspDeInit( SRAM_HandleTypeDef *hsram, void *Params );
 
 /**
   * @}

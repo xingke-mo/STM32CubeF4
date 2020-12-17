@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    IWDG/IWDG_Example/Src/stm32f4xx_it.c 
+  * @file    IWDG/IWDG_Example/Src/stm32f4xx_it.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -45,7 +45,7 @@
 
 /** @addtogroup IWDG_Example
   * @{
-  */  
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -71,7 +71,7 @@ uint16_t tmpCC4[2] = {0, 0};
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -80,12 +80,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -93,12 +93,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -106,12 +106,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -119,12 +119,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -132,7 +132,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -141,7 +141,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -150,7 +150,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -159,9 +159,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -176,12 +176,12 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void EXTI15_10_IRQHandler(void)
+void EXTI15_10_IRQHandler( void )
 {
-  /* As the following address is invalid (not mapped), a Hardfault exception
-  will be generated with an infinite loop and when the WWDG counter falls to 63
-  the WWDG reset occurs */
-  *(__IO uint32_t *) 0xA0001000 = 0xFF;
+    /* As the following address is invalid (not mapped), a Hardfault exception
+    will be generated with an infinite loop and when the WWDG counter falls to 63
+    the WWDG reset occurs */
+    *( __IO uint32_t * ) 0xA0001000 = 0xFF;
 }
 
 /**
@@ -189,21 +189,21 @@ void EXTI15_10_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM5_IRQHandler(void)
-{ 
-  HAL_TIM_IRQHandler(&TimInputCaptureHandle);
-  {    
-    /* Get the Input Capture value */
-    tmpCC4[uwCaptureNumber++] = HAL_TIM_ReadCapturedValue(&TimInputCaptureHandle, TIM_CHANNEL_4);
-    
-    if (uwCaptureNumber >= 2)
+void TIM5_IRQHandler( void )
+{
+    HAL_TIM_IRQHandler( &TimInputCaptureHandle );
     {
-      /* Compute the period length */
-      uwPeriodValue = (uint16_t)(0xFFFF - tmpCC4[0] + tmpCC4[1] + 1);
-      uwMeasurementDone = 1;
-      uwCaptureNumber = 0;
+        /* Get the Input Capture value */
+        tmpCC4[uwCaptureNumber++] = HAL_TIM_ReadCapturedValue( &TimInputCaptureHandle, TIM_CHANNEL_4 );
+
+        if( uwCaptureNumber >= 2 )
+        {
+            /* Compute the period length */
+            uwPeriodValue = ( uint16_t )( 0xFFFF - tmpCC4[0] + tmpCC4[1] + 1 );
+            uwMeasurementDone = 1;
+            uwCaptureNumber = 0;
+        }
     }
-  }
 }
 
 /**
@@ -217,10 +217,10 @@ void TIM5_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    CAN/CAN_LoopBack/Src/stm32f4xx_it.c
   * @author  MCD Application Team
@@ -45,7 +45,7 @@
 
 /** @addtogroup CAN_LoopBack
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -66,7 +66,7 @@ extern CAN_HandleTypeDef CanHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -75,12 +75,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -88,12 +88,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void MemManage_Handler(void)
+void MemManage_Handler( void )
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -101,12 +101,12 @@ void MemManage_Handler(void)
   * @param  None
   * @retval None
   */
-void BusFault_Handler(void)
+void BusFault_Handler( void )
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -114,12 +114,12 @@ void BusFault_Handler(void)
   * @param  None
   * @retval None
   */
-void UsageFault_Handler(void)
+void UsageFault_Handler( void )
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -127,7 +127,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -136,7 +136,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void DebugMon_Handler(void)
+void DebugMon_Handler( void )
 {
 }
 
@@ -145,7 +145,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -154,9 +154,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -171,8 +171,8 @@ void SysTick_Handler(void)
 * @param  None
 * @retval None
 */
-void DMA1_Stream5_IRQHandler(void)
-{ 
+void DMA1_Stream5_IRQHandler( void )
+{
 }
 
 /**
@@ -180,7 +180,7 @@ void DMA1_Stream5_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void DMA1_Stream6_IRQHandler(void)
+void DMA1_Stream6_IRQHandler( void )
 {
 }
 
@@ -189,9 +189,9 @@ void DMA1_Stream6_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN1_RX0_IRQHandler(void)
+void CAN1_RX0_IRQHandler( void )
 {
-  HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 
@@ -200,9 +200,9 @@ void CAN1_RX0_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN2_RX0_IRQHandler(void)
+void CAN2_RX0_IRQHandler( void )
 {
-  HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 /**
@@ -210,9 +210,9 @@ void CAN2_RX0_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN1_RX1_IRQHandler(void)
+void CAN1_RX1_IRQHandler( void )
 {
-  HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 
@@ -221,9 +221,9 @@ void CAN1_RX1_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN2_RX1_IRQHandler(void)
+void CAN2_RX1_IRQHandler( void )
 {
-  HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 /**
@@ -231,9 +231,9 @@ void CAN2_RX1_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN1_TX_IRQHandler(void)
+void CAN1_TX_IRQHandler( void )
 {
-  HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 /**
@@ -241,9 +241,9 @@ void CAN1_TX_IRQHandler(void)
 * @param  None
 * @retval None
 */
-void CAN2_TX_IRQHandler(void)
+void CAN2_TX_IRQHandler( void )
 {
- HAL_CAN_IRQHandler(&CanHandle);
+    HAL_CAN_IRQHandler( &CanHandle );
 }
 
 /**
@@ -257,7 +257,7 @@ void CAN2_TX_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
