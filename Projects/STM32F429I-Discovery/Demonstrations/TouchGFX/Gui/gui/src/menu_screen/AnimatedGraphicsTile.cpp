@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/menu_screen/AnimatedGraphicsTile.hpp>
@@ -25,14 +25,14 @@
 
 AnimatedGraphicsTile::AnimatedGraphicsTile()
 {
-    setWidth(90);
-    setHeight(70);
+    setWidth( 90 );
+    setHeight( 70 );
 
-    tileId.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    tileId.setTypedText(TypedText(T_ANIMATED_GRAPHICS_TILE));
-    tileId.setPosition(0, getHeight() - 22, getWidth(), 20);
+    tileId.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+    tileId.setTypedText( TypedText( T_ANIMATED_GRAPHICS_TILE ) );
+    tileId.setPosition( 0, getHeight() - 22, getWidth(), 20 );
 
-    add(tileId);
+    add( tileId );
 }
 
 AnimatedGraphicsTile::~AnimatedGraphicsTile()

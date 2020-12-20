@@ -68,8 +68,14 @@ int main( void )
     int exit_code = MBEDTLS_EXIT_FAILURE;
     mbedtls_mpi E, P, Q, N, H, D, X, Y, Z;
 
-    mbedtls_mpi_init( &E ); mbedtls_mpi_init( &P ); mbedtls_mpi_init( &Q ); mbedtls_mpi_init( &N );
-    mbedtls_mpi_init( &H ); mbedtls_mpi_init( &D ); mbedtls_mpi_init( &X ); mbedtls_mpi_init( &Y );
+    mbedtls_mpi_init( &E );
+    mbedtls_mpi_init( &P );
+    mbedtls_mpi_init( &Q );
+    mbedtls_mpi_init( &N );
+    mbedtls_mpi_init( &H );
+    mbedtls_mpi_init( &D );
+    mbedtls_mpi_init( &X );
+    mbedtls_mpi_init( &Y );
     mbedtls_mpi_init( &Z );
 
     MBEDTLS_MPI_CHK( mbedtls_mpi_read_string( &P, 10, "2789" ) );
@@ -109,8 +115,14 @@ int main( void )
     exit_code = MBEDTLS_EXIT_SUCCESS;
 
 cleanup:
-    mbedtls_mpi_free( &E ); mbedtls_mpi_free( &P ); mbedtls_mpi_free( &Q ); mbedtls_mpi_free( &N );
-    mbedtls_mpi_free( &H ); mbedtls_mpi_free( &D ); mbedtls_mpi_free( &X ); mbedtls_mpi_free( &Y );
+    mbedtls_mpi_free( &E );
+    mbedtls_mpi_free( &P );
+    mbedtls_mpi_free( &Q );
+    mbedtls_mpi_free( &N );
+    mbedtls_mpi_free( &H );
+    mbedtls_mpi_free( &D );
+    mbedtls_mpi_free( &X );
+    mbedtls_mpi_free( &Y );
     mbedtls_mpi_free( &Z );
 
     if( exit_code != MBEDTLS_EXIT_SUCCESS )
@@ -120,7 +132,8 @@ cleanup:
 
 #if defined(_WIN32)
     mbedtls_printf( "  Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( exit_code );

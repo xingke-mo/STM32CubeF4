@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <new>
@@ -35,14 +35,14 @@
 #include <gui/product_presenter_screen/ProductPresenterPresenter.hpp>
 #include <stdlib.h>
 
-FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
+FrontendApplication::FrontendApplication( Model &m, FrontendHeap &heap )
     : MVPApplication(),
       transitionCallback(),
-      frontendHeap(heap),
-      model(m),
-      tickCounter(0),
-      screenSaverTick(0),
-      lastClickTime(0)
+      frontendHeap( heap ),
+      model( m ),
+      tickCounter( 0 ),
+      screenSaverTick( 0 ),
+      lastClickTime( 0 )
 {
 }
 
@@ -53,14 +53,15 @@ void FrontendApplication::handleTickEvent()
     tickCounter++;
 
     // Screen saver functionality:
-    if (lastClickTime.hasValue() && (model.getCurrentTime() - lastClickTime) >= SCREEN_SAVER_TIMEOUT)
+    if( lastClickTime.hasValue() && ( model.getCurrentTime() - lastClickTime ) >= SCREEN_SAVER_TIMEOUT )
     {
         screenSaverTick++;
-        if (screenSaverTick % MINOR_TICK_FREQ == 0)
+
+        if( screenSaverTick % MINOR_TICK_FREQ == 0 )
         {
             model.screenSaverMinorTick();
         }
-        else if (screenSaverTick % MAJOR_TICK_FREQ == 0)
+        else if( screenSaverTick % MAJOR_TICK_FREQ == 0 )
         {
             model.screenSaverMajorTick();
         }
@@ -68,17 +69,17 @@ void FrontendApplication::handleTickEvent()
 
 }
 
-void FrontendApplication::handleClickEvent(const ClickEvent& evt)
+void FrontendApplication::handleClickEvent( const ClickEvent &evt )
 {
-    MVPApplication::handleClickEvent(evt);
+    MVPApplication::handleClickEvent( evt );
 
     // A click event has been registered so reset last click time
     resetScreenSaver();
 }
 
-void FrontendApplication::handleDragEvent(const DragEvent& evt)
+void FrontendApplication::handleDragEvent( const DragEvent &evt )
 {
-    MVPApplication::handleDragEvent(evt);
+    MVPApplication::handleDragEvent( evt );
 
     // A drag event has been registered so reset last click time
     resetScreenSaver();
@@ -92,66 +93,66 @@ void FrontendApplication::resetScreenSaver()
 
 void FrontendApplication::gotoMainMenuScreenNoTransition()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoMainMenuScreenNoTransitionImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoMainMenuScreenNoTransitionImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoMainMenuScreenNoTransitionImpl()
 {
-    makeTransition< MainMenuView, MainMenuPresenter, NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< MainMenuView, MainMenuPresenter, NoTransition, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoMainMenuScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoMainMenuScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoMainMenuScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoMainMenuScreenImpl()
 {
-    makeTransition< MainMenuView, MainMenuPresenter, SlideTransition<NORTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< MainMenuView, MainMenuPresenter, SlideTransition<NORTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoCustomControlsScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoCustomControlsScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoCustomControlsScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoCustomControlsScreenImpl()
 {
-    makeTransition< CustomControlsView, CustomControlsPresenter, SlideTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< CustomControlsView, CustomControlsPresenter, SlideTransition<SOUTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoGraphScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoGraphScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoGraphScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoGraphScreenImpl()
 {
-    makeTransition< GraphView, GraphPresenter, SlideTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< GraphView, GraphPresenter, SlideTransition<SOUTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoEasingEquationScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoEasingEquationScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoEasingEquationScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoEasingEquationScreenImpl()
 {
-    makeTransition< EasingEquationView, EasingEquationPresenter, SlideTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< EasingEquationView, EasingEquationPresenter, SlideTransition<SOUTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoProductPresenterScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoProductPresenterScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoProductPresenterScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoProductPresenterScreenImpl()
 {
-    makeTransition< ProductPresenterView, ProductPresenterPresenter, SlideTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< ProductPresenterView, ProductPresenterPresenter, SlideTransition<SOUTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }

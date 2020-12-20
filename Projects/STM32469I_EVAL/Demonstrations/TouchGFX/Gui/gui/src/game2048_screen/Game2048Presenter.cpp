@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/game2048_screen/Game2048Presenter.hpp>
 #include <gui/game2048_screen/Game2048View.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-Game2048Presenter::Game2048Presenter(Game2048View& v) :
-    DemoPresenter(v),
-    view(v)
+Game2048Presenter::Game2048Presenter( Game2048View &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 

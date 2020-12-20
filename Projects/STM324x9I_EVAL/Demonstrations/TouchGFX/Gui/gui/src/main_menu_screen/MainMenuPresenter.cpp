@@ -12,21 +12,21 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/main_menu_screen/MainMenuPresenter.hpp>
 #include <gui/main_menu_screen/MainMenuView.hpp>
 
-MainMenuPresenter::MainMenuPresenter(MainMenuView& v) :
-    DemoPresenter(v),
-    view(v)
+MainMenuPresenter::MainMenuPresenter( MainMenuView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 
 void MainMenuPresenter::activate()
 {
-    view.setSelectedMenuIndex(model->getSelectedMenuIndex());
+    view.setSelectedMenuIndex( model->getSelectedMenuIndex() );
 }
 
 void MainMenuPresenter::deactivate()
@@ -34,25 +34,31 @@ void MainMenuPresenter::deactivate()
 
 }
 
-void MainMenuPresenter::demoSelected(DemoID id, uint8_t menuIndex)
+void MainMenuPresenter::demoSelected( DemoID id, uint8_t menuIndex )
 {
-    model->setSelectedMenuIndex(menuIndex);
-    switch (id)
+    model->setSelectedMenuIndex( menuIndex );
+
+    switch( id )
     {
     case CUSTOM_CONTROLS:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoCustomControlsScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoCustomControlsScreen();
         break;
+
     case GRAPH_SCREEN:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoGraphScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoGraphScreen();
         break;
+
     case EASING_EQUATION:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoEasingEquationScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoEasingEquationScreen();
         break;
+
     case PRODUCT_PRESENTER:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoProductPresenterScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoProductPresenterScreen();
         break;
+
     case NO_DEMO_SCREEN:
         break;
+
     default:
         break;
     }

@@ -278,19 +278,33 @@ initial_setup( j_compress_ptr cinfo, boolean transcode_only )
     /* Derive natural_order from block_size */
     switch( cinfo->block_size )
     {
-    case 2: cinfo->natural_order = jpeg_natural_order2; break;
+    case 2:
+        cinfo->natural_order = jpeg_natural_order2;
+        break;
 
-    case 3: cinfo->natural_order = jpeg_natural_order3; break;
+    case 3:
+        cinfo->natural_order = jpeg_natural_order3;
+        break;
 
-    case 4: cinfo->natural_order = jpeg_natural_order4; break;
+    case 4:
+        cinfo->natural_order = jpeg_natural_order4;
+        break;
 
-    case 5: cinfo->natural_order = jpeg_natural_order5; break;
+    case 5:
+        cinfo->natural_order = jpeg_natural_order5;
+        break;
 
-    case 6: cinfo->natural_order = jpeg_natural_order6; break;
+    case 6:
+        cinfo->natural_order = jpeg_natural_order6;
+        break;
 
-    case 7: cinfo->natural_order = jpeg_natural_order7; break;
+    case 7:
+        cinfo->natural_order = jpeg_natural_order7;
+        break;
 
-    default: cinfo->natural_order = jpeg_natural_order; break;
+    default:
+        cinfo->natural_order = jpeg_natural_order;
+        break;
     }
 
     /* Derive lim_Se from block_size */

@@ -269,14 +269,22 @@ int mbedtls_internal_sha512_process( mbedtls_sha512_context *ctx,
 
     do
     {
-        P( A, B, C, D, E, F, G, H, W[i], K[i] ); i++;
-        P( H, A, B, C, D, E, F, G, W[i], K[i] ); i++;
-        P( G, H, A, B, C, D, E, F, W[i], K[i] ); i++;
-        P( F, G, H, A, B, C, D, E, W[i], K[i] ); i++;
-        P( E, F, G, H, A, B, C, D, W[i], K[i] ); i++;
-        P( D, E, F, G, H, A, B, C, W[i], K[i] ); i++;
-        P( C, D, E, F, G, H, A, B, W[i], K[i] ); i++;
-        P( B, C, D, E, F, G, H, A, W[i], K[i] ); i++;
+        P( A, B, C, D, E, F, G, H, W[i], K[i] );
+        i++;
+        P( H, A, B, C, D, E, F, G, W[i], K[i] );
+        i++;
+        P( G, H, A, B, C, D, E, F, W[i], K[i] );
+        i++;
+        P( F, G, H, A, B, C, D, E, W[i], K[i] );
+        i++;
+        P( E, F, G, H, A, B, C, D, W[i], K[i] );
+        i++;
+        P( D, E, F, G, H, A, B, C, W[i], K[i] );
+        i++;
+        P( C, D, E, F, G, H, A, B, W[i], K[i] );
+        i++;
+        P( B, C, D, E, F, G, H, A, W[i], K[i] );
+        i++;
     } while( i < 80 );
 
     ctx->state[0] += A;

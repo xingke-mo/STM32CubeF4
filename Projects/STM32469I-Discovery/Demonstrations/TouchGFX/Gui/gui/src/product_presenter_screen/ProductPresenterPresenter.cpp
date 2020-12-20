@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/product_presenter_screen/ProductPresenterPresenter.hpp>
 #include <gui/product_presenter_screen//ProductPresenterView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-ProductPresenterPresenter::ProductPresenterPresenter(ProductPresenterView& v) :
-    DemoPresenter(v),
-    view(v)
+ProductPresenterPresenter::ProductPresenterPresenter( ProductPresenterView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 

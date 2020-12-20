@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 volatile bool overrideBlitcaps = false;
@@ -37,29 +37,29 @@ using namespace touchgfx;
 
 #define CANVAS_BUFFER_SIZE (5500)
 
-static void GUITask(void* params)
+static void GUITask( void *params )
 {
     touchgfx::HAL::getInstance()->taskEntry();
 }
 
 
-int main(void)
+int main( void )
 {
     hw_init();
     touchgfx_init();
 
     static uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
-    CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
+    CanvasWidgetRenderer::setupBuffer( canvasBuffer, CANVAS_BUFFER_SIZE );
 
-    xTaskCreate(GUITask, "GUITask",
-                configGUI_TASK_STK_SIZE,
-                NULL,
-                configGUI_TASK_PRIORITY,
-                NULL);
+    xTaskCreate( GUITask, "GUITask",
+                 configGUI_TASK_STK_SIZE,
+                 NULL,
+                 configGUI_TASK_PRIORITY,
+                 NULL );
 
     vTaskStartScheduler();
 
-    for (;;);
+    for( ;; );
 
 }
 

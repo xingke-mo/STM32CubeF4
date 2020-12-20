@@ -288,7 +288,8 @@ static void AT_ParseInfo( ES_WIFIObject_t *Obj, uint8_t *pdata )
             strncpy( ( char * )Obj->Product_Name,  ptr, ES_WIFI_PRODUCT_NAME_SIZE );
             break;
 
-        default: break;
+        default:
+            break;
         }
 
         ptr = strtok( NULL, "," );

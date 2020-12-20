@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/common/CollapsibleMenu.hpp>
 #include <BitmapDatabase.hpp>
@@ -20,27 +20,27 @@
 
 
 CollapsibleMenu::CollapsibleMenu() :
-    currentAnimationState(NO_ANIMATION),
-    size(0),
-    isExpanded(false),
-    elementSpace(0),
-    expandDirection(RIGHT),
-    fadedOut(false),
-    timeout(0),
-    timeoutCounter(0),
-    selectedElementIndex(0),
-    onButtonPressed(this, &CollapsibleMenu::buttonPressedHandler),
-    menuElementMoveAnimationEndedCallback(this, &CollapsibleMenu::menuElementMoveAnimationEndedHandler),
-    menuElementFadeAnimationEndedCallback(this, &CollapsibleMenu::menuElementFadeAnimationEndedHandler),
-    stateChangedAction(0)
+    currentAnimationState( NO_ANIMATION ),
+    size( 0 ),
+    isExpanded( false ),
+    elementSpace( 0 ),
+    expandDirection( RIGHT ),
+    fadedOut( false ),
+    timeout( 0 ),
+    timeoutCounter( 0 ),
+    selectedElementIndex( 0 ),
+    onButtonPressed( this, &CollapsibleMenu::buttonPressedHandler ),
+    menuElementMoveAnimationEndedCallback( this, &CollapsibleMenu::menuElementMoveAnimationEndedHandler ),
+    menuElementFadeAnimationEndedCallback( this, &CollapsibleMenu::menuElementFadeAnimationEndedHandler ),
+    stateChangedAction( 0 )
 {
-    for (int i = MAX_NUMBER_OF_ELEMENTS - 1; i >= 0; i--)
+    for( int i = MAX_NUMBER_OF_ELEMENTS - 1; i >= 0; i-- )
     {
-        menuElements[i].setVisible(false);
-        menuElements[i].setAction(onButtonPressed);
-        menuElements[i].setFadeAnimationEndedAction(menuElementFadeAnimationEndedCallback);
-        menuElements[i].setMoveAnimationEndedAction(menuElementMoveAnimationEndedCallback);
-        add(menuElements[i]);
+        menuElements[i].setVisible( false );
+        menuElements[i].setAction( onButtonPressed );
+        menuElements[i].setFadeAnimationEndedAction( menuElementFadeAnimationEndedCallback );
+        menuElements[i].setMoveAnimationEndedAction( menuElementMoveAnimationEndedCallback );
+        add( menuElements[i] );
     }
 }
 
@@ -48,20 +48,20 @@ CollapsibleMenu::~CollapsibleMenu()
 {
 }
 
-void CollapsibleMenu::addMenuElement(const Bitmap& elementBitmap, const Bitmap& elementPressedBitmap)
+void CollapsibleMenu::addMenuElement( const Bitmap &elementBitmap, const Bitmap &elementPressedBitmap )
 {
-    menuElements[size].setBitmaps(elementBitmap, elementPressedBitmap);
-    menuElements[size].setVisible(true);
+    menuElements[size].setBitmaps( elementBitmap, elementPressedBitmap );
+    menuElements[size].setVisible( true );
     size++;
 }
 
 
-void CollapsibleMenu::setElementSpace(uint16_t space)
+void CollapsibleMenu::setElementSpace( uint16_t space )
 {
     elementSpace = space;
 }
 
-void CollapsibleMenu::setExpandDirection(ExpandDirection direction)
+void CollapsibleMenu::setExpandDirection( ExpandDirection direction )
 {
     expandDirection = direction;
 }
@@ -71,56 +71,56 @@ void CollapsibleMenu::finilizeInitialization()
     int newWidth = 0;
     int newHeight = 0;
 
-    for (int i = 0; i < size; i++)
+    for( int i = 0; i < size; i++ )
     {
         newWidth += menuElements[i].getWidth();
-        
-        if (i < size - 1)
+
+        if( i < size - 1 )
         {
             newWidth += elementSpace;
         }
 
-        newHeight = (menuElements[i].getHeight() > newHeight) ? menuElements[i].getHeight() : newHeight;
+        newHeight = ( menuElements[i].getHeight() > newHeight ) ? menuElements[i].getHeight() : newHeight;
     }
 
-    setWidth(newWidth);
-    setHeight(newHeight);
+    setWidth( newWidth );
+    setHeight( newHeight );
 
-    for (int i = 0; i < size; i++)
+    for( int i = 0; i < size; i++ )
     {
-        if (expandDirection == LEFT)
+        if( expandDirection == LEFT )
         {
-            menuElements[i].setXY(getWidth() - menuElements[i].getWidth(), 0);
+            menuElements[i].setXY( getWidth() - menuElements[i].getWidth(), 0 );
         }
         else
         {
-            menuElements[i].setXY(0, 0);
+            menuElements[i].setXY( 0, 0 );
         }
     }
 }
 
-void CollapsibleMenu::buttonPressedHandler(const AbstractButton& button)
+void CollapsibleMenu::buttonPressedHandler( const AbstractButton &button )
 {
-    if (currentAnimationState != NO_ANIMATION)
+    if( currentAnimationState != NO_ANIMATION )
     {
         return;
     }
 
-    if (isExpanded)
+    if( isExpanded )
     {
         // Place the old selected element in it correct z order
-        if (selectedElementIndex > 0)
+        if( selectedElementIndex > 0 )
         {
-            remove(menuElements[selectedElementIndex]);            
-            insert(&menuElements[selectedElementIndex-1], menuElements[selectedElementIndex]);
+            remove( menuElements[selectedElementIndex] );
+            insert( &menuElements[selectedElementIndex - 1], menuElements[selectedElementIndex] );
         }
 
         uint8_t oldSelectedElementIndex = selectedElementIndex;
 
         // Find the new selected index
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            if (&button == &menuElements[i])
+            if( &button == &menuElements[i] )
             {
                 selectedElementIndex = i;
                 break;
@@ -128,30 +128,30 @@ void CollapsibleMenu::buttonPressedHandler(const AbstractButton& button)
         }
 
         // Place the newly selected element in front (z order)
-        remove(menuElements[selectedElementIndex]);            
-        add(menuElements[selectedElementIndex]);
+        remove( menuElements[selectedElementIndex] );
+        add( menuElements[selectedElementIndex] );
 
         int duration = 20;
         int delayCounter = 0;
 
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
             // Move all elements except the old selected that is already in place
-            if (i != oldSelectedElementIndex) 
+            if( i != oldSelectedElementIndex )
             {
-                int endPosition = (expandDirection == LEFT) ? getWidth() - menuElements[i].getWidth() : 0;
+                int endPosition = ( expandDirection == LEFT ) ? getWidth() - menuElements[i].getWidth() : 0;
 
-                menuElements[i].setMoveAnimationDelay(2 * delayCounter++);
-                menuElements[i].startMoveAnimation(endPosition, menuElements[i].getY(), duration, EasingEquations::cubicEaseOut);
+                menuElements[i].setMoveAnimationDelay( 2 * delayCounter++ );
+                menuElements[i].startMoveAnimation( endPosition, menuElements[i].getY(), duration, EasingEquations::cubicEaseOut );
             }
         }
 
         currentAnimationState = ANIMATE_TO_COLLAPSED;
 
-        if (timeout > 0)
+        if( timeout > 0 )
         {
             // Remove timeout
-            Application::getInstance()->unregisterTimerWidget(this);
+            Application::getInstance()->unregisterTimerWidget( this );
         }
     }
     else
@@ -159,60 +159,66 @@ void CollapsibleMenu::buttonPressedHandler(const AbstractButton& button)
         int duration = 20;
         int delayCounter = 0;
 
-        int posX = (expandDirection == LEFT) ? getWidth() - menuElements[selectedElementIndex].getWidth() : menuElements[selectedElementIndex].getWidth() + elementSpace;
+        int posX = ( expandDirection == LEFT ) ? getWidth() - menuElements[selectedElementIndex].getWidth() : menuElements[selectedElementIndex].getWidth() + elementSpace;
 
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            if (i != selectedElementIndex)
+            if( i != selectedElementIndex )
             {
-                if (expandDirection == LEFT) { posX -= menuElements[i].getWidth() + elementSpace; }
+                if( expandDirection == LEFT )
+                {
+                    posX -= menuElements[i].getWidth() + elementSpace;
+                }
 
-                menuElements[i].setMoveAnimationDelay(2 * delayCounter++);
-                menuElements[i].startMoveAnimation(posX, menuElements[i].getY(), duration, EasingEquations::cubicEaseOut);
+                menuElements[i].setMoveAnimationDelay( 2 * delayCounter++ );
+                menuElements[i].startMoveAnimation( posX, menuElements[i].getY(), duration, EasingEquations::cubicEaseOut );
 
-                if (expandDirection == RIGHT) { posX += menuElements[i].getWidth() + elementSpace; }
+                if( expandDirection == RIGHT )
+                {
+                    posX += menuElements[i].getWidth() + elementSpace;
+                }
             }
         }
 
         currentAnimationState = ANIMATE_TO_EXPANDED;
 
         // Set timeout
-        if (timeout > 0)
+        if( timeout > 0 )
         {
-            Application::getInstance()->registerTimerWidget(this);
+            Application::getInstance()->registerTimerWidget( this );
             timeoutCounter = 0;
         }
     }
 }
 
-void CollapsibleMenu::fadeIn(int duration)
+void CollapsibleMenu::fadeIn( int duration )
 {
-    for (int i = 0; i < size; i++)
+    for( int i = 0; i < size; i++ )
     {
-        menuElements[i].setVisible(true);
+        menuElements[i].setVisible( true );
     }
 
-    if (isExpanded)
+    if( isExpanded )
     {
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            menuElements[i].setFadeAnimationDelay(0);
-            menuElements[i].startFadeAnimation(255, duration);
+            menuElements[i].setFadeAnimationDelay( 0 );
+            menuElements[i].startFadeAnimation( 255, duration );
         }
     }
     else
     {
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            if (i == selectedElementIndex)
+            if( i == selectedElementIndex )
             {
-                menuElements[i].setFadeAnimationDelay(0);
-                menuElements[i].startFadeAnimation(255, duration);
+                menuElements[i].setFadeAnimationDelay( 0 );
+                menuElements[i].startFadeAnimation( 255, duration );
             }
             else
             {
-                menuElements[i].setFadeAnimationDelay(duration);
-                menuElements[i].startFadeAnimation(255, 1);
+                menuElements[i].setFadeAnimationDelay( duration );
+                menuElements[i].startFadeAnimation( 255, 1 );
             }
         }
     }
@@ -220,28 +226,28 @@ void CollapsibleMenu::fadeIn(int duration)
     currentAnimationState = FADE_IN;
 }
 
-void CollapsibleMenu::fadeOut(int duration)
+void CollapsibleMenu::fadeOut( int duration )
 {
-    if (isExpanded)
+    if( isExpanded )
     {
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            menuElements[i].setFadeAnimationDelay(10);
-            menuElements[i].startFadeAnimation(0, duration);
+            menuElements[i].setFadeAnimationDelay( 10 );
+            menuElements[i].startFadeAnimation( 0, duration );
         }
     }
     else
     {
-        for (int i = 0; i < size; i++)
+        for( int i = 0; i < size; i++ )
         {
-            if (i == selectedElementIndex)
+            if( i == selectedElementIndex )
             {
-                menuElements[i].setFadeAnimationDelay(10);
-                menuElements[i].startFadeAnimation(0, duration);
+                menuElements[i].setFadeAnimationDelay( 10 );
+                menuElements[i].startFadeAnimation( 0, duration );
             }
             else
             {
-                menuElements[i].setAlpha(0);
+                menuElements[i].setAlpha( 0 );
                 menuElements[i].invalidate();
             }
         }
@@ -255,14 +261,14 @@ bool CollapsibleMenu::isFadedOut()
     return fadedOut;
 }
 
-void CollapsibleMenu::menuElementMoveAnimationEndedHandler(const MoveAnimator<Button>& element)
+void CollapsibleMenu::menuElementMoveAnimationEndedHandler( const MoveAnimator<Button> &element )
 {
-    if (currentAnimationState == ANIMATE_TO_COLLAPSED)
+    if( currentAnimationState == ANIMATE_TO_COLLAPSED )
     {
         currentAnimationState = NO_ANIMATION;
         isExpanded = false;
     }
-    else if (currentAnimationState == ANIMATE_TO_EXPANDED)
+    else if( currentAnimationState == ANIMATE_TO_EXPANDED )
     {
         currentAnimationState = NO_ANIMATION;
         isExpanded = true;
@@ -272,36 +278,37 @@ void CollapsibleMenu::menuElementMoveAnimationEndedHandler(const MoveAnimator<Bu
         return;
     }
 
-    if (stateChangedAction && stateChangedAction->isValid())
+    if( stateChangedAction && stateChangedAction->isValid() )
     {
-        stateChangedAction->execute(*this, isExpanded);
+        stateChangedAction->execute( *this, isExpanded );
     }
 
 }
 
-void CollapsibleMenu::menuElementFadeAnimationEndedHandler(const FadeAnimator<MoveAnimator<Button> >& element)
+void CollapsibleMenu::menuElementFadeAnimationEndedHandler( const FadeAnimator<MoveAnimator<Button> > &element )
 {
-    if (anyFadeAnimationRunning())
+    if( anyFadeAnimationRunning() )
     {
         // Wait for the last FadeAnimation to react.
         return;
     }
 
-    if (currentAnimationState == FADE_IN)
+    if( currentAnimationState == FADE_IN )
     {
         currentAnimationState = NO_ANIMATION;
         fadedOut = false;
     }
-    else if (currentAnimationState == FADE_OUT)
+    else if( currentAnimationState == FADE_OUT )
     {
         currentAnimationState = NO_ANIMATION;
         fadedOut = true;
-        for (int i = 0; i < size; i++)
+
+        for( int i = 0; i < size; i++ )
         {
-            menuElements[i].setVisible(false);
+            menuElements[i].setVisible( false );
         }
     }
-    else if (currentAnimationState == FADE_IN_AND_EXPAND)
+    else if( currentAnimationState == FADE_IN_AND_EXPAND )
     {
         currentAnimationState = NO_ANIMATION;
         fadedOut = false;
@@ -311,41 +318,42 @@ void CollapsibleMenu::menuElementFadeAnimationEndedHandler(const FadeAnimator<Mo
 
 void CollapsibleMenu::collapseMenu()
 {
-    if (isExpanded)
+    if( isExpanded )
     {
-        buttonPressedHandler(menuElements[selectedElementIndex]);
+        buttonPressedHandler( menuElements[selectedElementIndex] );
     }
 }
 
 void CollapsibleMenu::expandMenu()
 {
-    if (!isExpanded)
+    if( !isExpanded )
     {
-        buttonPressedHandler(menuElements[selectedElementIndex]);
+        buttonPressedHandler( menuElements[selectedElementIndex] );
     }
 }
 
 
-void CollapsibleMenu::setTimeout(int newTimeout)
+void CollapsibleMenu::setTimeout( int newTimeout )
 {
     timeout = newTimeout;
 }
 
-void CollapsibleMenu::fadeInAndExpand(int duration)
+void CollapsibleMenu::fadeInAndExpand( int duration )
 {
-    fadeIn(duration);
+    fadeIn( duration );
     currentAnimationState = FADE_IN_AND_EXPAND;
 }
 
 bool CollapsibleMenu::anyFadeAnimationRunning()
 {
-    for (int i = 0; i < size; i++)
+    for( int i = 0; i < size; i++ )
     {
-        if (menuElements[i].isRunning())
+        if( menuElements[i].isRunning() )
         {
             return true;
         }
     }
+
     return false;
 }
 
@@ -357,7 +365,8 @@ uint8_t CollapsibleMenu::getSelectedElementIndex()
 void CollapsibleMenu::handleTickEvent()
 {
     timeoutCounter++;
-    if (timeoutCounter >= timeout)
+
+    if( timeoutCounter >= timeout )
     {
         collapseMenu(); // Will also unregister time
     }

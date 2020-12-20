@@ -12,16 +12,16 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/easing_equation_screen/EasingEquationPresenter.hpp>
 #include <gui/easing_equation_screen/EasingEquationView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-EasingEquationPresenter::EasingEquationPresenter(EasingEquationView& v) :
-    DemoPresenter(v),
-    view(v)
+EasingEquationPresenter::EasingEquationPresenter( EasingEquationView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 

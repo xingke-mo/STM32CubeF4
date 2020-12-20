@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/graph_screen/Graph.hpp>
 #include <touchgfx/Color.hpp>
@@ -20,7 +20,7 @@
 #include <math.h>
 
 Graph::Graph() :
-    myAlpha(255)
+    myAlpha( 255 )
 {
 }
 
@@ -28,89 +28,89 @@ Graph::~Graph()
 {
 }
 
-void Graph::setup(int newWidth, int newHeight, uint16_t lineColor, uint16_t backgroundColor)
+void Graph::setup( int newWidth, int newHeight, uint16_t lineColor, uint16_t backgroundColor )
 {
-    setWidth(newWidth);
-    setHeight(newHeight);
-    
-    graphLinePainter.setColor(lineColor);
-    graphAreaPainter.setColor(lineColor, getHeight());
-    graphDotsPainter.setColor(lineColor);
-    graphDotsBackgroundPainter.setColor(backgroundColor);
+    setWidth( newWidth );
+    setHeight( newHeight );
 
-    graphLine.setLinkedGraph(graphArea);
-    graphLine.setLinkedGraph(graphDots);
-    graphLine.setLinkedGraph(graphDotsBackground);
+    graphLinePainter.setColor( lineColor );
+    graphAreaPainter.setColor( lineColor, getHeight() );
+    graphDotsPainter.setColor( lineColor );
+    graphDotsBackgroundPainter.setColor( backgroundColor );
 
-    graphLine.setPosition(0, 0, getWidth(), getHeight());
-    graphLine.setPainter(graphLinePainter);
-    graphLine.setBuffer(graphBuffer, NUMBER_OF_POINTS);
-    graphLine.setLineWidth(1);
-    graphLine.setRange(-1, 77, 400, 0);
+    graphLine.setLinkedGraph( graphArea );
+    graphLine.setLinkedGraph( graphDots );
+    graphLine.setLinkedGraph( graphDotsBackground );
 
-    graphArea.setPainter(graphAreaPainter);
-    graphArea.setLineWidth(0);
+    graphLine.setPosition( 0, 0, getWidth(), getHeight() );
+    graphLine.setPainter( graphLinePainter );
+    graphLine.setBuffer( graphBuffer, NUMBER_OF_POINTS );
+    graphLine.setLineWidth( 1 );
+    graphLine.setRange( -1, 77, 400, 0 );
 
-    graphDots.setPainter(graphDotsPainter);
-    graphDots.setLineWidth(7);
-    graphDots.setDotShape(0, 90);
+    graphArea.setPainter( graphAreaPainter );
+    graphArea.setLineWidth( 0 );
 
-    graphDotsBackground.setPainter(graphDotsBackgroundPainter);
-    graphDotsBackground.setLineWidth(9);
-    graphDotsBackground.setDotShape(0, 30);
+    graphDots.setPainter( graphDotsPainter );
+    graphDots.setLineWidth( 7 );
+    graphDots.setDotShape( 0, 90 );
 
-    add(graphArea);
-    add(graphLine);
-    add(graphDotsBackground);
-    add(graphDots);
+    graphDotsBackground.setPainter( graphDotsBackgroundPainter );
+    graphDotsBackground.setLineWidth( 9 );
+    graphDotsBackground.setDotShape( 0, 30 );
+
+    add( graphArea );
+    add( graphLine );
+    add( graphDotsBackground );
+    add( graphDots );
 }
 
-void Graph::setRange(int left, int right, int top, int bottom) 
-{ 
-    graphLine.setRange(left, right, top, bottom); 
+void Graph::setRange( int left, int right, int top, int bottom )
+{
+    graphLine.setRange( left, right, top, bottom );
 }
 
-void Graph::setLineVisible(bool lineVisible)
+void Graph::setLineVisible( bool lineVisible )
 {
-    graphLine.setVisible(lineVisible);
+    graphLine.setVisible( lineVisible );
 }
 
-void Graph::setDotsVisible(bool dotsVisible)
+void Graph::setDotsVisible( bool dotsVisible )
 {
-    graphDots.setVisible(dotsVisible);
+    graphDots.setVisible( dotsVisible );
 }
 
-void Graph::setDotsBackgroundVisible(bool dotsBackgroundVisible)
+void Graph::setDotsBackgroundVisible( bool dotsBackgroundVisible )
 {
-    graphDotsBackground.setVisible(dotsBackgroundVisible);
+    graphDotsBackground.setVisible( dotsBackgroundVisible );
 }
 
-void Graph::setAreaVisible(bool areaVisible)
+void Graph::setAreaVisible( bool areaVisible )
 {
-    graphArea.setVisible(areaVisible);
+    graphArea.setVisible( areaVisible );
 }
 
-void Graph::setDotShape(int startAngle, int angleStep, int lineWidth)
+void Graph::setDotShape( int startAngle, int angleStep, int lineWidth )
 {
-    graphDots.setDotShape(startAngle, angleStep);
-    graphDots.setLineWidth(lineWidth);
+    graphDots.setDotShape( startAngle, angleStep );
+    graphDots.setLineWidth( lineWidth );
     graphDots.invalidate();
 }
 
-void Graph::setDotBackgroundShape(int startAngle, int angleStep, int lineWidth)
+void Graph::setDotBackgroundShape( int startAngle, int angleStep, int lineWidth )
 {
-    graphDotsBackground.setDotShape(startAngle, angleStep);
-    graphDotsBackground.setLineWidth(lineWidth);
+    graphDotsBackground.setDotShape( startAngle, angleStep );
+    graphDotsBackground.setLineWidth( lineWidth );
     graphDots.invalidate();
 }
 
-void Graph::setAlpha(uint8_t alpha)
+void Graph::setAlpha( uint8_t alpha )
 {
     myAlpha = alpha;
-    graphLine.setAlpha(myAlpha);
-    graphArea.setAlpha(myAlpha);
-    graphDots.setAlpha(myAlpha);
-    graphDotsBackground.setAlpha(myAlpha);
+    graphLine.setAlpha( myAlpha );
+    graphArea.setAlpha( myAlpha );
+    graphDots.setAlpha( myAlpha );
+    graphDotsBackground.setAlpha( myAlpha );
     invalidate();
 }
 

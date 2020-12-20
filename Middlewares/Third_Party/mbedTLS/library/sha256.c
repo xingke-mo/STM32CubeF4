@@ -230,8 +230,15 @@ int mbedtls_internal_sha256_process( mbedtls_sha256_context *ctx,
 
         P( A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], W[i], K[i] );
 
-        temp1 = A[7]; A[7] = A[6]; A[6] = A[5]; A[5] = A[4]; A[4] = A[3];
-        A[3] = A[2]; A[2] = A[1]; A[1] = A[0]; A[0] = temp1;
+        temp1 = A[7];
+        A[7] = A[6];
+        A[6] = A[5];
+        A[5] = A[4];
+        A[4] = A[3];
+        A[3] = A[2];
+        A[2] = A[1];
+        A[1] = A[0];
+        A[0] = temp1;
     }
 
 #else /* MBEDTLS_SHA256_SMALLER */

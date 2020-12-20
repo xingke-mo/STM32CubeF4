@@ -6,33 +6,35 @@
 #include <texts/TypedTextDatabase.hpp>
 
 #ifndef NO_USING_NAMESPACE_TOUCHGFX
-using namespace touchgfx;
+    using namespace touchgfx;
 #endif
 
-extern touchgfx::InternalFlashFont& getFont_Asap_Regular_36_4bpp();
-extern touchgfx::InternalFlashFont& getFont_Asap_Regular_20_4bpp();
-extern touchgfx::InternalFlashFont& getFont_Asap_Regular_22_4bpp();
-extern touchgfx::InternalFlashFont& getFont_SourceSansPro_Regular_100_4bpp();
-extern touchgfx::InternalFlashFont& getFont_SourceSansPro_Regular_18_4bpp();
-extern touchgfx::InternalFlashFont& getFont_SourceSansPro_Regular_14_4bpp();
-extern touchgfx::InternalFlashFont& getFont_SourceSansPro_Regular_64_4bpp();
-extern touchgfx::InternalFlashFont& getFont_Asap_Regular_12_4bpp();
-extern touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_12_4bpp();
+extern touchgfx::InternalFlashFont &getFont_Asap_Regular_36_4bpp();
+extern touchgfx::InternalFlashFont &getFont_Asap_Regular_20_4bpp();
+extern touchgfx::InternalFlashFont &getFont_Asap_Regular_22_4bpp();
+extern touchgfx::InternalFlashFont &getFont_SourceSansPro_Regular_100_4bpp();
+extern touchgfx::InternalFlashFont &getFont_SourceSansPro_Regular_18_4bpp();
+extern touchgfx::InternalFlashFont &getFont_SourceSansPro_Regular_14_4bpp();
+extern touchgfx::InternalFlashFont &getFont_SourceSansPro_Regular_64_4bpp();
+extern touchgfx::InternalFlashFont &getFont_Asap_Regular_12_4bpp();
+extern touchgfx::InternalFlashFont &getFont_RobotoCondensed_Regular_12_4bpp();
 
-const touchgfx::Font* const _fonts[] = {
-    &(getFont_Asap_Regular_36_4bpp()),
-    &(getFont_Asap_Regular_20_4bpp()),
-    &(getFont_Asap_Regular_22_4bpp()),
-    &(getFont_SourceSansPro_Regular_100_4bpp()),
-    &(getFont_SourceSansPro_Regular_18_4bpp()),
-    &(getFont_SourceSansPro_Regular_14_4bpp()),
-    &(getFont_SourceSansPro_Regular_64_4bpp()),
-    &(getFont_Asap_Regular_12_4bpp()),
-    &(getFont_RobotoCondensed_Regular_12_4bpp())
+const touchgfx::Font *const _fonts[] =
+{
+    &( getFont_Asap_Regular_36_4bpp() ),
+    &( getFont_Asap_Regular_20_4bpp() ),
+    &( getFont_Asap_Regular_22_4bpp() ),
+    &( getFont_SourceSansPro_Regular_100_4bpp() ),
+    &( getFont_SourceSansPro_Regular_18_4bpp() ),
+    &( getFont_SourceSansPro_Regular_14_4bpp() ),
+    &( getFont_SourceSansPro_Regular_64_4bpp() ),
+    &( getFont_Asap_Regular_12_4bpp() ),
+    &( getFont_RobotoCondensed_Regular_12_4bpp() )
 };
 
 TEXT_LOCATION_FLASH_PRAGMA
-const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
+const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[] TEXT_LOCATION_FLASH_ATTRIBUTE =
+{
     { 0, touchgfx::CENTER, touchgfx::TEXT_DIRECTION_LTR },
     { 1, touchgfx::CENTER, touchgfx::TEXT_DIRECTION_LTR },
     { 1, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
@@ -96,24 +98,24 @@ const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[] TEXT_LOCAT
 
 
 TEXT_LOCATION_FLASH_PRAGMA
-const touchgfx::TypedText::TypedTextData* const typedTextDatabaseArray[] TEXT_LOCATION_FLASH_ATTRIBUTE =
+const touchgfx::TypedText::TypedTextData *const typedTextDatabaseArray[] TEXT_LOCATION_FLASH_ATTRIBUTE =
 {
     typedText_database_DEFAULT
 };
 
 namespace TypedTextDatabase
 {
-  const touchgfx::TypedText::TypedTextData* getInstance(touchgfx::LanguageId id)
-  {
+const touchgfx::TypedText::TypedTextData *getInstance( touchgfx::LanguageId id )
+{
     return typedTextDatabaseArray[id];
-  }
+}
 
-  uint16_t getInstanceSize()
-  {
-    return sizeof(typedText_database_DEFAULT) / sizeof(touchgfx::TypedText::TypedTextData);
-  }
-  const touchgfx::Font* const * getFonts()
-  {
+uint16_t getInstanceSize()
+{
+    return sizeof( typedText_database_DEFAULT ) / sizeof( touchgfx::TypedText::TypedTextData );
+}
+const touchgfx::Font *const *getFonts()
+{
     return _fonts;
-  }
+}
 }

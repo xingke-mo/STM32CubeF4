@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <touchgfx/hal/HAL.hpp>
@@ -27,25 +27,25 @@
 
 using namespace touchgfx;
 
-static void GUITask(void* params)
+static void GUITask( void *params )
 {
     touchgfx::HAL::getInstance()->taskEntry();
 }
 
-int main(void)
+int main( void )
 {
     hw_init();
     touchgfx_init();
 
-    xTaskCreate(GUITask,
-                "GUITask",
-                1500,
-                NULL,
-                tskIDLE_PRIORITY + 1,
-                NULL);
+    xTaskCreate( GUITask,
+                 "GUITask",
+                 1500,
+                 NULL,
+                 tskIDLE_PRIORITY + 1,
+                 NULL );
 
     vTaskStartScheduler();
 
-    for (;;);
+    for( ;; );
 
 }

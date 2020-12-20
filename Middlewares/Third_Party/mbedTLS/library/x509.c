@@ -575,11 +575,20 @@ static int x509_date_is_valid( const mbedtls_x509_time *t )
 
     switch( t->mon )
     {
-    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
         month_len = 31;
         break;
 
-    case 4: case 6: case 9: case 11:
+    case 4:
+    case 6:
+    case 9:
+    case 11:
         month_len = 30;
         break;
 

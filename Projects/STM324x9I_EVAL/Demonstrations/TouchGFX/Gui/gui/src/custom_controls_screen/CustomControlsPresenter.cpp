@@ -12,16 +12,16 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/custom_controls_screen/CustomControlsPresenter.hpp>
 #include <gui/custom_controls_screen/CustomControlsView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-CustomControlsPresenter::CustomControlsPresenter(CustomControlsView& v) :
-    DemoPresenter(v),
-    view(v)
+CustomControlsPresenter::CustomControlsPresenter( CustomControlsView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 

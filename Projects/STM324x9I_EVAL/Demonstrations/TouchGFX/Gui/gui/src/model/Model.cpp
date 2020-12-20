@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/model/Model.hpp>
@@ -20,21 +20,21 @@
 #include <touchgfx/hal/HAL.hpp>
 
 #ifdef SIMULATOR
-#include <ctime>
-#ifndef _MSC_VER
-#include <sys/time.h>
-#endif /* _MSC_VER*/
+    #include <ctime>
+    #ifndef _MSC_VER
+        #include <sys/time.h>
+    #endif /* _MSC_VER*/
 #else
 
-static volatile long lastUs;
-extern uint32_t SystemCoreClock;
-static int freqMHz;
+    static volatile long lastUs;
+    extern uint32_t SystemCoreClock;
+    static int freqMHz;
 #endif /* SIMULATOR */
 
 Model::Model() :
-    modelListener(0),
-    mcuLoadActive(true),
-    selectedMenuIndex(0)
+    modelListener( 0 ),
+    mcuLoadActive( true ),
+    selectedMenuIndex( 0 )
 {
 #ifndef SIMULATOR
     lastUs = touchgfx::HAL::getInstance()->getCPUCycles();
@@ -43,8 +43,8 @@ Model::Model() :
 }
 
 #ifndef SIMULATOR
-//extern volatile uint32_t mcu_load_pct;
-static uint8_t mcuLoadLast = 0;
+    //extern volatile uint32_t mcu_load_pct;
+    static uint8_t mcuLoadLast = 0;
 #endif // SIMULATOR
 
 void Model::tick()
@@ -55,8 +55,8 @@ void Model::tick()
 #ifdef _MSC_VER
     time_t rawtime;
     struct tm timenow;
-    time(&rawtime);
-    localtime_s(&timenow, &rawtime);
+    time( &rawtime );
+    localtime_s( &timenow, &rawtime );
 
     currentTime.hours =   timenow.tm_hour;
     currentTime.minutes = timenow.tm_min;
@@ -65,38 +65,39 @@ void Model::tick()
 
 #else
     timeval timenow;
-    gettimeofday(&timenow, NULL);
+    gettimeofday( &timenow, NULL );
 
-    currentTime.hours = (timenow.tv_sec / 60 / 60) % 24;
-    currentTime.minutes = (timenow.tv_sec / 60) % 60;
+    currentTime.hours = ( timenow.tv_sec / 60 / 60 ) % 24;
+    currentTime.minutes = ( timenow.tv_sec / 60 ) % 60;
     currentTime.seconds = timenow.tv_sec % 60;
     currentTime.milliseconds = timenow.tv_usec / 1000;
 #endif  /*_MSC_VER*/
 #else
     static int milliseconds = 123456;
     uint8_t mcuLoadPct = touchgfx::HAL::getInstance()->getMCULoadPct();
-    if (mcuLoadLast != /*mcu_load_pct*/ mcuLoadPct)
+
+    if( mcuLoadLast != /*mcu_load_pct*/ mcuLoadPct )
     {
         mcuLoadLast = mcuLoadPct;
-        modelListener->mcuLoadUpdated(mcuLoadLast);
+        modelListener->mcuLoadUpdated( mcuLoadLast );
     }
 
     //long now = cpu_cycles();
     long now = touchgfx::HAL::getInstance()->getCPUCycles();
-    milliseconds += (now - lastUs + freqMHz / 2) / freqMHz / 1000;
+    milliseconds += ( now - lastUs + freqMHz / 2 ) / freqMHz / 1000;
     lastUs = now;
-    currentTime.hours = (milliseconds / 1000 / 60 / 60) % 24;
-    currentTime.minutes = (milliseconds / 1000 / 60) % 60;
-    currentTime.seconds = (milliseconds / 1000) % 60;
+    currentTime.hours = ( milliseconds / 1000 / 60 / 60 ) % 24;
+    currentTime.minutes = ( milliseconds / 1000 / 60 ) % 60;
+    currentTime.seconds = ( milliseconds / 1000 ) % 60;
     currentTime.milliseconds = milliseconds % 1000;
 
 #endif /* SIMULATOR */
 
-    if (currentTime.seconds != previousTime.seconds)
+    if( currentTime.seconds != previousTime.seconds )
     {
-        if (modelListener)
+        if( modelListener )
         {
-            modelListener->timeUpdated(currentTime);
+            modelListener->timeUpdated( currentTime );
         }
     }
 }

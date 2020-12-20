@@ -993,7 +993,8 @@ int mbedtls_rsa_private( mbedtls_rsa_context *ctx,
     }
 
 #if !defined(MBEDTLS_RSA_NO_CRT)
-    mbedtls_mpi_init( &TP ); mbedtls_mpi_init( &TQ );
+    mbedtls_mpi_init( &TP );
+    mbedtls_mpi_init( &TQ );
 #endif
 
     mbedtls_mpi_init( &I );
@@ -1140,7 +1141,8 @@ cleanup:
     mbedtls_mpi_free( &T );
 
 #if !defined(MBEDTLS_RSA_NO_CRT)
-    mbedtls_mpi_free( &TP ); mbedtls_mpi_free( &TQ );
+    mbedtls_mpi_free( &TP );
+    mbedtls_mpi_free( &TQ );
 #endif
 
     mbedtls_mpi_free( &C );

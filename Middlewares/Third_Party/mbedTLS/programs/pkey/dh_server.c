@@ -113,8 +113,11 @@ int main( void )
     mbedtls_aes_init( &aes );
     mbedtls_ctr_drbg_init( &ctr_drbg );
 
-    mbedtls_mpi_init( &N ); mbedtls_mpi_init( &P ); mbedtls_mpi_init( &Q );
-    mbedtls_mpi_init( &D ); mbedtls_mpi_init( &E );
+    mbedtls_mpi_init( &N );
+    mbedtls_mpi_init( &P );
+    mbedtls_mpi_init( &Q );
+    mbedtls_mpi_init( &D );
+    mbedtls_mpi_init( &E );
 
     /*
      * 1. Setup the RNG
@@ -329,8 +332,11 @@ int main( void )
 
 exit:
 
-    mbedtls_mpi_free( &N ); mbedtls_mpi_free( &P ); mbedtls_mpi_free( &Q );
-    mbedtls_mpi_free( &D ); mbedtls_mpi_free( &E );
+    mbedtls_mpi_free( &N );
+    mbedtls_mpi_free( &P );
+    mbedtls_mpi_free( &Q );
+    mbedtls_mpi_free( &D );
+    mbedtls_mpi_free( &E );
 
     mbedtls_net_free( &client_fd );
     mbedtls_net_free( &listen_fd );
@@ -343,7 +349,8 @@ exit:
 
 #if defined(_WIN32)
     mbedtls_printf( "  + Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( exit_code );

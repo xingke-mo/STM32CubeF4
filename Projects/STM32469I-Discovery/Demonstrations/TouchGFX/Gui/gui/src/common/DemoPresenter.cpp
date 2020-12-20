@@ -12,22 +12,22 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/common/DemoPresenter.hpp>
 
-DemoPresenter::DemoPresenter(DemoViewInterface& view) :
-    viewInterface(view)
+DemoPresenter::DemoPresenter( DemoViewInterface &view ) :
+    viewInterface( view )
 {
 }
 
 void DemoPresenter::backOptionSelected()
 {
-    static_cast<FrontendApplication*>(Application::getInstance())->gotoMainMenuAnimatingButtonsScreen();
+    static_cast<FrontendApplication *>( Application::getInstance() )->gotoMainMenuAnimatingButtonsScreen();
 }
 
-void DemoPresenter::mcuLoadUpdated(uint8_t mcuLoad)
+void DemoPresenter::mcuLoadUpdated( uint8_t mcuLoad )
 {
-    viewInterface.updateProcessorLoad(mcuLoad);
+    viewInterface.updateProcessorLoad( mcuLoad );
 }
 

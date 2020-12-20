@@ -12,14 +12,14 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/main_menu_screen/MainMenuPresenter.hpp>
 #include <gui/main_menu_screen/MainMenuView.hpp>
 
-MainMenuPresenter::MainMenuPresenter(MainMenuView& v) :
-    DemoPresenter(v),
-    view(v)
+MainMenuPresenter::MainMenuPresenter( MainMenuView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 
@@ -33,14 +33,14 @@ void MainMenuPresenter::deactivate()
 
 }
 
-void MainMenuPresenter::setSelectedDemoScreenIndex(int elementIndex)
+void MainMenuPresenter::setSelectedDemoScreenIndex( int elementIndex )
 {
-    model->setSelectedDemoScreenIndex(elementIndex);
+    model->setSelectedDemoScreenIndex( elementIndex );
 }
 
-void MainMenuPresenter::setPreviousSelectedMenuType(MainMenuType menuType)
+void MainMenuPresenter::setPreviousSelectedMenuType( MainMenuType menuType )
 {
-    model->setPreviousSelectedMainMenuType((Model::MainMenuType) menuType);
+    model->setPreviousSelectedMainMenuType( ( Model::MainMenuType ) menuType );
 }
 
 int MainMenuPresenter::getSelectedDemoScreenIndex()
@@ -50,7 +50,7 @@ int MainMenuPresenter::getSelectedDemoScreenIndex()
 
 MainMenuPresenter::MainMenuType MainMenuPresenter::getPreviousSelectedMenuType()
 {
-    return (MainMenuPresenter::MainMenuType) (model->getPreviousSelectedMainMenuType());
+    return ( MainMenuPresenter::MainMenuType )( model->getPreviousSelectedMainMenuType() );
 }
 
 void MainMenuPresenter::screenSaverMinorTick()

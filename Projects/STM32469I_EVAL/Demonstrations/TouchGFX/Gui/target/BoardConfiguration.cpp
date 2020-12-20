@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <common/TouchGFXInit.hpp>
@@ -61,28 +61,28 @@ extern "C"
 #include "stm32469i_eval_sdram.h"
 #include "stm32469i_eval_qspi.h"
 
-bool os_inited = false;
+    bool os_inited = false;
 
-LTDC_HandleTypeDef hltdc;
-DSI_HandleTypeDef hdsi;
-DMA2D_HandleTypeDef hdma2d;
+    LTDC_HandleTypeDef hltdc;
+    DSI_HandleTypeDef hdsi;
+    DMA2D_HandleTypeDef hdma2d;
 
-extern "C" {
-static DSI_CmdCfgTypeDef CmdCfg;
-static DSI_LPCmdTypeDef LPCmd;
-static DSI_PLLInitTypeDef dsiPllInit;
-static RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+    extern "C" {
+        static DSI_CmdCfgTypeDef CmdCfg;
+        static DSI_LPCmdTypeDef LPCmd;
+        static DSI_PLLInitTypeDef dsiPllInit;
+        static RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
-uint32_t LCD_GetXSize()
-{
-    return OTM8009A_800X480_WIDTH;
-}
+        uint32_t LCD_GetXSize()
+        {
+            return OTM8009A_800X480_WIDTH;
+        }
 
-uint32_t LCD_GetYSize()
-{
-    return OTM8009A_800X480_HEIGHT;
-}
-}
+        uint32_t LCD_GetYSize()
+        {
+            return OTM8009A_800X480_HEIGHT;
+        }
+    }
 
 #define VSYNC           1
 #define VBP             1
@@ -116,12 +116,12 @@ uint8_t pColRight[]   = {0x01, 0x90, 0x03, 0x1F}; /* 400 -> 799 */
 uint8_t pPage[]       = {0x00, 0x00, 0x01, 0xDF}; /*   0 -> 479 */
 uint8_t pScanCol[]    = {0x02, 0x15};             /* Scan @ 533 */
 
-static uint32_t frameBuf0 = (uint32_t)(LAYER0_ADDRESS);
+static uint32_t frameBuf0 = ( uint32_t )( LAYER0_ADDRESS );
 
 static void SystemClock_Config();
 static void LTDC_Init();
-static uint8_t LCD_Init(void);
-static void LCD_LayerInit(uint16_t LayerIndex, uint32_t Address);
+static uint8_t LCD_Init( void );
+static void LCD_LayerInit( uint16_t LayerIndex, uint32_t Address );
 
 namespace touchgfx
 {
@@ -137,7 +137,7 @@ void hw_init()
     /* Initialize QSPI */
     BSP_QSPI_Init();
     BSP_QSPI_EnableMemoryMappedMode();
-    HAL_NVIC_DisableIRQ(QUADSPI_IRQn);
+    HAL_NVIC_DisableIRQ( QUADSPI_IRQn );
 
     /* Initialize the SDRAM */
     BSP_SDRAM_Init();
@@ -153,13 +153,13 @@ OTM8009TouchController tc;
 STM32F4Instrumentation mcuInstr;
 
 #if !defined(USE_BPP) || USE_BPP==16
-static LCD16bpp display;
-static uint16_t bitDepth = 16;
+    static LCD16bpp display;
+    static uint16_t bitDepth = 16;
 #elif USE_BPP==24
-static LCD24bpp display;
-static uint16_t bitDepth = 24;
+    static LCD24bpp display;
+    static uint16_t bitDepth = 24;
 #else
-#error Unknown USE_BPP
+    #error Unknown USE_BPP
 #endif
 
 void touchgfx_init()
@@ -167,33 +167,33 @@ void touchgfx_init()
     uint16_t dispWidth = 800;
     uint16_t dispHeight = 480;
 #if !defined(USE_BPP) || USE_BPP==16
-    HAL& hal = touchgfx_generic_init<STM32F4HAL_DSI>(dma, display, tc, dispWidth, dispHeight,
-                                                     (uint16_t*)(frameBuf0 + (dispWidth * dispHeight * 2) * 2),
-                                                     2 * 1024 * 1024, 16);
+    HAL &hal = touchgfx_generic_init<STM32F4HAL_DSI>( dma, display, tc, dispWidth, dispHeight,
+               ( uint16_t * )( frameBuf0 + ( dispWidth * dispHeight * 2 ) * 2 ),
+               2 * 1024 * 1024, 16 );
 #else
-    HAL& hal = touchgfx_generic_init<STM32F4HAL_DSI>(dma, display, tc, dispWidth, dispHeight,
-                                                     (uint16_t*)(frameBuf0 + (dispWidth * dispHeight * 3) * 2),
-                                                     2 * 1024 * 1024, 16);
+    HAL &hal = touchgfx_generic_init<STM32F4HAL_DSI>( dma, display, tc, dispWidth, dispHeight,
+               ( uint16_t * )( frameBuf0 + ( dispWidth * dispHeight * 3 ) * 2 ),
+               2 * 1024 * 1024, 16 );
 #endif
     os_inited = true;
 
-    hal.setFrameBufferStartAddress((uint16_t*)frameBuf0, bitDepth, false, true);
+    hal.setFrameBufferStartAddress( ( uint16_t * )frameBuf0, bitDepth, false, true );
 
     // By default frame rate compensation is off.
     // Enable frame rate compensation to smooth out animations in case there is periodic slow frame rates.
-    hal.setFrameRateCompensation(false);
+    hal.setFrameRateCompensation( false );
 
-    hal.setTouchSampleRate(1);
-    hal.setFingerSize(10);
+    hal.setTouchSampleRate( 1 );
+    hal.setFingerSize( 10 );
 
     // This platform can handle simultaneous DMA and TFT accesses to SDRAM, so disable lock to increase performance.
-    hal.lockDMAToFrontPorch(false);
+    hal.lockDMAToFrontPorch( false );
 
     mcuInstr.init();
 
     //Set MCU instrumentation and Load calculation
-    hal.setMCUInstrumentation(&mcuInstr);
-    hal.enableMCULoadCalculation(true);
+    hal.setMCUInstrumentation( &mcuInstr );
+    hal.enableMCULoadCalculation( true );
 }
 }
 
@@ -202,7 +202,7 @@ extern "C"
     /**
      * Request TE at scanline.
      */
-    void LCD_ReqTear(void)
+    void LCD_ReqTear( void )
     {
         uint8_t ScanLineParams[2];
         uint16_t scanline = 533;
@@ -210,29 +210,29 @@ extern "C"
         ScanLineParams[0] = scanline >> 8;
         ScanLineParams[1] = scanline & 0x00FF;
 
-        HAL_DSI_LongWrite(&hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 2, 0x44, ScanLineParams);
-        HAL_DSI_ShortWrite(&hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, 0x35, 0x00);
+        HAL_DSI_LongWrite( &hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 2, 0x44, ScanLineParams );
+        HAL_DSI_ShortWrite( &hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, 0x35, 0x00 );
     }
 
-    void LCD_SetUpdateRegion(int idx)
+    void LCD_SetUpdateRegion( int idx )
     {
-        HAL_DSI_LongWrite(&hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pCols[idx]);
+        HAL_DSI_LongWrite( &hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pCols[idx] );
     }
 
     void LCD_SetUpdateRegionLeft()
     {
-        HAL_DSI_LongWrite(&hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pColLeft);
+        HAL_DSI_LongWrite( &hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pColLeft );
     }
 
     void LCD_SetUpdateRegionRight()
     {
-        HAL_DSI_LongWrite(&hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pColRight);
+        HAL_DSI_LongWrite( &hdsi, 0, DSI_DCS_LONG_PKT_WRITE, 4, OTM8009A_CMD_CASET, pColRight );
     }
 }
 
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
+  *         The system Clock is configured as follow :
   *            System Clock source            = PLL (HSE)
   *            SYSCLK(Hz)                     = 180000000
   *            HCLK(Hz)                       = 180000000
@@ -251,7 +251,7 @@ extern "C"
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
+static void SystemClock_Config( void )
 {
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_OscInitTypeDef RCC_OscInitStruct;
@@ -260,10 +260,10 @@ static void SystemClock_Config(void)
     /* Enable Power Control clock */
     __HAL_RCC_PWR_CLK_ENABLE();
 
-    /* The voltage scaling allows optimizing the power consumption when the device is 
-     clocked below the maximum system frequency, to update the voltage scaling value 
+    /* The voltage scaling allows optimizing the power consumption when the device is
+     clocked below the maximum system frequency, to update the voltage scaling value
      regarding system frequency refer to product datasheet.  */
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
     /* Enable HSE Oscillator and activate PLL with HSE as source */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
@@ -276,30 +276,33 @@ static void SystemClock_Config(void)
     RCC_OscInitStruct.PLL.PLLQ = 7;
     RCC_OscInitStruct.PLL.PLLR = 6;
 
-    ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
-    if(ret != HAL_OK)
+    ret = HAL_RCC_OscConfig( &RCC_OscInitStruct );
+
+    if( ret != HAL_OK )
     {
-        while(1) { ; }
+        while( 1 ) { ; }
     }
 
-    /* Activate the OverDrive to reach the 180 MHz Frequency */  
+    /* Activate the OverDrive to reach the 180 MHz Frequency */
     ret = HAL_PWREx_EnableOverDrive();
-    if(ret != HAL_OK)
+
+    if( ret != HAL_OK )
     {
-        while(1) { ; }
+        while( 1 ) { ; }
     }
 
     /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
-    RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-    ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
-    if(ret != HAL_OK)
+    ret = HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 );
+
+    if( ret != HAL_OK )
     {
-        while(1) { ; }
+        while( 1 ) { ; }
     }
 }
 
@@ -309,10 +312,10 @@ static void SystemClock_Config(void)
   *         and desactivating it later.
   *         This signal is only cabled on Discovery Rev B and beyond.
   */
-static void LCD_Reset(void)
+static void LCD_Reset( void )
 {
 #if !defined(USE_STM32469I_EVAL_REVA)
-/* EVAL Rev B and beyond : reset the LCD by activation of XRES (active low) connected to PK7 */
+    /* EVAL Rev B and beyond : reset the LCD by activation of XRES (active low) connected to PK7 */
     GPIO_InitTypeDef  gpio_init_structure;
 
     __HAL_RCC_GPIOK_CLK_ENABLE();
@@ -323,23 +326,23 @@ static void LCD_Reset(void)
     gpio_init_structure.Pull  = GPIO_PULLUP;
     gpio_init_structure.Speed = GPIO_SPEED_HIGH;
 
-    HAL_GPIO_Init(GPIOK, &gpio_init_structure);
+    HAL_GPIO_Init( GPIOK, &gpio_init_structure );
 
     /* Activate XRES active low */
-    HAL_GPIO_WritePin(GPIOK, GPIO_PIN_7, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( GPIOK, GPIO_PIN_7, GPIO_PIN_RESET );
 
-    HAL_Delay(20); /* wait 20 ms */
+    HAL_Delay( 20 ); /* wait 20 ms */
 
     /* Desactivate XRES */
-    HAL_GPIO_WritePin(GPIOK, GPIO_PIN_7, GPIO_PIN_SET);
-    
+    HAL_GPIO_WritePin( GPIOK, GPIO_PIN_7, GPIO_PIN_SET );
+
     /* Wait for 10ms after releasing XRES before sending commands */
-    HAL_Delay(10);    
+    HAL_Delay( 10 );
 #else
 #endif /* USE_STM32469I_EVAL_REVA == 0 */
 }
 
-static void LCD_MspInit(void)
+static void LCD_MspInit( void )
 {
     /** @brief Enable the LTDC clock */
     __HAL_RCC_LTDC_CLK_ENABLE();
@@ -363,16 +366,16 @@ static void LCD_MspInit(void)
     __HAL_RCC_DSI_RELEASE_RESET();
 
     /** @brief NVIC configuration for LTDC interrupt that is now enabled */
-    HAL_NVIC_SetPriority(LTDC_IRQn, 3, 0);
-    HAL_NVIC_EnableIRQ(LTDC_IRQn);
+    HAL_NVIC_SetPriority( LTDC_IRQn, 3, 0 );
+    HAL_NVIC_EnableIRQ( LTDC_IRQn );
 
     /** @brief NVIC configuration for DMA2D interrupt that is now enabled */
-    HAL_NVIC_SetPriority(DMA2D_IRQn, 3, 0);
-    HAL_NVIC_EnableIRQ(DMA2D_IRQn);
+    HAL_NVIC_SetPriority( DMA2D_IRQn, 3, 0 );
+    HAL_NVIC_EnableIRQ( DMA2D_IRQn );
 
     /** @brief NVIC configuration for DSI interrupt that is now enabled */
-    HAL_NVIC_SetPriority(DSI_IRQn, 3, 0);
-    HAL_NVIC_EnableIRQ(DSI_IRQn);
+    HAL_NVIC_SetPriority( DSI_IRQn, 3, 0 );
+    HAL_NVIC_EnableIRQ( DSI_IRQn );
 }
 
 /**
@@ -381,7 +384,7 @@ static void LCD_MspInit(void)
   * @param  FB_Address: Layer frame buffer
   * @retval None
   */
-static void LCD_LayerInit(uint16_t LayerIndex, uint32_t Address)
+static void LCD_LayerInit( uint16_t LayerIndex, uint32_t Address )
 {
     LTDC_LayerCfgTypeDef Layercfg;
 
@@ -413,7 +416,7 @@ static void LCD_LayerInit(uint16_t LayerIndex, uint32_t Address)
 #error Unknown USE_BPP
 #endif
 
-    HAL_LTDC_ConfigLayer(&hltdc, &Layercfg, LayerIndex);
+    HAL_LTDC_ConfigLayer( &hltdc, &Layercfg, LayerIndex );
 }
 
 /**
@@ -421,10 +424,10 @@ static void LCD_LayerInit(uint16_t LayerIndex, uint32_t Address)
   * @param  None
   * @retval None
   */
-static void LTDC_Init(void)
+static void LTDC_Init( void )
 {
     /* DeInit */
-    HAL_LTDC_DeInit(&hltdc);
+    HAL_LTDC_DeInit( &hltdc );
 
     /* LTDC Config */
     /* Timing and polarity */
@@ -449,7 +452,7 @@ static void LTDC_Init(void)
     hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
     hltdc.Instance = LTDC;
 
-    HAL_LTDC_Init(&hltdc);
+    HAL_LTDC_Init( &hltdc );
 }
 
 /**
@@ -459,12 +462,16 @@ static void LTDC_Init(void)
   * @param  pParams: Pointer to parameter values table.
   * @retval HAL status
   */
-extern "C" void DSI_IO_WriteCmd(uint32_t NbrParams, uint8_t *pParams)
+extern "C" void DSI_IO_WriteCmd( uint32_t NbrParams, uint8_t *pParams )
 {
-    if (NbrParams <= 1)
-        HAL_DSI_ShortWrite(&hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, pParams[0], pParams[1]);
+    if( NbrParams <= 1 )
+    {
+        HAL_DSI_ShortWrite( &hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, pParams[0], pParams[1] );
+    }
     else
-        HAL_DSI_LongWrite(&hdsi, 0, DSI_DCS_LONG_PKT_WRITE, NbrParams, pParams[NbrParams], pParams); 
+    {
+        HAL_DSI_LongWrite( &hdsi, 0, DSI_DCS_LONG_PKT_WRITE, NbrParams, pParams[NbrParams], pParams );
+    }
 }
 
 /**
@@ -477,7 +484,7 @@ extern "C" void DSI_IO_WriteCmd(uint32_t NbrParams, uint8_t *pParams)
   * @param  None
   * @retval LCD state
   */
-static uint8_t LCD_Init(void)
+static uint8_t LCD_Init( void )
 {
     GPIO_InitTypeDef GPIO_Init_Structure;
     DSI_PHY_TimerTypeDef PhyTimings;
@@ -492,19 +499,19 @@ static uint8_t LCD_Init(void)
     GPIO_Init_Structure.Pull      = GPIO_NOPULL;
     GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
     GPIO_Init_Structure.Alternate = GPIO_AF13_DSI;
-    HAL_GPIO_Init(GPIOJ, &GPIO_Init_Structure);  
+    HAL_GPIO_Init( GPIOJ, &GPIO_Init_Structure );
 
     /* LCD clock configuration, 417/5/2 = 41.7MHz */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
     PeriphClkInitStruct.PLLSAI.PLLSAIN = 250;
     PeriphClkInitStruct.PLLSAI.PLLSAIR = 5;
     PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
-    HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+    HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct );
 
     /* Base address of DSI Host/Wrapper registers to be set before calling De-Init */
     hdsi.Instance = DSI;
 
-    HAL_DSI_DeInit(&hdsi);
+    HAL_DSI_DeInit( &hdsi );
 
     dsiPllInit.PLLNDIV  = 100;
     dsiPllInit.PLLIDF   = DSI_PLL_IN_DIV5;
@@ -512,7 +519,7 @@ static uint8_t LCD_Init(void)
 
     hdsi.Init.NumberOfLanes = DSI_TWO_DATA_LANES;
     hdsi.Init.TXEscapeCkdiv = 0x4;
-    HAL_DSI_Init(&hdsi, &dsiPllInit);
+    HAL_DSI_Init( &hdsi, &dsiPllInit );
 
     /* Configure the DSI for Command mode */
     CmdCfg.VirtualChannelID      = 0;
@@ -532,7 +539,7 @@ static uint8_t LCD_Init(void)
 #else
 #error Unknown USE_BPP
 #endif
-    HAL_DSI_ConfigAdaptedCommandMode(&hdsi, &CmdCfg);
+    HAL_DSI_ConfigAdaptedCommandMode( &hdsi, &CmdCfg );
 
     LPCmd.LPGenShortWriteNoP    = DSI_LP_GSW0P_ENABLE;
     LPCmd.LPGenShortWriteOneP   = DSI_LP_GSW1P_ENABLE;
@@ -545,8 +552,8 @@ static uint8_t LCD_Init(void)
     LPCmd.LPDcsShortWriteOneP   = DSI_LP_DSW1P_ENABLE;
     LPCmd.LPDcsShortReadNoP     = DSI_LP_DSR0P_ENABLE;
     LPCmd.LPDcsLongWrite        = DSI_LP_DLW_ENABLE;
-    HAL_DSI_ConfigCommand(&hdsi, &LPCmd);
-    
+    HAL_DSI_ConfigCommand( &hdsi, &LPCmd );
+
     /* Configure DSI PHY HS2LP and LP2HS timings */
     PhyTimings.ClockLaneHS2LPTime = 35;
     PhyTimings.ClockLaneLP2HSTime = 35;
@@ -554,19 +561,19 @@ static uint8_t LCD_Init(void)
     PhyTimings.DataLaneLP2HSTime = 35;
     PhyTimings.DataLaneMaxReadTime = 0;
     PhyTimings.StopWaitTime = 10;
-    HAL_DSI_ConfigPhyTimer(&hdsi, &PhyTimings);
+    HAL_DSI_ConfigPhyTimer( &hdsi, &PhyTimings );
 
     /* Initialize LTDC */
     LTDC_Init();
-    __HAL_LTDC_DISABLE(&hltdc);
+    __HAL_LTDC_DISABLE( &hltdc );
 
     /* Start DSI */
-    HAL_DSI_Start(&hdsi);
+    HAL_DSI_Start( &hdsi );
 
 #if !defined(USE_BPP) || USE_BPP==16
-    OTM8009A_Init(OTM8009A_FORMAT_RBG565, 1);
+    OTM8009A_Init( OTM8009A_FORMAT_RBG565, 1 );
 #elif USE_BPP==24
-    OTM8009A_Init(OTM8009A_FORMAT_RGB888, 1);
+    OTM8009A_Init( OTM8009A_FORMAT_RGB888, 1 );
 #else
 #error Unknown USE_BPP
 #endif
@@ -582,16 +589,16 @@ static uint8_t LCD_Init(void)
     LPCmd.LPDcsShortWriteOneP   = DSI_LP_DSW1P_DISABLE;
     LPCmd.LPDcsShortReadNoP     = DSI_LP_DSR0P_DISABLE;
     LPCmd.LPDcsLongWrite        = DSI_LP_DLW_DISABLE;
-    HAL_DSI_ConfigCommand(&hdsi, &LPCmd);
+    HAL_DSI_ConfigCommand( &hdsi, &LPCmd );
 
     /* Initialize LTDC layer 0 iused for Hint */
-    LCD_LayerInit(0, LAYER0_ADDRESS);
+    LCD_LayerInit( 0, LAYER0_ADDRESS );
 
     /* Update pitch: drawing is done on the whole physical X Size */
-    HAL_LTDC_SetPitch(&hltdc, LCD_GetXSize(), 0);
+    HAL_LTDC_SetPitch( &hltdc, LCD_GetXSize(), 0 );
 
     /* Finally enable the LTDC IP */
-    __HAL_LTDC_ENABLE(&hltdc);
+    __HAL_LTDC_ENABLE( &hltdc );
 
     return 0;
 }

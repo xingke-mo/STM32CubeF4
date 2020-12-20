@@ -1363,7 +1363,8 @@ decode_mcu_sub( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                 }
             }
 
-EndOfBlock: ;
+EndOfBlock:
+            ;
         }
 
         /* Completed MCU, so update state */
@@ -1513,7 +1514,8 @@ decode_mcu( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                 }
             }
 
-EndOfBlock: ;
+EndOfBlock:
+            ;
         }
 
         /* Completed MCU, so update state */

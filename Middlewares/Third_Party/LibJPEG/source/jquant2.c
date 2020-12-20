@@ -338,9 +338,12 @@ update_box( j_decompress_ptr cinfo, boxptr boxp )
     INT32 dist0, dist1, dist2;
     long ccount;
 
-    c0min = boxp->c0min;  c0max = boxp->c0max;
-    c1min = boxp->c1min;  c1max = boxp->c1max;
-    c2min = boxp->c2min;  c2max = boxp->c2max;
+    c0min = boxp->c0min;
+    c0max = boxp->c0max;
+    c1min = boxp->c1min;
+    c1max = boxp->c1max;
+    c2min = boxp->c2min;
+    c2max = boxp->c2max;
 
     if( c0max > c0min )
         for( c0 = c0min; c0 <= c0max; c0++ )
@@ -500,8 +503,12 @@ median_cut( j_decompress_ptr cinfo, boxptr boxlist, int numboxes,
 
         b2 = &boxlist[numboxes];    /* where new box will go */
         /* Copy the color bounds to the new box. */
-        b2->c0max = b1->c0max; b2->c1max = b1->c1max; b2->c2max = b1->c2max;
-        b2->c0min = b1->c0min; b2->c1min = b1->c1min; b2->c2min = b1->c2min;
+        b2->c0max = b1->c0max;
+        b2->c1max = b1->c1max;
+        b2->c2max = b1->c2max;
+        b2->c0min = b1->c0min;
+        b2->c1min = b1->c1min;
+        b2->c2min = b1->c2min;
         /* Choose which axis to split the box on.
          * Current algorithm: longest scaled axis.
          * See notes in update_box about scaling distances.
@@ -513,7 +520,8 @@ median_cut( j_decompress_ptr cinfo, boxptr boxlist, int numboxes,
          * This code does the right thing for R,G,B or B,G,R color orders only.
          */
 #if RGB_RED == 0
-        cmax = c1; n = 1;
+        cmax = c1;
+        n = 1;
 
         if( c0 > cmax )
         {
@@ -527,7 +535,8 @@ median_cut( j_decompress_ptr cinfo, boxptr boxlist, int numboxes,
         }
 
 #else
-        cmax = c1; n = 1;
+        cmax = c1;
+        n = 1;
 
         if( c2 > cmax )
         {
@@ -596,9 +605,12 @@ compute_color( j_decompress_ptr cinfo, boxptr boxp, int icolor )
     long c1total = 0;
     long c2total = 0;
 
-    c0min = boxp->c0min;  c0max = boxp->c0max;
-    c1min = boxp->c1min;  c1max = boxp->c1max;
-    c2min = boxp->c2min;  c2max = boxp->c2max;
+    c0min = boxp->c0min;
+    c0max = boxp->c0max;
+    c1min = boxp->c1min;
+    c1max = boxp->c1max;
+    c2min = boxp->c2min;
+    c2max = boxp->c2max;
 
     for( c0 = c0min; c0 <= c0max; c0++ )
         for( c1 = c1min; c1 <= c1max; c1++ )
@@ -1292,19 +1304,22 @@ init_error_limit( j_decompress_ptr cinfo )
 
     for( in = 0; in < STEPSIZE; in++, out++ )
     {
-        table[in] = out; table[-in] = -out;
+        table[in] = out;
+        table[-in] = -out;
     }
 
     /* Map errors 1:2 up to +- 3*MAXJSAMPLE/16 */
     for( ; in < STEPSIZE * 3; in++, out += ( in & 1 ) ? 0 : 1 )
     {
-        table[in] = out; table[-in] = -out;
+        table[in] = out;
+        table[-in] = -out;
     }
 
     /* Clamp the rest to final out value (which is (MAXJSAMPLE+1)/8) */
     for( ; in <= MAXJSAMPLE; in++ )
     {
-        table[in] = out; table[-in] = -out;
+        table[in] = out;
+        table[-in] = -out;
     }
 
 #undef STEPSIZE

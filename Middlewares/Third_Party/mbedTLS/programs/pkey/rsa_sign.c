@@ -82,9 +82,14 @@ int main( int argc, char *argv[] )
 
     mbedtls_rsa_init( &rsa, MBEDTLS_RSA_PKCS_V15, 0 );
 
-    mbedtls_mpi_init( &N ); mbedtls_mpi_init( &P ); mbedtls_mpi_init( &Q );
-    mbedtls_mpi_init( &D ); mbedtls_mpi_init( &E ); mbedtls_mpi_init( &DP );
-    mbedtls_mpi_init( &DQ ); mbedtls_mpi_init( &QP );
+    mbedtls_mpi_init( &N );
+    mbedtls_mpi_init( &P );
+    mbedtls_mpi_init( &Q );
+    mbedtls_mpi_init( &D );
+    mbedtls_mpi_init( &E );
+    mbedtls_mpi_init( &DP );
+    mbedtls_mpi_init( &DQ );
+    mbedtls_mpi_init( &QP );
 
     if( argc != 2 )
     {
@@ -192,13 +197,19 @@ int main( int argc, char *argv[] )
 exit:
 
     mbedtls_rsa_free( &rsa );
-    mbedtls_mpi_free( &N ); mbedtls_mpi_free( &P ); mbedtls_mpi_free( &Q );
-    mbedtls_mpi_free( &D ); mbedtls_mpi_free( &E ); mbedtls_mpi_free( &DP );
-    mbedtls_mpi_free( &DQ ); mbedtls_mpi_free( &QP );
+    mbedtls_mpi_free( &N );
+    mbedtls_mpi_free( &P );
+    mbedtls_mpi_free( &Q );
+    mbedtls_mpi_free( &D );
+    mbedtls_mpi_free( &E );
+    mbedtls_mpi_free( &DP );
+    mbedtls_mpi_free( &DQ );
+    mbedtls_mpi_free( &QP );
 
 #if defined(_WIN32)
     mbedtls_printf( "  + Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( exit_code );

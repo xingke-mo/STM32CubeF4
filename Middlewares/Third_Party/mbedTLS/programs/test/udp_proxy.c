@@ -371,15 +371,20 @@ static const char *msg_type( unsigned char *msg, size_t len )
 
     switch( msg[0] )
     {
-    case MBEDTLS_SSL_MSG_CHANGE_CIPHER_SPEC:    return( "ChangeCipherSpec" );
+    case MBEDTLS_SSL_MSG_CHANGE_CIPHER_SPEC:
+        return( "ChangeCipherSpec" );
 
-    case MBEDTLS_SSL_MSG_ALERT:                 return( "Alert" );
+    case MBEDTLS_SSL_MSG_ALERT:
+        return( "Alert" );
 
-    case MBEDTLS_SSL_MSG_APPLICATION_DATA:      return( "ApplicationData" );
+    case MBEDTLS_SSL_MSG_APPLICATION_DATA:
+        return( "ApplicationData" );
 
-    case MBEDTLS_SSL_MSG_HANDSHAKE:             break; /* See below */
+    case MBEDTLS_SSL_MSG_HANDSHAKE:
+        break; /* See below */
 
-    default:                            return( "Unknown" );
+    default:
+        return( "Unknown" );
     }
 
     if( len < 13 + 12 )
@@ -399,31 +404,44 @@ static const char *msg_type( unsigned char *msg, size_t len )
 
     switch( msg[13] )
     {
-    case MBEDTLS_SSL_HS_HELLO_REQUEST:          return( "HelloRequest" );
+    case MBEDTLS_SSL_HS_HELLO_REQUEST:
+        return( "HelloRequest" );
 
-    case MBEDTLS_SSL_HS_CLIENT_HELLO:           return( "ClientHello" );
+    case MBEDTLS_SSL_HS_CLIENT_HELLO:
+        return( "ClientHello" );
 
-    case MBEDTLS_SSL_HS_SERVER_HELLO:           return( "ServerHello" );
+    case MBEDTLS_SSL_HS_SERVER_HELLO:
+        return( "ServerHello" );
 
-    case MBEDTLS_SSL_HS_HELLO_VERIFY_REQUEST:   return( "HelloVerifyRequest" );
+    case MBEDTLS_SSL_HS_HELLO_VERIFY_REQUEST:
+        return( "HelloVerifyRequest" );
 
-    case MBEDTLS_SSL_HS_NEW_SESSION_TICKET:     return( "NewSessionTicket" );
+    case MBEDTLS_SSL_HS_NEW_SESSION_TICKET:
+        return( "NewSessionTicket" );
 
-    case MBEDTLS_SSL_HS_CERTIFICATE:            return( "Certificate" );
+    case MBEDTLS_SSL_HS_CERTIFICATE:
+        return( "Certificate" );
 
-    case MBEDTLS_SSL_HS_SERVER_KEY_EXCHANGE:    return( "ServerKeyExchange" );
+    case MBEDTLS_SSL_HS_SERVER_KEY_EXCHANGE:
+        return( "ServerKeyExchange" );
 
-    case MBEDTLS_SSL_HS_CERTIFICATE_REQUEST:    return( "CertificateRequest" );
+    case MBEDTLS_SSL_HS_CERTIFICATE_REQUEST:
+        return( "CertificateRequest" );
 
-    case MBEDTLS_SSL_HS_SERVER_HELLO_DONE:      return( "ServerHelloDone" );
+    case MBEDTLS_SSL_HS_SERVER_HELLO_DONE:
+        return( "ServerHelloDone" );
 
-    case MBEDTLS_SSL_HS_CERTIFICATE_VERIFY:     return( "CertificateVerify" );
+    case MBEDTLS_SSL_HS_CERTIFICATE_VERIFY:
+        return( "CertificateVerify" );
 
-    case MBEDTLS_SSL_HS_CLIENT_KEY_EXCHANGE:    return( "ClientKeyExchange" );
+    case MBEDTLS_SSL_HS_CLIENT_KEY_EXCHANGE:
+        return( "ClientKeyExchange" );
 
-    case MBEDTLS_SSL_HS_FINISHED:               return( "Finished" );
+    case MBEDTLS_SSL_HS_FINISHED:
+        return( "Finished" );
 
-    default:                            return( "Unknown handshake" );
+    default:
+        return( "Unknown handshake" );
     }
 }
 
@@ -1057,7 +1075,8 @@ exit:
 
 #if defined(_WIN32)
     mbedtls_printf( "  Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( exit_code );

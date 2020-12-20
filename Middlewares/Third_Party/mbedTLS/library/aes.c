@@ -436,10 +436,14 @@ static void aes_gen_tables( void )
     {
         x = pow[255 - log[i]];
 
-        y  = x; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
-        x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
-        x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
-        x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
+        y  = x;
+        y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
+        x ^= y;
+        y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
+        x ^= y;
+        y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
+        x ^= y;
+        y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
         x ^= y ^ 0x63;
 
         FSb[i] = ( unsigned char ) x;
@@ -568,13 +572,20 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
 
     switch( keybits )
     {
-    case 128: ctx->nr = 10; break;
+    case 128:
+        ctx->nr = 10;
+        break;
 
-    case 192: ctx->nr = 12; break;
+    case 192:
+        ctx->nr = 12;
+        break;
 
-    case 256: ctx->nr = 14; break;
+    case 256:
+        ctx->nr = 14;
+        break;
 
-    default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+    default :
+        return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
     }
 
 #if !defined(MBEDTLS_AES_ROM_TABLES)
@@ -779,11 +790,14 @@ static int mbedtls_aes_xts_decode_keys( const unsigned char *key,
 
     switch( keybits )
     {
-    case 256: break;
+    case 256:
+        break;
 
-    case 512: break;
+    case 512:
+        break;
 
-    default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+    default :
+        return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
     }
 
     *key1bits = half_keybits;
@@ -920,10 +934,14 @@ int mbedtls_internal_aes_encrypt( mbedtls_aes_context *ctx,
 
     RK = ctx->rk;
 
-    GET_UINT32_LE( X0, input,  0 ); X0 ^= *RK++;
-    GET_UINT32_LE( X1, input,  4 ); X1 ^= *RK++;
-    GET_UINT32_LE( X2, input,  8 ); X2 ^= *RK++;
-    GET_UINT32_LE( X3, input, 12 ); X3 ^= *RK++;
+    GET_UINT32_LE( X0, input,  0 );
+    X0 ^= *RK++;
+    GET_UINT32_LE( X1, input,  4 );
+    X1 ^= *RK++;
+    GET_UINT32_LE( X2, input,  8 );
+    X2 ^= *RK++;
+    GET_UINT32_LE( X3, input, 12 );
+    X3 ^= *RK++;
 
     for( i = ( ctx->nr >> 1 ) - 1; i > 0; i-- )
     {
@@ -988,10 +1006,14 @@ int mbedtls_internal_aes_decrypt( mbedtls_aes_context *ctx,
 
     RK = ctx->rk;
 
-    GET_UINT32_LE( X0, input,  0 ); X0 ^= *RK++;
-    GET_UINT32_LE( X1, input,  4 ); X1 ^= *RK++;
-    GET_UINT32_LE( X2, input,  8 ); X2 ^= *RK++;
-    GET_UINT32_LE( X3, input, 12 ); X3 ^= *RK++;
+    GET_UINT32_LE( X0, input,  0 );
+    X0 ^= *RK++;
+    GET_UINT32_LE( X1, input,  4 );
+    X1 ^= *RK++;
+    GET_UINT32_LE( X2, input,  8 );
+    X2 ^= *RK++;
+    GET_UINT32_LE( X3, input, 12 );
+    X3 ^= *RK++;
 
     for( i = ( ctx->nr >> 1 ) - 1; i > 0; i-- )
     {

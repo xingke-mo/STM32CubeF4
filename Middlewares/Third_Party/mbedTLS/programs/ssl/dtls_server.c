@@ -454,7 +454,8 @@ exit:
 
 #if defined(_WIN32)
     printf( "  Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     /* Shell can not handle large exit numbers -> 1 for errors */

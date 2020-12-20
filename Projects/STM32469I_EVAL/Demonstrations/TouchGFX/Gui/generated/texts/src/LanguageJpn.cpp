@@ -2,7 +2,7 @@
 #include <touchgfx/Unicode.hpp>
 
 #ifndef NO_USING_NAMESPACE_TOUCHGFX
-using namespace touchgfx;
+    using namespace touchgfx;
 #endif
 
 // Language Jpn: No substitution
@@ -130,7 +130,7 @@ TEXT_LOCATION_FLASH_PRAGMA
 KEEP const touchgfx::Unicode::UnicodeChar T_Graph_legend_value_text_chars_Jpn[3] TEXT_LOCATION_FLASH_ATTRIBUTE = { 0x4e, 0x41, 0x0 };
 
 TEXT_LOCATION_FLASH_PRAGMA
-KEEP extern const touchgfx::Unicode::UnicodeChar* const textsJpn[61] TEXT_LOCATION_FLASH_ATTRIBUTE =
+KEEP extern const touchgfx::Unicode::UnicodeChar *const textsJpn[61] TEXT_LOCATION_FLASH_ATTRIBUTE =
 {
     T_Demo_View_Mcu_Load_text_Jpn,
     T_Demo_View_Mcu_Load_value_Jpn,

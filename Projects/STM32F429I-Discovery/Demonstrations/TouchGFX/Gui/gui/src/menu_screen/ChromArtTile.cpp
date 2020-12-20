@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/menu_screen/ChromArtTile.hpp>
@@ -24,14 +24,14 @@
 
 ChromArtTile::ChromArtTile()
 {
-    setWidth(90);
-    setHeight(70);
+    setWidth( 90 );
+    setHeight( 70 );
 
-    tileId.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    tileId.setTypedText(TypedText(T_CHROM_ART_TILE));
-    tileId.setPosition(0, getHeight() - 22, getWidth(), 20);
+    tileId.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+    tileId.setTypedText( TypedText( T_CHROM_ART_TILE ) );
+    tileId.setPosition( 0, getHeight() - 22, getWidth(), 20 );
 
-    add(tileId);
+    add( tileId );
 }
 
 ChromArtTile::~ChromArtTile()

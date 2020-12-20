@@ -234,7 +234,8 @@ int main( int argc, char *argv[] )
 
 #if defined(_WIN32)
         mbedtls_printf( "\n  Press Enter to exit this program.\n" );
-        fflush( stdout ); getchar();
+        fflush( stdout );
+        getchar();
 #endif
 
         return( exit_code );

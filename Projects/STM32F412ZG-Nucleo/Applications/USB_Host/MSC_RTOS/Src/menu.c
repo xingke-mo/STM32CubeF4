@@ -123,7 +123,8 @@ void MSC_MenuThread( void const *argument )
 
                     BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
                     BSP_LCD_DisplayStringAtLine( 18, ( uint8_t * )"Press User button to" );
-                    BSP_LCD_DisplayStringAtLine( 19, ( uint8_t * )"display disk content" );          msc_demo.state = MSC_DEMO_EXPLORER;
+                    BSP_LCD_DisplayStringAtLine( 19, ( uint8_t * )"display disk content" );
+                    msc_demo.state = MSC_DEMO_EXPLORER;
                 }
 
                 break;

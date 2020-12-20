@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <common/TouchGFXInit.hpp>
@@ -67,11 +67,11 @@
  */
 
 #ifdef SINGLE_FRAME_BUFFER_INTERNAL
-uint16_t frameBuffer[240 * 320];
-static uint32_t frameBuf0 = (uint32_t)& frameBuffer[0];
+    uint16_t frameBuffer[240 * 320];
+    static uint32_t frameBuf0 = ( uint32_t ) &frameBuffer[0];
 #else
-//Use start of SDRAM
-static uint32_t frameBuf0 = (uint32_t)(0xd0000000);
+    //Use start of SDRAM
+    static uint32_t frameBuf0 = ( uint32_t )( 0xd0000000 );
 #endif
 
 #define LCD_FRAME_BUFFER frameBuf0
@@ -86,31 +86,31 @@ static RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 static LCD_DrvTypeDef *LcdDrv;
 
 extern "C" {
-uint32_t LCD_GetXSize(void)
-{
-  return LcdDrv->GetLcdPixelWidth();
-}
+    uint32_t LCD_GetXSize( void )
+    {
+        return LcdDrv->GetLcdPixelWidth();
+    }
 
-/**
-  * @brief  Gets the LCD Y size.  
-  * @retval The used LCD Y size
-  */
-uint32_t LCD_GetYSize(void)
-{
-  return LcdDrv->GetLcdPixelHeight();
-}
+    /**
+      * @brief  Gets the LCD Y size.
+      * @retval The used LCD Y size
+      */
+    uint32_t LCD_GetYSize( void )
+    {
+        return LcdDrv->GetLcdPixelHeight();
+    }
 }
 
 /**
   * @brief  Initializes the LTDC MSP.
   */
-static void LCD_MspInit(void)
+static void LCD_MspInit( void )
 {
     GPIO_InitTypeDef GPIO_InitStructure;
 
     /* Enable the LTDC and DMA2D Clock */
     __HAL_RCC_LTDC_CLK_ENABLE();
-    __HAL_RCC_DMA2D_CLK_ENABLE(); 
+    __HAL_RCC_DMA2D_CLK_ENABLE();
 
     /* Enable GPIOs clock */
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -143,48 +143,48 @@ static void LCD_MspInit(void)
     GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStructure.Pull = GPIO_NOPULL;
     GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
-    GPIO_InitStructure.Alternate= GPIO_AF14_LTDC;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+    GPIO_InitStructure.Alternate = GPIO_AF14_LTDC;
+    HAL_GPIO_Init( GPIOA, &GPIO_InitStructure );
 
     /* GPIOB configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_8 | \
                              GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+    HAL_GPIO_Init( GPIOB, &GPIO_InitStructure );
 
     /* GPIOC configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_10;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+    HAL_GPIO_Init( GPIOC, &GPIO_InitStructure );
 
     /* GPIOD configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_3 | GPIO_PIN_6;
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
+    HAL_GPIO_Init( GPIOD, &GPIO_InitStructure );
 
     /* GPIOF configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_10;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStructure);     
+    HAL_GPIO_Init( GPIOF, &GPIO_InitStructure );
 
-    /* GPIOG configuration */  
+    /* GPIOG configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_6 | GPIO_PIN_7 | \
                              GPIO_PIN_11;
-    HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
+    HAL_GPIO_Init( GPIOG, &GPIO_InitStructure );
 
-    /* GPIOB configuration */  
+    /* GPIOB configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_0 | GPIO_PIN_1;
-    GPIO_InitStructure.Alternate= GPIO_AF9_LTDC;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+    GPIO_InitStructure.Alternate = GPIO_AF9_LTDC;
+    HAL_GPIO_Init( GPIOB, &GPIO_InitStructure );
 
-    /* GPIOG configuration */  
+    /* GPIOG configuration */
     GPIO_InitStructure.Pin = GPIO_PIN_10 | GPIO_PIN_12;
-    HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
+    HAL_GPIO_Init( GPIOG, &GPIO_InitStructure );
 }
 
 /**
   * @brief  Initializes the LCD layers.
-  * @param  LayerIndex: the layer foreground or background. 
+  * @param  LayerIndex: the layer foreground or background.
   * @param  FB_Address: the layer frame buffer.
   */
-static void LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FB_Address)
-{     
+static void LCD_LayerDefaultInit( uint16_t LayerIndex, uint32_t FB_Address )
+{
     LTDC_LayerCfgTypeDef Layercfg;
 
     /* Layer Init */
@@ -210,23 +210,23 @@ static void LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FB_Address)
     Layercfg.ImageWidth = LCD_GetXSize();
     Layercfg.ImageHeight = LCD_GetYSize();
 
-    HAL_LTDC_ConfigLayer(&hltdc, &Layercfg, LayerIndex);
+    HAL_LTDC_ConfigLayer( &hltdc, &Layercfg, LayerIndex );
 
     /* Dithering activation */
-    HAL_LTDC_EnableDither(&hltdc);
+    HAL_LTDC_EnableDither( &hltdc );
 }
 
 /**
   * @brief  Initializes the LCD.
   * @retval LCD state
   */
-static uint8_t LCD_Init(void)
+static uint8_t LCD_Init( void )
 {
     LCD_MspInit();
 
     /* On STM32F429I-DISCO, it is not possible to read ILI9341 ID because */
     /* PIN EXTC is not connected to VDD and then LCD_READ_ID4 is not accessible. */
-    /* In this case, ReadID function is bypassed.*/  
+    /* In this case, ReadID function is bypassed.*/
     /*if(ili9341_drv.ReadID() == ILI9341_ID)*/
 
     /* LTDC Configuration ----------------------------------------------------*/
@@ -237,13 +237,13 @@ static uint8_t LCD_Init(void)
           HBP=20 (29-10+1)
           ActiveW=240 (269-20-10+1)
           HFP=10 (279-240-20-10+1)
-    
+
           VSYNC=2 (1+1)
           VBP=2 (3-2+1)
           ActiveH=320 (323-2-2+1)
           VFP=4 (327-320-2-2+1)
       */
-    
+
     /* Configure horizontal synchronization width */
     hltdc.Init.HorizontalSync = ILI9341_HSYNC;
     /* Configure vertical synchronization height */
@@ -260,12 +260,12 @@ static uint8_t LCD_Init(void)
     hltdc.Init.TotalWidth = 279;
     /* Configure total height */
     hltdc.Init.TotalHeigh = 327;
-    
+
     /* Configure R,G,B component values for LCD background color */
-    hltdc.Init.Backcolor.Red= 0;
-    hltdc.Init.Backcolor.Blue= 0;
-    hltdc.Init.Backcolor.Green= 0;
-    
+    hltdc.Init.Backcolor.Red = 0;
+    hltdc.Init.Backcolor.Blue = 0;
+    hltdc.Init.Backcolor.Green = 0;
+
     /* LCD clock configuration */
     /* PLLSAI_VCO Input = HSE_VALUE/PLL_M = 1 Mhz */
     /* PLLSAI_VCO Output = PLLSAI_VCO Input * PLLSAIN = 192 Mhz */
@@ -275,15 +275,15 @@ static uint8_t LCD_Init(void)
     PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
     PeriphClkInitStruct.PLLSAI.PLLSAIR = 4;
     PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_8;
-    HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct); 
-    
+    HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct );
+
     /* Polarity */
     hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
     hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
     hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
     hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
 
-    HAL_LTDC_Init(&hltdc);
+    HAL_LTDC_Init( &hltdc );
 
     /* Select the device */
     LcdDrv = &ili9341_drv;
@@ -291,7 +291,7 @@ static uint8_t LCD_Init(void)
     /* LCD Init */
     LcdDrv->Init();
 
-    LCD_LayerDefaultInit(0, LCD_FRAME_BUFFER_LAYER1);
+    LCD_LayerDefaultInit( 0, LCD_FRAME_BUFFER_LAYER1 );
 
     return 0;
 }
@@ -303,13 +303,13 @@ ResistiveTouchController tc;
 STM32F4Instrumentation mcuInstr;
 
 #if !defined(USE_BPP) || USE_BPP==16
-static LCD16bpp display;
-static uint16_t bitdepth = 16;
+    static LCD16bpp display;
+    static uint16_t bitdepth = 16;
 #elif USE_BPP==24
-static LCD24bpp display;
-static uint16_t bitdepth = 24;
+    static LCD24bpp display;
+    static uint16_t bitdepth = 24;
 #else
-#error Unknown USE_BPP
+    #error Unknown USE_BPP
 #endif
 
 void touchgfx_init()
@@ -317,55 +317,55 @@ void touchgfx_init()
     uint16_t dispWidth = 240;
     uint16_t dispHeight = 320;
 #if !defined(USE_BPP) || USE_BPP==16
-    HAL& hal = touchgfx_generic_init<STM32F4HAL>(dma, display, tc, dispWidth, dispHeight,
-                                                 (uint16_t*)(frameBuf0 + (dispWidth * dispHeight * 2) * 3),
-                                                 2 * 1024 * 1024, 16);
+    HAL &hal = touchgfx_generic_init<STM32F4HAL>( dma, display, tc, dispWidth, dispHeight,
+               ( uint16_t * )( frameBuf0 + ( dispWidth * dispHeight * 2 ) * 3 ),
+               2 * 1024 * 1024, 16 );
 #ifdef SINGLE_FRAME_BUFFER_INTERNAL
     //setup for single buffering
-    hal.setFrameBufferStartAddress((uint16_t*)frameBuf0, bitdepth, false, false);
+    hal.setFrameBufferStartAddress( ( uint16_t * )frameBuf0, bitdepth, false, false );
 
     // The optimized strategy for single buffering requires the presence of a
     // task delay function.
-    hal.registerTaskDelayFunction(&OSWrappers::taskDelay);
+    hal.registerTaskDelayFunction( &OSWrappers::taskDelay );
 
     // Enable strategy.
-    hal.setFrameRefreshStrategy(HAL::REFRESH_STRATEGY_OPTIM_SINGLE_BUFFER_TFT_CTRL);
+    hal.setFrameRefreshStrategy( HAL::REFRESH_STRATEGY_OPTIM_SINGLE_BUFFER_TFT_CTRL );
 #else
     //setup for double buffering.
-    hal.setFrameBufferStartAddress((uint16_t*)frameBuf0, bitdepth);
+    hal.setFrameBufferStartAddress( ( uint16_t * )frameBuf0, bitdepth );
 #endif
 #elif USE_BPP==24
-    HAL& hal = touchgfx_generic_init<STM32F4HAL>(dma, display, tc, dispWidth, dispHeight,
-                                                 (uint16_t*)(frameBuf0 + (dispWidth * dispHeight * 3) * 3),
-                                                 2 * 1024 * 1024, 16);
+    HAL &hal = touchgfx_generic_init<STM32F4HAL>( dma, display, tc, dispWidth, dispHeight,
+               ( uint16_t * )( frameBuf0 + ( dispWidth * dispHeight * 3 ) * 3 ),
+               2 * 1024 * 1024, 16 );
 #ifdef  SINGLE_FRAME_BUFFER_INTERNAL
 #error Single frame buffer in internal is only possible in 16bpp due to memory constraints.
 #endif
-    hal.setFrameBufferStartAddress((uint16_t*)frameBuf0, bitdepth);
+    hal.setFrameBufferStartAddress( ( uint16_t * )frameBuf0, bitdepth );
 #else
 #error Unknown USE_BPP
 #endif
-    hal.setTouchSampleRate(2);
-    hal.setFingerSize(1);
+    hal.setTouchSampleRate( 2 );
+    hal.setFingerSize( 1 );
 
 
     // By default frame rate compensation is off.
     // Enable frame rate compensation to smooth out animations in case there is periodic slow frame rates.
-    hal.setFrameRateCompensation(false);
+    hal.setFrameRateCompensation( false );
 
     // This platform can handle simultaneous DMA and TFT accesses to SDRAM, so disable lock to increase performance.
-    hal.lockDMAToFrontPorch(false);
+    hal.lockDMAToFrontPorch( false );
 
     mcuInstr.init();
 
     //Set MCU instrumentation and Load calculation
-    hal.setMCUInstrumentation(&mcuInstr);
-    hal.enableMCULoadCalculation(true);
+    hal.setMCUInstrumentation( &mcuInstr );
+    hal.enableMCULoadCalculation( true );
 }
 
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
+  *         The system Clock is configured as follow :
   *            System Clock source            = PLL (HSE)
   *            SYSCLK(Hz)                     = 168000000
   *            HCLK(Hz)                       = 168000000
@@ -383,7 +383,7 @@ void touchgfx_init()
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
+static void SystemClock_Config( void )
 {
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_OscInitTypeDef RCC_OscInitStruct;
@@ -391,10 +391,10 @@ static void SystemClock_Config(void)
     /* Enable Power Control clock */
     __HAL_RCC_PWR_CLK_ENABLE();
 
-    /* The voltage scaling allows optimizing the power consumption when the device is 
-     clocked below the maximum system frequency, to update the voltage scaling value 
+    /* The voltage scaling allows optimizing the power consumption when the device is
+     clocked below the maximum system frequency, to update the voltage scaling value
      regarding system frequency refer to product datasheet.  */
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
     /* Enable HSE Oscillator and activate PLL with HSE as source */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
@@ -405,16 +405,16 @@ static void SystemClock_Config(void)
     RCC_OscInitStruct.PLL.PLLN = 336;
     RCC_OscInitStruct.PLL.PLLP = 2;
     RCC_OscInitStruct.PLL.PLLQ = 7;
-    HAL_RCC_OscConfig(&RCC_OscInitStruct);
+    HAL_RCC_OscConfig( &RCC_OscInitStruct );
 
-    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
      clocks dividers */
-    RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+    RCC_ClkInitStruct.ClockType = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 );
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  
-    HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_5 );
 }
 
 void hw_init()

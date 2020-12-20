@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/live_data_display_screen/LiveDataDisplayPresenter.hpp>
 #include <gui/live_data_display_screen/LiveDataDisplayView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-LiveDataDisplayPresenter::LiveDataDisplayPresenter(LiveDataDisplayView& v) :
-    view(v)
+LiveDataDisplayPresenter::LiveDataDisplayPresenter( LiveDataDisplayView &v ) :
+    view( v )
 {
 }
 

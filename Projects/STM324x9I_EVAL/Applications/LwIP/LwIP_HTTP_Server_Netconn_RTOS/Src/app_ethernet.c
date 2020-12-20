@@ -248,7 +248,8 @@ void DHCP_thread( void const *argument )
             }
             break;
 
-        default: break;
+        default:
+            break;
         }
 
         /* wait 250 ms */

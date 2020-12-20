@@ -82,7 +82,8 @@ int main( void )
 
 #if defined(_WIN32)
     mbedtls_printf( "  Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( MBEDTLS_EXIT_SUCCESS );

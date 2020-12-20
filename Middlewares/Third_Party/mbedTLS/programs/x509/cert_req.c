@@ -348,11 +348,16 @@ usage:
         {
             switch( atoi( q ) )
             {
-            case 0: opt.force_key_usage = 0; break;
+            case 0:
+                opt.force_key_usage = 0;
+                break;
 
-            case 1: opt.force_key_usage = 1; break;
+            case 1:
+                opt.force_key_usage = 1;
+                break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "ns_cert_type" ) == 0 )
@@ -404,11 +409,16 @@ usage:
         {
             switch( atoi( q ) )
             {
-            case 0: opt.force_ns_cert_type = 0; break;
+            case 0:
+                opt.force_ns_cert_type = 0;
+                break;
 
-            case 1: opt.force_ns_cert_type = 1; break;
+            case 1:
+                opt.force_ns_cert_type = 1;
+                break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else
@@ -515,7 +525,8 @@ exit:
 
 #if defined(_WIN32)
     mbedtls_printf( "  + Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     return( exit_code );

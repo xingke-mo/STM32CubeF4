@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 volatile bool overrideBlitcaps = false;
@@ -21,7 +21,7 @@ volatile bool overrideBlitcaps = false;
 #include <touchgfx/hal/BoardConfiguration.hpp>
 #include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 
-using namespace touchgfx; 
+using namespace touchgfx;
 
 /* Kernel includes. */
 #include "FreeRTOS.h"
@@ -37,29 +37,29 @@ using namespace touchgfx;
 
 #define CANVAS_BUFFER_SIZE (8 * 1024)
 
-static void GUITask(void* params)
+static void GUITask( void *params )
 {
-  touchgfx::HAL::getInstance()->taskEntry();
+    touchgfx::HAL::getInstance()->taskEntry();
 }
 
 static uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
-int main (void)
+int main( void )
 {
-  hw_init();
-  touchgfx_init();
+    hw_init();
+    touchgfx_init();
 
-  CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
+    CanvasWidgetRenderer::setupBuffer( canvasBuffer, CANVAS_BUFFER_SIZE );
 
-  xTaskCreate( GUITask, "GUITask",
-               configGUI_TASK_STK_SIZE,
-               NULL,
-               configGUI_TASK_PRIORITY,
-               NULL);
+    xTaskCreate( GUITask, "GUITask",
+                 configGUI_TASK_STK_SIZE,
+                 NULL,
+                 configGUI_TASK_PRIORITY,
+                 NULL );
 
-  vTaskStartScheduler();
+    vTaskStartScheduler();
 
-  for(;;);
+    for( ;; );
 
 }
 

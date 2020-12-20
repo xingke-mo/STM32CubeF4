@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/easing_equation_screen/EasingEquationGraph.hpp>
@@ -25,21 +25,21 @@ EasingEquationGraph::EasingEquationGraph()
 
 }
 
-void EasingEquationGraph::setup(int newWidth, int newHeight, colortype lineColor, uint16_t lineWidth)
+void EasingEquationGraph::setup( int newWidth, int newHeight, colortype lineColor, uint16_t lineWidth )
 {
-    setWidth(newWidth);
-    setHeight(newHeight);
+    setWidth( newWidth );
+    setHeight( newHeight );
 
-    graphLinePainter.setColor(lineColor);
+    graphLinePainter.setColor( lineColor );
 
-    graphLine.setPosition(0, 0, getWidth(), getHeight());
-    graphLine.setPainter(graphLinePainter);
-    graphLine.setBuffer(graphBuffer, NUMBER_OF_POINTS);
-    graphLine.setLineWidth(lineWidth);
-    add(graphLine);
+    graphLine.setPosition( 0, 0, getWidth(), getHeight() );
+    graphLine.setPainter( graphLinePainter );
+    graphLine.setBuffer( graphBuffer, NUMBER_OF_POINTS );
+    graphLine.setLineWidth( lineWidth );
+    add( graphLine );
 }
 
-void EasingEquationGraph::setRange(int left, int right, int top, int bottom)
+void EasingEquationGraph::setRange( int left, int right, int top, int bottom )
 {
-    graphLine.setRange(left, right, top, bottom);
+    graphLine.setRange( left, right, top, bottom );
 }

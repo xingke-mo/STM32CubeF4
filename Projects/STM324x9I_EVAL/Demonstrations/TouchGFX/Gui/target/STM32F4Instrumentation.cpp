@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include "stm32f4xx_hal.h"
@@ -40,36 +40,40 @@ void STM32F4Instrumentation::init()
     tim.Init.RepetitionCounter = 1;
 
     /* Get clock configuration */
-    HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+    HAL_RCC_GetClockConfig( &clkconfig, &pFLatency );
 
     /* TIM2 is on APB1 bus */
     uwAPB1Prescaler = clkconfig.APB1CLKDivider;
 
-    if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+    if( uwAPB1Prescaler == RCC_HCLK_DIV1 )
+    {
         uwTimclock = HAL_RCC_GetPCLK1Freq();
+    }
     else
+    {
         uwTimclock = 2 * HAL_RCC_GetPCLK1Freq();
+    }
 
     m_sysclkRatio = HAL_RCC_GetHCLKFreq() / uwTimclock;
 
-    HAL_TIM_Base_Init(&tim);
-    HAL_TIM_Base_Start(&tim);
+    HAL_TIM_Base_Init( &tim );
+    HAL_TIM_Base_Start( &tim );
 }
 
 //Board specific clockfrequency
-unsigned int STM32F4Instrumentation::getElapsedUS(unsigned int start, unsigned int now, unsigned int clockfrequency)
+unsigned int STM32F4Instrumentation::getElapsedUS( unsigned int start, unsigned int now, unsigned int clockfrequency )
 {
-    return ((now - start) + (clockfrequency / 2)) / clockfrequency;
+    return ( ( now - start ) + ( clockfrequency / 2 ) ) / clockfrequency;
 }
 
 unsigned int STM32F4Instrumentation::getCPUCycles()
 {
-    return __HAL_TIM_GET_COUNTER(&tim) * m_sysclkRatio;
+    return __HAL_TIM_GET_COUNTER( &tim ) * m_sysclkRatio;
 }
 
-void STM32F4Instrumentation::setMCUActive(bool active)
+void STM32F4Instrumentation::setMCUActive( bool active )
 {
-    if (active) //idle task sched out
+    if( active ) //idle task sched out
     {
         uint32_t current_cc = cc_in;
         cc_consumed += getCPUCycles() - current_cc;

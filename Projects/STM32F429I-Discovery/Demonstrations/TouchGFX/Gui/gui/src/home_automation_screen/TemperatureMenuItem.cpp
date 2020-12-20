@@ -12,36 +12,36 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/home_automation_screen/TemperatureMenuItem.hpp>
 #include <touchgfx/Color.hpp>
 
 TemperatureMenuItem::TemperatureMenuItem() :
-    onButtonPressed(this, &TemperatureMenuItem::buttonPressedhandler)
+    onButtonPressed( this, &TemperatureMenuItem::buttonPressedhandler )
 {
-    background.setXY(0, 0);
-    background.setBitmap(Bitmap(BITMAP_TEMPERATURE_MENU_ITEM_ID));
+    background.setXY( 0, 0 );
+    background.setBitmap( Bitmap( BITMAP_TEMPERATURE_MENU_ITEM_ID ) );
 
-    primaryText.setPosition(10, 7, 160, 20);
+    primaryText.setPosition( 10, 7, 160, 20 );
 
-    currentTemperature.setPosition(180, 5, 50, 24);
-    currentTemperature.setTypedText(TypedText(T_TEMPERATURE_MENU));
-    currentTemperature.setWildcard(currentTemperatureTextBuffer);
+    currentTemperature.setPosition( 180, 5, 50, 24 );
+    currentTemperature.setTypedText( TypedText( T_TEMPERATURE_MENU ) );
+    currentTemperature.setWildcard( currentTemperatureTextBuffer );
 
-    itemSelectArea.setPosition(0, 0, background.getWidth(), background.getHeight());
-    itemSelectArea.setAction(onButtonPressed);
+    itemSelectArea.setPosition( 0, 0, background.getWidth(), background.getHeight() );
+    itemSelectArea.setAction( onButtonPressed );
 
-    setSelected(false);
+    setSelected( false );
 
-    add(background);
-    add(primaryText);
-    add(currentTemperature);
-    add(itemSelectArea);
+    add( background );
+    add( primaryText );
+    add( currentTemperature );
+    add( itemSelectArea );
 
-    setWidth(background.getWidth());
-    setHeight(background.getHeight());
+    setWidth( background.getWidth() );
+    setHeight( background.getHeight() );
 }
 
 TemperatureMenuItem::~TemperatureMenuItem()
@@ -49,54 +49,55 @@ TemperatureMenuItem::~TemperatureMenuItem()
 
 }
 
-void TemperatureMenuItem::buttonPressedhandler(const AbstractButton& button)
+void TemperatureMenuItem::buttonPressedhandler( const AbstractButton &button )
 {
-    if (&button == &itemSelectArea)
+    if( &button == &itemSelectArea )
     {
-        if (menuItemSelectedCallback)
+        if( menuItemSelectedCallback )
         {
-            menuItemSelectedCallback->execute(*this);
+            menuItemSelectedCallback->execute( *this );
         }
     }
 }
 
-void TemperatureMenuItem::setRoomTemperatureInfo(RoomTemperatureInfo& info)
+void TemperatureMenuItem::setRoomTemperatureInfo( RoomTemperatureInfo &info )
 {
-    primaryText.setTypedText(TypedText(info.getRoomName()));
+    primaryText.setTypedText( TypedText( info.getRoomName() ) );
     primaryText.invalidate();
 
-    Unicode::snprintf(currentTemperatureTextBuffer, 5, "%d", info.getCurrentTemperature());
+    Unicode::snprintf( currentTemperatureTextBuffer, 5, "%d", info.getCurrentTemperature() );
     currentTemperature.invalidate();
 }
 
-void TemperatureMenuItem::setSelected(bool sel)
+void TemperatureMenuItem::setSelected( bool sel )
 {
     selected = sel;
 
-    if (selected)
+    if( selected )
     {
-        background.setBitmap(Bitmap(BITMAP_TEMPERATURE_MENU_ITEM_SELECTED_ID));
-        primaryText.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-        currentTemperature.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
+        background.setBitmap( Bitmap( BITMAP_TEMPERATURE_MENU_ITEM_SELECTED_ID ) );
+        primaryText.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+        currentTemperature.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
     }
     else
     {
-        background.setBitmap(Bitmap(BITMAP_TEMPERATURE_MENU_ITEM_ID));
-        primaryText.setColor(Color::getColorFrom24BitRGB(0xA9, 0xAD, 0xB6));
-        currentTemperature.setColor(Color::getColorFrom24BitRGB(0xA9, 0xAD, 0xB6));
+        background.setBitmap( Bitmap( BITMAP_TEMPERATURE_MENU_ITEM_ID ) );
+        primaryText.setColor( Color::getColorFrom24BitRGB( 0xA9, 0xAD, 0xB6 ) );
+        currentTemperature.setColor( Color::getColorFrom24BitRGB( 0xA9, 0xAD, 0xB6 ) );
     }
+
     background.invalidate();
     primaryText.invalidate();
     currentTemperature.invalidate();
 }
 
-void TemperatureMenuItem::setTextsAlpha(int16_t alpha)
+void TemperatureMenuItem::setTextsAlpha( int16_t alpha )
 {
-    alpha = (alpha < 0) ? 0 : alpha;
-    alpha = (alpha > 255) ? 255 : alpha;
+    alpha = ( alpha < 0 ) ? 0 : alpha;
+    alpha = ( alpha > 255 ) ? 255 : alpha;
 
-    primaryText.setAlpha((uint8_t) alpha);
-    currentTemperature.setAlpha((uint8_t) alpha);
+    primaryText.setAlpha( ( uint8_t ) alpha );
+    currentTemperature.setAlpha( ( uint8_t ) alpha );
 
     primaryText.invalidate();
     currentTemperature.invalidate();

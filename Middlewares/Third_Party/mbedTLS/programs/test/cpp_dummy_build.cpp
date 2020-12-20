@@ -21,9 +21,9 @@
  */
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
+    #include "mbedtls/config.h"
 #else
-#include MBEDTLS_CONFIG_FILE
+    #include MBEDTLS_CONFIG_FILE
 #endif
 
 #include "mbedtls/aes.h"
@@ -103,17 +103,17 @@
 #include "mbedtls/xtea.h"
 
 #if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
+    #include "mbedtls/platform.h"
 #endif
 
 #if defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)
-#include "mbedtls/memory_buffer_alloc.h"
+    #include "mbedtls/memory_buffer_alloc.h"
 #endif
 
 int main()
 {
     mbedtls_platform_context *ctx = NULL;
-    mbedtls_platform_setup(ctx);
-    mbedtls_printf("CPP Build test\n");
-    mbedtls_platform_teardown(ctx);
+    mbedtls_platform_setup( ctx );
+    mbedtls_printf( "CPP Build test\n" );
+    mbedtls_platform_teardown( ctx );
 }

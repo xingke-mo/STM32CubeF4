@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/animated_graphics_screen/AnimatedGraphicsPresenter.hpp>
 #include <gui/animated_graphics_screen/AnimatedGraphicsView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-AnimatedGraphicsPresenter::AnimatedGraphicsPresenter(AnimatedGraphicsView& v) :
-    view(v)
+AnimatedGraphicsPresenter::AnimatedGraphicsPresenter( AnimatedGraphicsView &v ) :
+    view( v )
 {
 }
 

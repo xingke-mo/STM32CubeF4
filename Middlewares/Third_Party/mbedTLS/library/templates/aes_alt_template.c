@@ -292,11 +292,14 @@ static int mbedtls_aes_xts_decode_keys( const unsigned char *key,
 
     switch( keybits )
     {
-    case 256: break;
+    case 256:
+        break;
 
-    case 512: break;
+    case 512:
+        break;
 
-    default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+    default :
+        return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
     }
 
     *key1bits = half_keybits;
@@ -485,7 +488,8 @@ int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
                            unsigned char *output )
 {
     unsigned int i;
-    __ALIGN_BEGIN static uint32_t iv_32B[4]; __ALIGN_END
+    __ALIGN_BEGIN static uint32_t iv_32B[4];
+    __ALIGN_END
     int ret = 0;
 
     AES_VALIDATE_RET( ctx != NULL );

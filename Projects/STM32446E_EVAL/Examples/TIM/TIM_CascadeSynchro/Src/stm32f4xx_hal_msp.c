@@ -75,8 +75,10 @@ void HAL_TIM_PWM_MspInit( TIM_HandleTypeDef *htim )
     __HAL_RCC_TIM4_CLK_ENABLE();
 
     /* Enable Timers GPIOs Clocks */
-    __HAL_RCC_GPIOA_CLK_ENABLE(); \
-    __HAL_RCC_GPIOB_CLK_ENABLE(); \
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    \
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    \
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
 

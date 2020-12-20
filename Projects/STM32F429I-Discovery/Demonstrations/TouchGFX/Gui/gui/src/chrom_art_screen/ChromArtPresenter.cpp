@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/chrom_art_screen/ChromArtPresenter.hpp>
 #include <gui/chrom_art_screen/ChromArtView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-ChromArtPresenter::ChromArtPresenter(ChromArtView& v) :
-    view(v)
+ChromArtPresenter::ChromArtPresenter( ChromArtView &v ) :
+    view( v )
 {
 }
 
@@ -38,7 +38,7 @@ void ChromArtPresenter::deactivate()
 
 }
 
-void ChromArtPresenter::mcuLoadUpdated(uint8_t mcuLoad)
+void ChromArtPresenter::mcuLoadUpdated( uint8_t mcuLoad )
 {
-    view.updateMCULoad(mcuLoad);
+    view.updateMCULoad( mcuLoad );
 }

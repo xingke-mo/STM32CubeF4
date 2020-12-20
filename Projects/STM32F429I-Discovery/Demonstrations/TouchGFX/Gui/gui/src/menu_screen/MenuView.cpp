@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/menu_screen/MenuView.hpp>
@@ -21,33 +21,33 @@
 #include <touchgfx/Color.hpp>
 
 MenuView::MenuView() :
-    onButtonPressed(this, &MenuView::buttonPressedhandler)
+    onButtonPressed( this, &MenuView::buttonPressedhandler )
 {
 }
 
 void MenuView::setupScreen()
 {
-    backgroundTop.setBitmap(Bitmap(BITMAP_BACKGROUND_TOP_ID));
-    backgroundTop.setXY(0, 0);
+    backgroundTop.setBitmap( Bitmap( BITMAP_BACKGROUND_TOP_ID ) );
+    backgroundTop.setXY( 0, 0 );
 
-    backgroundBottom.setBitmap(Bitmap(BITMAP_BACKGROUND_BOTTOM_ID));
-    backgroundBottom.setXY(0, HAL::DISPLAY_HEIGHT - backgroundBottom.getHeight());
+    backgroundBottom.setBitmap( Bitmap( BITMAP_BACKGROUND_BOTTOM_ID ) );
+    backgroundBottom.setXY( 0, HAL::DISPLAY_HEIGHT - backgroundBottom.getHeight() );
 
 
-    liveDataDisplayTile.setXY(TILE_OFFSET, HAL::DISPLAY_HEIGHT - liveDataDisplayTile.getHeight() - TILE_OFFSET);
+    liveDataDisplayTile.setXY( TILE_OFFSET, HAL::DISPLAY_HEIGHT - liveDataDisplayTile.getHeight() - TILE_OFFSET );
 
-    homeAutomationTile.setXY(TILE_OFFSET, TILE_OFFSET);
+    homeAutomationTile.setXY( TILE_OFFSET, TILE_OFFSET );
 
-    animatedGraphicsTile.setXY(TILE_OFFSET, homeAutomationTile.getY() + homeAutomationTile.getHeight() + TILE_OFFSET);
+    animatedGraphicsTile.setXY( TILE_OFFSET, homeAutomationTile.getY() + homeAutomationTile.getHeight() + TILE_OFFSET );
 
-    chromArtTile.setXY(animatedGraphicsTile.getX() + animatedGraphicsTile.getWidth() + TILE_OFFSET - 3, animatedGraphicsTile.getY());
+    chromArtTile.setXY( animatedGraphicsTile.getX() + animatedGraphicsTile.getWidth() + TILE_OFFSET - 3, animatedGraphicsTile.getY() );
 
-    add(backgroundTop);
-    add(liveDataDisplayTile);
-    add(homeAutomationTile);
-    add(animatedGraphicsTile);
-    add(chromArtTile);
-    add(backgroundBottom);
+    add( backgroundTop );
+    add( liveDataDisplayTile );
+    add( homeAutomationTile );
+    add( animatedGraphicsTile );
+    add( chromArtTile );
+    add( backgroundBottom );
 }
 
 void MenuView::tearDownScreen()
@@ -55,14 +55,14 @@ void MenuView::tearDownScreen()
 
 }
 
-void MenuView::buttonPressedhandler(const AbstractButton& button)
+void MenuView::buttonPressedhandler( const AbstractButton &button )
 {
 
 }
 
-void MenuView::addRoomToHomeAutomationTile(RoomTemperatureInfo& room)
+void MenuView::addRoomToHomeAutomationTile( RoomTemperatureInfo &room )
 {
-    homeAutomationTile.getTile().addRoom(room);
+    homeAutomationTile.getTile().addRoom( room );
 }
 
 void MenuView::initializeTiles()

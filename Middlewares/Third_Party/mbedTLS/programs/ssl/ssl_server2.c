@@ -1714,7 +1714,8 @@ usage:
                 opt.allow_legacy = MBEDTLS_SSL_LEGACY_ALLOW_RENEGOTIATION;
                 break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "renegotiate" ) == 0 )
@@ -1811,22 +1812,32 @@ usage:
         {
             switch( atoi( q ) )
             {
-            case 0:     opt.arc4 = MBEDTLS_SSL_ARC4_DISABLED;   break;
+            case 0:
+                opt.arc4 = MBEDTLS_SSL_ARC4_DISABLED;
+                break;
 
-            case 1:     opt.arc4 = MBEDTLS_SSL_ARC4_ENABLED;    break;
+            case 1:
+                opt.arc4 = MBEDTLS_SSL_ARC4_ENABLED;
+                break;
 
-            default:    goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "allow_sha1" ) == 0 )
         {
             switch( atoi( q ) )
             {
-            case 0:     opt.allow_sha1 = 0;   break;
+            case 0:
+                opt.allow_sha1 = 0;
+                break;
 
-            case 1:     opt.allow_sha1 = 1;    break;
+            case 1:
+                opt.allow_sha1 = 1;
+                break;
 
-            default:    goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "force_version" ) == 0 )
@@ -1915,11 +1926,16 @@ usage:
         {
             switch( atoi( q ) )
             {
-            case 0: opt.trunc_hmac = MBEDTLS_SSL_TRUNC_HMAC_DISABLED; break;
+            case 0:
+                opt.trunc_hmac = MBEDTLS_SSL_TRUNC_HMAC_DISABLED;
+                break;
 
-            case 1: opt.trunc_hmac = MBEDTLS_SSL_TRUNC_HMAC_ENABLED; break;
+            case 1:
+                opt.trunc_hmac = MBEDTLS_SSL_TRUNC_HMAC_ENABLED;
+                break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "extended_ms" ) == 0 )
@@ -1934,18 +1950,24 @@ usage:
                 opt.extended_ms = MBEDTLS_SSL_EXTENDED_MS_ENABLED;
                 break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "etm" ) == 0 )
         {
             switch( atoi( q ) )
             {
-            case 0: opt.etm = MBEDTLS_SSL_ETM_DISABLED; break;
+            case 0:
+                opt.etm = MBEDTLS_SSL_ETM_DISABLED;
+                break;
 
-            case 1: opt.etm = MBEDTLS_SSL_ETM_ENABLED; break;
+            case 1:
+                opt.etm = MBEDTLS_SSL_ETM_ENABLED;
+                break;
 
-            default: goto usage;
+            default:
+                goto usage;
             }
         }
         else if( strcmp( p, "tickets" ) == 0 )
@@ -3730,7 +3752,8 @@ exit:
 
 #if defined(_WIN32)
     mbedtls_printf( "  + Press Enter to exit this program.\n" );
-    fflush( stdout ); getchar();
+    fflush( stdout );
+    getchar();
 #endif
 
     // Shell can not handle large exit numbers -> 1 for errors

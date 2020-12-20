@@ -115,7 +115,8 @@ AVISTATUS _AVI_GetStreamInfo( GUI_AVI_HANDLE havi, U8 *buf )
                 return AVI_OK;
             }
 
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
     }
 
     return AVI_STREAM_ERR;
@@ -361,7 +362,8 @@ AVISTATUS _AVI_Init( GUI_AVI_HANDLE havi, U8 *buf, U16 size )
                 tbuf += offset + 4;
                 pavi->aviInfo.AudioBufSize = *( ( U16 * )tbuf );
             }
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
     }
 
     return res;
@@ -405,7 +407,8 @@ static int _Stopavi( GUI_AVI_HANDLE havi )
         {
             pavi->pfNotify( havi, GUI_AVI_NOTIFICATION_STOP, pavi->CurrentImage );
         }
-    } GUI_UNLOCK_H( pavi );
+    }
+    GUI_UNLOCK_H( pavi );
     return r;
 }
 
@@ -497,7 +500,8 @@ static int _DecodeFrame( GUI_AVI_HANDLE havi )
 
             }
         }
-    } GUI_UNLOCK_H( pavi );
+    }
+    GUI_UNLOCK_H( pavi );
     return 0;
 }
 
@@ -583,7 +587,8 @@ static void _OnTimer( GUI_TIMER_MESSAGE *pTM )
 
         GUI_TIMER_SetPeriod( pTM->hTimer, Period );
         GUI_TIMER_Restart( pTM->hTimer );
-    } GUI_UNLOCK_H( pavi );
+    }
+    GUI_UNLOCK_H( pavi );
 }
 
 
@@ -615,7 +620,8 @@ GUI_AVI_HANDLE GUI_AVI_CreateEx( GUI_GET_DATA_FUNC *pfGetData, GUI_AVI_FUNC *pfN
         pavi->pfNotify  = pfNotify;
         pavi->pfGetData = pfGetData;
         pavi->pfDraw = ( U32( * )( const void *, U32, U32, U32 ) )GUI_JPEG_Draw;
-    } GUI_UNLOCK_H( pavi );
+    }
+    GUI_UNLOCK_H( pavi );
     GUI_UNLOCK();
     return havi;
 }
@@ -694,7 +700,8 @@ int GUI_AVI_Start( GUI_AVI_HANDLE havi, void *pParam, U32 FileSize )
                 }
             }
 
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -723,7 +730,8 @@ int GUI_AVI_Stop( GUI_AVI_HANDLE havi )
             }
 
             _Stopavi( havi );
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -783,7 +791,8 @@ int GUI_AVI_Play( GUI_AVI_HANDLE havi )
                 pavi->TimeNextFrame = GUI_GetTime();
                 r = 0;
             }
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -818,7 +827,8 @@ int GUI_AVI_Show( GUI_AVI_HANDLE havi, int xPos, int yPos, int DoLoop )
 
             /* Start playing */
             r = GUI_AVI_Play( havi );
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -852,7 +862,8 @@ int GUI_AVI_SelectMode( GUI_AVI_HANDLE havi, int Mode )
             }
 
             r = 0;
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -892,7 +903,8 @@ void GUI_AVI_SetDevFunc( GUI_AVI_HANDLE havi, int IdFunc, void ( * pDriverFunc )
                 break;
             }
 
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 }
@@ -916,7 +928,8 @@ void GUI_AVI_SetBuffers( GUI_AVI_HANDLE havi, U8 *pVidBuff, U16 VidBuffSize, U8 
             pavi->pAudioBuffer = pAudBuff;
             pavi->AudioBufferSize = AudBuffSize;
 
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 }
@@ -959,7 +972,8 @@ int GUI_AVI_Delete( GUI_AVI_HANDLE havi )
             }
 
             r = 0;
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_ALLOC_Free( havi );
         GUI_UNLOCK();
     }
@@ -1081,7 +1095,8 @@ int GUI_AVI_GotoFrame( GUI_AVI_HANDLE havi, U32 Frame )
             }
 
 
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 
@@ -1106,7 +1121,8 @@ U32 GUI_AVI_GetFrameIndex( GUI_AVI_HANDLE havi )
         pavi = ( AVI_CONTEXT * )GUI_LOCK_H( havi );
         {
             r = pavi->CurrentImage;
-        } GUI_UNLOCK_H( pavi );
+        }
+        GUI_UNLOCK_H( pavi );
         GUI_UNLOCK();
     }
 

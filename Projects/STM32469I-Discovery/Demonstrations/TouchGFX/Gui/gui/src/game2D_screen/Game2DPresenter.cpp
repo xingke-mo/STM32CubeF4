@@ -12,15 +12,15 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/game2D_screen/Game2DPresenter.hpp>
 #include <gui/game2D_screen/Game2DView.hpp>
 #include <gui/common/FrontendApplication.hpp>
 
-Game2DPresenter::Game2DPresenter(Game2DView& v) :
-    DemoPresenter(v),
-    view(v)
+Game2DPresenter::Game2DPresenter( Game2DView &v ) :
+    DemoPresenter( v ),
+    view( v )
 {
 }
 

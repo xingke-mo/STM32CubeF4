@@ -274,8 +274,10 @@ arith_encode( j_compress_ptr cinfo, unsigned char *st, int val )
      */
     sv = *st;
     qe = jpeg_aritab[sv & 0x7F];  /* => Qe_Value */
-    nl = qe & 0xFF; qe >>= 8; /* Next_Index_LPS + Switch_MPS */
-    nm = qe & 0xFF; qe >>= 8; /* Next_Index_MPS */
+    nl = qe & 0xFF;
+    qe >>= 8; /* Next_Index_LPS + Switch_MPS */
+    nm = qe & 0xFF;
+    qe >>= 8; /* Next_Index_MPS */
 
     /* Encode & estimation procedures per sections D.1.4 & D.1.5 */
     e->a -= qe;
@@ -653,7 +655,9 @@ encode_mcu_AC_first( j_compress_ptr cinfo, JBLOCKROW *MCU_data )
                 }
             }
 
-            arith_encode( cinfo, st + 1, 0 ); st += 3; k++;
+            arith_encode( cinfo, st + 1, 0 );
+            st += 3;
+            k++;
         }
 
         st += 2;
@@ -870,7 +874,9 @@ encode_mcu_AC_refine( j_compress_ptr cinfo, JBLOCKROW *MCU_data )
                 }
             }
 
-            arith_encode( cinfo, st + 1, 0 ); st += 3; k++;
+            arith_encode( cinfo, st + 1, 0 );
+            st += 3;
+            k++;
         }
     }
 

@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <touchgfx/hal/GPIO.hpp>
@@ -24,54 +24,58 @@ static bool gpioState[4];
 
 void GPIO::init()
 {
-    BSP_LED_Init(LED1);
-    BSP_LED_Init(LED2);
-    BSP_LED_Init(LED3);
-    BSP_LED_Init(LED4);
-    
-    for (int i = 0; i < 4; i++)
-        clear((GPIO_ID)i);
+    BSP_LED_Init( LED1 );
+    BSP_LED_Init( LED2 );
+    BSP_LED_Init( LED3 );
+    BSP_LED_Init( LED4 );
+
+    for( int i = 0; i < 4; i++ )
+    {
+        clear( ( GPIO_ID )i );
+    }
 }
 
-void GPIO::set(GPIO_ID id)
+void GPIO::set( GPIO_ID id )
 {
     gpioState[id] = 1;
-    if (id == VSYNC_FREQ)
+
+    if( id == VSYNC_FREQ )
     {
-        BSP_LED_Off(LED3);
+        BSP_LED_Off( LED3 );
     }
-    else if (id == RENDER_TIME)
+    else if( id == RENDER_TIME )
     {
-        BSP_LED_Off(LED4);
+        BSP_LED_Off( LED4 );
     }
 }
 
-void GPIO::clear(GPIO_ID id)
+void GPIO::clear( GPIO_ID id )
 {
     gpioState[id] = 0;
-    if (id == VSYNC_FREQ)
+
+    if( id == VSYNC_FREQ )
     {
-        BSP_LED_On(LED3);
+        BSP_LED_On( LED3 );
     }
-    else if (id == RENDER_TIME)
+    else if( id == RENDER_TIME )
     {
-        BSP_LED_On(LED4);
+        BSP_LED_On( LED4 );
     }
 }
 
-void GPIO::toggle(GPIO_ID id)
+void GPIO::toggle( GPIO_ID id )
 {
-    if (get(id))
+    if( get( id ) )
     {
-        clear(id);
+        clear( id );
     }
     else
     {
-        set(id);
+        set( id );
     }
 }
 
-bool GPIO::get(GPIO_ID id)
+bool GPIO::get( GPIO_ID id )
 {
     return gpioState[id];
 }

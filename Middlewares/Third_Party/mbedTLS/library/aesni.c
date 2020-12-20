@@ -458,13 +458,20 @@ int mbedtls_aesni_setkey_enc( unsigned char *rk,
 {
     switch( bits )
     {
-    case 128: aesni_setkey_enc_128( rk, key ); break;
+    case 128:
+        aesni_setkey_enc_128( rk, key );
+        break;
 
-    case 192: aesni_setkey_enc_192( rk, key ); break;
+    case 192:
+        aesni_setkey_enc_192( rk, key );
+        break;
 
-    case 256: aesni_setkey_enc_256( rk, key ); break;
+    case 256:
+        aesni_setkey_enc_256( rk, key );
+        break;
 
-    default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+    default :
+        return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
     }
 
     return( 0 );

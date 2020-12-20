@@ -1106,7 +1106,8 @@ void _VNCServer_Notify( uint8_t ID )
             break;
         }
 
-    default: break;
+    default:
+        break;
     }
 }
 

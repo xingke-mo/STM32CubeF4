@@ -4,59 +4,60 @@
 #include <BitmapDatabase.hpp>
 
 #ifndef NO_USING_NAMESPACE_TOUCHGFX
-using namespace touchgfx;
+    using namespace touchgfx;
 #endif
 
-extern const unsigned char _animated_graphics_back_button[]; 
-extern const unsigned char _animated_graphics_back_button_pressed[]; 
-extern const unsigned char _background_bottom[]; 
-extern const unsigned char _background_top[]; 
-extern const unsigned char _chrom_art_background[]; 
-extern const unsigned char _chrom_art_clouds[]; 
-extern const unsigned char _chrom_art_off_button[]; 
-extern const unsigned char _chrom_art_on_button[]; 
-extern const unsigned char _chrom_art_sun[]; 
-extern const unsigned char _exit_button[]; 
-extern const unsigned char _exit_button_pressed[]; 
-extern const unsigned char _layer_button[]; 
-extern const unsigned char _layer_button_pressed[]; 
-extern const unsigned char _light_effect_image[]; 
-extern const unsigned char _menu_item_animated_graphics[]; 
-extern const unsigned char _menu_item_chrom_art[]; 
-extern const unsigned char _schedule_button[]; 
-extern const unsigned char _schedule_button_pressed[]; 
-extern const unsigned char _st_logo[]; 
-extern const unsigned char _temperature_adjust_button[]; 
-extern const unsigned char _temperature_adjust_button_pressed[]; 
-extern const unsigned char _temperature_cancel_button[]; 
-extern const unsigned char _temperature_cancel_button_pressed[]; 
-extern const unsigned char _temperature_jogwheel[]; 
-extern const unsigned char _temperature_menu_item[]; 
-extern const unsigned char _temperature_menu_item_selected[]; 
-extern const unsigned char _temperature_menu_top_day_night[]; 
-extern const unsigned char _temperature_menu_top_extended[]; 
-extern const unsigned char _temperature_ok_button[]; 
-extern const unsigned char _temperature_ok_button_inactive[]; 
-extern const unsigned char _temperature_ok_button_pressed[]; 
-extern const unsigned char _temperature_schedule_button_selected[]; 
-extern const unsigned char _temperature_schedule_menu_item[]; 
-extern const unsigned char _temperature_schedule_menu_item_selected[]; 
-extern const unsigned char _temperature_slider[]; 
-extern const unsigned char _temperature_slider_knop[]; 
-extern const unsigned char _touchGFX_logo[]; 
-extern const unsigned char _weather_background_1[]; 
-extern const unsigned char _weather_background_2[]; 
-extern const unsigned char _weather_background_3[]; 
-extern const unsigned char _weather_background_ending_1[]; 
-extern const unsigned char _weather_dot_normal[]; 
-extern const unsigned char _weather_dot_selected[]; 
-extern const unsigned char _weather_small_icon_cloud[]; 
-extern const unsigned char _weather_small_icon_shower[]; 
-extern const unsigned char _weather_small_icon_sun[]; 
-extern const unsigned char _weather_small_icon_sun_bigcloud[]; 
-extern const unsigned char _weather_small_icon_thunder[]; 
+extern const unsigned char _animated_graphics_back_button[];
+extern const unsigned char _animated_graphics_back_button_pressed[];
+extern const unsigned char _background_bottom[];
+extern const unsigned char _background_top[];
+extern const unsigned char _chrom_art_background[];
+extern const unsigned char _chrom_art_clouds[];
+extern const unsigned char _chrom_art_off_button[];
+extern const unsigned char _chrom_art_on_button[];
+extern const unsigned char _chrom_art_sun[];
+extern const unsigned char _exit_button[];
+extern const unsigned char _exit_button_pressed[];
+extern const unsigned char _layer_button[];
+extern const unsigned char _layer_button_pressed[];
+extern const unsigned char _light_effect_image[];
+extern const unsigned char _menu_item_animated_graphics[];
+extern const unsigned char _menu_item_chrom_art[];
+extern const unsigned char _schedule_button[];
+extern const unsigned char _schedule_button_pressed[];
+extern const unsigned char _st_logo[];
+extern const unsigned char _temperature_adjust_button[];
+extern const unsigned char _temperature_adjust_button_pressed[];
+extern const unsigned char _temperature_cancel_button[];
+extern const unsigned char _temperature_cancel_button_pressed[];
+extern const unsigned char _temperature_jogwheel[];
+extern const unsigned char _temperature_menu_item[];
+extern const unsigned char _temperature_menu_item_selected[];
+extern const unsigned char _temperature_menu_top_day_night[];
+extern const unsigned char _temperature_menu_top_extended[];
+extern const unsigned char _temperature_ok_button[];
+extern const unsigned char _temperature_ok_button_inactive[];
+extern const unsigned char _temperature_ok_button_pressed[];
+extern const unsigned char _temperature_schedule_button_selected[];
+extern const unsigned char _temperature_schedule_menu_item[];
+extern const unsigned char _temperature_schedule_menu_item_selected[];
+extern const unsigned char _temperature_slider[];
+extern const unsigned char _temperature_slider_knop[];
+extern const unsigned char _touchGFX_logo[];
+extern const unsigned char _weather_background_1[];
+extern const unsigned char _weather_background_2[];
+extern const unsigned char _weather_background_3[];
+extern const unsigned char _weather_background_ending_1[];
+extern const unsigned char _weather_dot_normal[];
+extern const unsigned char _weather_dot_selected[];
+extern const unsigned char _weather_small_icon_cloud[];
+extern const unsigned char _weather_small_icon_shower[];
+extern const unsigned char _weather_small_icon_sun[];
+extern const unsigned char _weather_small_icon_sun_bigcloud[];
+extern const unsigned char _weather_small_icon_thunder[];
 
-const touchgfx::Bitmap::BitmapData bitmap_database[] = {
+const touchgfx::Bitmap::BitmapData bitmap_database[] =
+{
     { _animated_graphics_back_button, 0, 240, 48, 0, 0, 240, 48, touchgfx::Bitmap::RGB565 },
     { _animated_graphics_back_button_pressed, 0, 240, 48, 0, 0, 240, 48, touchgfx::Bitmap::RGB565 },
     { _background_bottom, 0, 240, 140, 0, 120, 240, 20, touchgfx::Bitmap::ARGB8888 },
@@ -109,13 +110,13 @@ const touchgfx::Bitmap::BitmapData bitmap_database[] = {
 
 namespace BitmapDatabase
 {
-  const touchgfx::Bitmap::BitmapData* getInstance()
-  {
+const touchgfx::Bitmap::BitmapData *getInstance()
+{
     return bitmap_database;
-  }
-  uint16_t getInstanceSize()
-  {
-    return (uint16_t)(sizeof(bitmap_database) / sizeof(touchgfx::Bitmap::BitmapData));
-  }
+}
+uint16_t getInstanceSize()
+{
+    return ( uint16_t )( sizeof( bitmap_database ) / sizeof( touchgfx::Bitmap::BitmapData ) );
+}
 }
 

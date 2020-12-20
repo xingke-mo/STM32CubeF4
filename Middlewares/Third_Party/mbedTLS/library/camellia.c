@@ -382,12 +382,19 @@ int mbedtls_camellia_setkey_enc( mbedtls_camellia_context *ctx,
 
     switch( keybits )
     {
-    case 128: ctx->nr = 3; idx = 0; break;
+    case 128:
+        ctx->nr = 3;
+        idx = 0;
+        break;
 
     case 192:
-    case 256: ctx->nr = 4; idx = 1; break;
+    case 256:
+        ctx->nr = 4;
+        idx = 1;
+        break;
 
-    default : return( MBEDTLS_ERR_CAMELLIA_BAD_INPUT_DATA );
+    default :
+        return( MBEDTLS_ERR_CAMELLIA_BAD_INPUT_DATA );
     }
 
     for( i = 0; i < keybits / 8; ++i )

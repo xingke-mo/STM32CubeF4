@@ -5846,8 +5846,10 @@ int mbedtls_ssl_write_certificate( mbedtls_ssl_context *ssl )
         ssl->out_msg[i + 1] = ( unsigned char )( n >>  8 );
         ssl->out_msg[i + 2] = ( unsigned char )( n );
 
-        i += 3; memcpy( ssl->out_msg + i, crt->raw.p, n );
-        i += n; crt = crt->next;
+        i += 3;
+        memcpy( ssl->out_msg + i, crt->raw.p, n );
+        i += n;
+        crt = crt->next;
     }
 
     ssl->out_msg[4]  = ( unsigned char )( ( i - 7 ) >> 16 );

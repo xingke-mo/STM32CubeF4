@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/easing_equation_screen/EasingEquationSelector.hpp>
@@ -22,52 +22,52 @@
 
 EasingEquationButton::EasingEquationButton()
 {
-    buttonText.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    buttonTextShadow.setColor(Color::getColorFrom24BitRGB(0x0, 0x0, 0x0));
+    buttonText.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+    buttonTextShadow.setColor( Color::getColorFrom24BitRGB( 0x0, 0x0, 0x0 ) );
 
-    add(radioButton);
-    add(buttonTextShadow);
-    add(buttonText);
+    add( radioButton );
+    add( buttonTextShadow );
+    add( buttonText );
 }
 
-void EasingEquationButton::setup(EasingEquationSelection newEasingEquation, const Bitmap& bmpUnselected, const Bitmap& bmpUnselectedPressed, const Bitmap& bmpSelected, const Bitmap& bmpSelectedPressed)
+void EasingEquationButton::setup( EasingEquationSelection newEasingEquation, const Bitmap &bmpUnselected, const Bitmap &bmpUnselectedPressed, const Bitmap &bmpSelected, const Bitmap &bmpSelectedPressed )
 {
-    radioButton.setBitmaps(bmpUnselected, bmpUnselectedPressed, bmpSelected, bmpSelectedPressed);
-    setWidth(radioButton.getWidth());
-    setHeight(radioButton.getHeight());
+    radioButton.setBitmaps( bmpUnselected, bmpUnselectedPressed, bmpSelected, bmpSelectedPressed );
+    setWidth( radioButton.getWidth() );
+    setHeight( radioButton.getHeight() );
 
     easingEquation = newEasingEquation;
-    buttonText.setTypedText(TypedText(newEasingEquation.EasingEquationShortName));
+    buttonText.setTypedText( TypedText( newEasingEquation.EasingEquationShortName ) );
     buttonText.resizeToCurrentText();
-    buttonTextShadow.setTypedText(buttonText.getTypedText());
+    buttonTextShadow.setTypedText( buttonText.getTypedText() );
     buttonTextShadow.resizeToCurrentText();
-    buttonText.setXY((getWidth() - buttonText.getWidth()) / 2, (getHeight() - buttonText.getHeight()) / 2);
-    buttonTextShadow.setXY(buttonText.getX() + 1, buttonText.getY() + 1);
+    buttonText.setXY( ( getWidth() - buttonText.getWidth() ) / 2, ( getHeight() - buttonText.getHeight() ) / 2 );
+    buttonTextShadow.setXY( buttonText.getX() + 1, buttonText.getY() + 1 );
 
     invalidate();
 }
 
-RadioButton& EasingEquationButton::getRadioButton()
+RadioButton &EasingEquationButton::getRadioButton()
 {
     return radioButton;
 }
 
-const EasingEquationSelection& EasingEquationButton::getEasingEquation() const
+const EasingEquationSelection &EasingEquationButton::getEasingEquation() const
 {
     return easingEquation;
 }
 
-void EasingEquationButton::setTextColor(colortype textColor, colortype shadowColor)
+void EasingEquationButton::setTextColor( colortype textColor, colortype shadowColor )
 {
-    buttonText.setColor(textColor);
-    buttonTextShadow.setColor(shadowColor);
+    buttonText.setColor( textColor );
+    buttonTextShadow.setColor( shadowColor );
 
     buttonText.invalidate();
     buttonTextShadow.invalidate();
 }
 
-void EasingEquationButton::setTextShadowVisible(bool textShadowVisible)
+void EasingEquationButton::setTextShadowVisible( bool textShadowVisible )
 {
-    buttonTextShadow.setVisible(textShadowVisible);
+    buttonTextShadow.setVisible( textShadowVisible );
     buttonTextShadow.invalidate();
 }

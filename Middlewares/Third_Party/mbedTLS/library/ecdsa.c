@@ -289,7 +289,9 @@ static int ecdsa_sign_restartable( mbedtls_ecp_group *grp,
     }
 
     mbedtls_ecp_point_init( &R );
-    mbedtls_mpi_init( &k ); mbedtls_mpi_init( &e ); mbedtls_mpi_init( &t );
+    mbedtls_mpi_init( &k );
+    mbedtls_mpi_init( &e );
+    mbedtls_mpi_init( &t );
 
     ECDSA_RS_ENTER( sig );
 
@@ -406,7 +408,9 @@ modn:
 
 cleanup:
     mbedtls_ecp_point_free( &R );
-    mbedtls_mpi_free( &k ); mbedtls_mpi_free( &e ); mbedtls_mpi_free( &t );
+    mbedtls_mpi_free( &k );
+    mbedtls_mpi_free( &e );
+    mbedtls_mpi_free( &t );
 
     ECDSA_RS_LEAVE( sig );
 
@@ -542,8 +546,10 @@ static int ecdsa_verify_restartable( mbedtls_ecp_group *grp,
     mbedtls_mpi *pu1 = &u1, *pu2 = &u2;
 
     mbedtls_ecp_point_init( &R );
-    mbedtls_mpi_init( &e ); mbedtls_mpi_init( &s_inv );
-    mbedtls_mpi_init( &u1 ); mbedtls_mpi_init( &u2 );
+    mbedtls_mpi_init( &e );
+    mbedtls_mpi_init( &s_inv );
+    mbedtls_mpi_init( &u1 );
+    mbedtls_mpi_init( &u2 );
 
     /* Fail cleanly on curves such as Curve25519 that can't be used for ECDSA */
     if( grp->N.p == NULL )
@@ -636,8 +642,10 @@ muladd:
 
 cleanup:
     mbedtls_ecp_point_free( &R );
-    mbedtls_mpi_free( &e ); mbedtls_mpi_free( &s_inv );
-    mbedtls_mpi_free( &u1 ); mbedtls_mpi_free( &u2 );
+    mbedtls_mpi_free( &e );
+    mbedtls_mpi_free( &s_inv );
+    mbedtls_mpi_free( &u1 );
+    mbedtls_mpi_free( &u2 );
 
     ECDSA_RS_LEAVE( ver );
 

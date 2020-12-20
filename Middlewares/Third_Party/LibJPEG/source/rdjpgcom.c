@@ -337,33 +337,61 @@ static void process_SOFn( int marker )
 
     switch( marker )
     {
-    case M_SOF0:  process = "Baseline";  break;
+    case M_SOF0:
+        process = "Baseline";
+        break;
 
-    case M_SOF1:  process = "Extended sequential";  break;
+    case M_SOF1:
+        process = "Extended sequential";
+        break;
 
-    case M_SOF2:  process = "Progressive";  break;
+    case M_SOF2:
+        process = "Progressive";
+        break;
 
-    case M_SOF3:  process = "Lossless";  break;
+    case M_SOF3:
+        process = "Lossless";
+        break;
 
-    case M_SOF5:  process = "Differential sequential";  break;
+    case M_SOF5:
+        process = "Differential sequential";
+        break;
 
-    case M_SOF6:  process = "Differential progressive";  break;
+    case M_SOF6:
+        process = "Differential progressive";
+        break;
 
-    case M_SOF7:  process = "Differential lossless";  break;
+    case M_SOF7:
+        process = "Differential lossless";
+        break;
 
-    case M_SOF9:  process = "Extended sequential, arithmetic coding";  break;
+    case M_SOF9:
+        process = "Extended sequential, arithmetic coding";
+        break;
 
-    case M_SOF10: process = "Progressive, arithmetic coding";  break;
+    case M_SOF10:
+        process = "Progressive, arithmetic coding";
+        break;
 
-    case M_SOF11: process = "Lossless, arithmetic coding";  break;
+    case M_SOF11:
+        process = "Lossless, arithmetic coding";
+        break;
 
-    case M_SOF13: process = "Differential sequential, arithmetic coding";  break;
+    case M_SOF13:
+        process = "Differential sequential, arithmetic coding";
+        break;
 
-    case M_SOF14: process = "Differential progressive, arithmetic coding"; break;
+    case M_SOF14:
+        process = "Differential progressive, arithmetic coding";
+        break;
 
-    case M_SOF15: process = "Differential lossless, arithmetic coding";  break;
+    case M_SOF15:
+        process = "Differential lossless, arithmetic coding";
+        break;
 
-    default:  process = "Unknown";  break;
+    default:
+        process = "Unknown";
+        break;
     }
 
     printf( "JPEG image is %uw * %uh, %d color components, %d bits per sample\n",

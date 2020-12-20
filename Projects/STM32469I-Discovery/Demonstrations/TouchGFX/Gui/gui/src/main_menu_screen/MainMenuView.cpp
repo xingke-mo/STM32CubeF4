@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/main_menu_screen/MainMenuView.hpp>
 #include <BitmapDatabase.hpp>
@@ -26,58 +26,63 @@ extern "C"
 #endif
 
 MainMenuView::MainMenuView() :
-    selectedDemoScreenIndex(0),
-    onStMenuButtonPressed(this, &MainMenuView::stMenuButtonPressedHandler)
+    selectedDemoScreenIndex( 0 ),
+    onStMenuButtonPressed( this, &MainMenuView::stMenuButtonPressedHandler )
 {
-    stMenuButton.setBitmaps(Bitmap(BITMAP_ST_MENU_BUTTON_ID), Bitmap(BITMAP_ST_MENU_BUTTON_PRESSED_ID));
-    stMenuButton.setXY(HAL::DISPLAY_WIDTH - stMenuButton.getWidth()-35, 26);
-    stMenuButton.setAction(onStMenuButtonPressed);
+    stMenuButton.setBitmaps( Bitmap( BITMAP_ST_MENU_BUTTON_ID ), Bitmap( BITMAP_ST_MENU_BUTTON_PRESSED_ID ) );
+    stMenuButton.setXY( HAL::DISPLAY_WIDTH - stMenuButton.getWidth() - 35, 26 );
+    stMenuButton.setAction( onStMenuButtonPressed );
 
     // MCULoad must be added by the specialized menu view (to get correct z-order)
-    mcuLoadTxt.setXY(35, 50);
-    mcuLoadTxt.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    mcuLoadValueTxt.setPosition(mcuLoadTxt.getRect().right()-4, mcuLoadTxt.getY(), 50, 30);
-    mcuLoadValueTxt.setColor(mcuLoadTxt.getColor());
+    mcuLoadTxt.setXY( 35, 50 );
+    mcuLoadTxt.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+    mcuLoadValueTxt.setPosition( mcuLoadTxt.getRect().right() - 4, mcuLoadTxt.getY(), 50, 30 );
+    mcuLoadValueTxt.setColor( mcuLoadTxt.getColor() );
 }
 
 MainMenuView::~MainMenuView()
 {
 }
 
-void MainMenuView::setSelectedDemoScreen(int demoIndex)
+void MainMenuView::setSelectedDemoScreen( int demoIndex )
 {
     selectedDemoScreenIndex = demoIndex;
 }
 
 void MainMenuView::gotoSelectedDemoScreen()
 {
-    presenter->setSelectedDemoScreenIndex(selectedDemoScreenIndex);
+    presenter->setSelectedDemoScreenIndex( selectedDemoScreenIndex );
 
-    switch (demoIDs[selectedDemoScreenIndex])
+    switch( demoIDs[selectedDemoScreenIndex] )
     {
     case MainMenuView::PRODUCT_PRESENTER:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoProductPresenterScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoProductPresenterScreen();
         break;
+
     case MainMenuView::GAME2D:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoGame2DScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoGame2DScreen();
         break;
+
     case MainMenuView::CUSTOM_CONTROLS:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoCustomControlsScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoCustomControlsScreen();
         break;
+
     case MainMenuView::GRAPH:
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoGraphScreen();
+        static_cast<FrontendApplication *>( Application::getInstance() )->gotoGraphScreen();
         break;
+
     case MainMenuView::NO_DEMO_SCREEN:
         break;
+
     default:
         break;
     }
 }
 
-void MainMenuView::stMenuButtonPressedHandler(const AbstractButton& button)
+void MainMenuView::stMenuButtonPressedHandler( const AbstractButton &button )
 {
 #ifndef SIMULATOR
- *(uint32_t *)(0x40024000) = GFX_DEMO_SIGNATURE_B;      
-  NVIC_SystemReset();  
+    *( uint32_t * )( 0x40024000 ) = GFX_DEMO_SIGNATURE_B;
+    NVIC_SystemReset();
 #endif
 }

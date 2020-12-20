@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <OTM8009TouchController.hpp>
@@ -22,24 +22,26 @@ extern "C"
 #include "stm32469i_discovery.h"
 #include "stm32469i_discovery_ts.h"
 
-uint32_t LCD_GetXSize();
-uint32_t LCD_GetYSize();
+    uint32_t LCD_GetXSize();
+    uint32_t LCD_GetYSize();
 }
 
 void OTM8009TouchController::init()
 {
-    BSP_TS_Init(LCD_GetXSize(), LCD_GetYSize());
+    BSP_TS_Init( LCD_GetXSize(), LCD_GetYSize() );
 }
 
-bool OTM8009TouchController::sampleTouch(int32_t& x, int32_t& y)
+bool OTM8009TouchController::sampleTouch( int32_t &x, int32_t &y )
 {
     TS_StateTypeDef state;
-    BSP_TS_GetState(&state);
-    if (state.touchDetected)
+    BSP_TS_GetState( &state );
+
+    if( state.touchDetected )
     {
         x = state.touchX[0];
         y = state.touchY[0];
         return true;
     }
+
     return false;
 }

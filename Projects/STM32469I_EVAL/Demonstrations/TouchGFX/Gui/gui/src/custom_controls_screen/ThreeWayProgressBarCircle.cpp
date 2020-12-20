@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/custom_controls_screen/ThreeWayProgressBarCircle.hpp>
 #include <BitmapDatabase.hpp>
@@ -21,47 +21,47 @@
 #include <assert.h>
 
 
-ThreeWayProgressBarCircle::ThreeWayProgressBarCircle() 
+ThreeWayProgressBarCircle::ThreeWayProgressBarCircle()
 {
-    background.setBitmap(Bitmap(BITMAP_CONTROLS_THREE_WAY_SMALL_CIRCLE_ID));
-    background.setXY(0, 0);
-    add(background);
+    background.setBitmap( Bitmap( BITMAP_CONTROLS_THREE_WAY_SMALL_CIRCLE_ID ) );
+    background.setXY( 0, 0 );
+    add( background );
 
-    add(icon);
+    add( icon );
 
-    text.setTypedText(TypedText(T_THREE_WAY_PROGRESS_BAR_PERCENTAGE));
-    text.setWildcard(textBuffer);
-    text.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    text.setPosition(30, 50, 40, 18);
-    add(text);
-    setPercentage(0);
+    text.setTypedText( TypedText( T_THREE_WAY_PROGRESS_BAR_PERCENTAGE ) );
+    text.setWildcard( textBuffer );
+    text.setColor( Color::getColorFrom24BitRGB( 0xFF, 0xFF, 0xFF ) );
+    text.setPosition( 30, 50, 40, 18 );
+    add( text );
+    setPercentage( 0 );
 
-    setWidth(background.getWidth());
-    setHeight(background.getHeight());
+    setWidth( background.getWidth() );
+    setHeight( background.getHeight() );
 }
 
 ThreeWayProgressBarCircle::~ThreeWayProgressBarCircle()
 {
 }
 
-void ThreeWayProgressBarCircle::setIcon(BitmapId newIconBmp, BitmapId newIconActiveBmp)
+void ThreeWayProgressBarCircle::setIcon( BitmapId newIconBmp, BitmapId newIconActiveBmp )
 {
     iconBmp = newIconBmp;
     iconActiveBmp = newIconActiveBmp;
 
-    setActive(false);
-    icon.setXY((background.getWidth() - icon.getWidth())/2, 15);
+    setActive( false );
+    icon.setXY( ( background.getWidth() - icon.getWidth() ) / 2, 15 );
 }
 
-void ThreeWayProgressBarCircle::setActive(bool active)
+void ThreeWayProgressBarCircle::setActive( bool active )
 {
-    active ? icon.setBitmap(Bitmap(iconActiveBmp)) : icon.setBitmap(Bitmap(iconBmp));
-    icon.invalidate();   
+    active ? icon.setBitmap( Bitmap( iconActiveBmp ) ) : icon.setBitmap( Bitmap( iconBmp ) );
+    icon.invalidate();
 }
 
-void ThreeWayProgressBarCircle::setPercentage(int percentage)
+void ThreeWayProgressBarCircle::setPercentage( int percentage )
 {
-    Unicode::snprintf(textBuffer, 5, "%d", percentage);
+    Unicode::snprintf( textBuffer, 5, "%d", percentage );
     text.invalidate();
 }
 

@@ -12,29 +12,30 @@
   *
   ******************************************************************************
   */
-  
+
 
 #if 0
 #include <gui/common/Button.hpp>
 
-void Button::draw(const touchgfx::Rect& invalidatedArea) const
+void Button::draw( const touchgfx::Rect &invalidatedArea ) const
 {
-    touchgfx::Bitmap bmp(AbstractButton::pressed ? down : up);
-    touchgfx::Rect dirty(buttonX(), buttonY(), bmp.getWidth(), bmp.getHeight());
+    touchgfx::Bitmap bmp( AbstractButton::pressed ? down : up );
+    touchgfx::Rect dirty( buttonX(), buttonY(), bmp.getWidth(), bmp.getHeight() );
     dirty &= invalidatedArea;
-    if((bmp.getId() != touchgfx::BITMAP_INVALID) && !dirty.isEmpty())
+
+    if( ( bmp.getId() != touchgfx::BITMAP_INVALID ) && !dirty.isEmpty() )
     {
         dirty.x -= buttonX();
         dirty.y -= buttonY();
-        touchgfx::Rect r(buttonX(), buttonY(), 0, 0) ;
-        translateRectToAbsolute(r);
-        touchgfx::HAL::lcd().drawPartialBitmap(bmp, r.x, r.y, dirty, alpha);
+        touchgfx::Rect r( buttonX(), buttonY(), 0, 0 ) ;
+        translateRectToAbsolute( r );
+        touchgfx::HAL::lcd().drawPartialBitmap( bmp, r.x, r.y, dirty, alpha );
     }
 }
 
 touchgfx::Rect Button::getSolidRect() const
 {
-    if (alpha < 255)
+    if( alpha < 255 )
     {
         return touchgfx::Rect();
     }
@@ -48,11 +49,11 @@ touchgfx::Rect Button::getSolidRect() const
 
 int16_t Button::buttonX() const
 {
-    return getWidth()/2-down.getWidth()/2;
+    return getWidth() / 2 - down.getWidth() / 2;
 }
 
 int16_t Button::buttonY() const
 {
-    return getHeight()/2-down.getHeight()/2;
+    return getHeight() / 2 - down.getHeight() / 2;
 }
 #endif

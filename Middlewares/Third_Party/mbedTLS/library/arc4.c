@@ -114,8 +114,10 @@ int mbedtls_arc4_crypt( mbedtls_arc4_context *ctx, size_t length, const unsigned
 
     for( i = 0; i < length; i++ )
     {
-        x = ( x + 1 ) & 0xFF; a = m[x];
-        y = ( y + a ) & 0xFF; b = m[y];
+        x = ( x + 1 ) & 0xFF;
+        a = m[x];
+        y = ( y + a ) & 0xFF;
+        b = m[y];
 
         m[x] = ( unsigned char ) b;
         m[y] = ( unsigned char ) a;

@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <new>
@@ -37,11 +37,11 @@
 #include <gui/common/FrontendHeap.hpp>
 
 
-FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
+FrontendApplication::FrontendApplication( Model &m, FrontendHeap &heap )
     : MVPApplication(),
       transitionCallback(),
-      frontendHeap(heap),
-      model(m)
+      frontendHeap( heap ),
+      model( m )
 {
 }
 
@@ -53,66 +53,66 @@ void FrontendApplication::handleTickEvent()
 
 void FrontendApplication::gotoMenuScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoMenuScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoMenuScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoMenuScreenImpl()
 {
-    makeTransition< MenuView, MenuPresenter, SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< MenuView, MenuPresenter, SlideTransition<WEST>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoMenuScreenNoAnimation()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoMenuScreenNoAnimationImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoMenuScreenNoAnimationImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoMenuScreenNoAnimationImpl()
 {
-    makeTransition< MenuView, MenuPresenter, NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< MenuView, MenuPresenter, NoTransition, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoHomeAutomationScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoHomeAutomationScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoHomeAutomationScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoHomeAutomationScreenImpl()
 {
-    makeTransition< HomeAutomationView, HomeAutomationPresenter, SlideTransition<NORTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< HomeAutomationView, HomeAutomationPresenter, SlideTransition<NORTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoAnimatedGraphicsScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoAnimatedGraphicsScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoAnimatedGraphicsScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoAnimatedGraphicsScreenImpl()
 {
-    makeTransition< AnimatedGraphicsView, AnimatedGraphicsPresenter, SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< AnimatedGraphicsView, AnimatedGraphicsPresenter, SlideTransition<WEST>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoLiveDataDisplayScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoLiveDataDisplayScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoLiveDataDisplayScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoLiveDataDisplayScreenImpl()
 {
-    makeTransition< LiveDataDisplayView, LiveDataDisplayPresenter, SlideTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< LiveDataDisplayView, LiveDataDisplayPresenter, SlideTransition<SOUTH>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }
 
 void FrontendApplication::gotoChromArtScreen()
 {
-    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoChromArtScreenImpl);
+    transitionCallback = Callback< FrontendApplication >( this, &FrontendApplication::gotoChromArtScreenImpl );
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
 void FrontendApplication::gotoChromArtScreenImpl()
 {
-    makeTransition< ChromArtView, ChromArtPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    makeTransition< ChromArtView, ChromArtPresenter, SlideTransition<EAST>, Model >( &currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model );
 }

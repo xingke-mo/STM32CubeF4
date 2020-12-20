@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/easing_equation_screen/EasingEquationSelector.hpp>
@@ -23,8 +23,8 @@
 #include <touchgfx/TypedText.hpp>
 
 EasingEquationSelector::EasingEquationSelector() :
-    onSelected(this, &EasingEquationSelector::selected),
-    easingEquationSelected(0)
+    onSelected( this, &EasingEquationSelector::selected ),
+    easingEquationSelected( 0 )
 {
     EasingEquationSelection selections[] =
     {
@@ -41,47 +41,47 @@ EasingEquationSelector::EasingEquationSelector() :
         { EasingEquations::sineEaseIn,   EasingEquations::sineEaseOut,    EasingEquations::sineEaseInOut,    T_EASING_EQUATION_SINUSOIDAL,  T_EASING_EQUATION_SINUSOIDAL_SHORT  }
     };
 
-    for (int i = 0; i < NUMBER_OF_EQUATION_TYPES; i++)
+    for( int i = 0; i < NUMBER_OF_EQUATION_TYPES; i++ )
     {
-        buttons[i].setup(selections[i], Bitmap(BITMAP_EASING_SIDE_MENU_BUTTON_ID), Bitmap(BITMAP_EASING_SIDE_MENU_BUTTON_ACTIVE_ID),
-                         Bitmap(BITMAP_EASING_SIDE_MENU_BUTTON_SELECTED_ID), Bitmap(BITMAP_EASING_SIDE_MENU_BUTTON_ACTIVE_ID));
-        equationsGroup.add(buttons[i].getRadioButton());
-        easings.add(buttons[i]);
+        buttons[i].setup( selections[i], Bitmap( BITMAP_EASING_SIDE_MENU_BUTTON_ID ), Bitmap( BITMAP_EASING_SIDE_MENU_BUTTON_ACTIVE_ID ),
+                          Bitmap( BITMAP_EASING_SIDE_MENU_BUTTON_SELECTED_ID ), Bitmap( BITMAP_EASING_SIDE_MENU_BUTTON_ACTIVE_ID ) );
+        equationsGroup.add( buttons[i].getRadioButton() );
+        easings.add( buttons[i] );
     }
 
     // Put some extra height in the list so that you can slide the list up and see the TouchGFX logo
-    easings.setHeight(easings.getHeight() + 40);
+    easings.setHeight( easings.getHeight() + 40 );
 
-    scrollable.setPosition(0, 0, easings.getWidth(), HAL::DISPLAY_HEIGHT);
-    scrollable.setScrollbarsVisible(false);
-    scrollable.add(easings);
-    add(scrollable);
+    scrollable.setPosition( 0, 0, easings.getWidth(), HAL::DISPLAY_HEIGHT );
+    scrollable.setScrollbarsVisible( false );
+    scrollable.add( easings );
+    add( scrollable );
 
-    setWidth(scrollable.getWidth());
-    setHeight(scrollable.getHeight());
+    setWidth( scrollable.getWidth() );
+    setHeight( scrollable.getHeight() );
 }
 
-void EasingEquationSelector::setEasingEquationSelectedCallback(GenericCallback<const EasingEquationSelection&>& callback)
+void EasingEquationSelector::setEasingEquationSelectedCallback( GenericCallback<const EasingEquationSelection &> &callback )
 {
     this->easingEquationSelected = &callback;
-    equationsGroup.setRadioButtonSelectedHandler(onSelected);
+    equationsGroup.setRadioButtonSelectedHandler( onSelected );
 }
 
-void EasingEquationSelector::selected(const AbstractButton& btn)
+void EasingEquationSelector::selected( const AbstractButton &btn )
 {
-    for (int i = 0; i < NUMBER_OF_EQUATION_TYPES; i++)
+    for( int i = 0; i < NUMBER_OF_EQUATION_TYPES; i++ )
     {
-        if (&btn == &buttons[i].getRadioButton())
+        if( &btn == &buttons[i].getRadioButton() )
         {
-            if (easingEquationSelected && easingEquationSelected->isValid())
+            if( easingEquationSelected && easingEquationSelected->isValid() )
             {
-                easingEquationSelected->execute(buttons[i].getEasingEquation());
+                easingEquationSelected->execute( buttons[i].getEasingEquation() );
             }
         }
     }
 }
 
-void EasingEquationSelector::select(int index)
+void EasingEquationSelector::select( int index )
 {
-    equationsGroup.setSelected(buttons[index].getRadioButton());
+    equationsGroup.setSelected( buttons[index].getRadioButton() );
 }

@@ -12,7 +12,7 @@
   *
   ******************************************************************************
   */
-  
+
 
 #include <gui/common/SwipeContainer.hpp>
 #include <touchgfx/EasingEquations.hpp>
@@ -22,110 +22,110 @@
 using namespace touchgfx;
 
 SwipeContainer::SwipeContainer() :
-    currentState(NO_ANIMATION),
-    numberOfScreens(0),
-    animationCounter(0),
-    swipeCutoff(80),
-    dragX(0),
-    currentScreen(0),
-    endElasticWidth(30),
-    screens(EAST)
+    currentState( NO_ANIMATION ),
+    numberOfScreens( 0 ),
+    animationCounter( 0 ),
+    swipeCutoff( 80 ),
+    dragX( 0 ),
+    currentScreen( 0 ),
+    endElasticWidth( 30 ),
+    screens( EAST )
 {
-    touchgfx::Application::getInstance()->registerTimerWidget(this);
+    touchgfx::Application::getInstance()->registerTimerWidget( this );
 
-    setTouchable(true);
+    setTouchable( true );
 
-    Container::add(screens);
-    Container::add(dotIndicator);
+    Container::add( screens );
+    Container::add( dotIndicator );
 }
 
 SwipeContainer::~SwipeContainer()
 {
-    touchgfx::Application::getInstance()->unregisterTimerWidget(this);
+    touchgfx::Application::getInstance()->unregisterTimerWidget( this );
 }
 
 
-void SwipeContainer::add(Drawable& screen)
+void SwipeContainer::add( Drawable &screen )
 {
-    screens.add(screen);
+    screens.add( screen );
     numberOfScreens++;
 
-    dotIndicator.setNumberOfDots(numberOfScreens);   
+    dotIndicator.setNumberOfDots( numberOfScreens );
 
-    setWidth(screen.getWidth());
-    setHeight(screen.getHeight());
+    setWidth( screen.getWidth() );
+    setHeight( screen.getHeight() );
 }
 
-void SwipeContainer::setEndSwipeElasticWidth(uint16_t width)
+void SwipeContainer::setEndSwipeElasticWidth( uint16_t width )
 {
     endElasticWidth = width;
 }
 
-void SwipeContainer::setSwipeCutoff(uint16_t cutoff)
+void SwipeContainer::setSwipeCutoff( uint16_t cutoff )
 {
     swipeCutoff = cutoff;
 }
 
-void SwipeContainer::setDotIndicatorBitmaps(const touchgfx::Bitmap& normalDot, const touchgfx::Bitmap& highlightedDot)
+void SwipeContainer::setDotIndicatorBitmaps( const touchgfx::Bitmap &normalDot, const touchgfx::Bitmap &highlightedDot )
 {
-    dotIndicator.setBitmaps(normalDot, highlightedDot);
+    dotIndicator.setBitmaps( normalDot, highlightedDot );
 }
 
-void SwipeContainer::setDotIndicatorXY(uint16_t x, uint16_t y)
+void SwipeContainer::setDotIndicatorXY( uint16_t x, uint16_t y )
 {
-    dotIndicator.setXY(x, y);
+    dotIndicator.setXY( x, y );
 }
 
-void SwipeContainer::setDotIndicatorXYWithCenteredX(uint16_t x, uint16_t y)
+void SwipeContainer::setDotIndicatorXYWithCenteredX( uint16_t x, uint16_t y )
 {
-    dotIndicator.setXY(x - dotIndicator.getWidth() / 2, y);
+    dotIndicator.setXY( x - dotIndicator.getWidth() / 2, y );
 }
 
-void SwipeContainer::setSelectedScreen(uint8_t screenIndex)
+void SwipeContainer::setSelectedScreen( uint8_t screenIndex )
 {
     currentScreen = screenIndex;
-    dotIndicator.setHighlightPosition(currentScreen);
+    dotIndicator.setHighlightPosition( currentScreen );
     adjustScreens();
 }
 
 void SwipeContainer::handleTickEvent()
 {
-    if (currentState == ANIMATE_SWIPE_CANCELLED_LEFT)
+    if( currentState == ANIMATE_SWIPE_CANCELLED_LEFT )
     {
         animateSwipeCancelledLeft();
     }
-    else if (currentState == ANIMATE_SWIPE_CANCELLED_RIGHT)
+    else if( currentState == ANIMATE_SWIPE_CANCELLED_RIGHT )
     {
         animateSwipeCancelledRight();
     }
-    else if (currentState == ANIMATE_LEFT)
+    else if( currentState == ANIMATE_LEFT )
     {
         animateLeft();
     }
-    else if (currentState == ANIMATE_RIGHT)
+    else if( currentState == ANIMATE_RIGHT )
     {
         animateRight();
     }
 }
 
-void SwipeContainer::handleClickEvent(const ClickEvent& evt)
+void SwipeContainer::handleClickEvent( const ClickEvent &evt )
 {
     // If an animation is already in progress do not
     // react to clicks
-    if (currentState != NO_ANIMATION)
+    if( currentState != NO_ANIMATION )
     {
         return;
     }
 
-    if (evt.getType() == ClickEvent::RELEASED)
+    if( evt.getType() == ClickEvent::RELEASED )
     {
         // Save current position for use during animation
         animateDistance = dragX;
         startX = screens.getX();
 
-        if (dragX < 0)
+        if( dragX < 0 )
         {
-            if (currentScreen == getNumberOfScreens()-1 || dragX > -swipeCutoff)
+            if( currentScreen == getNumberOfScreens() - 1 || dragX > -swipeCutoff )
             {
                 currentState = ANIMATE_SWIPE_CANCELLED_LEFT;
             }
@@ -134,9 +134,9 @@ void SwipeContainer::handleClickEvent(const ClickEvent& evt)
                 currentState = ANIMATE_LEFT;
             }
         }
-        else if (dragX > 0)
+        else if( dragX > 0 )
         {
-            if (currentScreen == 0 || dragX < swipeCutoff)
+            if( currentScreen == 0 || dragX < swipeCutoff )
             {
                 currentState = ANIMATE_SWIPE_CANCELLED_RIGHT;
             }
@@ -148,11 +148,11 @@ void SwipeContainer::handleClickEvent(const ClickEvent& evt)
     }
 }
 
-void SwipeContainer::handleDragEvent(const DragEvent& evt)
+void SwipeContainer::handleDragEvent( const DragEvent &evt )
 {
     // If an animation is already in progress do not
     // react to drags
-    if (currentState != NO_ANIMATION)
+    if( currentState != NO_ANIMATION )
     {
         return;
     }
@@ -160,11 +160,11 @@ void SwipeContainer::handleDragEvent(const DragEvent& evt)
     dragX += evt.getDeltaX();
 
     // Do not show too much background next to end screens
-    if (currentScreen == 0 && dragX > endElasticWidth)
+    if( currentScreen == 0 && dragX > endElasticWidth )
     {
         dragX = endElasticWidth;
     }
-    else if (currentScreen == getNumberOfScreens()-1 && dragX < -endElasticWidth)
+    else if( currentScreen == getNumberOfScreens() - 1 && dragX < -endElasticWidth )
     {
         dragX = -endElasticWidth;
     }
@@ -172,25 +172,25 @@ void SwipeContainer::handleDragEvent(const DragEvent& evt)
     adjustScreens();
 }
 
-void SwipeContainer::handleGestureEvent(const GestureEvent& evt)
+void SwipeContainer::handleGestureEvent( const GestureEvent &evt )
 {
     // Do not accept gestures while animating
-    if (currentState != NO_ANIMATION)
+    if( currentState != NO_ANIMATION )
     {
         return;
     }
 
-    if (evt.getType() == evt.SWIPE_HORIZONTAL)
+    if( evt.getType() == evt.SWIPE_HORIZONTAL )
     {
         // Save current position for use during animation
         animateDistance = dragX;
         startX = screens.getX();
 
-        if (evt.getVelocity() < 0  && currentScreen < getNumberOfScreens()-1)
+        if( evt.getVelocity() < 0  && currentScreen < getNumberOfScreens() - 1 )
         {
             currentState = ANIMATE_LEFT;
         }
-        else if (evt.getVelocity() > 0  && currentScreen > 0)
+        else if( evt.getVelocity() > 0  && currentScreen > 0 )
         {
             currentState = ANIMATE_RIGHT;
         }
@@ -199,16 +199,16 @@ void SwipeContainer::handleGestureEvent(const GestureEvent& evt)
 
 void SwipeContainer::adjustScreens()
 {
-    screens.moveTo(-(currentScreen * getWidth()) + dragX, 0);
+    screens.moveTo( -( currentScreen * getWidth() ) + dragX, 0 );
 }
 
 void SwipeContainer::animateSwipeCancelledLeft()
 {
     uint8_t duration = 14;
 
-    if (animationCounter <= duration)
+    if( animationCounter <= duration )
     {
-        int16_t delta = EasingEquations::backEaseOut(animationCounter, 0, -animateDistance, duration);
+        int16_t delta = EasingEquations::backEaseOut( animationCounter, 0, -animateDistance, duration );
         dragX = animateDistance + delta;
 
         adjustScreens();
@@ -221,6 +221,7 @@ void SwipeContainer::animateSwipeCancelledLeft()
         dragX = 0;
         adjustScreens();
     }
+
     animationCounter++;
 }
 
@@ -228,9 +229,9 @@ void SwipeContainer::animateSwipeCancelledRight()
 {
     uint8_t duration = 14;
 
-    if (animationCounter <= duration)
+    if( animationCounter <= duration )
     {
-        int16_t delta = EasingEquations::backEaseOut(animationCounter, 0, animateDistance, duration);
+        int16_t delta = EasingEquations::backEaseOut( animationCounter, 0, animateDistance, duration );
         dragX = animateDistance - delta;
 
         adjustScreens();
@@ -243,6 +244,7 @@ void SwipeContainer::animateSwipeCancelledRight()
         dragX = 0;
         adjustScreens();
     }
+
     animationCounter++;
 }
 
@@ -250,9 +252,9 @@ void SwipeContainer::animateLeft()
 {
     uint8_t duration = 10;
 
-    if (animationCounter <= duration)
+    if( animationCounter <= duration )
     {
-        int16_t delta = EasingEquations::cubicEaseOut(animationCounter, 0, getWidth() + animateDistance, duration);
+        int16_t delta = EasingEquations::cubicEaseOut( animationCounter, 0, getWidth() + animateDistance, duration );
         dragX = animateDistance - delta;
 
         adjustScreens();
@@ -267,6 +269,7 @@ void SwipeContainer::animateLeft()
         adjustScreens();
         dotIndicator.goRight();
     }
+
     animationCounter++;
 }
 
@@ -274,9 +277,9 @@ void SwipeContainer::animateRight()
 {
     uint8_t duration = 10;
 
-    if (animationCounter <= duration)
+    if( animationCounter <= duration )
     {
-        int16_t delta = EasingEquations::cubicEaseOut(animationCounter, 0, getWidth() - animateDistance, duration);
+        int16_t delta = EasingEquations::cubicEaseOut( animationCounter, 0, getWidth() - animateDistance, duration );
         dragX = animateDistance + delta;
 
         adjustScreens();
@@ -291,6 +294,7 @@ void SwipeContainer::animateRight()
         adjustScreens();
         dotIndicator.goLeft();
     }
+
     animationCounter++;
 }
 

@@ -12,32 +12,32 @@
   *
   ******************************************************************************
   */
-  
+
 
 
 #include <gui/home_automation_screen/TemperatureSlider.hpp>
 
 
 TemperatureSlider::TemperatureSlider() :
-    valueChangedCallback(0)
+    valueChangedCallback( 0 )
 {
-    setTouchable(true);
+    setTouchable( true );
 
-    slider.setBitmap(Bitmap(BITMAP_TEMPERATURE_SLIDER_KNOP_ID));
-    slider.setXY(0, 0);
+    slider.setBitmap( Bitmap( BITMAP_TEMPERATURE_SLIDER_KNOP_ID ) );
+    slider.setXY( 0, 0 );
     sliderRadius = slider.getWidth() / 2;
 
-    sliderBackground.setBitmap(Bitmap(BITMAP_TEMPERATURE_SLIDER_ID));
-    sliderBackground.setXY(0, sliderRadius - sliderBackground.getHeight() / 2);
+    sliderBackground.setBitmap( Bitmap( BITMAP_TEMPERATURE_SLIDER_ID ) );
+    sliderBackground.setXY( 0, sliderRadius - sliderBackground.getHeight() / 2 );
 
     // Set the containers dimensions
-    setWidth(sliderBackground.getWidth());
-    setHeight(slider.getHeight());
+    setWidth( sliderBackground.getWidth() );
+    setHeight( slider.getHeight() );
 
-    add(sliderBackground);
-    add(slider);
+    add( sliderBackground );
+    add( slider );
 
-    setSlider(30, true);
+    setSlider( 30, true );
 }
 
 TemperatureSlider::~TemperatureSlider()
@@ -45,60 +45,61 @@ TemperatureSlider::~TemperatureSlider()
 
 }
 
-void TemperatureSlider::handleClickEvent(const ClickEvent& evt)
+void TemperatureSlider::handleClickEvent( const ClickEvent &evt )
 {
-    if (evt.getType() == ClickEvent::PRESSED)
+    if( evt.getType() == ClickEvent::PRESSED )
     {
-        setSlider(evt.getX(), true);
+        setSlider( evt.getX(), true );
     }
 }
 
-void TemperatureSlider::handleDragEvent(const DragEvent& evt)
+void TemperatureSlider::handleDragEvent( const DragEvent &evt )
 {
-    setSlider(evt.getNewX(), true);
+    setSlider( evt.getNewX(), true );
 }
 
-void TemperatureSlider::setLimits(int16_t min, int16_t max)
+void TemperatureSlider::setLimits( int16_t min, int16_t max )
 {
-    assert(min < max);
+    assert( min < max );
     minLimit = min;
     maxLimit = max;
 }
 
-void TemperatureSlider::setValue(int16_t value)
+void TemperatureSlider::setValue( int16_t value )
 {
     // Round value to the limits if necessary
-    value = (value < minLimit) ? minLimit : value;
-    value = (value > maxLimit) ? maxLimit : value;
+    value = ( value < minLimit ) ? minLimit : value;
+    value = ( value > maxLimit ) ? maxLimit : value;
 
-    float placementPercentage = ((float)(value - minLimit) / (maxLimit - minLimit));
+    float placementPercentage = ( ( float )( value - minLimit ) / ( maxLimit - minLimit ) );
 
 
     int16_t interval = getWidth() - sliderRadius - sliderRadius;
-    setSlider(sliderRadius + (int16_t)(placementPercentage * interval), false);
+    setSlider( sliderRadius + ( int16_t )( placementPercentage * interval ), false );
 }
 
-void TemperatureSlider::setSlider(int16_t x, bool callback)
+void TemperatureSlider::setSlider( int16_t x, bool callback )
 {
     // Cut off x values outside the slider area
-    if (x < sliderRadius)
+    if( x < sliderRadius )
     {
         x = sliderRadius;
     }
-    else if (x > getWidth() - sliderRadius)
+    else if( x > getWidth() - sliderRadius )
     {
         x = getWidth() - sliderRadius;
     }
+
     invalidate();
 
-    slider.moveTo(x - sliderRadius, 0);
+    slider.moveTo( x - sliderRadius, 0 );
 
     invalidate();
 
     // Communicate the new value if a listener is registered
-    if (valueChangedCallback && callback)
+    if( valueChangedCallback && callback )
     {
-        valueChangedCallback->execute(getValue());
+        valueChangedCallback->execute( getValue() );
     }
 
 }
@@ -106,15 +107,15 @@ void TemperatureSlider::setSlider(int16_t x, bool callback)
 int16_t TemperatureSlider::getValue()
 {
     int16_t interval = getWidth() - sliderRadius - sliderRadius;
-    float placementPercentage = (float) slider.getX() / interval;
+    float placementPercentage = ( float ) slider.getX() / interval;
 
-    return minLimit + ((int16_t)(placementPercentage * (maxLimit - minLimit)));
+    return minLimit + ( ( int16_t )( placementPercentage * ( maxLimit - minLimit ) ) );
 }
 
-void TemperatureSlider::setAlpha(uint8_t alpha)
+void TemperatureSlider::setAlpha( uint8_t alpha )
 {
-    sliderBackground.setAlpha(alpha);
-    slider.setAlpha(alpha);
+    sliderBackground.setAlpha( alpha );
+    slider.setAlpha( alpha );
     sliderBackground.invalidate();
     slider.invalidate();
 }

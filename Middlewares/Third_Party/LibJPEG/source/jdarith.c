@@ -173,8 +173,10 @@ arith_decode( j_decompress_ptr cinfo, unsigned char *st )
      */
     sv = *st;
     qe = jpeg_aritab[sv & 0x7F];  /* => Qe_Value */
-    nl = qe & 0xFF; qe >>= 8; /* Next_Index_LPS + Switch_MPS */
-    nm = qe & 0xFF; qe >>= 8; /* Next_Index_MPS */
+    nl = qe & 0xFF;
+    qe >>= 8; /* Next_Index_LPS + Switch_MPS */
+    nm = qe & 0xFF;
+    qe >>= 8; /* Next_Index_MPS */
 
     /* Decode & estimation procedures per sections D.2.4 & D.2.5 */
     temp = e->a - qe;
@@ -327,7 +329,8 @@ decode_mcu_DC_first( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
             /* Figure F.21: Decoding nonzero value v */
             /* Figure F.22: Decoding the sign of v */
             sign = arith_decode( cinfo, st + 1 );
-            st += 2; st += sign;
+            st += 2;
+            st += sign;
 
             /* Figure F.23: Decoding the magnitude category of v */
             if( ( m = arith_decode( cinfo, st ) ) != 0 )
@@ -371,7 +374,13 @@ decode_mcu_DC_first( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                     v |= m;
                 }
 
-            v += 1; if( sign ) v = -v;
+            v += 1;
+
+            if( sign )
+            {
+                v = -v;
+            }
+
             entropy->last_dc_val[ci] += v;
         }
 
@@ -434,7 +443,8 @@ decode_mcu_AC_first( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
 
         while( arith_decode( cinfo, st + 1 ) == 0 )
         {
-            st += 3; k++;
+            st += 3;
+            k++;
 
             if( k > cinfo->Se )
             {
@@ -482,7 +492,13 @@ decode_mcu_AC_first( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                 v |= m;
             }
 
-        v += 1; if( sign ) v = -v;
+        v += 1;
+
+        if( sign )
+        {
+            v = -v;
+        }
+
         /* Scale and output coefficient in natural (dezigzagged) order */
         ( *block )[natural_order[k]] = ( JCOEF )( v << cinfo->Al );
     }
@@ -623,7 +639,8 @@ decode_mcu_AC_refine( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                 break;
             }
 
-            st += 3; k++;
+            st += 3;
+            k++;
 
             if( k > cinfo->Se )
             {
@@ -696,7 +713,8 @@ decode_mcu( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
             /* Figure F.21: Decoding nonzero value v */
             /* Figure F.22: Decoding the sign of v */
             sign = arith_decode( cinfo, st + 1 );
-            st += 2; st += sign;
+            st += 2;
+            st += sign;
 
             /* Figure F.23: Decoding the magnitude category of v */
             if( ( m = arith_decode( cinfo, st ) ) != 0 )
@@ -740,7 +758,13 @@ decode_mcu( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                     v |= m;
                 }
 
-            v += 1; if( sign ) v = -v;
+            v += 1;
+
+            if( sign )
+            {
+                v = -v;
+            }
+
             entropy->last_dc_val[ci] += v;
         }
 
@@ -823,7 +847,13 @@ decode_mcu( j_decompress_ptr cinfo, JBLOCKROW *MCU_data )
                     v |= m;
                 }
 
-            v += 1; if( sign ) v = -v;
+            v += 1;
+
+            if( sign )
+            {
+                v = -v;
+            }
+
             ( *block )[natural_order[k]] = ( JCOEF ) v;
         } while( k < cinfo->lim_Se );
     }

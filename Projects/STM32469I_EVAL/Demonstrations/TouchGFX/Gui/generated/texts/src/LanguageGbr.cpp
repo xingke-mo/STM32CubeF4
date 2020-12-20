@@ -2,7 +2,7 @@
 #include <touchgfx/Unicode.hpp>
 
 #ifndef NO_USING_NAMESPACE_TOUCHGFX
-using namespace touchgfx;
+    using namespace touchgfx;
 #endif
 
 // Language Gbr: No substitution
@@ -130,7 +130,7 @@ TEXT_LOCATION_FLASH_PRAGMA
 KEEP const touchgfx::Unicode::UnicodeChar T_Graph_legend_value_text_chars_Gbr[14] TEXT_LOCATION_FLASH_ATTRIBUTE = { 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, 0x2e, 0x2c, 0x2d, 0x0 };
 
 TEXT_LOCATION_FLASH_PRAGMA
-KEEP extern const touchgfx::Unicode::UnicodeChar* const textsGbr[61] TEXT_LOCATION_FLASH_ATTRIBUTE =
+KEEP extern const touchgfx::Unicode::UnicodeChar *const textsGbr[61] TEXT_LOCATION_FLASH_ATTRIBUTE =
 {
     T_Demo_View_Mcu_Load_text_Gbr,
     T_Demo_View_Mcu_Load_value_Gbr,
